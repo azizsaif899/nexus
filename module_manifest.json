@@ -1,0 +1,487 @@
+[
+  {
+    "module": "System.Utils",
+    "file": "00_utils.js",
+    "dependencies": []
+  },
+  {
+    "module": "System.Dev.DependencyMap",
+    "file": "00_dependency_map.js",
+    "dependencies": []
+  },
+  {
+    "module": "System.Dev.ModuleVerifier",
+    "file": "00_module_verifier.js",
+    "dependencies": [
+      "System.Utils"
+    ]
+  },
+  {
+    "module": "System.AI",
+    "file": "20_ai/_ai_namespace.js",
+    "dependencies": []
+  },
+  {
+    "module": "System.Tools",
+    "file": "30_tools/_tools_namespace.js",
+    "dependencies": []
+  },
+  {
+    "module": "System.Agents",
+    "file": "25_ai_agents/_agents_namespace.js",
+    "dependencies": []
+  },
+  {
+    "module": "System.Tests",
+    "file": "85_tests/_tests_namespace.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Telemetry"
+    ]
+  },
+  {
+    "module": "System.Dev.Orchestrator",
+    "file": "85_tests/1_orchestrator.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Tests"
+    ]
+  },
+  {
+    "module": "System.DocsManager",
+    "file": "30_tools/DocsManager.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.Telemetry"
+    ]
+  },
+  {
+    "module": "System.Telemetry",
+    "file": "70_telemetry/telemetry.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.Dev.ModuleVerifier"
+    ]
+  },
+  {
+    "module": "System.Config",
+    "file": "01_config.js",
+    "dependencies": [
+      "System.Utils"
+    ]
+  },
+  {
+    "module": "System.Intro",
+    "file": "02_intro.js",
+    "dependencies": [
+      "System.Utils"
+    ]
+  },
+  {
+    "module": "System.AI.Core",
+    "file": "20_ai/5_ai_core.js",
+    "dependencies": [
+      "System.Utils",
+      "System.UI.Dialogue",
+      "System.Config",
+      "System.AI",
+      "System.Tools",
+      "System.DocsManager",
+      "System.Telemetry",
+      "System.MetricsLogger",
+      "System.Dev.ModuleVerifier",
+      "System.AI.Orchestrator",
+      "System.AI.JsonQuery"
+    ]
+  },
+  {
+    "module": "System.API.Endpoints",
+    "file": "80_api/api_endpoints.js",
+    "dependencies": [
+      "System.Utils",
+      "System.AI",
+      "System.Tools",
+      "System.Telemetry"
+    ]
+  },
+  {
+    "module": "System.Code",
+    "file": "99_Code.js",
+    "dependencies": [
+      "System.Config",
+      "System.UI",
+      "System.AI",
+      "System.Tools",
+      "System.Tests",
+      "System.Utils",
+      "System.AgentDispatcher.Core",
+      "System.AI.LongTermMemory"
+    ]
+  },
+  {
+    "module": "System.UI.Dialogue",
+    "file": "10_ui/0_ui_dialogue.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry"
+    ]
+  },
+  {
+    "module": "System.UI",
+    "file": "10_ui/1_ui.gs.js",
+    "dependencies": [
+      "System.Utils",
+      "System.UI.Dialogue",
+      "System.Config",
+      "System.Telemetry",
+      "System.DocsManager",
+      "System.UI.ActionHandler"
+    ]
+  },
+  {
+    "module": "System.UI.ActionHandler",
+    "file": "10_ui/3_ui_action_handler.js",
+    "dependencies": [
+      "System.Utils",
+      "System.UI.Dialogue",
+      "System.Config",
+      "System.API.Endpoints",
+      "System.Tools",
+      "System.AI",
+      "System.Telemetry",
+      "System.DocsManager"
+    ]
+  },
+  {
+    "module": "System.UI.DeveloperSidebar",
+    "file": "10_ui/2_ui_developerSidebar.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.Telemetry",
+      "System.UI.Dialogue"
+    ]
+  },
+  {
+    "module": "System.UI.DevSidebarHandler",
+    "file": "10_ui/4_ui_dev_sidebar_handler.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry",
+      "System.UI.Dialogue",
+      "System.Tools"
+    ]
+  },
+  {
+    "module": "System.AI.Constitution",
+    "file": "20_ai/0_ai_constitution.js",
+    "dependencies": [
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry",
+      "System.Utils",
+      "System.MetricsLogger"
+    ]
+  },
+  {
+    "module": "System.AI.Memory",
+    "file": "20_ai/1_ai_memory.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry"
+    ]
+  },
+  {
+    "module": "System.AI.LongTermMemory",
+    "file": "20_ai/2_ai_longTermMemory.g.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.Telemetry"
+    ]
+  },
+  {
+    "module": "System.AgentDispatcher.Core",
+    "file": "20_ai/3_ai_dispatcher.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry",
+      "System.Agents.Catalog",
+      "System.UI",
+      "System.MetricsLogger",
+      "System.Agents.Router",
+      "System.Dev.ModuleVerifier"
+    ]
+  },
+  {
+    "module": "System.Agents.Router",
+    "file": "25_ai_agents/2_agents_router.js",
+    "dependencies": ["System.Utils", "System.Config", "System.DocsManager"]
+  },
+  {
+    "module": "System.AI.Context",
+    "file": "20_ai/4_ai_context.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry",
+      "System.Tools"
+    ]
+  },
+  {
+    "module": "System.AI.ToolExecutor",
+    "file": "20_ai/5_ai_toolExecutor.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry",
+      "System.Tools"
+    ]
+  },
+  {
+    "module": "System.ToolsAccounting",
+    "file": "30_tools/2_tools_accounting.js",
+    "dependencies": [
+      "System.Utils",
+      "System.UI",
+      "System.Config",
+      "System.AI",
+      "System.DocsManager"
+    ]
+  },
+  {
+    "module": "System.ToolsDeveloper",
+    "file": "30_tools/4_tools_developer.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Tools",
+      "System.Config",
+      "System.UI",
+      "System.AI",
+      "System.DocsManager",
+      "System.AI.CodeAssistance"
+    ]
+  },
+  {
+    "module": "System.AgentDeveloper",
+    "file": "25_ai_agents/agent_developer.gs.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.AI",
+      "System.AI.Context",
+      "System.Tools",
+      "System.Security"
+    ]
+  },
+  {
+    "module": "System.AgentCFO",
+    "file": "25_ai_agents/agent_cfo.gs.js",
+    "dependencies": ["System.Utils", "System.Tools", "System.AI"]
+  },
+  {
+    "module": "System.AgentGeneral",
+    "file": "25_ai_agents/general_agent.js",
+    "dependencies": ["System.Utils", "System.AI", "System.DocsManager", "System.Config"]
+  },
+  {
+    "module": "System.Agents.Catalog",
+    "file": "25_ai_agents/agents_catalog.js",
+    "dependencies": [
+      "System.AgentDeveloper",
+      "System.AgentCFO",
+      "System.AgentGeneral",
+      "System.Utils"
+    ]
+  },
+  {
+    "module": "System.AI.JsonQuery",
+    "file": "20_ai/7_ai_json_query.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.AI",
+      "System.Telemetry",
+      "System.MetricsLogger",
+      "System.UI.Dialogue"
+    ]
+  },
+  {
+    "module": "System.AI.CodeAssistance",
+    "file": "20_ai/8_ai_code_assistance.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry",
+      "System.MetricsLogger",
+      "System.UI.Dialogue"
+    ]
+  },
+  {
+    "module": "System.AI.IntentAnalyzer",
+    "file": "20_ai/6_ai_intentAnalyzer.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.AI",
+      "System.Telemetry",
+      "System.Tools"
+    ]
+  },
+  {
+    "module": "System.ProjectExport",
+    "file": "99_export_project.gs.js",
+    "dependencies": [
+      "System.Utils",
+      "System.DocsManager",
+      "System.UI",
+      "System.Config",
+      "System.Tools",
+      "System.Dev.ModuleVerifier",
+      "System.Telemetry"
+    ]
+  },
+  {
+    "module": "System.Accounting.ChartOfAccounts",
+    "file": "35_accounting/0_ChartOfAccounts.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager"
+    ]
+  },
+  {
+    "module": "System.Accounting.Ledger",
+    "file": "35_accounting/1_Ledger.js",
+    "dependencies": [
+      "System.Utils",
+      "System.DocsManager",
+      "System.Accounting.ChartOfAccounts"
+    ]
+  },
+  {
+    "module": "System.Accounting.Reporting",
+    "file": "35_accounting/2_Reporting.js",
+    "dependencies": [
+      "System.Utils",
+      "System.DocsManager",
+      "System.Accounting.Ledger",
+      "System.Accounting.ChartOfAccounts"
+    ]
+  },
+  {
+    "module": "System.Invoicing",
+    "file": "55_operations/0_Invoicing.js",
+    "dependencies": [
+      "System.Utils",
+      "System.Config",
+      "System.DocsManager",
+      "System.Accounting.Ledger"
+    ]
+  },
+  {
+    "module": "System.Expenses",
+    "file": "55_operations/1_Expenses.js",
+    "dependencies": [
+      "System.Utils",
+      "System.DocsManager",
+      "System.Accounting.Ledger"
+    ]
+  },
+  {
+    "module": "System.Inventory",
+    "file": "55_operations/2_Inventory.js",
+    "dependencies": [
+      "System.Utils",
+      "System.DocsManager",
+      "System.Accounting.Ledger"
+    ]
+  },
+  {
+    "module": "System.MetricsLogger",
+    "file": "75_metrics/MetricsLogger.js",
+    "dependencies": [
+      "System.Utils",
+      "System.AI",
+      "System.Telemetry",
+      "System.Config",
+      "System.DocsManager"
+    ]
+  },
+  {
+    "module": "System.Tools.Catalog",
+    "file": "30_tools/0_tools_catalog.js",
+    "dependencies": [
+      "System.Utils"
+    ]
+  },
+  {
+    "module": "System.Tools.ContentParser",
+    "file": "30_tools/7_tools_content_parser.js",
+    "dependencies": ["System.Utils", "System.DocsManager"]
+  },
+  {
+    "module": "System.Tools.ProjectService",
+    "file": "6_tools_project_service.js",
+    "dependencies": ["System.Utils", "System.DocsManager", "System.Tools.ContentParser"]
+  },
+  {
+    "module": "System.Dev.DocsAuditor",
+    "file": "80_docs_auditor.js",
+    "dependencies": [
+      "System.Utils",
+      "System.DocsManager"
+    ]
+  },
+  {
+    "module": "System.Security",
+    "file": "40_security/Security.js",
+    "dependencies": [
+      "System.Config",
+      "System.Utils",
+      "System.UI.Dialogue"
+    ]
+  },
+  {
+    "module": "System.ToolsProjectInsights",
+    "file": "30_tools/5_tools_project_insights.js",
+    "dependencies": [
+      "System.Utils",
+      "System.UI",
+      "System.AI",
+      "System.Config",
+      "System.DocsManager",
+      "System.Tools",
+      "System.Security"
+    ]
+  },
+  {
+    "module": "System.ErrorLogger",
+    "file": "70_telemetry/error_logger.js",
+    "dependencies": []
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "System.Utils": [
+    {
+      "name": "log",
+      "description": "Logs a message to the console."
+    }
+  ],
+  "System.Config": [
+    {
+      "name": "get",
+      "description": "Gets a configuration value by key."
+    }
+  ]
+}
