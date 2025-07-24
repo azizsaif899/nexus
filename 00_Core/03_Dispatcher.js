@@ -12,9 +12,9 @@
  * تم إنشاؤه لحل التبعيات الهيكلية في module_manifest.json.
  */
 
-defineModule('System.Dispatcher', () => {
+defineModule('System.Dispatcher', [], () => {
   return {};
-});
+}, { isPlaceholder: true });
 
 // *************************************************************************************************
 // --- END OF FILE: 25_ai_agents/placeholders/dispatcher.js ---

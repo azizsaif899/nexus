@@ -59,11 +59,7 @@
   {
     "module": "System.Telemetry",
     "file": "70_telemetry/telemetry.js",
-    "dependencies": [
-      "System.Utils",
-      "System.Config",
-      "System.Dev.ModuleVerifier"
-    ]
+    "dependencies": []
   },
   {
     "module": "System.Config",
@@ -293,7 +289,8 @@
       "System.AI.Context",
       "System.Tools",
       "System.Security"
-    ]
+    ],
+    "dependencies": [ "System.Dev.ModuleVerifier" ]
   },
   {
     "module": "System.AgentCFO",

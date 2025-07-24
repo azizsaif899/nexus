@@ -172,38 +172,25 @@ defineModule('System.AI.Constitution', ({ Config, DocsManager, AI, Telemetry, Ut
   ]);
 
   /**
-   * يسجّل الاستدعاء في الذاكرة طويلة الأمد، Telemetry، وGoogle Sheets (مراحل 10، 11، 17)
-   * @param {string} fnName
-   * @param {object} meta
-   */
-  function _recordInvocation(fnName, meta = {}) {
-    MetricsLogger.record({
-      module: 'AI.Constitution',
-      action: fnName,
-      version: MODULE_VERSION,
-      status: 'invoked', // لا يوجد تتبع حالة هنا، لذا نستخدم حالة عامة
-      durationMs: 0, // لا يوجد تتبع للمدة هنا
-      sheetName: METRICS_SHEET,
-      sheetHeaders: ['Timestamp', 'Function', 'Version', 'Meta'],
-      sheetRow: [
-        new Date(),
-        fnName,
-        MODULE_VERSION,
-        JSON.stringify(meta)
-      ],
-      meta: meta
-    });
-  }
-
-  /**
    * إرجاع نص الدستور بصيغة Markdown، مع Caching (مرحلة 3 - معززة)
    * @returns {string}
    */
   function getPrompt() {
-    _recordInvocation('getPrompt'); // التسجيل قبل الكاش لتوثيق محاولة الجلب
+    MetricsLogger.record({
+      module: 'AI.Constitution',
+      action: 'getPrompt',
+      version: MODULE_VERSION,
+      status: 'invoked'
+    });
+
     const cached = CACHE.get(CACHE_KEY);
     if (cached) {
-      _recordInvocation('getPrompt (cached hit)'); // سجل ضربة الكاش
+      MetricsLogger.record({
+        module: 'AI.Constitution',
+        action: 'getPrompt',
+        version: MODULE_VERSION,
+        status: 'cached_hit'
+      });
       return cached;
     }
 
@@ -217,7 +204,12 @@ defineModule('System.AI.Constitution', ({ Config, DocsManager, AI, Telemetry, Ut
     md = md.trim();
 
     CACHE.put(CACHE_KEY, md, CACHE_TTL);
-    _recordInvocation('getPrompt (cache miss)'); // سجل عدم وجود الكاش
+    MetricsLogger.record({
+      module: 'AI.Constitution',
+      action: 'getPrompt',
+      version: MODULE_VERSION,
+      status: 'cache_miss'
+    });
     return md;
   }
 
@@ -226,7 +218,12 @@ defineModule('System.AI.Constitution', ({ Config, DocsManager, AI, Telemetry, Ut
    * @returns {{[chapter: string]: string[]}}
    */
   function getStructuredObject() {
-    _recordInvocation('getStructuredObject');
+    MetricsLogger.record({
+      module: 'AI.Constitution',
+      action: 'getStructuredObject',
+      version: MODULE_VERSION,
+      status: 'invoked'
+    });
     // إرجاع نسخة منعاً للتعديل الخارجي
     return JSON.parse(JSON.stringify(_currentConstitution));
   }
@@ -240,10 +237,13 @@ defineModule('System.AI.Constitution', ({ Config, DocsManager, AI, Telemetry, Ut
    */
   function refreshConstitutionCache({ forceReload = false } = {}) {
     return Utils.executeSafely(() => {
-      if (!forceReload && CACHE.get(CACHE_KEY)) {
-        _recordInvocation('refreshConstitutionCache (skipped - cache exists)');
-        return { status: 'skipped', message: 'Cache already exists, use forceReload to refresh.' };
-      }
+      MetricsLogger.record({
+        module: 'AI.Constitution',
+        action: 'refreshConstitutionCache',
+        version: MODULE_VERSION,
+        status: 'invoked',
+        meta: { forceReload }
+      });
 
       const oldVersion = JSON.stringify(_currentConstitution);
       _currentConstitution = _loadConstitutionContent(); // إعادة تحميل المحتوى
@@ -252,8 +252,14 @@ defineModule('System.AI.Constitution', ({ Config, DocsManager, AI, Telemetry, Ut
       CACHE.remove(CACHE_KEY); // إزالة الكاش القديم
       getPrompt(); // إعادة توليد وحفظ الكاش الجديد
 
-      const changed = oldVersion !== newVersion;
-      _recordInvocation('refreshConstitutionCache', { forceReload, changed, newVersionHash: Utils.hashCode(newVersion) }); // تسجيل التغيير
+      const contentChanged = oldVersion !== newVersion;
+      MetricsLogger.record({
+        module: 'AI.Constitution',
+        action: 'refreshConstitutionCache',
+        version: MODULE_VERSION,
+        status: 'success',
+        meta: { forceReload, contentChanged }
+      });
       
       return { 
         status: 'success', 
@@ -273,7 +279,13 @@ defineModule('System.AI.Constitution', ({ Config, DocsManager, AI, Telemetry, Ut
    * @returns {{ status: string, message: string, relevance?: number, relatedPrinciples?: string[], evaluationResult?: string }}
    */
   function evaluatePrinciple({ principleQuery, context = {} }) {
-    _recordInvocation('evaluatePrinciple', { principleQuery, contextKeys: Object.keys(context) });
+    MetricsLogger.record({
+      module: 'AI.Constitution',
+      action: 'evaluatePrinciple',
+      version: MODULE_VERSION,
+      status: 'invoked',
+      meta: { principleQuery, contextKeys: Object.keys(context) }
+    });
 
     // هنا يجب أن تتكامل هذه الدالة مع قدرات AI.GeminiService أو AI.Core
     // لتتمكن من "فهم" المبدأ وتقييمه في سياق معين.
