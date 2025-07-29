@@ -12,8 +12,6 @@
  * تم فصلها عن AI.Core لتطبيق مبدأ فصل الاهتمامات (Separation of Concerns).
  */
 
-'use strict';
-
 defineModule('System.AI.JsonQuery', ({ Utils, Config, AI, Telemetry, MetricsLogger, Dialogue }) => {
   const MODULE_VERSION = Config.get('JSON_QUERY_VERSION') || '1.0.0';
 

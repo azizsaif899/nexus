@@ -1,14 +1,4 @@
 {
-  "scriptId": "1HMZ218gFBv4_yiYA5UvrvJFD3Jw9tPmzfgdHGANsjtfKBrMkyxcZtkYD",
-  "rootDir": "./",
-  "filePushOrder": [
-    "00_utils.js",
-    "00_dependency_map.js",
-    "00_module_verifier.js",
-    "01_config.js",
-    "02_intro.js",
-    "70_telemetry/telemetry.js",
-    "30_tools/DocsManager.js",
-    "20_ai/2_ai_longTermMemory.g.js
-  ]
+  "scriptId": "1H1MVnpN6dfue7HAimwNC4L79gtYM6yd3ZkbMeDx7zSgLiX7bl8owruNH",
+  "rootDir": "dist/"
 }

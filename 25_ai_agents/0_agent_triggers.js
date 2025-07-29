@@ -10,8 +10,6 @@
  * إدارة الـTime‐Driven Triggers لتشغيل وكلاء G-Assistant أسبوعياً وشهرياً.
  */
 
-'use strict';
-
 // افترض أن defineModule متاح في النطاق العام، أو قم بتعريفه إذا لم يكن موجودًا.
 // في بيئة Google Apps Script، قد يكون هذا جزءًا من ملف تهيئة عام.
 // مثال بسيط لـ defineModule إذا لم يكن موجودًا:
@@ -29,8 +27,24 @@
 // }
 
 
-defineModule('System.AgentTriggers', ({ Utils, Config }) => {
-  const HANDLERS = ['cfoMonthlyTrigger', 'devWeeklyTrigger'];
+defineModule('System.AgentTriggers', ({ Utils, Config, DocsManager, Telemetry }) => {
+  const MODULE_VERSION = '2.0.0';
+  const HANDLERS = ['cfoMonthlyTrigger', 'devWeeklyTrigger', 'generalMaintenanceTrigger'];
+
+  DocsManager.registerModuleDocs('System.AgentTriggers', [
+    {
+      name: 'setupAgentTriggers',
+      version: MODULE_VERSION,
+      description: 'إعداد جميع مؤقتات الوكلاء الذكيين مع مراقبة متقدمة',
+      returns: { type: 'BOOLEAN', description: 'true إذا تم الإعداد بنجاح' }
+    },
+    {
+      name: 'getTriggersStatus',
+      version: MODULE_VERSION,
+      description: 'الحصول على حالة جميع المؤقتات المفعلة',
+      returns: { type: 'ARRAY', description: 'قائمة بحالة المؤقتات' }
+    }
+  ]);
 
   /**
    * دالة مساعدة داخلية لحذف المؤقتات التي تديرها هذه الوحدة قبل إعادة إنشائها.
@@ -39,24 +53,24 @@ defineModule('System.AgentTriggers', ({ Utils, Config }) => {
    */
   function _removeExistingTriggers() {
     try {
+      const removed = [];
       ScriptApp.getProjectTriggers()
         .filter(t => HANDLERS.includes(t.getHandlerFunction()))
         .forEach(t => {
+          const handlerName = t.getHandlerFunction();
           ScriptApp.deleteTrigger(t);
-          // استخدام Utils.log للتسجيل، مع التأكد من توفره
-          if (Utils && typeof Utils.log === 'function') {
-            Utils.log(`AgentTriggers: removed trigger ${t.getHandlerFunction()}`);
-          } else {
-            Logger.log(`AgentTriggers: removed trigger ${t.getHandlerFunction()}`);
-          }
+          removed.push(handlerName);
+          Utils.log(`AgentTriggers: removed trigger ${handlerName}`);
         });
-    } catch (e) {
-      // استخدام Utils.error للتسجيل، مع توفير fallback لـ Logger
-      if (Utils && typeof Utils.error === 'function') {
-        Utils.error('AgentTriggers: Could not remove existing triggers, proceeding anyway.', e);
-      } else {
-        Logger.log(`AgentTriggers: Could not remove existing triggers: ${e.message}`);
+      
+      if (removed.length > 0) {
+        Telemetry.track('AgentTriggers.TriggersRemoved', { count: removed.length, handlers: removed });
       }
+      
+      return removed;
+    } catch (e) {
+      Utils.error('AgentTriggers: Could not remove existing triggers', e);
+      return [];
     }
   }
 
@@ -65,38 +79,105 @@ defineModule('System.AgentTriggers', ({ Utils, Config }) => {
    * يحذف المؤقتات القديمة أولاً لضمان عدم وجود تكرار.
    */
   function setupAgentTriggers() {
-    // التأكد من أن Utils متاح قبل استخدامه في executeSafely
-    if (!Utils || typeof Utils.executeSafely !== 'function') {
-      Logger.log('Error: Utils module or executeSafely function is not available.');
-      return; // الخروج إذا كانت التبعيات الأساسية مفقودة
-    }
+    return Utils.executeSafely(() => {
+      const removed = _removeExistingTriggers();
+      const created = [];
 
-    Utils.executeSafely(() => {
-      _removeExistingTriggers();
+      // مؤقت وكيل المدير المالي (شهري)
+      try {
+        ScriptApp.newTrigger('cfoMonthlyTrigger')
+          .timeBased()
+          .onMonthDay(1)
+          .atHour(2)
+          .create();
+        created.push('cfoMonthlyTrigger');
+        Utils.log('AgentTriggers: Created cfoMonthlyTrigger');
+      } catch (e) {
+        Utils.error('Failed to create cfoMonthlyTrigger', e);
+      }
 
-      // إعداد مؤقت وكيل المدير المالي (يعمل في اليوم الأول من كل شهر)
-      ScriptApp.newTrigger('cfoMonthlyTrigger')
-        .timeBased()
-        .onMonthDay(1)
-        .atHour(2) // الساعة 2 صباحًا لتجنب أوقات الذروة
-        .create();
-      Utils.log('AgentTriggers: Created trigger cfoMonthlyTrigger');
+      // مؤقت وكيل المطور (أسبوعي)
+      try {
+        ScriptApp.newTrigger('devWeeklyTrigger')
+          .timeBased()
+          .everyWeeks(1)
+          .onWeekDay(ScriptApp.WeekDay.MONDAY)
+          .atHour(3)
+          .create();
+        created.push('devWeeklyTrigger');
+        Utils.log('AgentTriggers: Created devWeeklyTrigger');
+      } catch (e) {
+        Utils.error('Failed to create devWeeklyTrigger', e);
+      }
 
-      // إعداد مؤقت وكيل المطور (يعمل كل يوم اثنين)
-      ScriptApp.newTrigger('devWeeklyTrigger')
-        .timeBased()
-        .everyWeeks(1)
-        .onWeekDay(ScriptApp.WeekDay.MONDAY)
-        .atHour(3) // الساعة 3 صباحًا
-        .create();
-      Utils.log('AgentTriggers: Created trigger devWeeklyTrigger');
+      // مؤقت صيانة عام (يومي)
+      try {
+        ScriptApp.newTrigger('generalMaintenanceTrigger')
+          .timeBased()
+          .everyDays(1)
+          .atHour(1)
+          .create();
+        created.push('generalMaintenanceTrigger');
+        Utils.log('AgentTriggers: Created generalMaintenanceTrigger');
+      } catch (e) {
+        Utils.error('Failed to create generalMaintenanceTrigger', e);
+      }
 
-      return true;
+      // تسجيل الإحصائيات
+      Telemetry.track('AgentTriggers.Setup', {
+        removed: removed.length,
+        created: created.length,
+        success: created.length > 0
+      });
+
+      // حفظ في ورقة المقاييس
+      const sheet = Utils.getSheet('AgentTriggers_Metrics', [
+        'Timestamp', 'Action', 'TriggersRemoved', 'TriggersCreated', 'Status'
+      ]);
+      if (sheet) {
+        sheet.appendRow([
+          new Date(),
+          'setupAgentTriggers',
+          removed.length,
+          created.length,
+          created.length > 0 ? 'success' : 'partial_failure'
+        ]);
+      }
+
+      return created.length > 0;
     }, [], 'System.AgentTriggers.setupAgentTriggers');
   }
 
-  // الواجهة العامة للوحدة
-  return { setupAgentTriggers };
+  function getTriggersStatus() {
+    try {
+      const triggers = ScriptApp.getProjectTriggers()
+        .filter(t => HANDLERS.includes(t.getHandlerFunction()))
+        .map(t => ({
+          handler: t.getHandlerFunction(),
+          eventType: t.getEventType().toString(),
+          source: t.getTriggerSource().toString(),
+          uid: t.getUniqueId()
+        }));
+      
+      return triggers;
+    } catch (e) {
+      Utils.error('Failed to get triggers status', e);
+      return [];
+    }
+  }
+
+  const exports = { 
+    setupAgentTriggers, 
+    getTriggersStatus,
+    MODULE_VERSION 
+  };
+
+  // Register with main AI.Agents module
+  if (typeof GAssistant !== 'undefined' && GAssistant.AI && GAssistant.AI.Agents) {
+    GAssistant.AI.Agents.registerSubModule('Triggers', exports);
+  }
+
+  return exports;
 });
 
 // ============================================================================
@@ -110,11 +191,14 @@ defineModule('System.AgentTriggers', ({ Utils, Config }) => {
  * يستدعي دالة runMonthlyPNL من وكيل المدير المالي.
  */
 function cfoMonthlyTrigger() {
-  // يجب التأكد من تهيئة System.AgentCFO قبل استدعاء هذه الدالة
-  if (typeof System !== 'undefined' && System.AgentCFO && typeof System.AgentCFO.runMonthlyPNL === 'function') {
-    System.AgentCFO.runMonthlyPNL();
-  } else {
-    Logger.log('Error: System.AgentCFO.runMonthlyPNL is not defined or callable.');
+  try {
+    if (GAssistant?.AI?.Agents?.CFO?.runMonthlyPNL) {
+      GAssistant.AI.Agents.CFO.runMonthlyPNL();
+    } else {
+      Logger.log('Error: CFO agent not available');
+    }
+  } catch (e) {
+    Logger.log('cfoMonthlyTrigger error: ' + e.message);
   }
 }
 
@@ -123,11 +207,50 @@ function cfoMonthlyTrigger() {
  * يستدعي دالة runWeeklyCodeReview من وكيل المطور.
  */
 function devWeeklyTrigger() {
-  // يجب التأكد من تهيئة System.AgentDeveloper قبل استدعاء هذه الدالة
-  if (typeof System !== 'undefined' && System.AgentDeveloper && typeof System.AgentDeveloper.runWeeklyCodeReview === 'function') {
-    System.AgentDeveloper.runWeeklyCodeReview();
-  } else {
-    Logger.log('Error: System.AgentDeveloper.runWeeklyCodeReview is not defined or callable.');
+  try {
+    if (GAssistant?.AI?.Agents?.Developer?.runWeeklyCodeReview) {
+      GAssistant.AI.Agents.Developer.runWeeklyCodeReview();
+    } else {
+      Logger.log('Error: Developer agent not available');
+    }
+  } catch (e) {
+    Logger.log('devWeeklyTrigger error: ' + e.message);
+  }
+}
+
+function generalMaintenanceTrigger() {
+  try {
+    if (GAssistant?.AI?.Agents?.General?.performMaintenance) {
+      GAssistant.AI.Agents.General.performMaintenance();
+    } else {
+      Logger.log('General maintenance not available');
+    }
+  } catch (e) {
+    Logger.log('generalMaintenanceTrigger error: ' + e.message);
+  }
+}
+
+function onInstall(e) {
+  try {
+    if (GAssistant?.AI?.Agents?.Triggers?.setupAgentTriggers) {
+      GAssistant.AI.Agents.Triggers.setupAgentTriggers();
+    } else {
+      Logger.log('Error: AgentTriggers not available on install');
+    }
+  } catch (e) {
+    Logger.log('onInstall error: ' + e.message);
+  }
+}
+
+function onOpen(e) {
+  try {
+    if (GAssistant?.AI?.Agents?.Triggers?.setupAgentTriggers) {
+      GAssistant.AI.Agents.Triggers.setupAgentTriggers();
+    } else {
+      Logger.log('Error: AgentTriggers not available on open');
+    }
+  } catch (e) {
+    Logger.log('onOpen error: ' + e.message);
   }
 }
 

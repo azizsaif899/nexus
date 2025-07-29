@@ -1,70 +1,193 @@
-{
-  "scriptId": "1HMZ218gFBv4_yiYA5UvrvJFD3Jw9tPmzfgdHGANsjtfKBrMkyxcZtkYD",
-  "rootDir": "./",
-  "filePushOrder": [
-    "00_utils.js",
-    "00_dependency_map.js",
-    "00_module_verifier.js",
-    "01_config.js",
-    "02_intro.js",
-    "70_telemetry/telemetry.js",
-    "30_tools/DocsManager.js",
-    "20_ai/2_ai_longTermMemory.g.js",
-    "10_ui/0_ui_dialogue.js",
-    "20_ai/1_ai_memory.js",
-    "40_security/Security.js",
-    "30_tools/0_tools_catalog.js",
-    "30_tools/7_tools_content_parser.js",
-    "30_tools/6_tools_project_service.js",
-    "20_ai/_ai_namespace.js",
-    "20_ai/6_ai_geminiAdapter.js",
-    "30_tools/_tools_namespace.js",
-    "30_tools/5_tools_project_insights.js",
-    "20_ai/5_ai_toolExecutor.js",
-    "20_ai/6_ai_intentAnalyzer.js",
-    "25_ai_agents/_agents_namespace.js",
-    "25_ai_agents/2_agents_router.js",
-    "75_metrics/MetricsLogger.js",
-    "20_ai/0_ai_constitution.js",
-    "20_ai/4_ai_context.js",
-    "25_ai_agents/agent_cfo.gs.js",
-    "25_ai_agents/general_agent.js",
-    "25_ai_agents/agent_developer.gs.js",
-    "25_ai_agents/agents_catalog.js",
-    "20_ai/3_ai_dispatcher.js",
-    "80_api/api_endpoints.js",
-    "10_ui/3_ui_action_handler.js",
-    "10_ui/1_ui.gs.js",
-    "10_ui/2_ui_developerSidebar.js",
-    "10_ui/4_ui_dev_sidebar_handler.js",
-    "20_ai/8_ai_code_assistance.js",
-    "30_tools/4_tools_developer.js",
-    "20_ai/7_ai_json_query.js",
-    "20_ai/5_ai_core.js",
-    "99_Code.js",
-    "85_tests/_tests_namespace.js",
-    "85_tests/1_orchestrator.js",
-    "30_tools/2_tools_accounting.js",
-    "35_accounting/0_ChartOfAccounts.js",
-    "35_accounting/1_Ledger.js",
-    "35_accounting/2_Reporting.js",
-    "55_operations/0_Invoicing.js",
-    "55_operations/1_Expenses.js",
-    "55_operations/2_Inventory.js",
-    "99_export_project.gs.js",
-    "03_types.js",
-    "40_memory/_memory_namespace.js",
-    "70_dependency_guardian.js",
-    "70_telemetry/error_logger.js",
-    "30_tools/8_tools_calendar.js",
-    "30_tools/9_tools_gmail.js",
-    "25_ai_agents/agent_scheduler.js",
-    "10_ui/1_ui_entry.js",
-    "50_analytics/analytics_dashboard.js",
-    "60_tests/tests.js",
-    "95_stability_reporter.js",
-    "90_dev_runners.js",
-    "80_docs_auditor.js",
-    "00_initializer.js"
-  ]
-}
+// *************************************************************************************************
+// --- START OF FILE: 20_ai/5_ai_orchestrator.js ---
+// *************************************************************************************************
+
+/**
+ * @file 20_ai/5_ai_orchestrator.js
+ * @module System.AI.Orchestrator
+ * @version 1.0.0
+ * @author عبدالعزيز
+ * @description
+ * وحدة تنسيق وتنفيذ طلبات الذكاء الاصطناعي. هذه الوحدة هي المحرك الفعلي الذي يتعامل
+ * مع بناء السياق، استدعاء Gemini API عبر الـ Adapter، معالجة الردود، وتحديث الذاكرة.
+ * تم فصلها عن AI.Core لتقليل التبعيات وتحسين البنية المعمارية.
+ */
+
+defineModule('System.AI.Orchestrator', ({
+  Utils,
+  Config,
+  AI,
+  Tools,
+  MetricsLogger,
+  Telemetry,
+  Dialogue,
+  DocsManager
+}) => {
+
+  const MODULE_VERSION = Config.get('AI_ORCHESTRATOR_VERSION') || '1.0.0';
+  const MAX_RETRIES = Config.get('API_MAX_RETRIES') || 3;
+  const INITIAL_BACKOFF_MS = Config.get('API_RETRY_DELAY_MS') || 1000;
+
+  DocsManager.registerModuleDocs('System.AI.Orchestrator', [{
+    name: 'execute',
+    version: MODULE_VERSION,
+    description: 'الدالة التنفيذية الأساسية التي تتلقى طلبًا، تبني السياق، تستدعي النموذج، وتعالج الرد.',
+    parameters: { /* ... */ },
+    returns: { type: 'UiResponse' }
+  }]);
+
+  function _validatePromptAndOptions(prompt, options) {
+    const MAX_PROMPT_LEN = Config.get('GEMINI_MAX_PROMPT_LEN') || 8192;
+    if (typeof prompt !== 'string' || !prompt.trim()) {
+      throw new Error('Orchestrator: Prompt must be a non-empty string.');
+    }
+    if (prompt.length > MAX_PROMPT_LEN) {
+      throw new Error(`Prompt too long (max ${MAX_PROMPT_LEN} characters).`);
+    }
+    if (typeof options !== 'object' || options === null) {
+      throw new Error('Orchestrator: Options must be an object.');
+    }
+  }
+
+  function _recordInvocation(action, status, durationMs, meta = {}) {
+    MetricsLogger.record({
+      module: 'AI.Orchestrator',
+      action: action,
+      status: status,
+      durationMs: durationMs,
+      sheetName: 'AI_Orchestrator_Metrics',
+      sheetHeaders: ['Timestamp', 'Action', 'Status', 'DurationMs', 'Model', 'PromptLength', 'Error'],
+      sheetRow: [new Date(), action, status, durationMs, meta.model || 'N/A', meta.promptLength || 0, meta.errorMessage || ''],
+      meta: meta
+    });
+  }
+
+  /**
+   * يعالج الاستجابة الأولية من Gemini API.
+   * @param {{apiResponse: object}} args
+   * @returns {UiResponse}
+   * @private
+   */
+  function _processApiResponse({ apiResponse }) {
+    const candidate = apiResponse?.candidates?.[0];
+    if (!candidate || candidate.finishReason === 'SAFETY') {
+      const safetyMessage = candidate?.safetyRatings?.[0]?.category ? `Blocked by safety setting: ${candidate.safetyRatings[0].category}` : 'No valid response from AI model due to safety settings or other issues.';
+      return Dialogue.createError(safetyMessage);
+    }
+
+    const part = candidate.content?.parts?.[0];
+    if (!part) {
+      return Dialogue.createError('Response part is missing from AI model.');
+    }
+
+    // Check for tool call
+    if (part.functionCall) {
+      const { name, args } = part.functionCall;
+      Utils.log(`Orchestrator: AI requested tool call: ${name}`, args);
+      // Delegate execution to ToolExecutor
+      const toolResult = AI.ToolExecutor.executeFunctionCall(name, args);
+      return toolResult; // ToolExecutor is expected to return a UiResponse-like object
+    }
+
+    // Check for text response
+    if (part.text) {
+      return Dialogue.createInfo(part.text);
+    }
+
+    return Dialogue.createWarning('AI response was empty or in an unknown format.');
+  }
+
+  function _retryApiCall(apiCallFn, args, retries = MAX_RETRIES) {
+    for (let i = 0; i < retries; i++) {
+      try {
+        return apiCallFn(...args);
+      } catch (e) {
+        Utils.warn(`Orchestrator._retryApiCall: API call failed (attempt ${i + 1}/${retries}): ${e.message}`);
+        Telemetry.track('AI.Orchestrator.ApiRetry', { attempt: i + 1, error: e.message });
+        if (i < retries - 1) {
+          Utilities.sleep(INITIAL_BACKOFF_MS * Math.pow(2, i));
+        } else {
+          throw e;
+        }
+      }
+    }
+  }
+
+  /**
+   * الدالة التنفيذية الأساسية للتفاعل مع نموذج Gemini.
+   * @param {string} userPrompt - نصّ الأمر أو السؤال من المستخدم.
+   * @param {object} [options={}] - خيارات إضافية للتحكم في سلوك النموذج.
+   * @returns {UiResponse}
+   */
+  function execute(userPrompt, options = {}) {
+    const start = Date.now();
+    let currentStatus = 'initial';
+    const sessionId = options.sessionId || 'default';
+    let modelUsed = options.modelOverride || Config.get('GEMINI_DEFAULT_MODEL') || 'gemini-pro';
+
+    try {
+      _validatePromptAndOptions(userPrompt, options);
+      Utils.log(`Orchestrator.execute: Starting for session '${sessionId}'`);
+
+      // 1. بناء السياق
+      const context = AI.Context.build({
+        sessionId: sessionId,
+        includeSheetContext: options.includeSheetContext !== false,
+        includeUserActions: options.includeUserActions !== false
+      });
+      const userMessage = { role: 'user', parts: [{ text: userPrompt }] };
+
+      // 2. بناء الحمولة (Payload)
+      const generationConfig = { ...Config.get('GENERATION_CONFIG'), ...options.generationConfig };
+      const toolsAvailable = options.toolsEnabled !== false ? Tools.Catalog.getAllTools() : [];
+      const systemInstruction = context.systemInstruction || "You are a helpful assistant.";
+      const payload = {
+        contents: [...context.history, userMessage],
+        systemInstruction: { parts: [{ text: systemInstruction }] },
+        tools: toolsAvailable.length > 0 ? [{ functionDeclarations: toolsAvailable }] : undefined,
+        generationConfig: generationConfig,
+        safetySettings: options.safetySettings || Config.get('SAFETY_SETTINGS'),
+      };
+
+      // 3. استدعاء API
+      const apiResponse = _retryApiCall(AI.GeminiAdapter.callGeminiApi, [{ model: modelUsed, payload: payload }]);
+
+      // 4. معالجة الرد
+      let finalResponse = _processApiResponse({ apiResponse: apiResponse });
+
+      // 5. تحديث الذاكرة
+      AI.Memory.addMessageToHistory({ sessionId: sessionId, message: userMessage });
+      // For tool calls, the response might be complex. We log the text part for simplicity.
+      const responseTextForMemory = finalResponse.type === 'tool_result'
+        ? `[Tool Call Executed: ${finalResponse.data?.call?.name || 'unknown'}]`
+        : finalResponse.text;
+      const modelMsg = { role: 'model', parts: [{ text: responseTextForMemory }] };
+      AI.Memory.addMessageToHistory({ sessionId, message: modelMsg });
+
+      const duration = Date.now() - start;
+      currentStatus = finalResponse.type;
+      _recordInvocation('execute', currentStatus, duration, {
+        model: modelUsed,
+        promptLength: userPrompt.length,
+      });
+
+      return finalResponse;
+
+    } catch (e) {
+      const duration = Date.now() - start;
+      const errorMessage = e.message;
+      Utils.error(`Orchestrator.execute: Error for session '${sessionId}': ${errorMessage}`, e.stack);
+      currentStatus = 'exception';
+      _recordInvocation('execute', currentStatus, duration, { model: modelUsed, errorMessage: errorMessage });
+      return Dialogue.createError(`💥 خطأ داخلي في نظام الذكاء الاصطناعي: ${errorMessage}`);
+    }
+  }
+
+  return {
+    execute
+  };
+});
+
+// *************************************************************************************************
+// --- END OF FILE: 20_ai/5_ai_orchestrator.js ---
+// *************************************************************************************************

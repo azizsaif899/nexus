@@ -2,7 +2,7 @@
 // This is a placeholder for the planned System.ProjectContextTracker module.
 // Replace with actual implementation when ready.
 
-defineModule('System.ProjectContextTracker', [], () => {
+defineModule('System.ProjectContextTracker', () => {
   // Placeholder: No logic yet
   return {};
 });

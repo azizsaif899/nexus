@@ -12,8 +12,6 @@
  * لتكون مسؤولة حصريًا عن بناء الطلبات الهندسية المعقدة وإرسالها إلى AI.Core.
  */
 
-'use strict';
-
 defineModule('System.AI.CodeAssistance', ({ Utils, Config, DocsManager, AI, Telemetry, MetricsLogger, Dialogue }) => {
   const MODULE_VERSION = Config.get('CODE_ASSISTANCE_VERSION') || '1.0.0';
   const METRICS_SHEET = 'AI_CodeAssistance_Metrics';

@@ -1,0 +1,68 @@
+{
+  "name": "azizsys6",
+  "version": "6.0.0",
+  "description": "نظام مساعد ذكي متطور لـ Google Sheets",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "build:es6": "node build-es6.js",
+    "dev": "npm run build:es6 && npm run test:unit",
+    "fix-syntax": "node syntax_fixer.js",
+    "health-check": "node health_check.cjs",
+    "fix-modules": "node ModuleFixer.cjs",
+    "fix-modules:preview": "node ModuleFixer.cjs --dry-run",
+    "analyze": "node system_doctor_final.cjs --report --files",
+    "fix": "node system_doctor_final.cjs --fix --deep",
+    "doctor": "node system_doctor_final.cjs",
+    "comprehensive-fix": "node system_doctor_final.cjs --fix --deep --report --files",
+    "emergency-repair": "node -e \"const doctor = require('./system_doctor_final.cjs'); doctor.ProjectFixer.emergencyRepair();\"",
+    "run-tests": "node -e \"const doctor = require('./system_doctor_final.cjs'); doctor.ProjectFixer.runComprehensiveTests();\"",
+    "validate-deploy": "node -e \"const doctor = require('./system_doctor_final.cjs'); doctor.ProjectFixer.validateDeployment();\"",
+    "auto-repair": "node -e \"const doctor = require('./system_doctor_final.cjs'); doctor.AutoRepairSystem.runAutoRepair();\"",
+    "advanced-analysis": "node -e \"const doctor = require('./system_doctor_working.cjs'); doctor.runAdvancedAnalysis();\"",
+    "refactoring-analysis": "node -e \"const doctor = require('./system_doctor_final.cjs'); doctor.RefactoringSystem.analyzeCodeRefactoringOpportunities();\"",
+    "architecture-analysis": "node -e \"const doctor = require('./system_doctor_final.cjs'); doctor.RefactoringSystem.analyzeArchitecturalRefactoring();\"",
+    "arabic-report": "node -e \"const doctor = require('./system_doctor_final.cjs'); const analysis = doctor.runAdvancedAnalysis(); console.log(analysis.arabicReport);\"",
+    "build-order": "node 90_System/scripts/build_appsscript_file_order.js",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "jest --testMatch='**/*.test.js'",
+    "test:integration": "node test-runner.js",
+    "test:health": "node build.js && echo '✅ Build successful - System ready'",
+    "clean": "rimraf dist gas_ready src/**/*.test.js",
+    "deploy-prep": "npm run fix-syntax && npm run build",
+    "deploy": "npm run build && clasp push --force",
+    "deploy:es6": "npm run build:es6 && clasp push --force",
+    "full-build": "npm run clean && npm run deploy-prep"
+  },
+  "keywords": [
+    "google-apps-script",
+    "ai-assistant",
+    "sheets-automation",
+    "arabic-ai"
+  ],
+  "author": "عبدالعزيز",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/parser": "^7.23.0",
+    "@babel/preset-env": "^7.23.0",
+    "@babel/traverse": "^7.23.0",
+    "babel-loader": "^9.1.0",
+    "glob": "^10.3.0",
+    "jest": "^29.7.0",
+    "madge": "^8.0.0",
+    "rimraf": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azizsys/azizsys6.git"
+  },
+  "bugs": {
+    "url": "https://github.com/azizsys/azizsys6/issues"
+  },
+  "homepage": "https://github.com/azizsys/azizsys6#readme"
+}

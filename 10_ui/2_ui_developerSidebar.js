@@ -21,8 +21,6 @@
  * • 18 تضمين رقم الإصدار في البيانات الوصفية
  */
 
-'use strict';
-
 defineModule('System.UI.DeveloperSidebar', ({ Utils, Config, DocsManager, Telemetry, Dialogue }) => {
   const MODULE_VERSION = Config.get('DEVELOPER_SIDEBAR_VERSION') || '1.1.1';
   const UI_METRICS_SHEET = 'UI_Metrics'; // اسم ورقة المقاييس لواجهة المستخدم

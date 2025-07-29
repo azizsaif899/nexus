@@ -7,9 +7,7 @@
  * The main UI module responsible for creating menus and managing the overall user interface.
  */
 
-'use strict';
-
-defineModule('System.UI', ({ Utils, UI, Config, DocsManager }) => {
+defineModule('System.UI', ({ Utils, Config, DocsManager }) => {
 
     /**
      * Creates the main 'G-Assistant' menu in the Google Sheets UI.
@@ -23,6 +21,13 @@ defineModule('System.UI', ({ Utils, UI, Config, DocsManager }) => {
                 .addToUi();
             Utils.log('System.UI: G-Assistant menu created successfully.');
         }, 'UI.onOpen');
+    }
+
+    // تسجيل الوثائق داخل المصنع
+    if (DocsManager && DocsManager.registerModuleDocs) {
+        DocsManager.registerModuleDocs('System.UI', [
+            { name: 'onOpen', description: 'Creates the main G-Assistant menu' },
+        ]);
     }
 
     return { onOpen };

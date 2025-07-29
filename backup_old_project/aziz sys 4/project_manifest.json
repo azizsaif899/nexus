@@ -1,0 +1,155 @@
+{
+  "modules": [
+    {
+      "file": "00_utils.gs",
+      "defines": [
+        "defineModule",
+        "GAssistant.Utils.Injector"
+      ]
+    },
+    {
+      "file": "config.gs",
+      "module": "GAssistant.System.Config"
+    },
+    {
+      "file": "docsManager.gs",
+      "module": "GAssistant.System.DocsManager"
+    },
+    {
+      "file": "Telemetry.gs",
+      "module": "GAssistant.System.Telemetry"
+    },
+    {
+      "file": "security.gs",
+      "module": "GAssistant.System.Security"
+    },
+    {
+      "file": "tests.gs",
+      "module": "GAssistant.System.Tests"
+    },
+    {
+      "file": "api.gs",
+      "module": "GAssistant.System.API"
+    },
+    {
+      "file": "code.gs",
+      "module": "GAssistant.System.Code"
+    },
+    {
+      "file": "initializer.gs",
+      "module": "GAssistant.System.Initializer"
+    },
+    {
+      "file": "intentAnalyzer.gs",
+      "module": "GAssistant.AI.IntentAnalyzer"
+    },
+    {
+      "file": "GeminiAdapter.gs",
+      "module": "GAssistant.AI.GeminiAdapter"
+    },
+    {
+      "file": "geminiService.gs",
+      "module": "GAssistant.AI.GeminiService"
+    },
+    {
+      "file": "ai_constitution.gs",
+      "module": "GAssistant.AI.Constitution"
+    },
+    {
+      "file": "ai_memory.gs",
+      "module": "GAssistant.AI.LongTermMemory"
+    },
+    {
+      "file": "ai_context.gs",
+      "module": "GAssistant.AI.Context"
+    },
+    {
+      "file": "ai_dispatcher.gs",
+      "module": "GAssistant.AI.Dispatcher"
+    },
+    {
+      "file": "ai_core.gs",
+      "module": "GAssistant.AI.Core"
+    },
+    {
+      "file": "AI.Bookkeeper.gs",
+      "module": "GAssistant.AI.Bookkeeper"
+    },
+    {
+      "file": "ProjectContextTracker.gs",
+      "module": "GAssistant.AI.ProjectContextTracker"
+    },
+    {
+      "file": "tools_catalog.gs",
+      "module": "GAssistant.Tools.Catalog"
+    },
+    {
+      "file": "Tools_accounting.gs",
+      "module": "GAssistant.Tools.Accounting"
+    },
+    {
+      "file": "tools_developer.gs",
+      "module": "GAssistant.Tools.Developer"
+    },
+    {
+      "file": "tools_sheets.gs",
+      "module": "GAssistant.Tools.Sheets"
+    },
+    {
+      "file": "tools_codeReview.gs",
+      "module": "GAssistant.Tools.Developer"
+    },
+    {
+      "file": "agents_triggers.gs",
+      "module": "System.AgentTriggers"
+    },
+    {
+      "file": "agents_cfo.gs",
+      "module": "System.AgentCFO"
+    },
+    {
+      "file": "agents_developer.gs",
+      "module": "System.AgentDeveloper"
+    },
+    {
+      "file": "general_agent.gs",
+      "module": "System.AgentGeneral"
+    },
+    {
+      "file": "agents_catalog.gs",
+      "module": "System.Agents.Catalog"
+    },
+    {
+      "file": "agent_dispatcher.gs",
+      "module": "System.AgentDispatcher"
+    },
+    {
+      "file": "DeveloperWorkshop.gs",
+      "module": "GAssistant.System.DeveloperWorkshop"
+    },
+    {
+      "file": "DeveloperSidebar.html",
+      "type": "ui"
+    },
+    {
+      "file": "AdvancedDevPanel.html",
+      "type": "ui"
+    },
+    {
+      "file": "Readme.md",
+      "type": "doc"
+    },
+    {
+      "file": "UserUsageGuide.md",
+      "type": "doc"
+    },
+    {
+      "file": "InvestorPitch.md",
+      "type": "doc"
+    },
+    {
+      "file": "DeveloperOverview.md",
+      "type": "doc"
+    }
+  ]
+}

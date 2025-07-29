@@ -1,22 +1,17 @@
 /**
  * =============================================================================
  * @file analytics_dashboard.gs
- * @module GAssistant.Analytics
+ * @module System.Analytics.Dashboard
  * @description
  * وحدة لوحة التحكم التحليلية. مسؤولة عن جمع وعرض الإحصاءات والبيانات
  * من مختلف وحدات المشروع لتوفير رؤى مرئية للمستخدم.
+ * @version 2.0.0 - Refactored to use defineModule
  * =============================================================================
  */
-var GAssistant = GAssistant || {};
-GAssistant.Analytics = GAssistant.Analytics || {};
-
-GAssistant.Analytics = (() => {
-  'use strict';
+defineModule('System.Analytics.Dashboard', ({ Utils, Config, Tools }) => {
   // --- حقن التبعيات ---
-  const { log, error, getSheet, executeSafely } = GAssistant.Utils;
-  const Dialogue = GAssistant.UI.Dialogue;
-  const Config = GAssistant.Config;
-  const AccountingTools = GAssistant.Tools.Accounting;
+  const { log, getSheet, executeSafely } = Utils;
+  const { Accounting: AccountingTools, Catalog: ToolsCatalog } = Tools;
 
   /**
    * تعرض الشريط الجانبي للوحة التحكم التحليلية مع بيانات محدثة.
@@ -38,28 +33,59 @@ GAssistant.Analytics = (() => {
    * @private
    */
   function _generateSummaryData() {
-    const metrics = [];
     const today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
 
-    // 1. مقاييس من وحدة المحاسبة
-    const profitResponse = AccountingTools.calculateGrossProfit({ startDate: today, endDate: today });
-    if (profitResponse.type === 'table') {
-      profitResponse.data.rows.forEach(row => {
-        metrics.push({ metric: `${row[0]} (اليوم)`, value: row[1] });
-      });
-    } else {
-        metrics.push({ metric: 'أرباح اليوم', value: 'فشل الحساب' });
-    }
+    const metricProviders = [
+      {
+        label: 'أرباح اليوم',
+        provider: () => {
+          if (!AccountingTools?.calculateGrossProfit) return 'وحدة المحاسبة غير متاحة';
+          const profitResponse = AccountingTools.calculateGrossProfit({ startDate: today, endDate: today });
+          if (profitResponse?.type === 'table' && profitResponse.data?.rows?.length > 0) {
+            // Assuming the first row/col is the value
+            return profitResponse.data.rows[0][1];
+          }
+          return 'لا توجد بيانات';
+        },
+        fallback: 'خطأ في الحساب'
+      },
+      {
+        label: 'إجمالي العمليات المسجلة',
+        provider: () => {
+          if (!Config?.get) return 'وحدة الإعدادات غير متاحة';
+          // ✅ إصلاح: التحقق من وجود اسم الورقة أولاً
+          const sheetName = Config.get('OPERATION_LOG_SHEET');
+          if (!sheetName) {
+            return 'اسم ورقة السجل غير مهيأ';
+          }
+          const logSheet = getSheet(sheetName);
+          // التحقق من أن getSheet لم تُرجع null
+          if (!logSheet) return `تعذر العثور على ورقة السجل: ${sheetName}`;
+          return Math.max(0, logSheet.getLastRow() - 1); // getLastRow موجودة طالما الورقة موجودة
+        },
+        fallback: 'خطأ في الوصول'
+      },
+      {
+        label: 'عدد الأدوات المتاحة للـ AI',
+        provider: () => {
+          if (!ToolsCatalog?.getDeclarations) return 'كتالوج الأدوات غير متاح';
+          const toolDeclarations = ToolsCatalog.getDeclarations() || [];
+          return toolDeclarations.length;
+        },
+        fallback: 'خطأ في الوصول'
+      }
+    ];
 
-    // 2. مقاييس من سجل العمليات
-    const logSheet = getSheet(Config.get('OPERATION_LOG_SHEET'));
-    if (logSheet) {
-      metrics.push({ metric: 'إجمالي العمليات المسجلة', value: Math.max(0, logSheet.getLastRow() - 1) });
-    }
-
-    // 3. مقاييس من كتالوج الأدوات
-    const toolDeclarations = GAssistant.Tools.Catalog.getDeclarations();
-    metrics.push({ metric: 'عدد الأدوات المتاحة للـ AI', value: toolDeclarations.length });
+    const metrics = metricProviders.map(({ label, provider, fallback }) => {
+      let value;
+      try {
+        value = provider();
+      } catch (error) {
+        log(`Analytics._generateSummaryData: Error in metric provider for "${label}"`, error);
+        value = fallback;
+      }
+      return { metric: label, value };
+    });
     
     // يمكنك إضافة المزيد من المقاييس هنا بسهولة
 
@@ -115,4 +141,4 @@ GAssistant.Analytics = (() => {
   return {
     showDashboard
   };
-})();
+});

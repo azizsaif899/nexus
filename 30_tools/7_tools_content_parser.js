@@ -12,8 +12,6 @@
  * لتكون مسؤولة عن مهام مثل دمج الملفات واستخراج الكتل البرمجية.
  */
 
-'use strict';
-
 defineModule('System.Tools.ContentParser', ({ Utils, DocsManager }) => {
 
   DocsManager.registerModuleDocs('System.Tools.ContentParser', [

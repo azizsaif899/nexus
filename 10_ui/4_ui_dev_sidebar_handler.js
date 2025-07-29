@@ -8,8 +8,6 @@
  * تحتوي على الدوال التي يتم استدعاؤها من واجهة HTML عبر google.script.run.
  */
 
-'use strict';
-
 defineModule('System.UI.DevSidebarHandler', ({ Utils, Config, UI }) => {
 
     /**

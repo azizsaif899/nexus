@@ -14,8 +14,6 @@
  * • يسجل كل استدعاء في الذاكرة طويلة الأمد وTelemetry وورقة المقاييس
  */
 
-'use strict';
-
 defineModule('System.AgentDispatcher.Core', ({ Utils, Config, DocsManager, AI, Telemetry, AgentsCatalog, UI, MetricsLogger, Router, ModuleVerifier }) => {
   const MODULE_VERSION = Config.get('AGENT_DISPATCHER_VERSION') || '1.0.2';
   const METRICS_SHEET = Config.get('AGENT_DISPATCHER_METRICS_SHEET') || 'AgentDispatcher_Metrics';

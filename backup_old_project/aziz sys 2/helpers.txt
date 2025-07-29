@@ -1,0 +1,139 @@
+/**
+ * ============================================================================
+ * ملف: helpers.txt – وحدة الدوال المساعدة العامة للمشروع [نسخة مدمجة v15.6]
+ * الوظيفة:
+ *   - تنفيذ آمن للأدوات (Function Calling)
+ *   - معالجة المعاملات وتحويلها
+ *   - التعامل مع أوراق Google (إنشاء، تنسيق، جلب)
+ *   - إدارة مفتاح Gemini
+ *   - تسهيل عمليات سجل الجلسة عبر AI_MEMORY
+ * ============================================================================
+ */
+
+var HELPERS = (function(ENV, TOOLS_CATALOG, AI_TOOLS_DIALOGUE, AI_MEMORY) {
+  'use strict';
+
+  const SETTINGS  = ENV.SETTINGS;
+  const TEMPLATES = ENV.TEMPLATES;
+
+  /**
+   * 🧠 يسجل العمليات في سجل الأداء طويل المدى (ورقة OperationLog).
+   * @param {string} prompt - اسم العملية أو دالة التنفيذ.
+   * @param {string} action - وصف مختصر للفعل المنفذ.
+   * @param {any} summary - ملخص التنفيذ أو الكائن المرتبط.
+   */
+  function logOperation(prompt, action, summary) {
+    try {
+      AI_MEMORY.logOperation(prompt, action, summary);
+    } catch (e) {
+      console.error(`HELPERS.logOperation failed: ${e.message}`);
+    }
+  }
+
+  /**
+   * 🛡️ تنفيذ آمن لأي دالة عبر اسمها ومعاملاتها.
+   * @param {string} funcName - اسم الدالة (كما في AVAILABLE_TOOLS).
+   * @param {Array<any>} args - مصفوفة المعاملات.
+   * @returns {object} – كائن رد موحد يحتوي على type وcontent.
+   */
+  function toolExecutionFailsafe(funcName, args) {
+    try {
+      if (!TOOLS_CATALOG.getFunctionList().includes(funcName)) {
+        throw new Error(`🛑 الأداة "${funcName}" غير موجودة.`);
+      }
+      if (funcName.startsWith('_internal_')) {
+        throw new Error(`⚠️ لا يمكن استدعاء الدوال الداخلية مباشرة.`);
+      }
+      // نغلف استدعاء الأداة نفسها لتحسين دقة تسجيل الأخطاء
+      let result;
+      try {
+        result = TOOLS_CATALOG.AVAILABLE_TOOLS[funcName].apply(null, args);
+      } catch (inner) {
+        throw new Error(`خطأ داخلي في الأداة "${funcName}": ${inner.message}`);
+      }
+      return (typeof result === 'object' && result?.type)
+        ? result
+        : { type: 'final_response', content: String(result) };
+    } catch (e) {
+      console.error(`❌ خطأ في الأداة ${funcName}: ${e.stack}`);
+      logOperation('HELPERS.toolExecutionFailsafe', 'error', { toolName: funcName, error: e.message });
+      return AI_TOOLS_DIALOGUE.showError(`حدث خطأ أثناء تنفيذ "${funcName}": ${e.message}`);
+    }
+  }
+
+  /**
+   * 🔄 تحويل كائن المعاملات إلى مصفوفة Array.
+   * @param {object|null} args
+   * @returns {Array<any>}
+   * @example
+   * normalizeFunctionArgs({x:1, y:2}) → [1,2]
+   */
+  function normalizeFunctionArgs(args) {
+    if (!args || typeof args !== 'object') return [];
+    return Object.values(args);
+  }
+
+  /**
+   * 🔑 يستخرج مفتاح Gemini API من خصائص السكربت.
+   * @returns {string|null}
+   */
+  function getGeminiApiKey() {
+    return PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+  }
+
+  /**
+   * 📄 يجلب أو يُنشئ ورقة Google Sheet باسم معين، مع إمكانية تمرير رؤوس الأعمدة.
+   * @param {string} name – اسم الورقة.
+   * @param {Array<string>} [headers] – رؤوس الأعمدة (اختياري).
+   * @returns {GoogleAppsScript.Spreadsheet.Sheet}
+   */
+  function getSheet(name, headers) {
+    if (typeof name !== 'string' || !name.trim()) {
+      throw new Error('getSheet: اسم الورقة غير صالح أو فارغ.');
+    }
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let sh = ss.getSheetByName(name);
+    if (!sh) {
+      sh = ss.insertSheet(name);
+      if (Array.isArray(headers) && headers.length) {
+        sh.appendRow(headers);
+      }
+    }
+    return sh;
+  }
+
+  /**
+   * 🎨 تنسيق نطاق بصيغة جدول احترافي (رؤوس ملونة + صفوف متبادلة).
+   * @param {string} rangeA1 – نطاق التنسيق بصيغة A1.
+   * @param {GoogleAppsScript.Spreadsheet.Sheet} sheet – الورقة المعنية.
+   */
+  function formatAsTable(rangeA1, sheet) {
+    try {
+      const range = sheet.getRange(rangeA1);
+      range.setBorder(true, true, true, true, true, true);
+
+      const header = range.offset(0, 0, 1, range.getNumColumns());
+      header.setBackground(SETTINGS.PRIMARY_HEADER_COLOR || '#dfe6fd')
+            .setFontWeight('bold');
+
+      const body = range.offset(1, 0, range.getNumRows() - 1, range.getNumColumns());
+      if (body.getNumRows() > 0) {
+        const band = body.applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
+        band.setSecondRowColor(SETTINGS.HIGHLIGHT_EMPTY_COLOR || '#fce8e6');
+      }
+    } catch (e) {
+      console.error(`HELPERS.formatAsTable failed: ${e.message}`);
+    }
+  }
+
+  // 📦 التصدير
+  return {
+    logOperation,
+    toolExecutionFailsafe,
+    normalizeFunctionArgs,
+    getGeminiApiKey,
+    getSheet,
+    formatAsTable
+  };
+
+})(ENV, TOOLS_CATALOG, AI_TOOLS_DIALOGUE, AI_MEMORY);

@@ -15,8 +15,6 @@
  * • يسجّل كل استدعاء في LongTermMemory وTelemetry وGoogle Sheets  
  */
 
-'use strict';
-
 defineModule('System.AgentDispatcher.Legacy', ({ Utils, Config, DocsManager, AI, Telemetry, AgentsCatalog }) => {
   const MODULE_VERSION = Config.get('AGENT_DISPATCHER_VERSION')        || '1.0.0';
   const METRICS_SHEET  = Config.get('AGENT_DISPATCHER_METRICS_SHEET') || 'AgentDispatcher_Metrics';

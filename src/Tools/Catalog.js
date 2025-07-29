@@ -1,0 +1,65 @@
+// ES6 imports removed for Google Apps Script compatibility
+/**
+ * @file src/Tools/Catalog.js
+ * @module System.Tools.Catalog
+ * @version 21 (ES6 Migration)
+ * @author عبدالعزيز
+ * @description
+ * A central catalog for registering and retrieving all available system tools (functions).
+ * This allows the AI and other parts of the system to discover and execute tools dynamically.
+ */
+
+const _toolRegistry = new Map();
+
+/**
+ * Registers a new tool (function) in the catalog.
+ * @param {string} toolName - The unique name of the tool (e.g., 'Developer.reviewCode').
+ * @param {function} toolFunction - The actual function to be executed.
+ * @param {object} [metadata={}] - Optional metadata, including JSDoc-style documentation.
+ */
+export function registerTool(toolName, toolFunction, metadata = {}) {
+  Utils.validateString(toolName, 'toolName');
+  if (typeof toolFunction !== 'function') {
+    throw new Error(`Tool provided for '${toolName}' is not a function.`);
+  }
+  if (_toolRegistry.has(toolName)) {
+    Utils.warn(`Catalog: Overwriting existing tool registration for '${toolName}'.`);
+  }
+  _toolRegistry.set(toolName, { func: toolFunction, meta: metadata });
+  Utils.log(`Catalog: Tool '${toolName}' registered.`);
+}
+
+/**
+ * Retrieves a tool's executable function by its name.
+ * @param {string} toolName - The name of the tool to retrieve.
+ * @returns {function|null} The tool function, or null if not found.
+ */
+export function getFunction(toolName) {
+  const tool = _toolRegistry.get(toolName);
+return tool ? tool.func : null;
+}
+
+/**
+ * Retrieves the metadata (documentation) for a specific tool.
+ * @param {string} toolName - The name of the tool.
+ * @returns {object|null} The metadata object, or null if not found.
+ */
+export function getToolMetadata(toolName) {
+  const tool = _toolRegistry.get(toolName);
+return tool ? tool.meta : null;
+}
+
+/**
+ * Returns an array of all registered tool declarations, suitable for providing to the AI model.
+ * @returns {object[]} An array of tool declaration objects.
+ */
+export function getDeclarations() {
+  const declarations = [];
+  for (const [name, tool] of _toolRegistry.entries()) {
+    declarations.push({
+      name: name,
+      description: tool.meta.description || 'No description available.',
+      parameters: tool.meta.parameters || { type: 'OBJECT', properties: {} });
+  }
+return declarations;
+}
