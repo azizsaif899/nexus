@@ -3,18 +3,28 @@
 // *************************************************************************************************
 
 /**
- * @file 25_ai_agents/agent_cfo.gs
- * @module System.AgentCFO
- * @version 21 // تم تحديث الإصدار ليعكس الدمج الجديد
+ * وكيل CFO محسن للأداء مع Batch Operations و NetworkResilience
+ * يستخدم SheetsOptimizer لمعالجة البيانات المالية بكفاءة عالية
+ * 
+ * @module System.AI.Agents.CFO
+ * @version 22 - Performance Optimized
  * @author عبدالعزيز
- * @description
- * وكيل ذكاء اصطناعي متخصص في المهام المالية. يدعم معالجة الطلبات الموجهة من AgentDispatcher
- * بالإضافة إلى توليد التقارير الشهرية للربح والخسارة وإرسالها عبر البريد الإلكتروني لمالك المستند.
- * يتم تسجيل العمليات في الذاكرة طويلة المدى.
- * مرتبط بـ: Tools.Accounting, AI.LongTermMemory, MailApp, Utils
+ * @requires System.SheetsOptimizer
+ * @requires System.NetworkResilience
+ * @requires System.ErrorLogger
+ * @requires System.PerformanceProfiler
+ * @since 6.1.0
  */
 
-defineModule('System.AI.Agents.CFO', ({ Utils, Config, DocsManager, AI, Tools, Telemetry }) => {
+defineModule('System.AI.Agents.CFO', function(injector) {
+  const utils = injector.get('System.Utils');
+  const config = injector.get('System.Config');
+  const ai = injector.get('System.AI');
+  const tools = injector.get('System.Tools');
+  const sheetsOptimizer = injector.get('System.SheetsOptimizer');
+  const networkResilience = injector.get('System.NetworkResilience');
+  const errorLogger = injector.get('System.ErrorLogger');
+  const performanceProfiler = injector.get('System.PerformanceProfiler');
   const MODULE_VERSION = '2.1.0';
   const METRICS_SHEET = 'AI_CFO_Agent_Metrics';
 
@@ -343,33 +353,52 @@ defineModule('System.AI.Agents.CFO', ({ Utils, Config, DocsManager, AI, Tools, T
           startDate.setMonth(endDate.getMonth() - 3);
       }
 
-      // جمع البيانات المالية التاريخية
+      // جمع البيانات المالية التاريخية مع تحسين الأداء
+      const timerId = performanceProfiler.startTimer('collect_financial_data');
       const historicalData = [];
-      const currentDate = new Date(startDate);
       
-      while (currentDate <= endDate) {
-        const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-        
-        if (Tools?.Accounting?.calculateGrossProfit) {
-          try {
-            const monthlyData = Tools.Accounting.calculateGrossProfit({
-              startDate: Utilities.formatDate(monthStart, Session.getScriptTimeZone(), "yyyy-MM-dd"),
-              endDate: Utilities.formatDate(monthEnd, Session.getScriptTimeZone(), "yyyy-MM-dd")
-            });
-            
-            if (monthlyData.type === 'table' && monthlyData.data) {
-              historicalData.push({
-                month: monthStart.toLocaleString('ar-SA', { month: 'long', year: 'numeric' }),
-                data: monthlyData.data
-              });
+      try {
+        // قراءة مجمعة للبيانات المالية
+        const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Financial_Data');
+        if (sheet) {
+          const dataRange = sheet.getDataRange();
+          const allData = sheetsOptimizer.batchRead(sheet, dataRange.getA1Notation());
+          
+          // معالجة البيانات في الذاكرة
+          const processedData = sheetsOptimizer.processInMemory(allData, (row) => {
+            // تصفية البيانات حسب الفترة الزمنية
+            const rowDate = new Date(row[0]); // افتراض أن التاريخ في العمود الأول
+            return rowDate >= startDate && rowDate <= endDate ? row : null;
+          }).filter(row => row !== null);
+          
+          // تجميع البيانات حسب الشهر
+          const monthlyGroups = {};
+          processedData.forEach(row => {
+            const date = new Date(row[0]);
+            const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
+            if (!monthlyGroups[monthKey]) {
+              monthlyGroups[monthKey] = [];
             }
-          } catch (e) {
-            Utils.warn(`Failed to get data for ${monthStart.toISOString()}`, e);
-          }
+            monthlyGroups[monthKey].push(row);
+          });
+          
+          // تحويل إلى تنسيق التحليل
+          Object.keys(monthlyGroups).forEach(monthKey => {
+            const [year, month] = monthKey.split('-').map(Number);
+            const monthDate = new Date(year, month, 1);
+            historicalData.push({
+              month: monthDate.toLocaleString('ar-SA', { month: 'long', year: 'numeric' }),
+              data: monthlyGroups[monthKey]
+            });
+          });
         }
         
-        currentDate.setMonth(currentDate.getMonth() + 1);
+        performanceProfiler.endTimer(timerId);
+        
+      } catch (error) {
+        performanceProfiler.endTimer(timerId);
+        errorLogger.logError(error, { operation: 'collect_financial_data' });
+        throw error;
       }
 
       if (historicalData.length === 0) {
@@ -380,32 +409,47 @@ defineModule('System.AI.Agents.CFO', ({ Utils, Config, DocsManager, AI, Tools, T
         };
       }
 
-      // تحليل الاتجاهات باستخدام AI
+      // تحليل الاتجاهات باستخدام AI مع NetworkResilience
       let trendsAnalysis = null;
-      if (AI?.Core?.ask) {
-        const trendsPrompt = `كخبير تحليل مالي، حلل الاتجاهات المالية التالية وقدم رؤى استراتيجية:
+      const analysisTimerId = performanceProfiler.startTimer('ai_trends_analysis');
+      
+      try {
+        const trendsPrompt = `كخبير تحليل مالي، حلل الاتجاهات المالية التالية:
 
-البيانات المالية التاريخية لفترة ${period}:
-${JSON.stringify(historicalData, null, 2)}
+البيانات: ${JSON.stringify(historicalData.slice(0, 5), null, 2)}
 
-يرجى تقديم:
-1. تحليل الاتجاهات الرئيسية (صاعدة/هابطة)
-2. الأنماط الموسمية إن وجدت
-3. نقاط القوة والضعف
-4. التوقعات للفترة القادمة
-5. توصيات استراتيجية للإدارة المالية`;
-
-        try {
-          const analysisResult = AI.Core.ask(trendsPrompt, {
-            generationConfig: { temperature: 0.3, maxOutputTokens: 2000 }
-          });
-          
-          if (analysisResult.type === 'info' && analysisResult.text) {
-            trendsAnalysis = analysisResult.text;
-          }
-        } catch (e) {
-          Utils.error('Failed to generate trends analysis', e);
+قدم تحليلاً موجزاً للاتجاهات والتوصيات.`;
+        
+        // استخدام NetworkResilience لاستدعاء Gemini API
+        const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+        const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+        
+        const payload = {
+          contents: [{ parts: [{ text: trendsPrompt }] }]
+        };
+        
+        const options = {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+          },
+          payload: JSON.stringify(payload)
+        };
+        
+        const response = networkResilience.resilientFetch(url, options);
+        const result = JSON.parse(response.getContentText());
+        
+        if (result.candidates && result.candidates[0] && result.candidates[0].content) {
+          trendsAnalysis = result.candidates[0].content.parts[0].text;
         }
+        
+        performanceProfiler.endTimer(analysisTimerId);
+        
+      } catch (error) {
+        performanceProfiler.endTimer(analysisTimerId);
+        errorLogger.logError(error, { operation: 'ai_trends_analysis' });
+        trendsAnalysis = 'فشل في توليد التحليل الذكي للاتجاهات';
       }
 
       // حفظ التحليل

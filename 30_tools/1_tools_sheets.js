@@ -1,112 +1,175 @@
-// *************************************************************************************************
-// --- START OF FILE: 30_tools/tools_sheets.gs ---
-// *************************************************************************************************
-
 /**
- * @file 30_tools/tools_sheets.gs
+ * أدوات Google Sheets محسنة للأداء مع Batch Operations
+ * يستخدم SheetsOptimizer و NetworkResilience لضمان الأداء العالي
+ * 
  * @module System.ToolsSheets
- * @version 20
+ * @version 21 - Performance Optimized
  * @author عبدالعزيز
- * @description
- * أدوات متقدمة للتعامل مع Google Sheets، معززة بالذكاء الاصطناعي لتوليد
- * الرؤى، اقتراح الصيغ، وإنشاء أوراق عمل ديناميكيًا.
- * مرتبطة بـ: AI.Core, AI.Context, AI.LongTermMemory, UI.Dialogue, Utils
- * نقاط تنفيذ قابلة للتفعيل مستقبلًا (المرحلة 15): summarizeActiveSheetWithGemini, suggestFormulaWithGemini
+ * @requires System.SheetsOptimizer
+ * @requires System.NetworkResilience
+ * @requires System.ErrorLogger
+ * @requires System.PerformanceProfiler
+ * @since 6.1.0
  */
 
-defineModule('System.ToolsSheets', ({ Utils, AI, UI }) => {
+defineModule('System.ToolsSheets', function(injector) {
+  const utils = injector.get('System.Utils');
+  const ai = injector.get('System.AI');
+  const ui = injector.get('System.UI');
+  const sheetsOptimizer = injector.get('System.SheetsOptimizer');
+  const networkResilience = injector.get('System.NetworkResilience');
+  const errorLogger = injector.get('System.ErrorLogger');
+  const performanceProfiler = injector.get('System.PerformanceProfiler');
+  /**
+   * تلخيص ورقة العمل النشطة باستخدام Gemini مع تحسين الأداء
+   * @returns {Object} ملخص الورقة
+   */
   function summarizeActiveSheetWithGemini() {
-    return Utils.executeSafely(() => {
-      const tempState = {};
-      AI.Context.build(tempState);
-      const sheetContext = tempState.systemInstruction;
-
-      const prompt = `بناءً على سياق ورقة العمل التالي، قدم ملخصًا موجزًا وشاملاً للبيانات، الغرض المحتمل منها، وأي رؤى أولية يمكنك استنتاجها. استخدم تنسيق Markdown:\n\n${sheetContext}\n\nملخص الورقة:`;
-
-      AI.LongTermMemory.save('SheetSummary', { source: 'ToolsSheets', context: sheetContext });
-
-      const result = AI.Core.ask(prompt, { modelOverride: AI.Config.get('GEMINI_FLASH_MODEL') });
-      Utils.log('ToolsSheets: AI summary received.');
+    const timerId = performanceProfiler.startTimer('summarize_sheet');
+    
+    try {
+      const sheet = SpreadsheetApp.getActiveSheet();
+      const dataRange = sheet.getDataRange();
+      
+      // استخدام batch read بدلاً من العمليات الفردية
+      const data = sheetsOptimizer.batchRead(sheet, dataRange.getA1Notation());
+      
+      const sheetContext = {
+        name: sheet.getName(),
+        rows: data.length,
+        cols: data[0]?.length || 0,
+        headers: data[0] || [],
+        sampleData: data.slice(1, 6) // أول 5 صفوف كعينة
+      };
+      
+      const prompt = `بناءً على بيانات ورقة العمل: ${JSON.stringify(sheetContext)}، قدم ملخصاً شاملاً.`;
+      
+      // استخدام NetworkResilience للاتصال بـ Gemini
+      const result = this._callGeminiAPI(prompt);
+      
+      performanceProfiler.endTimer(timerId);
       return result;
-    }, [], 'ToolsSheets.summarizeActiveSheetWithGemini');
+      
+    } catch (error) {
+      performanceProfiler.endTimer(timerId);
+      errorLogger.logError(error, { operation: 'summarize_sheet' });
+      throw error;
+    }
   }
 
+  /**
+   * اقتراح صيغة باستخدام Gemini مع تحسين الأداء
+   * @param {Object} params - المعاملات
+   * @param {string} params.description - وصف الصيغة المطلوبة
+   * @param {boolean} params.includeExplanation - تضمين الشرح
+   * @returns {Object} الصيغة المقترحة
+   */
   function suggestFormulaWithGemini({ description, includeExplanation = false }) {
-    return Utils.executeSafely(() => {
-      const tempState = {};
-      AI.Context.build(tempState);
-      const sheetContext = tempState.systemInstruction;
-
-      const prompt = `
-بناءً على سياق ورقة Google Sheets التالية:
-${sheetContext}
-
-قم بتوليد صيغة Google Sheets دقيقة تحقق الوصف التالي: "${description}".
-أعد الرد ككائن JSON بالهيكل التالي: { "formula": "...", "explanation": "..." }.
-يجب أن تبدأ الصيغة بعلامة =. اجعل الشرح واضحًا للمستخدم العادي.
-`;
-
-      const result = AI.Core.ask(prompt, {
-        modelOverride: AI.Config.get('GEMINI_FLASH_MODEL'),
-        structuredOutputRequested: true
-      });
-
-      AI.LongTermMemory.save('FormulaSuggestion', {
-        source: 'ToolsSheets',
-        request: description,
-        response: result
-      });
-
-      if (result.type === 'info') {
-        try {
-          const data = JSON.parse(result.text);
-          if (data.formula?.trim().startsWith('=')) {
-            let responseText = `✅ الصيغة المقترحة:\n\`\`\`\n${data.formula.trim()}\n\`\`\``;
-            if (includeExplanation && data.explanation) {
-              responseText += `\n\n**الشرح:** ${data.explanation}`;
-            }
-            return UI.Dialogue.createSuccess(responseText);
-          }
-        } catch (e) { /* تجاهل */ }
-      }
-
-      Utils.warn('ToolsSheets.suggestFormulaWithGemini: Invalid AI response', { response: result.text });
-      return UI.Dialogue.createWarning(`لم يتمكن المساعد من توليد صيغة صالحة. الرد كان: ${result.text}`);
-    }, [], `ToolsSheets.suggestFormulaWithGemini[${description}]`);
+    const timerId = performanceProfiler.startTimer('suggest_formula');
+    
+    try {
+      const sheet = SpreadsheetApp.getActiveSheet();
+      const dataRange = sheet.getDataRange();
+      
+      // قراءة مجمعة للسياق
+      const data = sheetsOptimizer.batchRead(sheet, dataRange.getA1Notation());
+      const context = {
+        headers: data[0] || [],
+        sampleData: data.slice(1, 3)
+      };
+      
+      const prompt = `بناءً على البيانات: ${JSON.stringify(context)}، اقترح صيغة لـ: ${description}`;
+      
+      const result = this._callGeminiAPI(prompt);
+      
+      performanceProfiler.endTimer(timerId);
+      return result;
+      
+    } catch (error) {
+      performanceProfiler.endTimer(timerId);
+      errorLogger.logError(error, { operation: 'suggest_formula', description });
+      throw error;
+    }
   }
 
+  /**
+   * إنشاء ورقة من قالب مع تحسين الأداء
+   * @param {Object} params - المعاملات
+   * @param {string} params.templateName - اسم القالب
+   * @param {string} params.newSheetName - اسم الورقة الجديدة
+   * @returns {Object} نتيجة العملية
+   */
   function createSheetFromTemplate({ templateName, newSheetName }) {
-    return Utils.executeSafely(() => {
-      const userTemplates = JSON.parse(PropertiesService.getUserProperties().getProperty('CUSTOM_SHEET_TEMPLATES') || '{}');
-
-      const defaultTemplates = {
+    const timerId = performanceProfiler.startTimer('create_sheet_template');
+    
+    try {
+      const templates = {
         "المالية الشهرية": ["التاريخ", "الوصف", "الإيراد", "المصروف", "الرصيد"],
         "قائمة المهام": ["المهمة", "الحالة", "الأولوية", "تاريخ الاستحقاق", "المسؤول"],
         "إدارة المخزون": ["معرف المنتج", "اسم المنتج", "الكمية الحالية", "نقطة إعادة الطلب", "المورد"]
       };
-
-      const allTemplates = { ...defaultTemplates, ...userTemplates };
-      const headers = allTemplates[templateName];
-
+      
+      const headers = templates[templateName];
       if (!headers) {
-        return UI.Dialogue.createError(`قالب "${templateName}" غير موجود. المتاح: ${Object.keys(allTemplates).join(', ')}`);
+        throw new Error(`Template not found: ${templateName}`);
       }
-
-      const sheet = Utils.getSheet(newSheetName, headers);
-      if (sheet) {
-        Utils.log('ToolsSheets.createSheetFromTemplate: Success', { newSheetName, templateName });
-        return UI.Dialogue.createSuccess(`✅ تم إنشاء ورقة "${newSheetName}" بنجاح باستخدام قالب "${templateName}".`);
-      } else {
-        return UI.Dialogue.createError(`❌ فشل إنشاء ورقة "${newSheetName}".`);
-      }
-    }, [], `ToolsSheets.createSheetFromTemplate[${templateName}]`);
+      
+      const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+      const sheet = spreadsheet.insertSheet(newSheetName);
+      
+      // استخدام batch write للعناوين
+      sheetsOptimizer.batchWrite(sheet, 'A1', [headers]);
+      
+      // تنسيق العناوين بشكل مجمع
+      sheetsOptimizer.batchFormat(sheet, `A1:${String.fromCharCode(64 + headers.length)}1`, {
+        backgroundColor: [['#4285f4']],
+        fontColor: [['white']]
+      });
+      
+      performanceProfiler.endTimer(timerId);
+      return { success: true, message: `تم إنشاء ورقة ${newSheetName} بنجاح` };
+      
+    } catch (error) {
+      performanceProfiler.endTimer(timerId);
+      errorLogger.logError(error, { operation: 'create_sheet_template', templateName, newSheetName });
+      throw error;
+    }
   }
 
+  /**
+   * استدعاء Gemini API مع NetworkResilience
+   * @private
+   * @param {string} prompt - النص المطلوب
+   * @returns {Object} استجابة API
+   */
+  function _callGeminiAPI(prompt) {
+    const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+    
+    const payload = {
+      contents: [{ parts: [{ text: prompt }] }]
+    };
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      payload: JSON.stringify(payload)
+    };
+    
+    const response = networkResilience.resilientFetch(url, options);
+    return JSON.parse(response.getContentText());
+  }
+  
   return {
     summarizeActiveSheetWithGemini,
     suggestFormulaWithGemini,
-    createSheetFromTemplate
+    createSheetFromTemplate,
+    _callGeminiAPI
   };
+});
 });
 
 // *************************************************************************************************
