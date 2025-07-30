@@ -1,281 +1,220 @@
-# G-Assistant: AI-Powered Strategic Assistant for Google Sheets
+# 🚀 AzizSys - نظام إدارة ذكي متكامل
 
-**Version**: 3.0.0  
-**Status**: 🚀 Production Ready  
-**Last Updated**: ${new Date().toISOString()}
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/your-username/azizsys5)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-green)](https://github.com/your-username/azizsys5)
+[![Remote Work](https://img.shields.io/badge/Remote%20Work-Supported-brightgreen)](./REMOTE_WORK_GUIDE.md)
 
----
+## 📋 نظرة عامة
 
-## 🚀 Overview
+AzizSys هو نظام إدارة ذكي متكامل يجمع بين قوة Google Apps Script وتقنيات الذكاء الاصطناعي لتوفير حلول شاملة لإدارة الأعمال والبيانات.
 
-G-Assistant is an advanced, modular AI assistant designed to operate within the Google Sheets environment. Built with enterprise-grade architecture, it combines the power of Google Cloud AI services with a robust, self-improving system.
+## ✨ الميزات الرئيسية
 
-### 🌟 Key Highlights
+### 🤖 نظام الذكاء الاصطناعي
+- **Gemini AI Integration** - تكامل كامل مع Gemini AI
+- **معالجة النصوص والصور** - تحليل ذكي للمحتوى
+- **الذاكرة طويلة المدى** - نظام ذاكرة متقدم للمحادثات
+- **وكلاء ذكيون متخصصون** - CFO, Developer, General agents
 
-- **🔒 Safe Self-Modifying AI**: Secure workshop environment for AI-driven code modifications
-- **📚 Automatic Documentation**: Self-documenting system with real-time generation
-- **📈 Advanced Performance Monitoring**: Function-level tracking with Cloud Logging integration
-- **🧠 Intelligent Context Management**: Centralized context building for all AI agents
-- **🔄 Hybrid Processing Pipeline**: Document AI + Gemini for superior document analysis
+### 📊 أدوات Google Sheets المتقدمة
+- **تحليل البيانات المالية** - تقارير مالية تلقائية
+- **أدوات المحاسبة** - نظام محاسبي متكامل
+- **التقارير التفاعلية** - لوحات تحكم ديناميكية
+- **البحث الذكي** - بحث متقدم في البيانات
 
----
+### 🔧 النظام المعياري
+- **هيكل منظم** - مكونات قابلة للإعادة الاستخدام
+- **سهولة الصيانة** - كود منظم وموثق
+- **قابلية التوسع** - إضافة ميزات جديدة بسهولة
+- **اختبارات شاملة** - نظام اختبار متكامل
 
-## ✨ Core Features
+### 🌐 الخدمات الخارجية
+- **واجهات ويب حديثة** - UI/UX متطور
+- **APIs متقدمة** - واجهات برمجية شاملة
+- **WebSocket Support** - تحديثات مباشرة
+- **Multi-modal Processing** - معالجة متعددة الوسائط
 
-### 🤖 Intelligent AI Agents
-- **CFO Agent**: Financial analysis and reporting
-- **Developer Agent**: Code review and optimization  
-- **Database Manager**: Data organization and validation
-- **General Agent**: Multi-purpose assistance
+## 🚀 البدء السريع
 
-### 🛠️ Self-Improving Architecture
-- **Safe Code Workshop**: Secure environment for AI-driven modifications
-- **Function Registry**: Central tracking of all system functions
-- **Performance Tracker**: Real-time monitoring and optimization
-- **Auto Documentation**: Generates comprehensive docs automatically
+### 📋 المتطلبات
+- Node.js (v16+)
+- Google Apps Script CLI (clasp)
+- Git
+- محرر نصوص (VS Code مُفضل)
 
-### 🌐 Cloud-Native Integration
-- **Document AI**: Precise table and data extraction from PDFs
-- **Vertex AI**: Custom fine-tuned models with Adapter Tuning
-- **BigQuery**: Intermediate data storage and analytics
-- **Cloud Logging**: Enterprise-grade monitoring and alerting
+### ⚡ التثبيت السريع
 
----
+```bash
+# استنساخ المشروع
+git clone https://github.com/your-username/azizsys5.git
+cd azizsys5
 
-## 🏗️ Architecture
+# تثبيت المكتبات
+npm install
 
-### Directory Structure
+# إعداد البيئة
+copy .env.example .env
+# أضف مفاتيح API الخاصة بك
+
+# تسجيل الدخول إلى Google
+clasp login
+
+# رفع المشروع
+clasp push
+
+# تشغيل الاختبارات
+npm test
+```
+
+### 🔧 التشغيل
+
+```bash
+# تشغيل الخادم المحلي
+npm run dev
+
+# تشغيل الخدمات الخارجية
+cd web_interface && npm start
+
+# فتح المشروع في Google Apps Script
+clasp open
+```
+
+## 📁 هيكل المشروع
+
 ```
 azizsys5/
-├── src/
-│   ├── agents/          # AI Agents
-│   ├── core/           # Core system modules
-│   ├── services/       # External service connectors
-│   ├── system/         # System infrastructure
-│   ├── ui/            # User interface components
-│   └── utils/         # Utilities and helpers
-├── tests/             # Test suites
-├── docs/              # Documentation
-└── dist/              # Built code for deployment
+├── 📁 src/                    # الكود المصدري الرئيسي
+│   ├── 📁 AI/                 # نظام الذكاء الاصطناعي
+│   ├── 📁 Tools/              # أدوات Google Sheets
+│   ├── 📁 UI/                 # واجهات المستخدم
+│   └── 📁 System/             # النظام الأساسي
+├── 📁 10_ui/                  # مكونات الواجهة
+├── 📁 20_ai/                  # وحدات الذكاء الاصطناعي
+├── 📁 30_tools/               # أدوات متخصصة
+├── 📁 web_interface/          # الواجهات الخارجية
+├── 📁 tests/                  # الاختبارات
+├── 📁 documentation/          # التوثيق الشامل
+└── 📁 scripts/                # سكريبتات التشغيل
 ```
 
-### Key Components
+## 🛠️ الاستخدام
 
-#### 🔒 Core.Workshop
-The heart of the self-modifying system - a secure environment for AI-driven code changes.
+### 🤖 الذكاء الاصطناعي
 
 ```javascript
-const result = applyCodeModification({
-  targetFile: 'src/agents/NewAgent.gs',
-  operation: 'CREATE',
-  content: 'defineModule(...)',
-  metadata: { author: 'system', reason: 'auto-generation' }
+// استخدام Gemini AI
+const ai = new AI.Core();
+const response = await ai.query("تحليل بيانات المبيعات");
+
+// الوكلاء المتخصصون
+const cfo = new Agents.CFO();
+const analysis = await cfo.analyzeFinancials(data);
+```
+
+### 📊 أدوات Google Sheets
+
+```javascript
+// تحليل البيانات
+const sheets = new Tools.Sheets();
+const report = await sheets.generateReport(range);
+
+// المحاسبة
+const accounting = new Tools.Accounting();
+const balance = await accounting.getBalanceSheet();
+```
+
+### 🌐 الواجهات الخارجية
+
+```javascript
+// API calls
+fetch('/api/query', {
+  method: 'POST',
+  body: JSON.stringify({ query: 'تحليل البيانات' })
 });
+
+// WebSocket
+const ws = new WebSocket('ws://localhost:3000');
+ws.onmessage = (data) => console.log(data);
 ```
 
-#### 📚 Utils.FunctionRegistry
-Central registry tracking all system functions with usage statistics.
+## 📚 التوثيق
 
-```javascript
-registerFunction({
-  name: 'processData',
-  module: 'System.DataProcessor',
-  description: 'Process input data with validation',
-  parameters: [{ name: 'data', type: 'Object' }]
-});
+- 📖 **[دليل المطور](./documentation/AzizSys_Developer_Guide.md)**
+- 🚀 **[دليل النشر](./documentation/DEPLOYMENT_GUIDE.md)**
+- 🏠 **[العمل عن بُعد](./REMOTE_WORK_GUIDE.md)**
+- 🔧 **[استكشاف الأخطاء](./documentation/AzizSys_Troubleshooting_Guide.md)**
+- 📋 **[دليل المستخدم](./documentation/USER_MANUAL.md)**
+
+## 🧪 الاختبارات
+
+```bash
+# تشغيل جميع الاختبارات
+npm test
+
+# اختبارات محددة
+npm run test:ai
+npm run test:sheets
+npm run test:integration
+
+# تقرير التغطية
+npm run test:coverage
 ```
 
-#### 📖 Utils.DocGenerator
-Automatic documentation generation in multiple formats.
+## 🤝 المساهمة
 
-```javascript
-const docs = generateSystemDocumentation({
-  format: 'markdown',
-  includeExamples: true,
-  includeStats: true
-});
-```
+نرحب بالمساهمات! يرجى قراءة [دليل المساهمة](./documentation/CONTRIBUTING.md) قبل البدء.
 
-#### 📈 Utils.FunctionTracker
-Advanced performance monitoring with Cloud Logging integration.
+### 🔄 سير العمل
 
-```javascript
-const trackedFunction = trackFunction('MyModule.myFunction', originalFunction);
-```
+1. Fork المشروع
+2. إنشاء فرع للميزة (`git checkout -b feature/amazing-feature`)
+3. Commit التغييرات (`git commit -m 'Add amazing feature'`)
+4. Push إلى الفرع (`git push origin feature/amazing-feature`)
+5. فتح Pull Request
 
-#### 🧠 Utils.ContextBuilder
-Centralized context management for all AI agents.
+## 📈 الحالة الحالية
 
-```javascript
-const context = buildAgentContext({
-  input: 'Analyze financial data',
-  agentType: 'CFO',
-  metadata: { sheetId: 'abc123' }
-});
-```
+- ✅ **النظام الأساسي:** مكتمل (100%)
+- ✅ **الذكاء الاصطناعي:** مكتمل (95%)
+- ✅ **أدوات Google Sheets:** مكتمل (90%)
+- ✅ **الواجهات:** مكتمل (85%)
+- ✅ **الاختبارات:** مكتمل (80%)
+- ✅ **التوثيق:** مكتمل (85%)
 
----
+## 🏠 العمل عن بُعد
 
-## 🚀 Getting Started
+المشروع **مُحسّن بالكامل للعمل عن بُعد** مع:
+- 📱 دعم كامل للمنصات المختلفة
+- 🔄 مزامنة تلقائية مع GitHub
+- 🛠️ أدوات تطوير محلية
+- 📚 توثيق شامل
+- 🆘 دعم فني متكامل
 
-### Prerequisites
-- Node.js (v16.0.0 or higher)
-- Google Apps Script CLI (`clasp`)
-- Google Cloud Project with enabled APIs
+## 📞 الدعم
 
-### Installation
+- 📧 **البريد الإلكتروني:** support@azizsys.com
+- 🐛 **تقارير الأخطاء:** [GitHub Issues](https://github.com/your-username/azizsys5/issues)
+- 💬 **المناقشات:** [GitHub Discussions](https://github.com/your-username/azizsys5/discussions)
+- 📖 **الوثائق:** [Documentation](./documentation/)
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/azizsys/g-assistant.git
-   cd g-assistant
-   ```
+## 📄 الترخيص
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+هذا المشروع مرخص تحت [MIT License](./LICENSE).
 
-3. **Configure Google Cloud**
-   ```bash
-   # Set up your project ID and service account
-   # Update .clasp.json with your script ID
-   ```
+## 🙏 شكر وتقدير
 
-4. **Deploy**
-   ```bash
-   ./deploy.bat
-   ```
+- Google Apps Script Team
+- Gemini AI Team
+- المساهمون في المشروع
+- المجتمع المطور
 
 ---
 
-## 📚 Documentation
+<div align="center">
 
-### For Developers
-- [Architecture Guide](architecture.md) - System design and patterns
-- [Project Structure](PROJECT_STRUCTURE.md) - Directory organization
-- [API Documentation](docs/) - Detailed API references
+**🚀 AzizSys - نظام إدارة ذكي للمستقبل**
 
-### For Users
-- [User Guide](docs/user-guide.md) - How to use G-Assistant
-- [Agent Capabilities](docs/agents.md) - What each agent can do
-- [Examples](docs/examples/) - Practical usage examples
+[![GitHub Stars](https://img.shields.io/github/stars/your-username/azizsys5?style=social)](https://github.com/your-username/azizsys5)
+[![GitHub Forks](https://img.shields.io/github/forks/your-username/azizsys5?style=social)](https://github.com/your-username/azizsys5)
 
-### Recovery Documentation
-- [Recovery Verification](RECOVERY_VERIFICATION.md) - Restored features from legacy system
-- [Integration Check](INTEGRATION_CHECK.md) - System integrity verification
-
----
-
-## 🔧 Development
-
-### Key Development Standards
-- **JSDoc Required**: All functions must have complete JSDoc documentation
-- **Dependency Injection**: Use the central DI container for all modules
-- **Error Handling**: Unified error routing with severity classification
-- **Testing**: Comprehensive unit and integration tests
-- **Monitoring**: Function-level performance tracking
-
-### Adding New Features
-
-1. **Create Module**
-   ```javascript
-   defineModule('MyModule.NewFeature', function(injector) {
-     return {
-       // Implementation
-     };
-   });
-   ```
-
-2. **Register Functions**
-   ```javascript
-   registerFunction({
-     name: 'myNewFunction',
-     module: 'MyModule.NewFeature',
-     description: 'Description of the function'
-   });
-   ```
-
-3. **Add Tests**
-   ```javascript
-   // Add to tests/ directory
-   function testMyNewFeature() {
-     // Test implementation
-   }
-   ```
-
----
-
-## 📊 System Capabilities
-
-### Performance Metrics
-- **Response Time**: < 2 seconds average
-- **Success Rate**: 99.5% uptime
-- **Function Coverage**: 90%+ documented
-- **Test Coverage**: 85%+ automated tests
-
-### Supported Operations
-- **Document Processing**: PDF, Images, Google Docs
-- **Data Analysis**: Financial, Statistical, Predictive
-- **Code Operations**: Review, Generation, Optimization
-- **Automation**: Triggers, Workflows, Integrations
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting.
-
-### Development Workflow
-1. Fork the repository
-2. Create a feature branch
-3. Add comprehensive tests
-4. Update documentation
-5. Submit a pull request
-
-### Code Standards
-- Follow JSDoc documentation standards
-- Use the dependency injection pattern
-- Include error handling with proper routing
-- Add performance tracking for new functions
-
----
-
-## 📈 Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
-
-### Latest Version 3.0.0
-- ✅ Restored legacy features (Workshop, Function Registry, Doc Generator)
-- ✅ Enhanced monitoring with Cloud Logging integration
-- ✅ Improved architecture with centralized context management
-- ✅ Professional development standards implementation
-
----
-
-## 📞 Support
-
-- **Documentation**: Check the `docs/` directory
-- **Issues**: Use GitHub Issues for bug reports
-- **Discussions**: GitHub Discussions for questions
-- **Enterprise**: Contact for enterprise support
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- Google Cloud AI Platform for powerful AI services
-- Apps Script team for the robust platform
-- Open source community for inspiration and tools
-
----
-
-**Built with ❤️ by the G-Assistant Team**
-
-*Empowering productivity through intelligent automation*
+</div>
