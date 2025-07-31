@@ -17,7 +17,12 @@ defineModule('System.UI', ({ Utils, Config, DocsManager }) => {
         Utils.executeSafely(() => {
             SpreadsheetApp.getUi()
                 .createMenu('G-Assistant')
-                .addItem('Developer Tools', 'showDeveloperSidebar') // Calls the new global function
+                .addItem('🤖 المساعد الذكي v3', 'showEnhancedSidebarV3')
+                .addSeparator()
+                .addItem('👨‍💻 أدوات المطور', 'showDeveloperSidebar')
+                .addItem('📊 حالة النظام', 'showSystemStatus')
+                .addSeparator()
+                .addItem('🔍 مسح Cache الـ Embeddings', 'clearEmbeddingCache')
                 .addToUi();
             Utils.log('System.UI: G-Assistant menu created successfully.');
         }, 'UI.onOpen');

@@ -25,7 +25,12 @@ defineModule('System.AI.Agents.CFO', function(injector) {
   const networkResilience = injector.get('System.NetworkResilience');
   const errorLogger = injector.get('System.ErrorLogger');
   const performanceProfiler = injector.get('System.PerformanceProfiler');
-  const MODULE_VERSION = '2.1.0';
+  
+  // Stream Processing Integration
+  const streamProcessor = injector.get('Services.StreamProcessor');
+  const localModelManager = injector.get('Services.LocalModelManager');
+  
+  const MODULE_VERSION = '3.1.0';
   const METRICS_SHEET = 'AI_CFO_Agent_Metrics';
 
   DocsManager.registerModuleDocs('System.AI.Agents.CFO', [
@@ -133,8 +138,8 @@ defineModule('System.AI.Agents.CFO', function(injector) {
           }
 
         case 'general_query':
-          // استخدام AI محسن للاستعلامات المالية
-          if (AI?.Core?.ask) {
+          // استخدام Stream Processing مع Local Models
+          try {
             const financialPrompt = `كخبير مالي (CFO) متخصص، أجب على السؤال التالي بدقة وتفصيل:
             
 السؤال: ${message}
@@ -145,22 +150,32 @@ defineModule('System.AI.Agents.CFO', function(injector) {
 3. تحذيرات مالية إذا لزم الأمر
 4. اقتراحات للخطوات التالية`;
 
-            const aiResponse = AI.Core.ask(financialPrompt, { 
-              sessionId,
-              generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
-            });
+            // استخدام Local Model أولاً مع fallback للـ API
+            let aiResponse;
+            if (localModelManager) {
+              aiResponse = await localModelManager.generate(financialPrompt, 'gemma-7b');
+            } else if (AI?.Core?.ask) {
+              const response = AI.Core.ask(financialPrompt, { 
+                sessionId,
+                generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
+              });
+              aiResponse = response.text;
+            } else {
+              throw new Error('لا توجد خدمة AI متاحة');
+            }
             
-            status = aiResponse.type === 'info' ? 'success' : 'ai_error';
+            status = 'success';
             return {
-              type: aiResponse.type,
-              text: aiResponse.text,
-              data: { ...aiResponse.data, agent: 'CFO', expertise: 'financial' }
+              type: 'info',
+              text: aiResponse,
+              data: { agent: 'CFO', expertise: 'financial', source: localModelManager ? 'local' : 'api' }
             };
-          } else {
-            status = 'ai_unavailable';
+            
+          } catch (error) {
+            status = 'ai_error';
             return { 
               type: 'error', 
-              text: 'CFO Agent: خدمة الذكاء الاصطناعي غير متوفرة حالياً' 
+              text: `CFO Agent: خطأ في معالجة الاستعلام: ${error.message}` 
             };
           }
 
@@ -325,12 +340,16 @@ defineModule('System.AI.Agents.CFO', function(injector) {
     `;
   }
 
-  function analyzeFinancialTrends({ period = '3months' } = {}) {
+  async function analyzeFinancialTrends({ period = '3months' } = {}) {
     const start = Date.now();
     let status = 'processing';
 
     try {
       Utils.log(`CFO Agent: Analyzing financial trends for period: ${period}`);
+
+      // إنشاء Stream Processor للتحليل المالي
+      const financialProcessor = streamProcessor ? 
+        streamProcessor.createFinancialProcessor() : null;
 
       // تحديد الفترة الزمنية
       const endDate = new Date();
