@@ -1,0 +1,52 @@
+{
+  "october_test_config": {
+    "week1": {
+      "name": "API Gateway & Security",
+      "port": 8080,
+      "endpoints": [
+        "/health",
+        "/api/v1/process"
+      ],
+      "security": {
+        "api_key": "azizsys-october-2024-key",
+        "rate_limit": 100
+      }
+    },
+    "week2": {
+      "name": "GenAI Processors",
+      "port": 3000,
+      "endpoints": [
+        "/health",
+        "/process/invoice",
+        "/metrics"
+      ],
+      "features": [
+        "redis_cache",
+        "performance_monitoring",
+        "fallback_system"
+      ]
+    },
+    "performance_targets": {
+      "response_time_ms": 500,
+      "cache_hit_rate_percent": 65,
+      "memory_usage_mb": 512,
+      "success_rate_percent": 99
+    },
+    "test_data": {
+      "sample_invoice": {
+        "lines": [
+          { "item": "لابتوب", "amount": 3200 },
+          { "item": "شاشة", "amount": 1200 },
+          { "item": "لوحة مفاتيح", "amount": 300 }
+        ]
+      },
+      "sample_query": {
+        "type": "analyze",
+        "data": {
+          "prompt": "حلل بيانات المبيعات الشهرية",
+          "context": "financial_analysis"
+        }
+      }
+    }
+  }
+}

@@ -210,6 +210,86 @@ function monitorPerformance() {
 
 ---
 
+## 🤖 مشاكل النموذج التكيفي
+
+### ❓ المشكلة: "Adaptive Model Fallback"
+
+#### الأعراض:
+- النظام يعود للنموذج الأساسي
+- رسائل "Model adaptation failed"
+- انخفاض جودة الاستجابات
+
+#### الحلول:
+```javascript
+// 1. فحص حالة النموذج التكيفي
+function checkAdaptiveModel() {
+  const adaptiveProcessor = Injector.get('AI.AdaptiveProcessor');
+  const status = adaptiveProcessor.getModelStatus();
+  
+  console.log('🔍 Adaptive Model Status:', status);
+  
+  if (status.fallbackActive) {
+    console.warn('⚠️ Fallback mode active');
+    // إعادة تحميل النموذج
+    adaptiveProcessor.reloadModel();
+  }
+}
+
+// 2. إعادة تهيئة النموذج
+function resetAdaptiveModel() {
+  const config = Injector.get('System.Config.Enhanced');
+  config.set('ADAPTIVE_MODEL_ENABLED', 'true');
+  config.set('FALLBACK_THRESHOLD', '0.7');
+  
+  // إعادة تشغيل النظام
+  location.reload();
+}
+```
+
+### ❓ المشكلة: "Embedding Similarity Low"
+
+#### الأعراض:
+- نتائج بحث غير دقيقة
+- معدل تشابه منخفض (<0.5)
+- بطء في معالجة الاستعلامات
+
+#### الحلول:
+```javascript
+// فحص جودة التضمين
+function checkEmbeddingQuality() {
+  const embeddingProcessor = Injector.get('Services.EmbeddingProcessor');
+  const testQuery = 'اختبار جودة التضمين';
+  
+  const embedding = embeddingProcessor.generateEmbedding(testQuery);
+  const similarity = embeddingProcessor.calculateSimilarity(embedding, embedding);
+  
+  if (similarity < 0.95) {
+    console.error('❌ Embedding quality issue detected');
+    embeddingProcessor.recalibrate();
+  }
+}
+```
+
+### ❓ المشكلة: "Kubernetes Pod Restart Loop"
+
+#### الأعراض:
+- الحاويات تعيد التشغيل باستمرار
+- فشل في livenessProbe
+- رسائل "CrashLoopBackOff"
+
+#### الحلول:
+```bash
+# فحص سجلات الحاوية
+kubectl logs -f deployment/azizsys-deployment
+
+# فحص حالة الحاويات
+kubectl get pods -l app=azizsys
+
+# إعادة نشر مع إعدادات محدثة
+kubectl set image deployment/azizsys-deployment \
+  azizsys=gcr.io/your-project/azizsys:3.0.1
+```
+
 ## 🔧 أدوات التشخيص المتقدمة
 
 ### 🩺 فحص صحة النظام الشامل

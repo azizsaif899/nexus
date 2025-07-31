@@ -1,0 +1,31 @@
+{
+  "metrics": [
+    {
+      "name": "ai_latency",
+      "description": "زمن استجابة الذكاء الاصطناعي",
+      "unit": "ms",
+      "target": "< 300"
+    },
+    {
+      "name": "cache_hit_rate",
+      "description": "نسبة استرجاع من الكاش",
+      "unit": "%",
+      "target": ">= 85"
+    },
+    {
+      "name": "adaptive_success",
+      "description": "نجاح النموذج التكيفي",
+      "unit": "count",
+      "target": ">= 92%"
+    },
+    {
+      "name": "fallback_used",
+      "description": "استخدام النموذج الثابت",
+      "unit": "%",
+      "target": "< 8%"
+    }
+  ],
+  "collection_interval": 60,
+  "storage_type": "bigquery",
+  "dashboard_enabled": true
+}

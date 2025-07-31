@@ -1,0 +1,60 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: azizsys-waf-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: azizsys
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: waf-rules
+data:
+  waf.conf: |
+    # Rate limiting
+    limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+    
+    # DDoS protection
+    limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:10m;
+    
+    server {
+        # Rate limiting
+        limit_req zone=api burst=20 nodelay;
+        limit_conn conn_limit_per_ip 10;
+        
+        # Block common attacks
+        location ~ \.(php|asp|aspx|jsp)$ {
+            return 403;
+        }
+        
+        # SQL injection protection
+        if ($args ~* "(\;|\||`|>|<|&|\$|%|@|'|\"|\\|\/|\*|\?|\[|\]|\(|\)|=)") {
+            return 403;
+        }
+        
+        # XSS protection
+        if ($args ~* "(<|%3C).*script.*(>|%3E)") {
+            return 403;
+        }
+    }

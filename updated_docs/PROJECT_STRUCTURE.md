@@ -59,6 +59,16 @@ azizsys5/
 │   └── api/                     # API documentation
 │
 ├── dist/                         # Built/compiled code
+├── models/                       # AI models and configurations
+│   ├── adaptive_model.json      # Adaptive AI model settings
+│   └── embedding_flags.json     # Embedding processing flags
+├── metrics/                      # Performance monitoring
+│   ├── alerts.yaml              # System alerts configuration
+│   └── performance_logs/        # Performance tracking data
+├── config/                       # System configuration
+│   ├── kubernetes.yaml          # K8s deployment config
+│   └── ssl_config.json          # SSL/TLS settings
+├── embedding_processor.js        # Semantic search processor
 ├── depMap.json                   # Dependency mapping
 ├── CHANGELOG.md                  # Version history
 └── PROJECT_STRUCTURE.md         # This file

@@ -20,7 +20,7 @@
 defineModule('System.Config', ({ Utils }) => {
   const CACHE      = CacheService.getScriptCache();
   const CACHE_KEY  = 'g_assistant_config_v21';
-  const CACHE_TTL  = 1800; // 30 دقيقة
+  const CACHE_DURATION_SECONDS = 1800; // 30 دقيقة
 
   const DEFAULTS = {
     DEBUG_MODE:                   true,
@@ -74,7 +74,7 @@ defineModule('System.Config', ({ Utils }) => {
     }
     if (!activeConfig || force) {
       activeConfig = _loadConfig();
-      CACHE.put(CACHE_KEY, JSON.stringify(activeConfig), CACHE_TTL);
+      CACHE.put(CACHE_KEY, JSON.stringify(activeConfig), CACHE_DURATION_SECONDS);
     }
     return activeConfig;
   }

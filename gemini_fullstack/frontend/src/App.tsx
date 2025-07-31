@@ -4,9 +4,11 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { ProcessedEvent } from "@/components/ActivityTimeline";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { ChatMessagesView } from "@/components/ChatMessagesView";
+import { TestAgent } from "@/components/TestAgent";
 import { Button } from "@/components/ui/button";
 
 export default function App() {
+  const [currentAgent, setCurrentAgent] = useState<"main" | "test">("main");
   const [processedEventsTimeline, setProcessedEventsTimeline] = useState<
     ProcessedEvent[]
   >([]);
@@ -151,8 +153,25 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-neutral-800 text-neutral-100 font-sans antialiased">
+      <div className="absolute top-4 right-4 z-10 flex gap-2">
+        <Button
+          variant={currentAgent === "main" ? "default" : "outline"}
+          onClick={() => setCurrentAgent("main")}
+        >
+          Main Agent
+        </Button>
+        <Button
+          variant={currentAgent === "test" ? "default" : "outline"}
+          onClick={() => setCurrentAgent("test")}
+        >
+          Test Agent
+        </Button>
+      </div>
       <main className="h-full w-full max-w-4xl mx-auto">
-          {thread.messages.length === 0 ? (
+        {currentAgent === "test" ? (
+          <TestAgent />
+        ) : (
+          thread.messages.length === 0 ? (
             <WelcomeScreen
               handleSubmit={handleSubmit}
               isLoading={thread.isLoading}
@@ -182,7 +201,8 @@ export default function App() {
               liveActivityEvents={processedEventsTimeline}
               historicalActivities={historicalActivities}
             />
-          )}
+          )
+        )}
       </main>
     </div>
   );

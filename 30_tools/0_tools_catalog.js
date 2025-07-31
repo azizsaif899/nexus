@@ -9,6 +9,9 @@
  */
 
 defineModule('System.Tools.Catalog', ({ Utils }) => {
+    const Utils = GAssistant.Utils || (() => {
+        throw new Error("Utils module not loaded");
+    })();
 
     const registeredTools = {};
     const registeredDeclarations = {};
@@ -20,9 +23,13 @@ defineModule('System.Tools.Catalog', ({ Utils }) => {
      * @param {object} declaration - كائن JSON Schema الذي يصف الدالة.
      */
     function register(name, func, declaration) {
-        Utils.log(`Tools.Catalog: Registering tool '${name}'`);
-        registeredTools[name] = func;
-        registeredDeclarations[name] = declaration;
+        try {
+            Utils.log(`Tools.Catalog: Registering tool '${name}'`);
+            registeredTools[name] = func;
+            registeredDeclarations[name] = declaration;
+        } catch (e) {
+            console.error(`Failed to register tool ${name}:`, e.message);
+        }
     }
 
     /**
