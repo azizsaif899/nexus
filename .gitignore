@@ -4,9 +4,21 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Google Apps Script
+.clasp.json
+appsscript.json
+
 # Build outputs
 dist/
 build/
+gas_ready/
 
 # Logs
 logs/
@@ -20,12 +32,9 @@ pids/
 
 # Coverage directory used by tools like istanbul
 coverage/
-
-# nyc test coverage
 .nyc_output/
 
 # Dependency directories
-node_modules/
 jspm_packages/
 
 # Optional npm cache directory
@@ -42,42 +51,13 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
-.env.test
 
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# Google Apps Script
-.clasp.json
-client_secret_*.json
-
-# Backup files
-*.backup
-*.bak
-*.backup-*
-
-# Temporary files
-*.tmp
-*.temp
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # OS generated files
 .DS_Store
@@ -88,13 +68,19 @@ client_secret_*.json
 ehthumbs.db
 Thumbs.db
 
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# Backup files
+docs_backup/
+*.backup
+*.bak
+
+# Temporary files
+temp/
+tmp/
+*.tmp
 
 # Test files
-*.test.js.backup
 test-results/
+coverage/
+
+# Documentation build
+docs_organized/

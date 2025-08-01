@@ -1,0 +1,19 @@
+{
+  "name": "AzizSys Core Library",
+  "version": "1.0.0",
+  "description": "Manifest for the environment-agnostic AzizSys library.",
+  "modules": [
+    {
+      "name": "System.Utils",
+      "path": "src/azizsys_core/modules/utils.js",
+      "environment": "common",
+      "dependencies": []
+    },
+    {
+      "name": "System.Config",
+      "path": "src/azizsys_core/modules/config.js",
+      "environment": "common",
+      "dependencies": ["System.Utils"]
+    }
+  ]
+}
