@@ -22,7 +22,7 @@ defineModule('System.SheetsTools', function(injector) {
      * كتابة قيمة إلى خلية محددة مع تسجيل مفصل
      */
     writeToCell(sheetName, cellA1, value) {
-      logging.info('SheetsTools', `Writing to cell ${cellA1} in sheet ${sheetName}`, `Value: ${value}`);
+      logging.info('SheetsTools', 'Writing to cell', { cellA1, sheetName, value: String(value).substring(0, 100) });
       
       try {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
@@ -32,7 +32,7 @@ defineModule('System.SheetsTools', function(injector) {
         
         sheet.getRange(cellA1).setValue(value);
         
-        logging.info('SheetsTools', 'Cell write successful', `${sheetName}!${cellA1} = ${value}`);
+        logging.info('SheetsTools', 'Cell write successful', { location: `${sheetName}!${cellA1}`, value: String(value).substring(0, 50) });
         return {
           success: true,
           message: `✅ تم كتابة القيمة في الخلية ${cellA1} في ورقة "${sheetName}"`
@@ -60,7 +60,7 @@ defineModule('System.SheetsTools', function(injector) {
         
         const value = sheet.getRange(cellA1).getValue();
         
-        logging.debug('SheetsTools', 'Cell read successful', `${sheetName}!${cellA1} = ${value}`);
+        logging.debug('SheetsTools', 'Cell read successful', { location: `${sheetName}!${cellA1}`, value: String(value).substring(0, 50) });
         return {
           success: true,
           value: value,
@@ -79,7 +79,7 @@ defineModule('System.SheetsTools', function(injector) {
      * مسح محتويات نطاق محدد
      */
     clearRange(sheetName, rangeA1) {
-      logging.info('SheetsTools', `Clearing range ${rangeA1} in sheet ${sheetName}`);
+      logging.info('SheetsTools', 'Clearing range', { rangeA1, sheetName });
       
       try {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
@@ -89,7 +89,7 @@ defineModule('System.SheetsTools', function(injector) {
         
         sheet.getRange(rangeA1).clearContent();
         
-        logging.info('SheetsTools', 'Range cleared successfully', `${sheetName}!${rangeA1}`);
+        logging.info('SheetsTools', 'Range cleared successfully', { location: `${sheetName}!${rangeA1}` });
         return {
           success: true,
           message: `✅ تم مسح النطاق ${rangeA1} في ورقة "${sheetName}"`
@@ -107,7 +107,7 @@ defineModule('System.SheetsTools', function(injector) {
      * إدراج صف جديد في موضع محدد
      */
     insertRowAt(sheetName, rowIndex) {
-      logging.info('SheetsTools', `Inserting row at index ${rowIndex} in sheet ${sheetName}`);
+      logging.info('SheetsTools', 'Inserting row', { rowIndex, sheetName });
       
       try {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
@@ -117,7 +117,7 @@ defineModule('System.SheetsTools', function(injector) {
         
         sheet.insertRows(rowIndex);
         
-        logging.info('SheetsTools', 'Row inserted successfully', `Row ${rowIndex} in ${sheetName}`);
+        logging.info('SheetsTools', 'Row inserted successfully', { rowIndex, sheetName });
         return {
           success: true,
           message: `✅ تم إدراج صف جديد في الصف ${rowIndex} في ورقة "${sheetName}"`
@@ -135,7 +135,7 @@ defineModule('System.SheetsTools', function(injector) {
      * حذف صف محدد
      */
     deleteRow(sheetName, rowIndex) {
-      logging.info('SheetsTools', `Deleting row ${rowIndex} from sheet ${sheetName}`);
+      logging.info('SheetsTools', 'Deleting row', { rowIndex, sheetName });
       
       try {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
@@ -149,7 +149,7 @@ defineModule('System.SheetsTools', function(injector) {
         
         sheet.deleteRows(rowIndex);
         
-        logging.info('SheetsTools', 'Row deleted successfully', `Row ${rowIndex} from ${sheetName}`);
+        logging.info('SheetsTools', 'Row deleted successfully', { rowIndex, sheetName });
         return {
           success: true,
           message: `✅ تم حذف الصف ${rowIndex} من ورقة "${sheetName}"`
@@ -167,7 +167,7 @@ defineModule('System.SheetsTools', function(injector) {
      * فرز عمود محدد
      */
     sortColumn(sheetName, columnIndex, ascending = true) {
-      logging.info('SheetsTools', `Sorting column ${columnIndex} in sheet ${sheetName}`, `Ascending: ${ascending}`);
+      logging.info('SheetsTools', 'Sorting column', { columnIndex, sheetName, ascending });
       
       try {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
@@ -178,7 +178,7 @@ defineModule('System.SheetsTools', function(injector) {
         const range = sheet.getDataRange();
         range.sort({ column: columnIndex, ascending: ascending });
         
-        logging.info('SheetsTools', 'Column sorted successfully', `Column ${columnIndex} in ${sheetName}`);
+        logging.info('SheetsTools', 'Column sorted successfully', { columnIndex, sheetName });
         return {
           success: true,
           message: `✅ تم فرز العمود ${columnIndex} في ورقة "${sheetName}" ${ascending ? 'تصاعدياً' : 'تنازلياً'}`
@@ -196,7 +196,7 @@ defineModule('System.SheetsTools', function(injector) {
      * تظليل الخلايا الفارغة
      */
     highlightEmptyCells(sheetName, rangeA1, color = '#FF0000') {
-      logging.info('SheetsTools', `Highlighting empty cells in range ${rangeA1}`, `Sheet: ${sheetName}, Color: ${color}`);
+      logging.info('SheetsTools', 'Highlighting empty cells', { rangeA1, sheetName, color });
       
       try {
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);

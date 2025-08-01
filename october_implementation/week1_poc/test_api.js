@@ -1,8 +1,11 @@
 // test_api.js - اختبار API Gateway
 const axios = require('axios');
 
-const API_BASE = 'http://localhost:8080';
-const API_KEY = 'default-key-for-development';
+const API_BASE = process.env.API_BASE || 'http://localhost:8080';
+const API_KEY = process.env.API_KEY || (() => {
+  console.warn('⚠️ API_KEY not set in environment variables. Using development key.');
+  return 'development-key-change-in-production';
+})();
 
 async function testAPI() {
   console.log('🧪 اختبار API Gateway...\n');

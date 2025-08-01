@@ -1,8 +1,25 @@
 /**
- * Semantic Search API - واجهة برمجية محسنة للبحث الدلالي
- * تحل مشاكل الأداء عبر استخدام Vector Store المسبق
+ * @fileoverview واجهة برمجية محسنة للبحث الدلالي باستخدام Vector Store مسبق الحساب.
+ *
+ * @description
+ * هذه الوحدة مسؤولة عن توفير نقطة نهاية (endpoint) عالية الأداء للبحث الدلالي.
+ * تقوم بمعالجة طلبات البحث، التحقق من الصلاحيات، استخدام ذاكرة التخزين المؤقت،
+ * وتنفيذ البحث المحسن عبر مقارنة متجه الاستعلام مع المتجهات المخزنة مسبقاً في Vector Store.
+ * تم تصميمها لتكون آمنة وسريعة وقابلة للتطوير.
+ *
+ * @module API.SemanticSearch
+ * @version 1.0.0
+ * @since 2024-12-01
+ * @author G-Assistant Team
+ *
+ * @requires module:Services.EmbeddingService
+ * @requires module:Services.VectorStore
+ * @requires module:System.Auth
+ *
+ * @example
+ * // يمكن استدعاء هذه الواجهة عبر doGet/doPost في Google Apps Script.
+ * // e.g., https://script.google.com/macros/s/YOUR_ID/exec?query=financial+report
  */
-
 class SemanticSearchAPI {
   constructor() {
     this.embeddingService = Injector.get('Services.EmbeddingService');
@@ -17,7 +34,10 @@ class SemanticSearchAPI {
   }
 
   /**
-   * نقطة النهاية الرئيسية للبحث الدلالي
+   * نقطة النهاية الرئيسية لمعالجة طلبات البحث الدلالي.
+   * تتولى دورة حياة الطلب كاملة من التحقق من الصلاحيات إلى إرجاع النتيجة.
+   * @param {object} request - كائن الطلب الوارد من Google Apps Script (مثل `doPost` أو `doGet`).
+   * @returns {Promise<object>} كائن استجابة JSON يحتوي على نتائج البحث أو رسالة خطأ.
    */
   async handleSemanticSearch(request) {
     try {
@@ -63,7 +83,11 @@ class SemanticSearchAPI {
   }
 
   /**
-   * تنفيذ البحث المحسن - بدون استدعاءات API متكررة
+   * ينفذ عملية البحث المحسنة.
+   * يولد متجهًا للاستعلام ويبحث في Vector Store ثم يقوم بتصفية وإثراء النتائج.
+   * @param {object} params - كائن يحتوي على معاملات البحث المنظفة (query, threshold, etc.).
+   * @returns {Promise<object>} كائن يحتوي على نتائج البحث التفصيلية.
+   * @throws {Error} يطلق خطأ في حال فشل توليد المتجه أو البحث.
    */
   async executeOptimizedSearch(params) {
     const startTime = Date.now();
@@ -437,7 +461,11 @@ if (typeof Injector !== 'undefined') {
   Injector.register('API.SemanticSearch', () => new SemanticSearchAPI());
 }
 
-// دالة للاستخدام في Google Apps Script Web App
+/**
+ * نقطة الدخول لطلبات POST في Google Apps Script Web App.
+ * @param {object} e - كائن الحدث من Google Apps Script.
+ * @returns {ContentService.TextOutput} استجابة JSON.
+ */
 function doPost(e) {
   const api = Injector.get('API.SemanticSearch');
   const result = api.handleSemanticSearch(e);

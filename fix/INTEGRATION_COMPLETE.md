@@ -130,12 +130,23 @@ performSmartSearch("اتجاهات السوق", 3)
 ### متغيرات البيئة:
 ```env
 # في external_service/.env
-GEMINI_API_KEY=AIzaSyAbrRDX0aR-47XhhJ1P-dadPKfCa-nL12E
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY_HERE
 PORT=3002
 
 # في gemini_research_system/.env  
-GEMINI_API_KEY=AIzaSyAbrRDX0aR-47XhhJ1P-dadPKfCa-nL12E
-LANGSMITH_API_KEY=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
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY_HERE
+LANGSMITH_API_KEY=YOUR_LANGSMITH_API_KEY_HERE
+```
+
+⚠️ **تحذير أمني**: لا تضع المفاتيح الحقيقية في ملفات التوثيق!
+
+### إعداد المفاتيح الآمن:
+```javascript
+// في Google Apps Script - استخدم Script Properties
+const GEMINI_API_KEY = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
+if (!GEMINI_API_KEY) {
+  throw new Error('GEMINI_API_KEY not configured in Script Properties');
+}
 ```
 
 ### في Google Apps Script:

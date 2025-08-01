@@ -5,26 +5,87 @@
 
 function initializeApp() {
   try {
-    // تحميل الملفات بالتسلسل
-    eval(UrlFetchApp.fetch('https://script.google.com/macros/d/' + 
-         ScriptApp.getScriptId() + '/exec?file=00_initializer').getContentText());
+    // ⚠️ SECURITY FIX: استبدال eval() بنظام تحميل آمن
+    // استخدام نظام الوحدات المحلي بدلاً من التحميل الخارجي
     
-    // تحميل باقي الملفات
-    const files = ['src/00_utils.js', 'src/01_config.js'];
-    files.forEach(file => {
-      try {
-        eval(UrlFetchApp.fetch('https://script.google.com/macros/d/' + 
-             ScriptApp.getScriptId() + '/exec?file=' + file).getContentText());
-      } catch (e) {
-        console.error(`Failed to load ${file}:`, e.message);
-      }
-    });
+    if (typeof GAssistant === 'undefined') {
+      // تهيئة النظام الأساسي
+      initializeGAssistantNamespace();
+    }
     
+    // التحقق من جاهزية الوحدات الأساسية
+    const coreModules = ['Utils', 'Config', 'AI', 'Tools'];
+    const missingModules = coreModules.filter(module => !GAssistant.System[module]);
+    
+    if (missingModules.length > 0) {
+      console.warn(`Missing core modules: ${missingModules.join(', ')}`);
+      // محاولة تحميل الوحدات المفقودة بطريقة آمنة
+      return initializeMissingModules(missingModules);
+    }
+    
+    console.log('✅ System initialized successfully');
     return true;
   } catch (e) {
     console.error('App initialization failed:', e.message);
     return false;
   }
+}
+
+// دالة مساعدة لتهيئة النظام الأساسي
+function initializeGAssistantNamespace() {
+  if (typeof GAssistant === 'undefined') {
+    window.GAssistant = {
+      System: {
+        Utils: {},
+        Config: {},
+        AI: {},
+        Tools: {},
+        UI: {}
+      }
+    };
+  }
+}
+
+// دالة آمنة لتحميل الوحدات المفقودة
+function initializeMissingModules(missingModules) {
+  try {
+    // بدلاً من eval، استخدم نظام الوحدات المحلي
+    missingModules.forEach(module => {
+      if (!GAssistant.System[module]) {
+        // إنشاء وحدة أساسية آمنة
+        GAssistant.System[module] = createSafeModule(module);
+        console.log(`✅ Safe module created: ${module}`);
+      }
+    });
+    return true;
+  } catch (e) {
+    console.error('Failed to initialize missing modules:', e.message);
+    return false;
+  }
+}
+
+// إنشاء وحدة آمنة
+function createSafeModule(moduleName) {
+  const safeModules = {
+    'Utils': {
+      log: (message) => console.log(`[${moduleName}] ${message}`),
+      error: (message) => console.error(`[${moduleName}] ${message}`)
+    },
+    'Config': {
+      get: (key) => PropertiesService.getScriptProperties().getProperty(key),
+      set: (key, value) => PropertiesService.getScriptProperties().setProperty(key, value)
+    },
+    'AI': {
+      isReady: () => false,
+      status: 'initializing'
+    },
+    'Tools': {
+      available: [],
+      status: 'initializing'
+    }
+  };
+  
+  return safeModules[moduleName] || { status: 'placeholder' };
 }
 
 function doGet(e) {

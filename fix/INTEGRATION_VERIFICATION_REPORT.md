@@ -164,13 +164,18 @@ cd gemini_research_system
 ### متغيرات البيئة:
 ```env
 # external_service/.env ✅
-GEMINI_API_KEY=AIzaSyAbrRDX0aR-47XhhJ1P-dadPKfCa-nL12E
+GEMINI_API_KEY=[CONFIGURED_IN_SCRIPT_PROPERTIES]
 PORT=3002
 
 # gemini_research_system/.env ✅
-GEMINI_API_KEY=AIzaSyAbrRDX0aR-47XhhJ1P-dadPKfCa-nL12E
-LANGSMITH_API_KEY=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
+GEMINI_API_KEY=[CONFIGURED_IN_SCRIPT_PROPERTIES]
+LANGSMITH_API_KEY=[CONFIGURED_IN_SCRIPT_PROPERTIES]
 ```
+
+**⚠️ ملاحظة أمنية مهمة:**
+- يجب تكوين جميع مفاتيح API في Script Properties بدلاً من تضمينها في الكود
+- استخدم `AdvancedSecureKeyManager.getApiKey('GEMINI_API_KEY')` للحصول على المفاتيح بشكل آمن
+- تأكد من عدم تضمين المفاتيح الفعلية في أي ملف يتم رفعه لـ Git
 
 ### في Google Apps Script:
 ```javascript

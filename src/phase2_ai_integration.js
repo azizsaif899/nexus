@@ -61,11 +61,16 @@ function enhanceGeminiAdapter() {
       }
     }
     
-    console.error(`❌ Gemini API Error: ${responseCode} - ${responseText}`);
+    EnhancedSecureLogger.error('Gemini API Error', null, {
+      responseCode: responseCode,
+      function: 'enhanceGeminiAdapter'
+    });
     return false;
     
   } catch (error) {
-    console.error('❌ خطأ في اختبار Gemini API:', error.message);
+    EnhancedSecureLogger.error('خطأ في اختبار Gemini API', error.message, {
+      function: 'enhanceGeminiAdapter'
+    });
     return false;
   }
 }
@@ -96,15 +101,18 @@ function setupScriptProperties() {
   for (const [key, value] of Object.entries(requiredProps)) {
     if (!properties.getProperty(key)) {
       properties.setProperty(key, value);
-      console.log(`✅ تم إعداد ${key}: ${value}`);
+      EnhancedSecureLogger.info('تم إعداد خاصية', null, {
+        key: key,
+        function: 'setupScriptProperties'
+      });
     }
   }
   
   // التحقق من GEMINI_API_KEY
   if (!properties.getProperty('GEMINI_API_KEY')) {
-    console.warn('⚠️ يجب إعداد GEMINI_API_KEY يدوياً في Script Properties');
-    console.log('📝 اذهب إلى: Extensions > Apps Script > Project Settings > Script Properties');
-    console.log('📝 أضف: GEMINI_API_KEY = your_actual_api_key_here');
+    EnhancedSecureLogger.warn('يجب إعداد GEMINI_API_KEY يدوياً في Script Properties');
+    EnhancedSecureLogger.info('اذهب إلى: Extensions > Apps Script > Project Settings > Script Properties');
+    EnhancedSecureLogger.info('أضف: GEMINI_API_KEY = your_actual_api_key_here');
   }
   
   console.log('✅ تم إعداد Script Properties');
