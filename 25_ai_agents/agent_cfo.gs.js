@@ -509,16 +509,136 @@ defineModule('System.AI.Agents.CFO', function(injector) {
     }
   }
 
+  /**
+   * تحليل التشابه المالي المحسن - بدون استدعاءات API متكررة
+   */
+  async function analyzeFinancialSimilarity(currentReportId, options = {}) {
+    const start = Date.now();
+    let status = 'processing';
+
+    try {
+      const { threshold = 0.85, maxResults = 10 } = options;
+      const vectorStore = injector.get('Services.VectorStore');
+      const embeddingService = injector.get('Services.EmbeddingService');
+      
+      // جلب التقرير الحالي
+      const currentReport = await _getCurrentReport(currentReportId);
+      if (!currentReport) {
+        throw new Error(`التقرير ${currentReportId} غير موجود`);
+      }
+      
+      // توليد embedding للتقرير الحالي فقط (استدعاء API واحد)
+      const currentEmbedding = await embeddingService.generateEmbedding(currentReport.content);
+      
+      // البحث في المتجهات المخزنة مسبقاً (سريع جداً)
+      const similarReports = await vectorStore.findSimilar(currentEmbedding, {
+        threshold,
+        topN: maxResults
+      });
+      
+      status = 'success';
+      return {
+        currentReportId,
+        totalSimilar: similarReports.length,
+        duplicates: similarReports.filter(r => r.similarity >= threshold),
+        results: similarReports
+      };
+      
+    } catch (error) {
+      status = 'error';
+      Utils.error(`Financial similarity analysis failed: ${error.message}`);
+      throw error;
+    } finally {
+      const duration = Date.now() - start;
+      _recordInvocation('analyzeFinancialSimilarity', status, duration, {
+        details: { reportId: currentReportId }
+      });
+    }
+  }
+
+  /**
+   * البحث عن المعاملات المشابهة - محسن للأداء
+   */
+  async function findSimilarTransactions(transactionText, options = {}) {
+    const start = Date.now();
+    let status = 'processing';
+
+    try {
+      const { threshold = 0.6, maxResults = 20 } = options;
+      const vectorStore = injector.get('Services.VectorStore');
+      const embeddingService = injector.get('Services.EmbeddingService');
+      
+      // توليد embedding للمعاملة المطلوبة (استدعاء API واحد)
+      const queryEmbedding = await embeddingService.generateEmbedding(transactionText);
+      
+      // البحث في المتجهات المخزنة
+      const similarItems = await vectorStore.findSimilar(queryEmbedding, {
+        threshold,
+        topN: maxResults
+      });
+      
+      status = 'success';
+      return {
+        query: transactionText,
+        totalFound: similarItems.length,
+        results: similarItems
+      };
+      
+    } catch (error) {
+      status = 'error';
+      Utils.error(`Similar transactions search failed: ${error.message}`);
+      throw error;
+    } finally {
+      const duration = Date.now() - start;
+      _recordInvocation('findSimilarTransactions', status, duration);
+    }
+  }
+
+  async function _getCurrentReport(reportId) {
+    // تحديد مصدر التقرير حسب النمط
+    let sheetName = 'Financial_Reports';
+    if (reportId.startsWith('MA_')) sheetName = 'Monthly_Analysis';
+    else if (reportId.startsWith('BR_')) sheetName = 'Budget_Reports';
+    
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+    if (!sheet) return null;
+    
+    const data = sheet.getDataRange().getValues();
+    const cleanId = reportId.replace(/^[A-Z]+_/, '');
+    
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][0] === cleanId) {
+        return {
+          id: reportId,
+          content: data[i][2] || data[i][1],
+          metadata: { date: data[i][1], type: sheetName }
+        };
+      }
+    }
+    return null;
+  }
+
   const exports = {
     handleRequest,
     runMonthlyPNL,
     analyzeFinancialTrends,
+    analyzeFinancialSimilarity,
+    findSimilarTransactions,
     MODULE_VERSION
   };
 
   // Register with main AI.Agents module
   if (typeof GAssistant !== 'undefined' && GAssistant.AI && GAssistant.AI.Agents) {
     GAssistant.AI.Agents.registerSubModule('CFO', exports);
+  }
+
+  // دوال مساعدة للاستخدام المباشر
+  function analyzeFinancialSimilarityEnhanced(reportId, options = {}) {
+    return analyzeFinancialSimilarity(reportId, options);
+  }
+
+  function findSimilarTransactionsEnhanced(transactionText, options = {}) {
+    return findSimilarTransactions(transactionText, options);
   }
 
   return exports;

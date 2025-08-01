@@ -45,7 +45,18 @@ defineModule('System.Config', ({ Utils }) => {
     // Hybrid Service Configuration
     NODE_SERVICE_URL:             'http://localhost:54112',
     ENABLE_HYBRID_MODE:           true,
-    HYBRID_FALLBACK_ENABLED:      true
+    HYBRID_FALLBACK_ENABLED:      true,
+    
+    // Week 2-3 Enhanced Embeddings Configuration
+    VECTOR_STORE_SHEET:           'VectorStore_Cache',
+    VECTOR_STORE_BATCH_SIZE:      100,
+    VECTOR_STORE_CACHE_SIZE:      1000,
+    EMBEDDING_BATCH_SIZE:         50,
+    EMBEDDING_MAX_TEXT_LENGTH:    8000,
+    SIMILARITY_THRESHOLD_DUP:     0.85,
+    SIMILARITY_THRESHOLD_SEARCH:  0.6,
+    SCHEDULER_INTERVAL_MINUTES:   60,
+    API_CACHE_DURATION_MS:        300000
   };
 
   let activeConfig = null;
