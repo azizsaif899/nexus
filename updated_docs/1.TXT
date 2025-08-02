@@ -1,3 +1,0 @@
-Before taking any step, make sure you've read the entire project file.
-To avoid duplicate files, ensure their interconnectedness, functions, and dependencies, and ensure the service's integration with the sidebar and external interface.
-Read the documentation found here to gain a complete understanding of the project, the responsibilities of a programmer like you, and the quality standards it follows. C:\g-assistant\updated_docs

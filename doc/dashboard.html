@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 AzizSys Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #B8F229;
+            --secondary-purple: #7247BE;
+            --secondary-blue: #4985BE;
+            --dark-bg: #0D0D0D;
+            --dark-card: #1A1A1A;
+            --dark-border: #2A2A2A;
+            --gray-text: #A0A0A0;
+            --gray-light: #D0D0D0;
+            --success: #4DCD38;
+            --warning: #CD8538;
+            --error: #C44545;
+            --white: #FFFFFF;
+            --spacing-xs: 2px;
+            --spacing-sm: 4px;
+            --spacing-md: 8px;
+            --spacing-lg: 16px;
+            --spacing-xl: 24px;
+            --spacing-xxl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arimo', sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        .header {
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--dark-border);
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .header p {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            padding: var(--spacing-xxl) 0;
+        }
+
+        .card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--spacing-md);
+            padding: var(--spacing-xl);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: var(--spacing-sm);
+        }
+
+        .status-operational { background: var(--success); }
+        .status-degraded { background: var(--warning); }
+        .status-critical { background: var(--error); }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--dark-border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: var(--spacing-md) 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            margin-top: var(--spacing-sm);
+        }
+
+        .alert {
+            padding: var(--spacing-lg);
+            border-radius: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border-left: 4px solid;
+        }
+
+        .alert-critical {
+            background: rgba(196, 69, 69, 0.1);
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .alert-warning {
+            background: rgba(205, 133, 56, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .alert-info {
+            background: rgba(73, 133, 190, 0.1);
+            border-color: var(--secondary-blue);
+            color: var(--secondary-blue);
+        }
+
+
+
+        .last-updated {
+            text-align: center;
+            color: var(--gray-text);
+            font-size: 0.8rem;
+            margin-top: var(--spacing-xl);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>📊 لوحة تحكم AzizSys</h1>
+            <p>مراقبة شاملة للنظام والتقدم في المشروع</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="alerts-container"></div>
+        
+        <div class="dashboard-grid">
+            <!-- System Health Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🔧 صحة النظام</div>
+                    <div class="card-icon">
+                        <span id="system-status-indicator" class="status-indicator"></span>
+                    </div>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">حالة النظام</span>
+                    <span class="metric-value" id="system-status">جاري التحميل...</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">الخدمات التشغيلية</span>
+                    <span class="metric-value" id="services-status">-/-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">الأخطاء الحرجة</span>
+                    <span class="metric-value" id="error-count">0</span>
+                </div>
+            </div>
+
+            <!-- Monthly Progress Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📅 التقدم الشهري</div>
+                    <div class="card-icon">📈</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="monthly-progress-bar"></div>
+                </div>
+                <div class="progress-text" id="monthly-progress-text">0% مكتمل</div>
+                <div class="metric">
+                    <span class="metric-label">المهام المكتملة</span>
+                    <span class="metric-value" id="completed-tasks">0/0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">الأيام المتبقية</span>
+                    <span class="metric-value" id="days-remaining">-</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">على المسار الصحيح</span>
+                    <span class="metric-value" id="on-track-status">-</span>
+                </div>
+            </div>
+
+            <!-- Pending Fixes Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🔨 الإصلاحات المعلقة</div>
+                    <div class="card-icon">⚠️</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">إجمالي الإصلاحات</span>
+                    <span class="metric-value" id="total-fixes">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">معلقة</span>
+                    <span class="metric-value" id="pending-fixes">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">حرجة</span>
+                    <span class="metric-value" id="critical-fixes">0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="fixes-progress-bar"></div>
+                </div>
+                <div class="progress-text" id="fixes-progress-text">0% مكتمل</div>
+            </div>
+
+            <!-- Team Activity Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">👥 نشاط الفريق</div>
+                    <div class="card-icon">📊</div>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">إجمالي المهام</span>
+                    <span class="metric-value" id="total-team-tasks">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">قيد التنفيذ</span>
+                    <span class="metric-value" id="in-progress-tasks">0</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">النشاط الأخير (7 أيام)</span>
+                    <span class="metric-value" id="recent-activity">0</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="team-progress-bar"></div>
+                </div>
+                <div class="progress-text" id="team-progress-text">0% مكتمل</div>
+            </div>
+        </div>
+
+        <div class="last-updated" id="last-updated">
+            آخر تحديث: جاري التحميل...
+        </div>
+    </div>
+
+    <div style="position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 8px;">
+        <a href="docs_viewer.html" style="background: #7247BE; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; text-decoration: none;" title="عارض الوثائق">
+            📚
+        </a>
+        <button class="refresh-btn" onclick="loadDashboardData()" title="تحديث البيانات" style="background: #B8F229; color: #0D0D0D; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">
+            🔄
+        </button>
+    </div>
+
+    <script>
+        let dashboardData = null;
+
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('dashboard_data.json');
+                dashboardData = await response.json();
+                updateDashboard();
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showError('فشل في تحميل بيانات لوحة التحكم');
+            }
+        }
+
+        function updateDashboard() {
+            if (!dashboardData) return;
+
+            // Update system health
+            updateSystemHealth();
+            
+            // Update monthly progress
+            updateMonthlyProgress();
+            
+            // Update pending fixes
+            updatePendingFixes();
+            
+            // Update team activity
+            updateTeamActivity();
+            
+            // Update alerts
+            updateAlerts();
+            
+            // Update last updated time
+            const lastUpdated = new Date(dashboardData.generated_at).toLocaleString('ar-SA');
+            document.getElementById('last-updated').textContent = `آخر تحديث: ${lastUpdated}`;
+        }
+
+        function updateSystemHealth() {
+            const health = dashboardData.system_health;
+            
+            document.getElementById('system-status').textContent = getStatusText(health.status);
+            document.getElementById('services-status').textContent = `${health.services_operational}/${health.services_total}`;
+            document.getElementById('error-count').textContent = health.error_count;
+            
+            const indicator = document.getElementById('system-status-indicator');
+            indicator.className = `status-indicator status-${health.status}`;
+        }
+
+        function updateMonthlyProgress() {
+            const progress = dashboardData.monthly_progress;
+            
+            const progressBar = document.getElementById('monthly-progress-bar');
+            const progressText = document.getElementById('monthly-progress-text');
+            
+            progressBar.style.width = `${progress.completion_rate}%`;
+            progressText.textContent = `${progress.completion_rate}% مكتمل`;
+            
+            document.getElementById('completed-tasks').textContent = `${progress.completed_tasks}/${progress.total_tasks}`;
+            document.getElementById('days-remaining').textContent = `${progress.days_remaining} يوم`;
+            document.getElementById('on-track-status').textContent = progress.on_track ? '✅ نعم' : '⚠️ لا';
+        }
+
+        function updatePendingFixes() {
+            const fixes = dashboardData.pending_fixes;
+            
+            document.getElementById('total-fixes').textContent = fixes.total;
+            document.getElementById('pending-fixes').textContent = fixes.pending;
+            document.getElementById('critical-fixes').textContent = fixes.critical;
+            
+            const progressBar = document.getElementById('fixes-progress-bar');
+            const progressText = document.getElementById('fixes-progress-text');
+            
+            progressBar.style.width = `${fixes.completion_rate}%`;
+            progressText.textContent = `${fixes.completion_rate}% مكتمل`;
+        }
+
+        function updateTeamActivity() {
+            const activity = dashboardData.team_activity;
+            
+            document.getElementById('total-team-tasks').textContent = activity.total_tasks;
+            document.getElementById('in-progress-tasks').textContent = activity.in_progress_tasks;
+            document.getElementById('recent-activity').textContent = activity.recent_activity_count;
+            
+            const progressBar = document.getElementById('team-progress-bar');
+            const progressText = document.getElementById('team-progress-text');
+            
+            progressBar.style.width = `${activity.task_completion_rate}%`;
+            progressText.textContent = `${activity.task_completion_rate}% مكتمل`;
+        }
+
+        function updateAlerts() {
+            const alertsContainer = document.getElementById('alerts-container');
+            alertsContainer.innerHTML = '';
+            
+            dashboardData.summary.priority_alerts.forEach(alert => {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${alert.type}`;
+                alertDiv.textContent = alert.message;
+                alertsContainer.appendChild(alertDiv);
+            });
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'operational': 'تشغيلي',
+                'degraded': 'متدهور',
+                'critical': 'حرج',
+                'unknown': 'غير معروف'
+            };
+            return statusMap[status] || status;
+        }
+
+        function showError(message) {
+            const alertsContainer = document.getElementById('alerts-container');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-critical';
+            errorDiv.textContent = message;
+            alertsContainer.appendChild(errorDiv);
+        }
+
+        // Auto-refresh every 5 minutes
+        setInterval(loadDashboardData, 5 * 60 * 1000);
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', loadDashboardData);
+    </script>
+</body>
+</html>

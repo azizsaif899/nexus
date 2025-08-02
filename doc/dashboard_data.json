@@ -1,0 +1,47 @@
+{
+  "generated_at": "2025-08-02T16:44:16.785Z",
+  "system_health": {
+    "status": "operational",
+    "services_total": 3,
+    "services_operational": 3,
+    "issues": [],
+    "error_count": 0,
+    "last_check": "2025-08-02T16:44:16.784Z"
+  },
+  "pending_fixes": {
+    "total": 0,
+    "pending": 0,
+    "completed": 0,
+    "critical": 0,
+    "completion_rate": 0
+  },
+  "team_activity": {
+    "total_tasks": 16,
+    "new_tasks": 24,
+    "in_progress_tasks": 0,
+    "completed_tasks": 1,
+    "recent_activity_count": 10,
+    "task_completion_rate": 6
+  },
+  "monthly_progress": {
+    "total_tasks": 5,
+    "completed_tasks": 2,
+    "in_progress_tasks": 1,
+    "pending_tasks": 2,
+    "completion_rate": 40,
+    "days_remaining": 29,
+    "on_track": true,
+    "expected_progress": 3,
+    "last_updated": "2025-08-02T16:38:31.709Z"
+  },
+  "summary": {
+    "overall_status": "healthy",
+    "priority_alerts": [],
+    "quick_stats": {
+      "system_uptime": "3/3 services",
+      "monthly_completion": "40%",
+      "pending_fixes": 0,
+      "team_velocity": 10
+    }
+  }
+}

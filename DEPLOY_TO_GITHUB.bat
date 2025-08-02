@@ -30,7 +30,7 @@ git commit -m "🚀 AzizSys Complete System - Ready for Production
 Ready for deployment and remote development!"
 
 echo 🌐 رفع إلى GitHub...
-git push origin main
+git push origin master
 
 echo ✅ تم الرفع بنجاح!
 echo 🏠 يمكنك الآن العمل من المنزل

@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📚 AzizSys Documentation Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #ffd700; /* ذهبي */
-            --secondary-color: #2a5298; /* أزرق داكن */
-            --dark-blue: #1e3c72; /* أزرق أغمق */
-            --light-bg: rgba(255, 255, 255, 0.1);
-            --dark-bg: rgba(0, 0, 0, 0.3);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --text-color: #ffffff;
-            --light-text: rgba(255, 255, 255, 0.8);
-            --shadow-light: 0 0 20px rgba(255, 215, 0, 0.3);
-            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --primary: #B8F229;
+            --secondary-purple: #7247BE;
+            --secondary-blue: #4985BE;
+            --dark-bg: #0D0D0D;
+            --dark-card: #1A1A1A;
+            --dark-border: #2A2A2A;
+            --gray-text: #A0A0A0;
+            --gray-light: #D0D0D0;
+            --success: #4DCD38;
+            --warning: #CD8538;
+            --error: #C44545;
+            --white: #FFFFFF;
+            --spacing-xs: 2px;
+            --spacing-sm: 4px;
+            --spacing-md: 8px;
+            --spacing-lg: 16px;
+            --spacing-xl: 24px;
+            --spacing-xxl: 32px;
         }
 
         * {
@@ -26,201 +34,180 @@
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--secondary-color) 100%);
-            color: var(--text-color);
+            font-family: 'Arimo', sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
             min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
+            line-height: 1.6;
         }
 
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Header */
         .header {
-            background: var(--dark-bg);
-            padding: 30px 20px;
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--dark-border);
+            padding: var(--spacing-xxl) 0;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .header h1 {
             font-size: 3rem;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, var(--primary-color), #ffed4e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary);
         }
 
         .header p {
-            opacity: 0.9;
             font-size: 1.2rem;
-            color: var(--light-text);
+            color: var(--gray-text);
+            font-weight: 400;
         }
 
-        .search-container {
-            padding: 20px;
-            text-align: center;
-            background: var(--dark-bg);
-            border-bottom: 1px solid var(--border-color);
+        /* Search */
+        .search-section {
+            padding: var(--spacing-xxl) 0;
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--dark-border);
         }
 
         .search-box {
             width: 100%;
-            max-width: 700px;
-            padding: 18px 25px;
-            border: none;
-            border-radius: 30px;
-            background: var(--light-bg);
-            color: var(--text-color);
-            font-size: 1.15rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
         }
 
-        .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: var(--shadow-light);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 30px 20px;
-            flex-wrap: wrap;
+        .search-input {
+            width: 100%;
+            padding: var(--spacing-lg) var(--spacing-xl);
+            font-size: 1.1rem;
+            border: 2px solid var(--dark-border);
+            border-radius: var(--spacing-md);
             background: var(--dark-bg);
-            border-bottom: 1px solid var(--border-color);
+            color: var(--white);
+            transition: all 0.3s ease;
+            font-family: 'Arimo', sans-serif;
+        }
+
+        .search-input::placeholder {
+            color: var(--gray-text);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(184, 242, 41, 0.1);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            padding: var(--spacing-xxl) 0;
+            margin: var(--spacing-xxl) 0;
         }
 
         .stat-card {
-            background: var(--light-bg);
-            padding: 20px 30px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--spacing-md);
+            padding: var(--spacing-xl);
             text-align: center;
-            min-width: 180px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-2px);
+            border-color: var(--primary);
         }
 
         .stat-number {
             font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: var(--spacing-sm);
         }
 
         .stat-label {
             font-size: 1rem;
-            opacity: 0.8;
-            color: var(--light-text);
+            color: var(--gray-text);
+            font-weight: 400;
         }
 
-        .filter-buttons {
+        /* Filters */
+        .filters {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
             flex-wrap: wrap;
-            padding: 0 20px;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin: var(--spacing-xxl) 0;
         }
 
         .filter-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            background: var(--light-bg);
-            color: var(--text-color);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--spacing-sm);
+            background: var(--dark-card);
+            color: var(--gray-light);
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
+            font-family: 'Arimo', sans-serif;
+            font-size: 0.9rem;
         }
 
         .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: var(--dark-border);
+            color: var(--white);
         }
 
         .filter-btn.active {
-            background: var(--primary-color);
-            color: var(--dark-blue);
-            border-color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--dark-bg);
+            font-weight: 600;
         }
 
+        /* Documents Grid */
         .docs-container {
-            padding: 40px 20px;
-            max-width: 1600px;
-            margin: 0 auto;
-            flex-grow: 1; /* يسمح للمحتوى بالتمدد */
+            padding: var(--spacing-xxl) 0;
         }
 
         .category {
-            margin-bottom: 50px;
+            margin-bottom: var(--spacing-xxl);
         }
 
         .category-title {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            padding: 20px 25px;
-            background: var(--light-bg);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            color: var(--primary-color);
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            background: var(--dark-card);
+            border-radius: var(--spacing-md);
+            border: 1px solid var(--dark-border);
+            color: var(--primary);
         }
 
         .docs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
         }
 
         .doc-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.3s ease;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--spacing-md);
+            padding: var(--spacing-xl);
             cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .doc-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-color);
-            background: rgba(255, 255, 255, 0.12);
         }
 
         .doc-card::before {
@@ -229,51 +216,67 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-color), #ffed4e);
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: var(--spacing-md) var(--spacing-md) 0 0;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         .doc-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-            line-height: 1.3;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--white);
+            line-height: 1.4;
         }
 
         .doc-description {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            margin-bottom: var(--spacing-lg);
             line-height: 1.6;
-            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .doc-path {
+            font-size: 0.8rem;
+            color: var(--gray-text);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--dark-bg);
+            border-radius: var(--spacing-sm);
+            font-family: 'Courier New', monospace;
+            border: 1px solid var(--dark-border);
         }
 
         .doc-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.85rem;
-            opacity: 0.7;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            color: var(--gray-text);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--dark-border);
         }
 
         .doc-size {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 5px 10px;
-            border-radius: 10px;
-            color: var(--primary-color);
-            font-weight: 600;
+            background: var(--secondary-purple);
+            color: var(--white);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--spacing-sm);
+            font-weight: 500;
+            font-size: 0.75rem;
         }
 
-        .doc-date {
-            color: var(--light-text);
-        }
-
-        /* Modal Styles */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -281,247 +284,400 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
-            backdrop-filter: blur(8px);
-            overflow-y: auto; /* للسماح بالتمرير داخل المودال نفسه */
-            padding: 20px;
+            overflow-y: auto;
         }
 
         .modal-content {
-            position: relative; /* تغيير من absolute */
-            margin: 5% auto; /* توسيط أفضل */
-            width: 95%;
-            max-width: 1100px;
-            background: #1a1a2e;
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            max-width: 1000px;
+            margin: var(--spacing-xxl) auto;
+            background: var(--dark-card);
+            border-radius: var(--spacing-md);
+            padding: var(--spacing-xxl);
+            border: 1px solid var(--dark-border);
+            position: relative;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: var(--spacing-xxl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--dark-border);
         }
 
         .modal-title {
             font-size: 1.8rem;
-            color: var(--primary-color);
-            font-weight: 700;
+            font-weight: 600;
+            color: var(--primary);
         }
 
         .close-btn {
             background: none;
             border: none;
-            color: var(--text-color);
-            font-size: 2.5rem;
+            color: var(--gray-text);
+            font-size: 2rem;
             cursor: pointer;
-            padding: 5px 12px;
-            border-radius: 50%;
-            transition: background 0.3s, transform 0.3s;
+            padding: var(--spacing-md);
+            border-radius: var(--spacing-sm);
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .close-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: rotate(90deg);
+            background: var(--dark-border);
+            color: var(--white);
         }
 
         .modal-body {
             line-height: 1.8;
-            font-size: 1.05rem;
-            color: var(--light-text);
+            font-size: 1rem;
+            color: var(--gray-light);
         }
 
-        .modal-body h1, .modal-body h2, .modal-body h3, .modal-body h4, .modal-body h5, .modal-body h6 {
-            color: var(--primary-color);
-            margin: 30px 0 15px 0;
-            font-weight: 700;
-            line-height: 1.4;
+        .modal-body h1, .modal-body h2, .modal-body h3 {
+            color: var(--primary);
+            margin: var(--spacing-xxl) 0 var(--spacing-lg) 0;
+            font-weight: 600;
         }
-        .modal-body h1 { font-size: 2.2rem; }
-        .modal-body h2 { font-size: 1.8rem; }
-        .modal-body h3 { font-size: 1.5rem; }
+
+        .modal-body h1 { font-size: 2rem; }
+        .modal-body h2 { font-size: 1.6rem; }
+        .modal-body h3 { font-size: 1.3rem; }
 
         .modal-body p {
-            margin-bottom: 15px;
-        }
-
-        .modal-body ul, .modal-body ol {
-            margin-bottom: 15px;
-            padding-right: 20px;
-        }
-
-        .modal-body li {
-            margin-bottom: 8px;
+            margin-bottom: var(--spacing-lg);
         }
 
         .modal-body pre {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 20px;
-            border-radius: 10px;
+            background: var(--dark-bg);
+            padding: var(--spacing-xl);
+            border-radius: var(--spacing-md);
             overflow-x: auto;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin: 20px 0;
-            font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
-            font-size: 0.95rem;
-            line-height: 1.4;
+            border: 1px solid var(--dark-border);
+            margin: var(--spacing-xl) 0;
         }
 
         .modal-body code {
-            background: rgba(255, 215, 0, 0.25);
-            padding: 3px 7px;
-            border-radius: 5px;
-            color: var(--primary-color);
-            font-family: 'Consolas', 'Monaco', 'Lucida Console', monospace;
-        }
-
-        .modal-body table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .modal-body th, .modal-body td {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 15px;
-            text-align: right;
-        }
-
-        .modal-body th {
-            background: rgba(255, 215, 0, 0.3);
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        .modal-body tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(184, 242, 41, 0.1);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--spacing-xs);
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
         }
 
         .loading {
             text-align: center;
-            padding: 50px;
+            padding: var(--spacing-xxl);
             font-size: 1.5rem;
-            opacity: 0.7;
-            color: var(--light-text);
+            color: var(--gray-text);
         }
 
-        /* Responsive Adjustments */
-        @media (max-width: 1200px) {
-            .docs-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            }
+        /* Dashboard Section */
+        .dashboard-section {
+            padding: var(--spacing-xxl) 0;
+            background: var(--dark-card);
+            border-bottom: 1px solid var(--dark-border);
+            margin-top: var(--spacing-xxl);
         }
 
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .dashboard-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--dark-border);
+            border-radius: var(--spacing-md);
+            padding: var(--spacing-xl);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary-blue);
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.3rem;
+            color: var(--secondary-blue);
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--dark-border);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        .dashboard-card p {
+            font-size: 1rem;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .dashboard-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dashboard-card ul li {
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            margin-bottom: var(--spacing-xs);
+            padding-right: var(--spacing-md); /* For RTL */
+            position: relative;
+        }
+
+        .dashboard-card ul li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .dashboard-card .status-indicator {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--spacing-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: var(--spacing-md);
+        }
+
+        .status-indicator.operational { background-color: var(--success); color: var(--dark-bg); }
+        .status-indicator.degraded { background-color: var(--warning); color: var(--dark-bg); }
+        .status-indicator.critical { background-color: var(--error); color: var(--white); }
+        .status-indicator.unknown { background-color: var(--gray-text); color: var(--dark-bg); }
+
+        .dashboard-last-updated {
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            text-align: center;
+            margin-top: var(--spacing-xl);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.2rem;
+            .header h1 { font-size: 2rem; }
+            .docs-grid { grid-template-columns: 1fr; }
+            .modal-content { 
+                margin: var(--spacing-lg); 
+                padding: var(--spacing-xl); 
             }
-            .header p {
-                font-size: 1rem;
-            }
-            .search-box {
-                font-size: 1rem;
-                padding: 15px 20px;
+            .filters { justify-content: center; }
+            .filter-btn { 
+                flex: 1; 
+                min-width: 120px; 
+                text-align: center;
             }
             .stats {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
-            .stat-card {
-                width: 100%;
-                max-width: 300px;
-            }
-            .filter-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .filter-btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            .docs-grid {
-                grid-template-columns: 1fr;
-            }
-            .category-title {
-                font-size: 1.5rem;
-                padding: 15px 20px;
-            }
-            .doc-card {
-                padding: 20px;
-            }
-            .doc-title {
-                font-size: 1.2rem;
-            }
-            .modal-content {
-                margin: 10% auto;
-                padding: 20px;
-            }
-            .modal-title {
-                font-size: 1.5rem;
-            }
-            .close-btn {
-                font-size: 2rem;
-            }
-            .modal-body {
-                font-size: 0.95rem;
-            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--dark-border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .floating-nav {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .nav-btn:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>📚 AzizSys Documentation Hub</h1>
-        <p>مركز الوثائق التقنية - للاستخدام الداخلي للمطورين</p>
-    </div>
-
-    <div class="search-container">
-        <input type="text" class="search-box" placeholder="🔍 البحث في الوثائق..." id="searchBox">
-    </div>
-
-    <div class="stats">
-        <div class="stat-card">
-            <div class="stat-number" id="totalDocs">0</div>
-            <div class="stat-label">إجمالي المستندات</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="totalSize">0</div>
-            <div class="stat-label">الحجم الإجمالي</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="lastUpdate">-</div>
-            <div class="stat-label">آخر تحديث</div>
+        <div class="container">
+            <h1>📚 مركز وثائق AzizSys</h1>
+            <p>مكتبة شاملة للوثائق التقنية والأدلة</p>
         </div>
     </div>
 
-    <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">الكل</button>
-        <button class="filter-btn" data-filter="guide">📖 الأدلة</button>
-        <button class="filter-btn" data-filter="report">📊 التقارير</button>
-        <button class="filter-btn" data-filter="roadmap">🗺️ الخطط</button>
-        <button class="filter-btn" data-filter="technical">🔧 التقنية</button>
-        <button class="filter-btn" data-filter="structure">🏗️ الهيكل</button>
-        <button class="filter-btn" data-filter="archive">🗄️ الأرشيف</button>
-        <button class="filter-btn" data-filter="test_reports">🧪 تقارير الاختبار</button>
-        <button class="filter-btn" data-filter="project_specific">💡 مشاريع فرعية</button>
+    <div class="search-section">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="🔍 ابحث في الوثائق..." id="searchInput">
+            </div>
+        </div>
     </div>
 
-    <div class="docs-container" id="docsContainer">
-        <div class="loading">⏳ جاري تحميل المستندات...</div>
+    <div class="container">
+        <!-- Monthly Progress Section -->
+        <div class="progress-section" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); padding: 24px; border-radius: 12px; margin: 24px 0; border: 1px solid #404040;">
+            <h2 style="color: #B8F229; font-size: 1.5rem; margin-bottom: 16px; text-align: center;">📊 التقدم في الخطة الشهرية</h2>
+            <div class="progress-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                <div class="progress-card" style="background: #1f1f1f; padding: 16px; border-radius: 8px; border: 1px solid #404040; text-align: center;">
+                    <div class="progress-number" id="monthlyProgress" style="font-size: 2rem; font-weight: 600; color: #B8F229; margin-bottom: 4px;">0%</div>
+                    <div class="progress-label" style="color: #A0A0A0; font-size: 0.9rem;">نسبة الإنجاز</div>
+                </div>
+                <div class="progress-card" style="background: #1f1f1f; padding: 16px; border-radius: 8px; border: 1px solid #404040; text-align: center;">
+                    <div class="progress-number" id="completedTasks" style="font-size: 2rem; font-weight: 600; color: #4DCD38; margin-bottom: 4px;">0/0</div>
+                    <div class="progress-label" style="color: #A0A0A0; font-size: 0.9rem;">المهام المكتملة</div>
+                </div>
+                <div class="progress-card" style="background: #1f1f1f; padding: 16px; border-radius: 8px; border: 1px solid #404040; text-align: center;">
+                    <div class="progress-number" id="daysRemaining" style="font-size: 2rem; font-weight: 600; color: #CD8538; margin-bottom: 4px;">-</div>
+                    <div class="progress-label" style="color: #A0A0A0; font-size: 0.9rem;">الأيام المتبقية</div>
+                </div>
+                <div class="progress-card" style="background: #1f1f1f; padding: 16px; border-radius: 8px; border: 1px solid #404040; text-align: center;">
+                    <div class="progress-number" id="systemHealth" style="font-size: 1.5rem; font-weight: 600; color: #4DCD38; margin-bottom: 4px;">✅</div>
+                    <div class="progress-label" style="color: #A0A0A0; font-size: 0.9rem;">حالة النظام</div>
+                </div>
+            </div>
+            <div class="progress-bar-container" style="background: #2A2A2A; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 8px;">
+                <div class="progress-bar-fill" id="progressBarFill" style="height: 100%; background: linear-gradient(90deg, #B8F229, #4DCD38); width: 0%; transition: width 0.3s ease;"></div>
+            </div>
+            <div style="text-align: center; color: #A0A0A0; font-size: 0.9rem; margin-bottom: 16px;">
+                <div id="loadingIndicator" style="display: inline-block; margin-left: 8px;">
+                    <span style="animation: pulse 1.5s infinite;">🔄</span> جاري التحميل...
+                </div>
+                <div id="progressStatus" style="display: none;">جاري تحميل بيانات التقدم...</div>
+            </div>
+            <div style="text-align: center; margin-bottom: 16px;">
+                <a href="dashboard.html" style="display: inline-block; background: #B8F229; color: #0D0D0D; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.background='#A0D020'" onmouseout="this.style.background='#B8F229'">
+                    📊 عرض الداشبورد الكامل
+                </a>
+            </div>
+            
+            <!-- Tasks Details -->
+            <div class="tasks-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <div class="tasks-column" style="background: #1f1f1f; padding: 16px; border-radius: 8px; border: 1px solid #404040;">
+                    <h3 style="color: #4DCD38; margin-bottom: 12px; font-size: 1.1rem;">✅ المهام المكتملة</h3>
+                    <div id="completedTasksList" style="color: #D0D0D0; font-size: 0.9rem; line-height: 1.6;">جاري التحميل...</div>
+                </div>
+                <div class="tasks-column" style="background: #1f1f1f; padding: 16px; border-radius: 8px; border: 1px solid #404040;">
+                    <h3 style="color: #CD8538; margin-bottom: 12px; font-size: 1.1rem;">🔄 قيد التنفيذ</h3>
+                    <div id="inProgressTasksList" style="color: #D0D0D0; font-size: 0.9rem; line-height: 1.6;">جاري التحميل...</div>
+                </div>
+                <div class="tasks-column" style="background: #1f1f1f; padding: 16px; border-radius: 8px; border: 1px solid #404040;">
+                    <h3 style="color: #A0A0A0; margin-bottom: 12px; font-size: 1.1rem;">⏳ معلقة</h3>
+                    <div id="pendingTasksList" style="color: #D0D0D0; font-size: 0.9rem; line-height: 1.6;">جاري التحميل...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalDocs">0</div>
+                <div class="stat-label">إجمالي المستندات</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalSize">0</div>
+                <div class="stat-label">الحجم الإجمالي</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="lastUpdate">-</div>
+                <div class="stat-label">آخر تحديث</div>
+            </div>
+        </div>
+
+        <div class="filters" id="filters">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="guide">📖 الأدلة</button>
+            <button class="filter-btn" data-filter="technical">🔧 التقنية</button>
+            <button class="filter-btn" data-filter="structure">🏗️ الهيكل</button>
+            <button class="filter-btn" data-filter="report">📊 التقارير</button>
+            <button class="filter-btn" data-filter="roadmap">🗺️ الخطط</button>
+            <button class="filter-btn" data-filter="project_specific">💡 المشاريع</button>
+            <button class="filter-btn" data-filter="test_reports">🧪 الاختبارات</button>
+            <button class="filter-btn" onclick="window.open('dashboard.html', '_blank')">📊 لوحة متابعة الصيانة</button>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="container">
+                <h2 class="dashboard-title">📊 لوحة متابعة الصيانة</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>حالة النظام العامة</h3>
+                        <p>آخر تحديث: <span id="dashboardLastUpdated">-</span></p>
+                        <p>الحالة: <span id="systemHealthStatus" class="status-indicator">-</span></p>
+                        <ul id="systemHealthIssues"></ul>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>ملخص الأخطاء</h3>
+                        <p>إجمالي الأخطاء: <span id="totalErrors">-</span></p>
+                        <p>أخطاء حرجة: <span id="criticalErrors">-</span></p>
+                        <h4>آخر 5 أخطاء:</h4>
+                        <ul id="recentErrors"></ul>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>الإصلاحات المعلقة</h3>
+                        <p>إجمالي الإصلاحات: <span id="totalFixes">-</span></p>
+                        <p>إصلاحات معلقة: <span id="pendingFixes">-</span></p>
+                        <h4>آخر 3 إصلاحات معلقة:</h4>
+                        <ul id="recentPendingFixes"></ul>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>نشاط الفريق</h3>
+                        <h4>آخر الأنشطة:</h4>
+                        <ul id="recentTeamActivities"></ul>
+                    </div>
+                </div>
+                <p class="dashboard-last-updated">تم تحديث البيانات في: <span id="dashboardDataTimestamp">-</span></p>
+            </div>
+        </div>
+
+        <div class="docs-container" id="docsContainer">
+            <div class="loading">⏳ جاري تحميل المستندات...</div>
+        </div>
     </div>
 
     <div class="modal" id="docModal">
@@ -537,24 +693,133 @@
     </div>
 
     <script src="docs_data.js"></script>
+    <script src="dashboard_data.js"></script>
     <script>
-        let allDocs = DOCS_DATA || [];
-        let filteredDocs = [...allDocs];
+        let allDocs = [];
+        let filteredDocs = [];
 
-        // تحميل المستندات
-        function loadDocuments() {
-            // ترتيب المستندات حسب التاريخ (الأحدث أولاً)
-            allDocs.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // تحميل البيانات
+        function loadData() {
+            if (typeof DOCS_DATA !== 'undefined') {
+                allDocs = DOCS_DATA;
+                filteredDocs = [...allDocs];
+                renderDocuments();
+                updateStats();
+            } else {
+                document.getElementById('docsContainer').innerHTML = 
+                    '<div class="loading">❌ خطأ في تحميل البيانات</div>';
+            }
+            loadDashboardData(); // Load dashboard data after docs data
+        }
+
+        // تحميل بيانات لوحة التحكم
+        function loadDashboardData() {
+            if (typeof DASHBOARD_DATA !== 'undefined') {
+                document.getElementById('dashboardLastUpdated').textContent = DASHBOARD_DATA.last_updated;
+                document.getElementById('dashboardDataTimestamp').textContent = DASHBOARD_DATA.last_updated;
+
+                // System Health
+                const systemHealthStatusElement = document.getElementById('systemHealthStatus');
+                systemHealthStatusElement.textContent = DASHBOARD_DATA.error_summary.healthStatus;
+                systemHealthStatusElement.className = `status-indicator ${DASHBOARD_DATA.error_summary.healthStatus.toLowerCase()}`;
+                
+                const systemHealthIssuesList = document.getElementById('systemHealthIssues');
+                systemHealthIssuesList.innerHTML = '';
+                if (DASHBOARD_DATA.error_summary.issues && DASHBOARD_DATA.error_summary.issues.length > 0) {
+                    DASHBOARD_DATA.error_summary.issues.forEach(issue => {
+                        const li = document.createElement('li');
+                        li.textContent = issue;
+                        systemHealthIssuesList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = 'لا توجد مشاكل معروفة.';
+                    systemHealthIssuesList.appendChild(li);
+                }
+
+                // Error Summary
+                document.getElementById('totalErrors').textContent = DASHBOARD_DATA.error_summary.total_errors;
+                document.getElementById('criticalErrors').textContent = DASHBOARD_DATA.error_summary.critical_errors;
+                const recentErrorsList = document.getElementById('recentErrors');
+                recentErrorsList.innerHTML = '';
+                if (DASHBOARD_DATA.error_summary.recent_errors && DASHBOARD_DATA.error_summary.recent_errors.length > 0) {
+                    DASHBOARD_DATA.error_summary.recent_errors.forEach(error => {
+                        const li = document.createElement('li');
+                        li.textContent = error;
+                        recentErrorsList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = 'لا توجد أخطاء حديثة.';
+                    recentErrorsList.appendChild(li);
+                }
+
+                // Fixes Summary
+                document.getElementById('totalFixes').textContent = DASHBOARD_DATA.fixes_summary.total_fixes;
+                document.getElementById('pendingFixes').textContent = DASHBOARD_DATA.fixes_summary.pending_fixes;
+                const recentPendingFixesList = document.getElementById('recentPendingFixes');
+                recentPendingFixesList.innerHTML = '';
+                if (DASHBOARD_DATA.fixes_summary.recent_pending_fixes && DASHBOARD_DATA.fixes_summary.recent_pending_fixes.length > 0) {
+                    DASHBOARD_DATA.fixes_summary.recent_pending_fixes.forEach(fix => {
+                        const li = document.createElement('li');
+                        li.textContent = fix;
+                        recentPendingFixesList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = 'لا توجد إصلاحات معلقة حديثة.';
+                    recentPendingFixesList.appendChild(li);
+                }
+
+                // Team Activity
+                const recentTeamActivitiesList = document.getElementById('recentTeamActivities');
+                recentTeamActivitiesList.innerHTML = '';
+                if (DASHBOARD_DATA.team_activity_summary.recent_activities && DASHBOARD_DATA.team_activity_summary.recent_activities.length > 0) {
+                    DASHBOARD_DATA.team_activity_summary.recent_activities.forEach(activity => {
+                        const li = document.createElement('li');
+                        li.textContent = activity;
+                        recentTeamActivitiesList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = 'لا توجد أنشطة فريق حديثة.';
+                    recentTeamActivitiesList.appendChild(li);
+                }
+
+            } else {
+                console.warn('DASHBOARD_DATA is not defined. Dashboard will not load.');
+            }
+        }
+
+        // تحديث الإحصائيات
+        function updateStats() {
+            document.getElementById('totalDocs').textContent = allDocs.length;
             
-            filteredDocs = [...allDocs];
-            renderDocuments();
-            updateStats();
+            const totalBytes = allDocs.reduce((sum, doc) => {
+                const sizeStr = doc.size;
+                const num = parseFloat(sizeStr);
+                if (isNaN(num)) return sum;
+                
+                if (sizeStr.includes('KB')) return sum + num * 1024;
+                if (sizeStr.includes('MB')) return sum + num * 1024 * 1024;
+                return sum + num;
+            }, 0);
+            
+            document.getElementById('totalSize').textContent = formatFileSize(totalBytes);
+            
+            if (allDocs.length > 0) {
+                const latestDate = allDocs.reduce((latest, doc) => {
+                    const docDate = new Date(doc.date);
+                    return docDate > latest ? docDate : latest;
+                }, new Date(0));
+                document.getElementById('lastUpdate').textContent = latestDate.toLocaleDateString('ar-SA');
+            }
         }
 
         // تنسيق حجم الملف
         function formatFileSize(bytes) {
             if (bytes < 1024) return bytes + 'B';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + 'KB';
+            if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + 'KB';
             return (bytes / (1024 * 1024)).toFixed(1) + 'MB';
         }
 
@@ -567,23 +832,20 @@
                 return;
             }
 
-            // تجميع حسب الفئة
             const categories = {
                 guide: { title: '📖 الأدلة والإرشادات', docs: [] },
-                report: { title: '📊 التقارير والتحليلات', docs: [] },
-                roadmap: { title: '🗺️ خرائط الطريق والخطط', docs: [] },
                 technical: { title: '🔧 الوثائق التقنية', docs: [] },
                 structure: { title: '🏗️ الهيكل والمعمارية', docs: [] },
-                archive: { title: '🗄️ الوثائق المؤرشفة', docs: [] },
-                test_reports: { title: '🧪 تقارير الاختبار', docs: [] },
-                project_specific: { title: '💡 وثائق المشاريع الفرعية', docs: [] }
+                report: { title: '📊 التقارير والتحليلات', docs: [] },
+                roadmap: { title: '🗺️ خرائط الطريق', docs: [] },
+                project_specific: { title: '💡 المشاريع الفرعية', docs: [] },
+                test_reports: { title: '🧪 تقارير الاختبار', docs: [] }
             };
 
             filteredDocs.forEach(doc => {
                 if (categories[doc.category]) {
                     categories[doc.category].docs.push(doc);
                 } else {
-                    // إذا كانت هناك فئة غير معرفة، ضعها في التقنية
                     categories.technical.docs.push(doc);
                 }
             });
@@ -599,6 +861,7 @@
                                     <div class="doc-card" onclick="openDocument('${doc.fullPath.replace(/\\/g, '\\\\')}')">
                                         <div class="doc-title">${doc.title}</div>
                                         <div class="doc-description">${doc.description}</div>
+                                        <div class="doc-path">📁 ${doc.relativePath}</div>
                                         <div class="doc-meta">
                                             <span class="doc-size">${doc.size}</span>
                                             <span class="doc-date">${doc.date}</span>
@@ -614,100 +877,38 @@
             container.innerHTML = html;
         }
 
-        // تحديث الإحصائيات
-        function updateStats() {
-            document.getElementById('totalDocs').textContent = allDocs.length;
-            
-            // حساب الحجم الإجمالي بالبايت ثم تحويله
-            const totalBytes = allDocs.reduce((sum, doc) => {
-                // استخراج الرقم من حجم الملف (مثال: "7KB" -> 7)
-                const sizeStr = doc.size;
-                const num = parseFloat(sizeStr);
-                if (isNaN(num)) return sum;
-
-                if (sizeStr.includes('KB')) return sum + num * 1024;
-                if (sizeStr.includes('MB')) return sum + num * 1024 * 1024;
-                return sum + num; // بايت
-            }, 0);
-
-            document.getElementById('totalSize').textContent = formatFileSize(totalBytes);
-            
-            // عرض تاريخ آخر تحديث من أحدث وثيقة
-            if (allDocs.length > 0) {
-                document.getElementById('lastUpdate').textContent = allDocs[0].date;
-            } else {
-                document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('ar-SA');
-            }
-        }
-
         // فتح المستند
         function openDocument(fullPath) {
             const doc = allDocs.find(d => d.fullPath === fullPath);
-            if (!doc) {
-                console.error('Document not found:', fullPath);
-                return;
-            }
+            if (!doc) return;
 
             document.getElementById('modalTitle').textContent = doc.title;
-            
-            // تحويل Markdown إلى HTML
-            const htmlContent = convertMarkdownToHtml(doc.content);
-            document.getElementById('modalBody').innerHTML = htmlContent;
-            
+            document.getElementById('modalBody').innerHTML = convertMarkdownToHtml(doc.content);
             document.getElementById('docModal').style.display = 'block';
         }
 
-        // تحويل Markdown إلى HTML بسيط
+        // تحويل Markdown إلى HTML
         function convertMarkdownToHtml(markdown) {
-            let html = markdown
-                // العناوين
+            return markdown
                 .replace(/^### (.*$)/gim, '<h3>$1</h3>')
                 .replace(/^## (.*$)/gim, '<h2>$1</h2>')
                 .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-                // الكود
-                .replace(/```([^\n]*)\n([\s\S]*?)```/g, (match, lang, code) => {
-                    // يمكن إضافة تمييز بناءً على اللغة هنا
-                    return `<pre><code class="language-${lang.trim()}">${code.trim()}</code></pre>`;
-                })
+                .replace(/```([^\n]*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
                 .replace(/`([^`]+)`/g, '<code>$1</code>')
-                // الروابط
-                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
-                // النص المائل والعريض
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                // القوائم (بسيطة)
                 .replace(/^- (.*$)/gim, '<li>$1</li>')
-                .replace(/^\* (.*$)/gim, '<li>$1</li>')
-                .replace(/\n\n- /g, '<br>- ') // لتجنب تحويل كل سطر إلى قائمة جديدة
-                .replace(/\n\n\* /g, '<br>* ')
-                // الجداول (تحتاج معالجة أكثر تعقيدًا، هنا فقط لضمان عدم كسر العرض)
-                .replace(/\|(.+)\|\n\|(---)+\|\n((?:\|.*\|\n)*)/g, (match, header, separator, body) => {
-                    const headers = header.split('|').filter(h => h.trim() !== '').map(h => `<th>${h.trim()}</th>`).join('');
-                    const rows = body.split('\n').filter(r => r.trim() !== '').map(r => {
-                        const cells = r.split('|').filter(c => c.trim() !== '').map(c => `<td>${c.trim()}</td>`).join('');
-                        return `<tr>${cells}</tr>`;
-                    }).join('');
-                    return `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
-                })
-                // الأسطر الجديدة (تحويل مزدوج إلى فقرة)
                 .replace(/\n\n/g, '</p><p>')
-                .replace(/\n/g, '<br>'); // تحويل فردي إلى سطر جديد
-
-            // إضافة <p> حول المحتوى إذا لم يكن موجودًا
-            if (!html.startsWith('<p>') && !html.startsWith('<h')) {
-                html = '<p>' + html + '</p>';
-            }
-
-            return html;
+                .replace(/\n/g, '<br>');
         }
 
-        // إغلاق النافذة المنبثقة
+        // إغلاق النافذة
         function closeModal() {
             document.getElementById('docModal').style.display = 'none';
         }
 
         // البحث
-        document.getElementById('searchBox').addEventListener('input', function(e) {
+        document.getElementById('searchInput').addEventListener('input', function(e) {
             const query = e.target.value.toLowerCase();
             
             if (query === '') {
@@ -716,7 +917,7 @@
                 filteredDocs = allDocs.filter(doc => 
                     doc.title.toLowerCase().includes(query) ||
                     doc.description.toLowerCase().includes(query) ||
-                    doc.content.toLowerCase().includes(query) // البحث في المحتوى الكامل
+                    doc.content.toLowerCase().includes(query)
                 );
             }
             
@@ -726,9 +927,7 @@
         // التصفية
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // إزالة الفئة النشطة من جميع الأزرار
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                // إضافة الفئة النشطة للزر المضغوط
                 this.classList.add('active');
                 
                 const filter = this.dataset.filter;
@@ -743,15 +942,151 @@
             });
         });
 
-        // إغلاق النافذة المنبثقة عند الضغط خارجها
+        // إغلاق النافذة عند الضغط خارجها
         document.getElementById('docModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+            if (e.target === this) closeModal();
         });
 
-        // تحميل المستندات عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', loadDocuments);
+        // تحميل بيانات التقدم الشهري
+        async function loadProgressData() {
+            try {
+                // محاولة تحميل البيانات من مسارات مختلفة
+                let dashboardData, progressData;
+                
+                try {
+                    const dashboardResponse = await fetch('dashboard_data.json');
+                    dashboardData = await dashboardResponse.json();
+                } catch {
+                    const dashboardResponse = await fetch('../dashboard_data.json');
+                    dashboardData = await dashboardResponse.json();
+                }
+                
+                try {
+                    const progressResponse = await fetch('monthly_progress.json');
+                    progressData = await progressResponse.json();
+                } catch {
+                    const progressResponse = await fetch('../monthly_progress.json');
+                    progressData = await progressResponse.json();
+                }
+                
+                updateProgressDisplay(dashboardData, progressData);
+            } catch (error) {
+                console.error('Error loading progress data:', error);
+                // عرض بيانات افتراضية في حالة الفشل
+                showDefaultData();
+            }
+        }
+        
+        function showDefaultData() {
+            // إخفاء مؤشر التحميل
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('progressStatus').style.display = 'block';
+            
+            document.getElementById('monthlyProgress').textContent = '40%';
+            document.getElementById('completedTasks').textContent = '2/5';
+            document.getElementById('daysRemaining').textContent = '29 يوم';
+            document.getElementById('systemHealth').textContent = '✅';
+            document.getElementById('progressBarFill').style.width = '40%';
+            document.getElementById('progressStatus').innerHTML = 
+                '<span style="color: #CD8538">⚠️ بيانات افتراضية</span> - تعذر تحميل البيانات الحية';
+            
+            document.getElementById('completedTasksList').innerHTML = 
+                '• إصلاح مشاكل الأمان <small style="color: #4DCD38;">(2025-08-02)</small><br>• إعداد بيئة العمل الموحدة وهيكل المشروع <small style="color: #4DCD38;">(2025-08-02)</small>';
+            document.getElementById('inProgressTasksList').innerHTML = 
+                '• تطوير واجهة المستخدم الجديدة';
+            document.getElementById('pendingTasksList').innerHTML = 
+                '• تحسين الأداء العام<br>• بناء حارس الجودة والحوكمة الآلي';
+        }
+
+        function updateProgressDisplay(dashboardData, progressData) {
+            try {
+                const progress = dashboardData.monthly_progress || {};
+                const systemHealth = dashboardData.system_health || {};
+                
+                // تحديث الأرقام
+                document.getElementById('monthlyProgress').textContent = (progress.completion_rate || 0) + '%';
+                document.getElementById('completedTasks').textContent = `${progress.completed_tasks || 0}/${progress.total_tasks || 0}`;
+                document.getElementById('daysRemaining').textContent = (progress.days_remaining || 0) + ' يوم';
+                
+                // تحديث حالة النظام
+                const healthIcon = systemHealth.status === 'operational' ? '✅' : 
+                                  systemHealth.status === 'degraded' ? '⚠️' : '❌';
+                document.getElementById('systemHealth').textContent = healthIcon;
+                
+                // تحديث شريط التقدم
+                document.getElementById('progressBarFill').style.width = (progress.completion_rate || 0) + '%';
+                
+                // تحديث النص
+                const onTrackText = progress.on_track ? 'على المسار الصحيح' : 'متأخر عن الخطة';
+                const statusColor = progress.on_track ? '#4DCD38' : '#CD8538';
+                const lastUpdate = dashboardData.generated_at ? new Date(dashboardData.generated_at).toLocaleString('ar-SA') : 'غير متاح';
+                
+                // إخفاء مؤشر التحميل وإظهار النتيجة
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('progressStatus').style.display = 'block';
+                document.getElementById('progressStatus').innerHTML = 
+                    `<span style="color: ${statusColor}">${onTrackText}</span> - آخر تحديث: ${lastUpdate}`;
+                
+                // تحديث قوائم المهام
+                updateTasksLists(progressData.tasks || []);
+                
+                console.log('✅ تم تحديث بيانات التقدم بنجاح');
+            } catch (error) {
+                console.error('خطأ في تحديث عرض التقدم:', error);
+                showDefaultData();
+            }
+        }
+        
+        function updateTasksLists(tasks) {
+            const completedTasks = tasks.filter(task => task.status === 'completed');
+            const inProgressTasks = tasks.filter(task => task.status === 'in_progress');
+            const pendingTasks = tasks.filter(task => task.status === 'pending');
+            
+            // المهام المكتملة
+            const completedHtml = completedTasks.length > 0 ? 
+                completedTasks.map(task => `• ${task.title} <small style="color: #4DCD38;">(${task.completed_date})</small>`).join('<br>') :
+                'لا توجد مهام مكتملة';
+            document.getElementById('completedTasksList').innerHTML = completedHtml;
+            
+            // المهام قيد التنفيذ
+            const inProgressHtml = inProgressTasks.length > 0 ?
+                inProgressTasks.map(task => `• ${task.title}`).join('<br>') :
+                'لا توجد مهام قيد التنفيذ';
+            document.getElementById('inProgressTasksList').innerHTML = inProgressHtml;
+            
+            // المهام المعلقة
+            const pendingHtml = pendingTasks.length > 0 ?
+                pendingTasks.map(task => `• ${task.title}`).join('<br>') :
+                'لا توجد مهام معلقة';
+            document.getElementById('pendingTasksList').innerHTML = pendingHtml;
+        }
+
+        // تحديث البيانات كل 5 دقائق
+        setInterval(loadProgressData, 5 * 60 * 1000);
+
+        // تحميل البيانات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            loadProgressData();
+        });
+    </script>
+    <!-- Floating Navigation -->
+    <div class="floating-nav">
+        <a href="dashboard.html" class="nav-btn" style="background: #B8F229; color: #0D0D0D;" title="الداشبورد الكامل">
+            📊
+        </a>
+        <button class="nav-btn" style="background: #7247BE; color: white;" onclick="scrollToTop()" title="العودة للأعلى">
+            ⬆️
+        </button>
+        <button class="nav-btn" style="background: #4985BE; color: white;" onclick="loadProgressData()" title="تحديث البيانات">
+            🔄
+        </button>
+    </div>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
