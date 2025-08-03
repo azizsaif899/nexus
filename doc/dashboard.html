@@ -308,7 +308,67 @@
                 </div>
                 <div class="progress-text" id="team-progress-text">0% مكتمل</div>
             </div>
+
+            
+        <!-- Daily Report Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">☀️ تقرير اليوم</div>
+                    <div class="card-icon">📋</div>
+                </div>
+                <div class="metric-list" id="daily-completed-tasks">
+                    <span class="metric-label">✅ مكتمل اليوم</span>
+                </div>
+                <div class="metric-list" id="daily-in-progress-tasks">
+                    <span class="metric-label">⏳ قيد التنفيذ اليوم</span>
+                </div>
+                <div class="metric-list" id="daily-next-tasks">
+                    <span class="metric-label">➡️ التالي اليوم</span>
+                </div>
+            </div>
+
+            <!-- Weekly Report Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🗓️ تقرير الأسبوع</div>
+                    <div class="card-icon">📈</div>
+                </div>
+                <div class="metric-list" id="weekly-completed-tasks">
+                    <span class="metric-label">✅ مكتمل هذا الأسبوع</span>
+                </div>
+                <div class="metric-list" id="weekly-in-progress-tasks">
+                    <span class="metric-label">⏳ قيد التنفيذ هذا الأسبوع</span>
+                </div>
+                <div class="metric-list" id="weekly-upcoming-tasks">
+                    <span class="metric-label">➡️ قادم هذا الأسبوع</span>
+                </div>
+            </div>
         </div>
+
+        <style>
+            .metric-list {
+                margin-bottom: var(--spacing-lg);
+            }
+            .metric-list .metric-label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: var(--spacing-sm);
+                color: var(--primary);
+            }
+            .metric-list ul {
+                list-style: none;
+                padding-right: var(--spacing-md);
+            }
+            .metric-list li {
+                color: var(--gray-light);
+                font-size: 0.9rem;
+                margin-bottom: var(--spacing-xs);
+            }
+            .metric-list li span {
+                color: var(--gray-text);
+                font-size: 0.8rem;
+            }
+        </style>
 
         <div class="last-updated" id="last-updated">
             آخر تحديث: جاري التحميل...
@@ -355,6 +415,10 @@
             
             // Update alerts
             updateAlerts();
+
+            // Update daily and weekly reports
+            updateDailyReport();
+            updateWeeklyReport();
             
             // Update last updated time
             const lastUpdated = new Date(dashboardData.generated_at).toLocaleString('ar-SA');
@@ -412,6 +476,59 @@
             
             progressBar.style.width = `${activity.task_completion_rate}%`;
             progressText.textContent = `${activity.task_completion_rate}% مكتمل`;
+        }
+
+        function updateDailyReport() {
+            const daily = dashboardData.daily_report;
+            renderTaskList('daily-completed-tasks', '✅ مكتمل اليوم', daily.completed_today);
+            renderTaskList('daily-in-progress-tasks', '⏳ قيد التنفيذ اليوم', daily.in_progress_today);
+            renderTaskList('daily-next-tasks', '➡️ التالي اليوم', daily.next_today);
+        }
+
+        function updateWeeklyReport() {
+            const weekly = dashboardData.weekly_report;
+            renderTaskList('weekly-completed-tasks', '✅ مكتمل هذا الأسبوع', weekly.completed_this_week);
+            renderTaskList('weekly-in-progress-tasks', '⏳ قيد التنفيذ هذا الأسبوع', weekly.in_progress_this_week);
+            renderTaskList('weekly-upcoming-tasks', '➡️ قادم هذا الأسبوع', weekly.upcoming_this_week);
+        }
+
+        function renderTaskList(elementId, title, tasks) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = `<span class="metric-label">${title}</span>`;
+            if (tasks && tasks.length > 0) {
+                const ul = document.createElement('ul');
+                tasks.forEach(task => {
+                    const li = document.createElement('li');
+                    const description = task.description || task;
+                    li.textContent = typeof description === 'string' ? description : description.description || 'مهمة غير محددة';
+                    
+                    if (task.assistant) {
+                        const assistantSpan = document.createElement('span');
+                        assistantSpan.textContent = ` [${task.assistant}]`;
+                        assistantSpan.style.color = 'var(--primary)';
+                        assistantSpan.style.fontSize = '0.8rem';
+                        li.appendChild(assistantSpan);
+                    }
+                    
+                    if (task.source && task.source !== 'TEAM_SYNC') {
+                        const sourceSpan = document.createElement('span');
+                        sourceSpan.textContent = ` (${task.source})`;
+                        sourceSpan.style.color = 'var(--gray-text)';
+                        sourceSpan.style.fontSize = '0.7rem';
+                        li.appendChild(sourceSpan);
+                    }
+                    
+                    ul.appendChild(li);
+                });
+                container.appendChild(ul);
+            } else {
+                const p = document.createElement('p');
+                p.textContent = 'لا توجد مهام.';
+                p.style.color = 'var(--gray-text)';
+                p.style.fontSize = '0.8rem';
+                p.style.paddingRight = 'var(--spacing-md)';
+                container.appendChild(p);
+            }
         }
 
         function updateAlerts() {

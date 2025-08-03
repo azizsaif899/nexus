@@ -7,6 +7,7 @@ jest.mock('fs', () => ({
     readFile: jest.fn(),
     writeFile: jest.fn(),
     appendFile: jest.fn(),
+    access: jest.fn(), // Added access mock
   },
 }));
 

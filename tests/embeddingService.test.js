@@ -50,8 +50,12 @@ describe('EmbeddingService - اختبارات شاملة', () => {
     global.Utilities.computeDigest.mockReturnValue([1, 2, 3, 4]);
     
     // Initialize service
-    const module = require('../src/services/embeddingService.js');
-    embeddingService = module.EmbeddingService;
+    // Require the module, which will call the mocked defineModule
+    require('../src/services/embeddingService.js');
+    
+    // Get the last returned value from the defineModule mock
+    // This assumes defineModule is called only once for this module in the test setup
+    embeddingService = global.defineModule.mock.results[global.defineModule.mock.results.length - 1].value;
   });
 
   describe('الاختبارات الإيجابية (Happy Path)', () => {

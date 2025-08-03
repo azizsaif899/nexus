@@ -47,7 +47,9 @@ global.CacheService = {
 // Mock defineModule for testing
 global.defineModule = jest.fn((name, factory) => {
   const mockDeps = {};
-  return factory(mockDeps);
+  const result = factory(mockDeps);
+  console.log(`defineModule called for: ${name}, returning:`, result);
+  return result;
 });
 
 // Test utilities

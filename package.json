@@ -7,7 +7,7 @@
     "start": "node src/main.js",
     "build": "npm run lint && npm run test",
     "full-build": "npm run clean && npm run build && npm run deploy-prep",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint src/ --fix",
@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/your-username/azizsys5#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
     "@google/clasp": "^2.4.2",
     "eslint": "^8.57.1",
     "http-server": "^14.1.1",

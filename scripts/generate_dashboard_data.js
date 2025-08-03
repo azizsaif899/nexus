@@ -4,10 +4,12 @@ const path = require('path');
 // Paths
 const DASHBOARD_DATA_PATH = path.join(__dirname, '../doc/dashboard_data.json');
 const ERRORS_LOG_PATH = path.join(__dirname, '../logs/errors.log');
-const FIXES_LOG_PATH = path.join(__dirname, '../fixes_log.md');
-const TEAM_SYNC_PATH = path.join(__dirname, '../doc/TEAM_SYNC.md');
+const FIXES_LOG_PATH = path.join(__dirname, '../doc/process/fixes_log.md'); // Corrected path
+const TEAM_SYNC_PATH = path.join(__dirname, '../doc/process/TEAM_SYNC.md'); // Corrected path
 const STATUS_JSON_PATH = path.join(__dirname, '../status.json');
 const MONTHLY_PROGRESS_PATH = path.join(__dirname, '../monthly_progress.json');
+const DAILY_BOOT_PATH = path.join(__dirname, '../doc/context/DAILY_BOOT.md');
+const MONTHLY_PLAN_PATH = path.join(__dirname, '../MONTHLY_PLAN.md'); // Assuming this is the correct path for the monthly plan
 
 // Helper Functions
 function readJsonFile(filePath) {
@@ -39,6 +41,40 @@ function writeJsonFile(filePath, data) {
     } catch (error) {
         console.error(`Error writing JSON file ${filePath}:`, error.message);
     }
+}
+
+function analyzePendingFixes() {
+    const fixesLog = readTextFile(FIXES_LOG_PATH);
+    const lines = fixesLog.split('\n');
+    
+    let totalFixes = 0;
+    let pendingFixes = 0;
+    let completedFixes = 0;
+    let criticalFixes = 0;
+    
+    lines.forEach(line => {
+        if (line.includes('## ') && (line.includes('إصلاح') || line.includes('Fix'))) {
+            totalFixes++;
+            if (line.includes('✅') || line.includes('مكتمل') || line.includes('Completed')) {
+                completedFixes++;
+            } else {
+                pendingFixes++;
+            }
+            if (line.includes('حرج') || line.includes('Critical') || line.includes('🚨')) {
+                criticalFixes++;
+            }
+        }
+    });
+    
+    const completionRate = totalFixes > 0 ? Math.round((completedFixes / totalFixes) * 100) : 0;
+    
+    return {
+        total: totalFixes,
+        pending: pendingFixes,
+        completed: completedFixes,
+        critical: criticalFixes,
+        completion_rate: completionRate
+    };
 }
 
 // Core Functions
@@ -82,147 +118,166 @@ function analyzeSystemHealth() {
     };
 }
 
-function analyzePendingFixes() {
-    const fixesContent = readTextFile(FIXES_LOG_PATH);
-    const lines = fixesContent.split('\n');
-    
-    let totalFixes = 0;
-    let pendingFixes = 0;
-    let completedFixes = 0;
-    let criticalFixes = 0;
-
-    lines.forEach(line => {
-        if (line.includes('الحالة:') || line.includes('Status:')) {
-            totalFixes++;
-            if (line.includes('معلقة') || line.includes('Pending')) {
-                pendingFixes++;
-            } else if (line.includes('مكتمل') || line.includes('Completed')) {
-                completedFixes++;
-            }
-        }
-        if (line.includes('حرج') || line.includes('Critical')) {
-            criticalFixes++;
-        }
-    });
-
-    return {
-        total: totalFixes,
-        pending: pendingFixes,
-        completed: completedFixes,
-        critical: criticalFixes,
-        completion_rate: totalFixes > 0 ? Math.round((completedFixes / totalFixes) * 100) : 0
-    };
-}
-
-function analyzeTeamActivity() {
+function parseTeamSync() {
     const teamSyncContent = readTextFile(TEAM_SYNC_PATH);
     const lines = teamSyncContent.split('\n');
-    
-    let totalTasks = 0;
-    let newTasks = 0;
-    let inProgressTasks = 0;
-    let completedTasks = 0;
-    let recentActivity = [];
-
-    // Get recent dates (last 7 days)
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const tasks = [];
+    let inTableSection = false;
 
     lines.forEach(line => {
-        if (line.includes('**مهمة:**') || line.includes('**Task:**')) {
-            totalTasks++;
-        }
-        if (line.includes('جديدة') || line.includes('New')) {
-            newTasks++;
-        }
-        if (line.includes('قيد التنفيذ') || line.includes('In Progress')) {
-            inProgressTasks++;
-        }
-        if (line.includes('مكتملة') || line.includes('Completed')) {
-            completedTasks++;
+        if (line.includes('| المساعد (Assistant)') || line.includes('| :---')) {
+            inTableSection = true;
+            return;
         }
         
-        // Extract recent activity
-        const dateMatch = line.match(/## 🗓️ (\d{4}-\d{2}-\d{2})/);
-        if (dateMatch) {
-            const activityDate = new Date(dateMatch[1]);
-            if (activityDate >= sevenDaysAgo) {
-                recentActivity.push({
-                    date: dateMatch[1],
-                    type: 'task_update'
+        if (inTableSection && line.startsWith('|') && !line.includes('---')) {
+            const columns = line.split('|').map(col => col.trim()).filter(col => col);
+            if (columns.length >= 4) {
+                const [assistant, task, files, status] = columns;
+                tasks.push({
+                    assistant: assistant.replace(/`/g, '').trim(),
+                    description: task.trim(),
+                    files: files.trim(),
+                    status: status.replace(/`/g, '').trim(),
+                    date: new Date().toISOString().split('T')[0]
                 });
             }
         }
+        
+        if (line.includes('**تعليمات:**') || line.includes('---')) {
+            inTableSection = false;
+        }
     });
-
-    return {
-        total_tasks: totalTasks,
-        new_tasks: newTasks,
-        in_progress_tasks: inProgressTasks,
-        completed_tasks: completedTasks,
-        recent_activity_count: recentActivity.length,
-        task_completion_rate: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0
-    };
+    return tasks;
 }
 
-function getMonthlyProgress() {
-    const progress = readJsonFile(MONTHLY_PROGRESS_PATH);
-    
-    if (!progress.total_tasks) {
-        return {
-            total_tasks: 0,
-            completed_tasks: 0,
-            in_progress_tasks: 0,
-            pending_tasks: 0,
-            completion_rate: 0,
-            days_remaining: 0,
-            on_track: false
-        };
-    }
+function parseDailyBoot() {
+    const dailyBootContent = readTextFile(DAILY_BOOT_PATH);
+    const lines = dailyBootContent.split('\n');
+    const tasks = [];
+    let inPriorityTasksSection = false;
 
-    // Calculate days remaining in month
-    const now = new Date();
-    const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    const daysRemaining = Math.ceil((lastDayOfMonth - now) / (1000 * 60 * 60 * 24));
-    
-    // Determine if on track (simple heuristic)
-    const expectedProgress = Math.round(((30 - daysRemaining) / 30) * 100);
-    const actualProgress = Math.round((progress.completed_tasks / progress.total_tasks) * 100);
-    const onTrack = actualProgress >= (expectedProgress - 10); // 10% tolerance
+    lines.forEach(line => {
+        if (line.includes('## 🎯 Priority Tasks')) {
+            inPriorityTasksSection = true;
+            return;
+        }
+        if (line.includes('## 📊 Status Overview') || line.includes('## 🔄 Next Steps')) {
+            inPriorityTasksSection = false;
+            return;
+        }
 
-    return {
-        total_tasks: progress.total_tasks,
-        completed_tasks: progress.completed_tasks,
-        in_progress_tasks: progress.in_progress_tasks,
-        pending_tasks: progress.pending_tasks,
-        completion_rate: actualProgress,
-        days_remaining: daysRemaining,
-        on_track: onTrack,
-        expected_progress: expectedProgress,
-        last_updated: progress.last_updated
-    };
+        if (inPriorityTasksSection) {
+            const taskMatch = line.match(/^\d+\. (.*?) \((المصدر: (.*?))\)/);
+            if (taskMatch) {
+                const description = taskMatch[1].trim();
+                const source = taskMatch[3] ? taskMatch[3].trim() : 'DAILY_BOOT';
+                const statusMatch = line.match(/✅|⏳|🔧/);
+                let status = 'Pending';
+                if (statusMatch) {
+                    if (statusMatch[0] === '✅') status = 'Completed';
+                    if (statusMatch[0] === '⏳') status = 'In Progress';
+                    if (statusMatch[0] === '🔧') status = 'Pending'; // Assuming wrench means pending/to do
+                }
+                tasks.push({ description, source, status });
+            }
+        }
+    });
+    return tasks;
+}
+
+function parseMonthlyPlan() {
+    const monthlyPlanContent = readTextFile(MONTHLY_PLAN_PATH);
+    const lines = monthlyPlanContent.split('\n');
+    const tasks = [];
+    let inTasksSection = false;
+
+    lines.forEach(line => {
+        if (line.includes('## 🎯 المهام الرئيسية') || line.includes('## 📋 المهام')) { // Adjust based on actual MONTHLY_PLAN.md structure
+            inTasksSection = true;
+            return;
+        }
+        if (line.startsWith('## ') && inTasksSection) { // End of tasks section
+            inTasksSection = false;
+            return;
+        }
+
+        if (inTasksSection && line.startsWith('- ')) {
+            const description = line.substring(2).trim();
+            tasks.push({ description, source: 'Monthly Plan', status: 'Pending' });
+        }
+    });
+    return tasks;
 }
 
 function generateDashboardData() {
     const systemHealth = analyzeSystemHealth();
     const pendingFixes = analyzePendingFixes();
-    const teamActivity = analyzeTeamActivity();
-    const monthlyProgress = getMonthlyProgress();
+    const teamSyncTasks = parseTeamSync();
+    const dailyBootTasks = parseDailyBoot();
+    const monthlyPlanTasks = parseMonthlyPlan();
+
+    // Categorize tasks from Team Sync
+    const completedTasks = teamSyncTasks.filter(task => 
+        task.status.includes('Completed') || task.status.includes('مكتمل') || task.status.includes('✅')
+    );
+    const inProgressTasks = teamSyncTasks.filter(task => 
+        task.status.includes('In Progress') || task.status.includes('قيد التنفيذ') || task.status.includes('🚧')
+    );
+
+    // Identify next tasks: from Monthly Plan not yet in Team Sync or Daily Boot
+    const teamSyncDescriptions = new Set(teamSyncTasks.map(t => t.description));
+    const dailyBootDescriptions = new Set(dailyBootTasks.map(t => t.description));
+    const nextTasks = monthlyPlanTasks.filter(task => 
+        !teamSyncDescriptions.has(task.description) && !dailyBootDescriptions.has(task.description)
+    );
 
     const dashboardData = {
         generated_at: new Date().toISOString(),
         system_health: systemHealth,
         pending_fixes: pendingFixes,
-        team_activity: teamActivity,
-        monthly_progress: monthlyProgress,
+        team_activity: {
+            total_tasks: teamSyncTasks.length,
+            in_progress_tasks: inProgressTasks.length,
+            completed_tasks: completedTasks.length,
+            recent_activity_count: teamSyncTasks.filter(task => {
+                const taskDate = new Date(task.date);
+                const sevenDaysAgo = new Date();
+                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                return taskDate >= sevenDaysAgo;
+            }).length,
+            task_completion_rate: teamSyncTasks.length > 0 ? Math.round((completedTasks.length / teamSyncTasks.length) * 100) : 0
+        },
+        monthly_progress: getMonthlyProgress(), // This function needs to be updated to use the new task parsing
+        daily_report: {
+            completed_today: [...completedTasks.slice(-3), ...dailyBootTasks.filter(task => task.status === 'Completed')],
+            in_progress_today: [...inProgressTasks, ...dailyBootTasks.filter(task => task.status === 'In Progress')],
+            next_today: [...dailyBootTasks.filter(task => task.status === 'Pending'), ...nextTasks.slice(0, 3)]
+        },
+        weekly_report: {
+            completed_this_week: teamSyncTasks.filter(task => {
+                const taskDate = new Date(task.date);
+                const sevenDaysAgo = new Date();
+                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                return task.status === 'Completed' && taskDate >= sevenDaysAgo;
+            }),
+            in_progress_this_week: inProgressTasks, // All in-progress are current
+            upcoming_this_week: nextTasks.slice(0, 5) // Top 5 upcoming from monthly plan
+        },
+        all_tasks: teamSyncTasks, // For a comprehensive list if needed
         summary: {
             overall_status: systemHealth.status === 'operational' && pendingFixes.critical === 0 ? 'healthy' : 'needs_attention',
             priority_alerts: [],
             quick_stats: {
                 system_uptime: `${systemHealth.services_operational}/${systemHealth.services_total} services`,
-                monthly_completion: `${monthlyProgress.completion_rate}%`,
+                monthly_completion: `${getMonthlyProgress().completion_rate}%`,
                 pending_fixes: pendingFixes.pending,
-                team_velocity: teamActivity.recent_activity_count
+                team_velocity: teamSyncTasks.filter(task => {
+                    const taskDate = new Date(task.date);
+                    const sevenDaysAgo = new Date();
+                    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                    return taskDate >= sevenDaysAgo;
+                }).length // Re-calculate recent activity based on all tasks
             }
         }
     };
@@ -244,15 +299,50 @@ function generateDashboardData() {
         });
     }
 
-    if (!monthlyProgress.on_track) {
+    if (!dashboardData.monthly_progress.on_track) {
         dashboardData.summary.priority_alerts.push({
             type: 'info',
-            message: `الخطة الشهرية متأخرة - ${monthlyProgress.completion_rate}% مكتمل`,
+            message: `الخطة الشهرية متأخرة - ${dashboardData.monthly_progress.completion_rate}% مكتمل`,
             source: 'monthly_progress'
         });
     }
 
     return dashboardData;
+}
+
+function getMonthlyProgress() {
+    const progress = readJsonFile(MONTHLY_PROGRESS_PATH);
+    const teamSyncTasks = parseTeamSync();
+
+    const totalTasks = progress.total_tasks || teamSyncTasks.length || 0;
+    const completedTasks = teamSyncTasks.filter(task => 
+        task.status.includes('Completed') || task.status.includes('مكتمل') || task.status.includes('✅')
+    ).length;
+    const inProgressTasks = teamSyncTasks.filter(task => 
+        task.status.includes('In Progress') || task.status.includes('قيد التنفيذ') || task.status.includes('🚧')
+    ).length;
+    const pendingTasks = Math.max(0, totalTasks - completedTasks - inProgressTasks);
+    
+    const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    const now = new Date();
+    const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    const daysRemaining = Math.ceil((lastDayOfMonth - now) / (1000 * 60 * 60 * 24));
+    
+    const expectedProgress = Math.round(((30 - daysRemaining) / 30) * 100);
+    const onTrack = completionRate >= (expectedProgress - 10);
+
+    return {
+        total_tasks: totalTasks,
+        completed_tasks: completedTasks,
+        in_progress_tasks: inProgressTasks,
+        pending_tasks: pendingTasks,
+        completion_rate: completionRate,
+        days_remaining: daysRemaining,
+        on_track: onTrack,
+        expected_progress: expectedProgress,
+        last_updated: progress.last_updated || new Date().toISOString()
+    };
 }
 
 // Main Execution
