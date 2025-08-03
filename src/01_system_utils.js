@@ -17,7 +17,7 @@
  */
 
 defineModule('System.Utils', () => {
-  
+
   /**
    * يسجل رسالة معلوماتية في Logger
    * @param {string} message - الرسالة المراد تسجيلها
@@ -93,7 +93,7 @@ defineModule('System.Utils', () => {
     return executeSafely(() => {
       const ss = SpreadsheetApp.getActiveSpreadsheet();
       let sheet = ss.getSheetByName(sheetName);
-      
+
       if (!sheet) {
         sheet = ss.insertSheet(sheetName);
         if (headers.length > 0) {
@@ -101,7 +101,7 @@ defineModule('System.Utils', () => {
         }
         log(`Utils.getSheet: Created new sheet "${sheetName}"`);
       }
-      
+
       return sheet;
     }, [], `getSheet[${sheetName}]`);
   }

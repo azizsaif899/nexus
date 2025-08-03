@@ -16,20 +16,20 @@ defineModule('Utils.SecretManager', ({ Utils, Config }) => {
     async getSecret(name) {
       const cacheKey = `secret_${name}`;
       const cached = this.secretsCache.get(cacheKey);
-      
+
       if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
         return this._decrypt(cached.value);
       }
 
       try {
         const secret = await this._retrieveSecret(name);
-        
+
         // Cache encrypted secret
         this.secretsCache.set(cacheKey, {
           value: this._encrypt(secret),
           timestamp: Date.now()
         });
-        
+
         return secret;
       } catch (error) {
         Utils.error(`Failed to retrieve secret ${name}`, error);
@@ -52,14 +52,14 @@ defineModule('Utils.SecretManager', ({ Utils, Config }) => {
     async setSecret(name, value) {
       try {
         await this._storeSecret(name, value);
-        
+
         // Update cache
         const cacheKey = `secret_${name}`;
         this.secretsCache.set(cacheKey, {
           value: this._encrypt(value),
           timestamp: Date.now()
         });
-        
+
         Utils.log(`Secret ${name} updated successfully`);
         return true;
       } catch (error) {
@@ -72,10 +72,10 @@ defineModule('Utils.SecretManager', ({ Utils, Config }) => {
       try {
         const newSecret = this._generateSecretValue();
         await this.setSecret(name, newSecret);
-        
+
         // Clear from cache to force refresh
         this.secretsCache.delete(`secret_${name}`);
-        
+
         Utils.log(`Secret ${name} rotated successfully`);
         return newSecret;
       } catch (error) {
@@ -103,7 +103,7 @@ defineModule('Utils.SecretManager', ({ Utils, Config }) => {
       try {
         const properties = PropertiesService.getScriptProperties();
         const encryptedSecret = properties.getProperty(`encrypted_${name}`);
-        
+
         if (encryptedSecret) {
           return this._decrypt(encryptedSecret);
         }
@@ -125,13 +125,13 @@ defineModule('Utils.SecretManager', ({ Utils, Config }) => {
         const properties = PropertiesService.getScriptProperties();
         const encryptedValue = this._encrypt(value);
         properties.setProperty(`encrypted_${name}`, encryptedValue);
-        
+
         // Store metadata
         properties.setProperty(`${name}_metadata`, JSON.stringify({
           created: new Date().toISOString(),
           rotated: new Date().toISOString()
         }));
-        
+
         return true;
       } catch (error) {
         Utils.error('Failed to store secret in PropertiesService', error);
@@ -171,12 +171,12 @@ defineModule('Utils.SecretManager', ({ Utils, Config }) => {
       try {
         const properties = PropertiesService.getScriptProperties();
         let key = properties.getProperty('encryption_key');
-        
+
         if (!key) {
           key = this._generateRandomString(32);
           properties.setProperty('encryption_key', key);
         }
-        
+
         return key;
       } catch (error) {
         // Fallback key for testing

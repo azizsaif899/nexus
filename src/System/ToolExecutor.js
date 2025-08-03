@@ -1,7 +1,7 @@
 /**
  * ToolExecutor - منفذ الأدوات المركزي لجميع الوكلاء الذكيون
  * يوحد منطق تنفيذ Function Calling ويمنع التكرار
- * 
+ *
  * @module System.ToolExecutor
  * @requires System.ErrorLogger
  * @requires System.PerformanceProfiler
@@ -13,7 +13,7 @@ defineModule('System.ToolExecutor', function(injector) {
   const errorLogger = injector.get('System.ErrorLogger');
   const performanceProfiler = injector.get('System.PerformanceProfiler');
   const accessControl = injector.get('System.AccessControl');
-  
+
   // سجل الأدوات المتاحة
   const TOOL_REGISTRY = {
     // أدوات الأوراق
@@ -21,22 +21,22 @@ defineModule('System.ToolExecutor', function(injector) {
     'sheets.write': 'System.ToolsSheets.batchWrite',
     'sheets.create': 'System.ToolsSheets.createSheetFromTemplate',
     'sheets.analyze': 'System.ToolsSheets.summarizeActiveSheetWithGemini',
-    
+
     // أدوات مالية
     'finance.pnl': 'System.AI.Agents.CFO.runMonthlyPNL',
     'finance.trends': 'System.AI.Agents.CFO.analyzeFinancialTrends',
     'finance.calculate': 'System.Tools.Accounting.calculateGrossProfit',
-    
+
     // أدوات التطوير
     'dev.review': 'System.Tools.CodeReview.analyzeCode',
     'dev.generate': 'System.Tools.Developer.generateCode',
     'dev.test': 'System.Tools.Developer.runTests',
-    
+
     // أدوات عامة
     'data.analyze': 'System.Tools.DataAnalysis.performAnalysis',
     'report.generate': 'System.Tools.Reporting.createReport'
   };
-  
+
   return {
     /**
      * تنفيذ استدعاءات الأدوات من استجابة Gemini
@@ -48,40 +48,40 @@ defineModule('System.ToolExecutor', function(injector) {
      */
     async executeToolCalls(toolCallsResponse, agentId, context = {}) {
       const timerId = performanceProfiler.startTimer('execute_tool_calls');
-      
+
       try {
         // التحقق من صحة الاستجابة
         if (!this._validateToolCallsResponse(toolCallsResponse)) {
           throw new Error('Invalid tool_calls response format');
         }
-        
+
         const results = [];
         const toolCalls = this._extractToolCalls(toolCallsResponse);
-        
+
         // تنفيذ كل أداة
         for (const toolCall of toolCalls) {
           const toolResult = await this._executeSingleTool(toolCall, agentId, context);
           results.push(toolResult);
         }
-        
+
         performanceProfiler.endTimer(timerId);
-        
+
         // تسجيل العملية
         this._logToolExecution(agentId, toolCalls, results, context);
-        
+
         return {
           success: true,
           results: results,
           executedTools: toolCalls.length,
           agentId: agentId
         };
-        
+
       } catch (error) {
         performanceProfiler.endTimer(timerId);
-        errorLogger.logError(error, { 
-          operation: 'execute_tool_calls', 
-          agentId, 
-          context 
+        errorLogger.logError(error, {
+          operation: 'execute_tool_calls',
+          agentId,
+          context
         });
         throw error;
       }
@@ -98,40 +98,40 @@ defineModule('System.ToolExecutor', function(injector) {
     async _executeSingleTool(toolCall, agentId, context) {
       const { name, parameters } = toolCall;
       const toolTimerId = performanceProfiler.startTimer(`tool_${name}`);
-      
+
       try {
         // التحقق من وجود الأداة
         if (!TOOL_REGISTRY[name]) {
           throw new Error(`Unknown tool: ${name}`);
         }
-        
+
         // التحقق من الصلاحيات
         const requiredPermission = this._getRequiredPermission(name);
         if (requiredPermission) {
           accessControl.checkPermission(requiredPermission, `execute_tool_${name}`);
         }
-        
+
         // الحصول على الدالة
         const toolFunction = this._getToolFunction(TOOL_REGISTRY[name]);
         if (!toolFunction) {
           throw new Error(`Tool function not found: ${TOOL_REGISTRY[name]}`);
         }
-        
+
         // تنفيذ الأداة
         const result = await this._safeExecuteFunction(toolFunction, parameters, name);
-        
+
         performanceProfiler.endTimer(toolTimerId);
-        
+
         return {
           toolName: name,
           success: true,
           result: result,
           executionTime: Date.now() - toolTimerId
         };
-        
+
       } catch (error) {
         performanceProfiler.endTimer(toolTimerId);
-        
+
         return {
           toolName: name,
           success: false,
@@ -155,16 +155,16 @@ defineModule('System.ToolExecutor', function(injector) {
         const timeoutPromise = new Promise((_, reject) => {
           setTimeout(() => reject(new Error('Tool execution timeout')), 30000);
         });
-        
+
         const executionPromise = Promise.resolve(func(params));
-        
+
         return await Promise.race([executionPromise, timeoutPromise]);
-        
+
       } catch (error) {
-        errorLogger.logError(error, { 
-          operation: 'safe_execute_function', 
-          toolName, 
-          params 
+        errorLogger.logError(error, {
+          operation: 'safe_execute_function',
+          toolName,
+          params
         });
         throw new Error(`Tool execution failed: ${error.message}`);
       }
@@ -177,10 +177,10 @@ defineModule('System.ToolExecutor', function(injector) {
      * @returns {boolean} صحيحة أم لا
      */
     _validateToolCallsResponse(response) {
-      return response && 
-             response.candidates && 
-             response.candidates[0] && 
-             response.candidates[0].content && 
+      return response &&
+             response.candidates &&
+             response.candidates[0] &&
+             response.candidates[0].content &&
              response.candidates[0].content.parts;
     },
 
@@ -193,7 +193,7 @@ defineModule('System.ToolExecutor', function(injector) {
     _extractToolCalls(response) {
       const parts = response.candidates[0].content.parts;
       const toolCalls = [];
-      
+
       parts.forEach(part => {
         if (part.functionCall) {
           toolCalls.push({
@@ -202,7 +202,7 @@ defineModule('System.ToolExecutor', function(injector) {
           });
         }
       });
-      
+
       return toolCalls;
     },
 
@@ -216,12 +216,12 @@ defineModule('System.ToolExecutor', function(injector) {
       try {
         const parts = path.split('.');
         let obj = GAssistant;
-        
+
         for (const part of parts) {
           obj = obj[part];
           if (!obj) return null;
         }
-        
+
         return typeof obj === 'function' ? obj : null;
       } catch (error) {
         return null;
@@ -241,13 +241,13 @@ defineModule('System.ToolExecutor', function(injector) {
         'sheets.write': 'ANALYST',
         'sheets.create': 'ANALYST'
       };
-      
+
       for (const [prefix, permission] of Object.entries(permissionMap)) {
         if (toolName.startsWith(prefix)) {
           return permission;
         }
       }
-      
+
       return 'VIEWER'; // الحد الأدنى للصلاحيات
     },
 
@@ -269,19 +269,19 @@ defineModule('System.ToolExecutor', function(injector) {
         tools: toolCalls.map(tc => tc.name),
         context: context
       };
-      
+
       // حفظ في سجل العمليات
       try {
         const sheet = SpreadsheetApp.getActiveSpreadsheet()
-          .getSheetByName('Tool_Execution_Log') || 
+          .getSheetByName('Tool_Execution_Log') ||
           SpreadsheetApp.getActiveSpreadsheet().insertSheet('Tool_Execution_Log');
-        
+
         if (sheet.getLastRow() === 0) {
           sheet.getRange(1, 1, 1, 7).setValues([[
             'Timestamp', 'Agent', 'Tools Count', 'Success', 'Failures', 'Tools', 'Context'
           ]]);
         }
-        
+
         sheet.appendRow([
           logData.timestamp,
           logData.agentId,
@@ -291,7 +291,7 @@ defineModule('System.ToolExecutor', function(injector) {
           logData.tools.join(', '),
           JSON.stringify(logData.context)
         ]);
-        
+
       } catch (error) {
         console.error('Failed to log tool execution:', error);
       }

@@ -4,7 +4,7 @@
  */
 
 defineModule('System.AdvancedSecurity', ({ Utils, Config }) => {
-  
+
   class AdvancedSecurity {
     constructor() {
       this.securityLayers = {
@@ -14,7 +14,7 @@ defineModule('System.AdvancedSecurity', ({ Utils, Config }) => {
         dataEncryption: new DataEncryption(),
         accessControl: new AccessControl()
       };
-      
+
       this.threatDatabase = new Map();
       this.securityEvents = [];
       this.securityMetrics = {
@@ -23,7 +23,7 @@ defineModule('System.AdvancedSecurity', ({ Utils, Config }) => {
         failedLogins: 0,
         suspiciousActivities: 0
       };
-      
+
       this.isActive = false;
     }
 
@@ -186,7 +186,7 @@ defineModule('System.AdvancedSecurity', ({ Utils, Config }) => {
       );
 
       const patterns = this.detectSuspiciousPatterns(recentEvents);
-      
+
       patterns.forEach(pattern => {
         this.logSecurityEvent('pattern_detected', {
           pattern: pattern.type,
@@ -381,7 +381,7 @@ defineModule('System.AdvancedSecurity', ({ Utils, Config }) => {
 
     extractSuspiciousIPs() {
       const ipCounts = new Map();
-      
+
       this.securityEvents
         .filter(e => Date.now() - e.timestamp < 3600000)
         .forEach(event => {
@@ -493,7 +493,7 @@ defineModule('System.AdvancedSecurity', ({ Utils, Config }) => {
       }
 
       const suspicious = count > this.threshold;
-      
+
       return {
         suspicious,
         severity: suspicious ? 'high' : 'low',
@@ -553,7 +553,7 @@ defineModule('System.AdvancedSecurity', ({ Utils, Config }) => {
       if (dataContext !== context) {
         throw new Error('سياق التشفير غير صحيح');
       }
-      
+
       const decrypted = Buffer.from(encrypted, 'base64').toString();
       return JSON.parse(decrypted);
     }

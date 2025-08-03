@@ -1,9 +1,9 @@
 defineModule('System.AI.Agents.RoleManager', ({ Utils, Config, DocsManager, AI }) => {
   const MODULE_VERSION = '1.0.0';
-  
+
   const ROLES = {
     ADMIN: 'المساعد الإداري',
-    PROGRAMMER: 'المبرمج', 
+    PROGRAMMER: 'المبرمج',
     DATABASE: 'مدير قاعدة البيانات',
     FINANCIAL: 'المحلل المالي',
     OPERATIONS: 'مدير العمليات'

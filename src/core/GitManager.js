@@ -3,7 +3,7 @@
  * Centralized Git Manager for coordinated pushes
  */
 defineModule('System.Core.GitManager', ({ ChangeSyncAgent, Utils, Config }) => {
-  
+
   return {
     /**
      * رفع تغييرات مساعد محدد
@@ -17,11 +17,11 @@ defineModule('System.Core.GitManager', ({ ChangeSyncAgent, Utils, Config }) => {
         }
 
         // تسجيل التغييرات
-        const changeIds = changes.map(change => 
+        const changeIds = changes.map(change =>
           ChangeSyncAgent.registerChange(
-            assistant, 
-            change.type, 
-            change.files, 
+            assistant,
+            change.type,
+            change.files,
             change.description
           )
         );
@@ -52,7 +52,7 @@ defineModule('System.Core.GitManager', ({ ChangeSyncAgent, Utils, Config }) => {
      */
     checkForConflicts(newChanges) {
       const conflicts = [];
-      
+
       newChanges.forEach(change => {
         const changeConflicts = ChangeSyncAgent.checkConflicts(change);
         conflicts.push(...changeConflicts);
@@ -101,10 +101,10 @@ defineModule('System.Core.GitManager', ({ ChangeSyncAgent, Utils, Config }) => {
       try {
         // سحب آخر التحديثات
         await Utils.executeCommand('git pull origin master');
-        
+
         // فحص الحالة
         const status = await Utils.executeCommand('git status --porcelain');
-        
+
         return {
           success: true,
           hasChanges: status.trim().length > 0,
@@ -125,7 +125,7 @@ defineModule('System.Core.GitManager', ({ ChangeSyncAgent, Utils, Config }) => {
      */
     async createAssistantBranch(assistant, feature) {
       const branchName = `${assistant}/${feature}-${Date.now()}`;
-      
+
       try {
         await Utils.executeCommand(`git checkout -b ${branchName}`);
         return { success: true, branch: branchName };
@@ -141,13 +141,13 @@ defineModule('System.Core.GitManager', ({ ChangeSyncAgent, Utils, Config }) => {
       try {
         // التبديل للفرع الرئيسي
         await Utils.executeCommand('git checkout master');
-        
+
         // دمج الفرع
         await Utils.executeCommand(`git merge ${branchName}`);
-        
+
         // حذف الفرع
         await Utils.executeCommand(`git branch -d ${branchName}`);
-        
+
         // رفع التغييرات
         await Utils.executeCommand('git push origin master');
 

@@ -5,22 +5,22 @@
 module.exports = {
   // بيئة الاختبار
   testEnvironment: 'node',
-  
+
   // مجلدات الاختبارات
   testMatch: [
     '**/tests/**/*.test.js',
     '**/src/**/*.test.js',
     '**/__tests__/**/*.js'
   ],
-  
+
   // ملفات الإعداد
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
-  
+
   // تغطية الكود
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
-  
+
   // ملفات تغطية الكود
   collectCoverageFrom: [
     'src/**/*.js',
@@ -31,7 +31,7 @@ module.exports = {
     '!archive_*/**',
     '!backup_*/**'
   ],
-  
+
   // حد أدنى لتغطية الكود
   coverageThreshold: {
     global: {
@@ -41,7 +41,7 @@ module.exports = {
       statements: 80
     }
   },
-  
+
   // متغيرات عامة للاختبارات
   globals: {
     'SpreadsheetApp': {},
@@ -52,12 +52,12 @@ module.exports = {
     'defineModule': jest.fn(),
     'GAssistant': {}
   },
-  
+
   // تحويل الملفات
   transform: {
     '^.+\\.js$': 'babel-jest'
   },
-  
+
   // تجاهل ملفات معينة
   testPathIgnorePatterns: [
     '/node_modules/',
@@ -65,22 +65,22 @@ module.exports = {
     '/backup_.*/',
     '/documentation/'
   ],
-  
+
   // إعدادات المهلة الزمنية
   testTimeout: 10000,
-  
+
   // تقارير مفصلة
   verbose: true,
-  
+
   // إعادة تشغيل الاختبارات عند فشلها
   bail: false,
-  
+
   // تشغيل الاختبارات بالتوازي
   maxWorkers: '50%',
-  
+
   // إعدادات إضافية للتشخيص
   errorOnDeprecated: true,
-  
+
   // تقارير مخصصة
   reporters: [
     'default',

@@ -1,7 +1,7 @@
 // اختبارات وحدوية محسنة للوكلاء الذكيين
 function testAgentModules() {
   const tests = [];
-  
+
   // اختبار وحدة CFO Agent
   tests.push({
     name: 'CFO Agent Module',
@@ -61,7 +61,7 @@ function testCustomFunctions() {
     if (typeof GEMINI === 'undefined') {
       throw new Error('GEMINI function not defined globally');
     }
-    
+
     console.log('✅ Custom Functions: PASSED');
     return true;
   } catch (e) {
@@ -73,18 +73,18 @@ function testCustomFunctions() {
 // تشغيل جميع الاختبارات
 function runAllAgentTests() {
   console.log('🧪 Starting Agent Module Tests...\n');
-  
+
   const agentResults = testAgentModules();
   const functionsResult = testCustomFunctions();
-  
+
   console.log('\n📊 Test Summary:');
   console.log(`Agent Modules: ${agentResults.passed}/${agentResults.total} passed`);
   console.log(`Custom Functions: ${functionsResult ? 'PASSED' : 'FAILED'}`);
-  
+
   const totalPassed = agentResults.passed + (functionsResult ? 1 : 0);
   const totalTests = agentResults.total + 1;
-  
+
   console.log(`\n🎯 Overall: ${totalPassed}/${totalTests} tests passed`);
-  
+
   return totalPassed === totalTests;
 }

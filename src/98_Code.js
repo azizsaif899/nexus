@@ -18,14 +18,14 @@
 defineModule('System.Code', ({ Config, UI, AI, Tools, Tests, Utils, Dispatcher, Memory }) => {
   function doGet(e) {
     if (!Utils?.log) {
-      console.error("❌ Utils module not available in doGet.");
-      return HtmlService.createHtmlOutput("⚠️ النظام لم يُحمّل بعد.").setTitle("G-Assistant");
+      console.error('❌ Utils module not available in doGet.');
+      return HtmlService.createHtmlOutput('⚠️ النظام لم يُحمّل بعد.').setTitle('G-Assistant');
     }
 
     Utils.log('Web App: doGet', { params: e.parameter });
 
     if (!Config?.get) {
-      return HtmlService.createHtmlOutput("⚠️ لم يتم تحميل إعدادات المشروع.").setTitle("G-Assistant");
+      return HtmlService.createHtmlOutput('⚠️ لم يتم تحميل إعدادات المشروع.').setTitle('G-Assistant');
     }
 
     return HtmlService
@@ -36,7 +36,7 @@ defineModule('System.Code', ({ Config, UI, AI, Tools, Tests, Utils, Dispatcher, 
 
   function doPost(e) {
     if (!Utils?.log || !Utils?.error || !Utils?.getFunctionByPath) {
-      console.error("❌ Utils module not available in doPost.");
+      console.error('❌ Utils module not available in doPost.');
       return _createJsonResponse({ error: 'Utils module not loaded.' }, 500);
     }
 
@@ -76,7 +76,7 @@ defineModule('System.Code', ({ Config, UI, AI, Tools, Tests, Utils, Dispatcher, 
   function onOpen() {
     if (typeof SpreadsheetApp.getUi !== 'function') return;
     if (!UI?.onOpen) {
-      SpreadsheetApp.getUi().alert("⚠️ واجهة المستخدم غير جاهزة بعد.");
+      SpreadsheetApp.getUi().alert('⚠️ واجهة المستخدم غير جاهزة بعد.');
       return;
     }
     UI.onOpen();

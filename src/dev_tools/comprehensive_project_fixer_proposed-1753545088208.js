@@ -36,10 +36,10 @@ class ComprehensiveProjectFixer {
 
     // 1. إنشاء DependencyGuardian
     await this.createDependencyGuardian();
-    
+
     // 2. تفعيل STRICT_DEPENDENCY_MODE
     await this.enableStrictDependencyMode();
-    
+
     // 3. إصلاح Security functions
     await this.fixSecurityFunctions();
   }
@@ -145,14 +145,14 @@ export default DependencyGuardian;
     try {
       const configPath = 'src/Config.js';
       let content = await fs.readFile(configPath, 'utf8');
-      
+
       // إضافة STRICT_DEPENDENCY_MODE
       if (!content.includes('STRICT_DEPENDENCY_MODE')) {
         content = content.replace(
           'const CONFIG_SHEET_NAME',
           'const STRICT_DEPENDENCY_MODE = true;\nconst CONFIG_SHEET_NAME'
         );
-        
+
         await fs.writeFile(configPath, content, 'utf8');
         this.results.phase1.completed.push('✅ STRICT_DEPENDENCY_MODE تم تفعيله');
       }
@@ -748,11 +748,11 @@ export default DependencyValidation;
     phases.forEach(phase => {
       const result = this.results[phase.key];
       console.log(`\\n${phase.name}:`);
-      
+
       if (result.completed.length > 0) {
         result.completed.forEach(item => console.log(`  ${item}`));
       }
-      
+
       if (result.errors.length > 0) {
         result.errors.forEach(item => console.log(`  ${item}`));
       }
@@ -761,11 +761,11 @@ export default DependencyValidation;
       totalErrors += result.errors.length;
     });
 
-    console.log(`\\n📈 الإحصائيات النهائية:`);
+    console.log('\\n📈 الإحصائيات النهائية:');
     console.log(`  - المهام المكتملة: ${totalCompleted}`);
     console.log(`  - الأخطاء: ${totalErrors}`);
     console.log(`  - نسبة النجاح: ${Math.round((totalCompleted / (totalCompleted + totalErrors)) * 100)}%`);
-    
+
     console.log('\\n🎉 تم تنفيذ الخطة الشاملة!');
   }
 }

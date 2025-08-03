@@ -4,7 +4,7 @@
  */
 
 defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
-  
+
   class ReliabilityManager {
     constructor() {
       this.uptimeTarget = 0.999; // 99.9%
@@ -13,7 +13,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
       this.recoveryStrategies = new Map();
       this.systemComponents = new Map();
       this.isMonitoring = false;
-      
+
       this.metrics = {
         uptime: 0,
         totalDowntime: 0,
@@ -105,7 +105,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
 
         } catch (error) {
           Logger.error(`Health check failed for ${name}:`, error);
-          
+
           const result = {
             healthy: false,
             responseTime: 0,
@@ -115,7 +115,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
 
           results.set(name, result);
           componentInfo.status = 'error';
-          
+
           await this.handleComponentFailure(name, componentInfo, result);
         }
       }
@@ -161,7 +161,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
      */
     async attemptRecovery(componentName, componentInfo, failure) {
       const strategy = this.recoveryStrategies.get(componentName);
-      
+
       if (!strategy) {
         Logger.warn(`لا توجد استراتيجية استرداد لـ: ${componentName}`);
         return false;
@@ -169,16 +169,16 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
 
       try {
         Logger.log(`🔧 محاولة استرداد المكون: ${componentName}`);
-        
+
         failure.recoveryAttempted = true;
         const recoveryResult = await strategy.recover(componentInfo.component, failure);
 
         if (recoveryResult.success) {
           failure.recovered = true;
           this.metrics.recoveryCount++;
-          
+
           Logger.log(`✅ تم استرداد المكون بنجاح: ${componentName}`);
-          
+
           // فحص للتأكد من الاسترداد
           const verificationResult = await componentInfo.healthCheck();
           if (verificationResult.healthy) {
@@ -202,7 +202,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
 
       const now = Date.now();
       const totalTime = now - this.systemStartTime;
-      
+
       // حساب إجمالي وقت التوقف
       const totalDowntime = this.calculateTotalDowntime();
       const uptime = (totalTime - totalDowntime) / totalTime;
@@ -238,23 +238,23 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
     updateSystemHealth() {
       const healthyComponents = Array.from(this.systemComponents.values())
         .filter(comp => comp.status === 'healthy').length;
-      
+
       const totalComponents = this.systemComponents.size;
-      
+
       if (totalComponents === 0) {
         this.metrics.systemHealth = 100;
         return;
       }
 
       const baseHealth = (healthyComponents / totalComponents) * 100;
-      
+
       // تقليل الصحة بناءً على الأعطال الأخيرة
       const recentFailures = this.failureHistory.filter(
         f => Date.now() - f.timestamp < 3600000
       ).length;
 
       const healthPenalty = Math.min(recentFailures * 5, 30);
-      
+
       this.metrics.systemHealth = Math.max(baseHealth - healthPenalty, 0);
     }
 
@@ -284,7 +284,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
      */
     getComponentsStatus() {
       const status = {};
-      
+
       this.systemComponents.forEach((info, name) => {
         status[name] = {
           status: info.status,
@@ -303,7 +303,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
      */
     getRecentFailures() {
       const oneHourAgo = Date.now() - (60 * 60 * 1000);
-      
+
       return this.failureHistory
         .filter(failure => failure.timestamp > oneHourAgo)
         .sort((a, b) => b.timestamp - a.timestamp);
@@ -314,7 +314,7 @@ defineModule('System.ReliabilityManager', ({ Utils, Config }) => {
      */
     calculateRecoveryRate() {
       if (this.metrics.failureCount === 0) return 1;
-      
+
       return this.metrics.recoveryCount / this.metrics.failureCount;
     }
 

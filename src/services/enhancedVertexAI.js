@@ -3,7 +3,7 @@
  * Status: 🟡 Beta
  */
 defineModule('Services.EnhancedVertexAI', function(injector) {
-  
+
   const PROJECT_ID = PropertiesService.getScriptProperties().getProperty('GCP_PROJECT_ID');
   const LOCATION = 'us-central1';
 
@@ -15,7 +15,7 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
       try {
         const modelId = analysisConfig.modelId || 'gemini-pro';
         const prompt = this.buildStructuredAnalysisPrompt(structuredData, analysisConfig);
-        
+
         const response = await this.callFineTunedModel(modelId, prompt, {
           temperature: analysisConfig.temperature || 0.1,
           maxTokens: analysisConfig.maxTokens || 2048,
@@ -34,22 +34,22 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
      * بناء مطالبة تحليل البيانات المنظمة
      */
     buildStructuredAnalysisPrompt(structuredData, config) {
-      let prompt = `تحليل البيانات المستخرجة من المستند:\n\n`;
+      let prompt = 'تحليل البيانات المستخرجة من المستند:\n\n';
 
       // إضافة الجداول بتنسيق JSON
       if (structuredData.tables && structuredData.tables.length > 0) {
-        prompt += `البيانات الجدولية (JSON):\n`;
+        prompt += 'البيانات الجدولية (JSON):\n';
         prompt += JSON.stringify(structuredData.tables, null, 2);
-        prompt += `\n\n`;
+        prompt += '\n\n';
       }
 
       // إضافة الكيانات
       if (structuredData.entities && structuredData.entities.length > 0) {
-        prompt += `الكيانات المستخرجة:\n`;
+        prompt += 'الكيانات المستخرجة:\n';
         structuredData.entities.forEach(entity => {
           prompt += `- ${entity.type}: "${entity.text}" (ثقة: ${entity.confidence})\n`;
         });
-        prompt += `\n`;
+        prompt += '\n';
       }
 
       // إضافة تعليمات التحليل المخصصة
@@ -57,7 +57,7 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
 
       // إضافة JSON Schema للإخراج المنظم
       if (config.useJsonSchema) {
-        prompt += `\n\nأرجع النتيجة بتنسيق JSON التالي:\n`;
+        prompt += '\n\nأرجع النتيجة بتنسيق JSON التالي:\n';
         prompt += JSON.stringify(this.getOutputSchema(config.analysisType), null, 2);
       }
 
@@ -95,20 +95,20 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
      */
     getOutputSchema(analysisType) {
       const baseSchema = {
-        summary: "string",
-        keyPoints: ["string"],
-        recommendations: ["string"]
+        summary: 'string',
+        keyPoints: ['string'],
+        recommendations: ['string']
       };
 
       if (analysisType === 'financial') {
         return {
           ...baseSchema,
           financialMetrics: {
-            totals: "object",
-            averages: "object",
-            ratios: "object"
+            totals: 'object',
+            averages: 'object',
+            ratios: 'object'
           },
-          trends: ["string"]
+          trends: ['string']
         };
       }
 
@@ -122,7 +122,7 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
       try {
         const accessToken = this.getAccessToken();
         const endpoint = `https://${LOCATION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/tuningJobs`;
-        
+
         const payload = {
           baseModel: baseModel,
           tuningTask: {
@@ -173,7 +173,7 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
     createValidationDataset(allData, validationRatio = 0.2) {
       const shuffled = [...allData].sort(() => 0.5 - Math.random());
       const splitIndex = Math.floor(shuffled.length * (1 - validationRatio));
-      
+
       return {
         training: shuffled.slice(0, splitIndex),
         validation: shuffled.slice(splitIndex)
@@ -186,7 +186,7 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
     async monitorTrainingProgress(jobName) {
       try {
         const status = await this.getTuningJobStatus(jobName);
-        
+
         const metrics = {
           state: status.state,
           progress: this.calculateProgress(status),
@@ -229,13 +229,13 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
         const elapsed = now - startTime;
         const estimatedTotal = 3600000; // ساعة واحدة
         const remaining = estimatedTotal - elapsed;
-        
+
         if (remaining > 0) {
           const completionTime = new Date(now.getTime() + remaining);
           return completionTime.toISOString();
         }
       }
-      
+
       return null;
     },
 
@@ -251,7 +251,7 @@ defineModule('Services.EnhancedVertexAI', function(injector) {
             return JSON.parse(jsonMatch[0]);
           }
         }
-        
+
         // إرجاع النص مع معالجة أساسية
         return {
           analysis: response.content,

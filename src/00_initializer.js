@@ -19,7 +19,7 @@
   // --- المرحلة الثانية: الربط والتنفيذ ---
   function buildAndInitializeModules() {
     const injector = global.GAssistant.Utils.Injector;
-    if (!injector) throw new Error("Injector is missing.");
+    if (!injector) throw new Error('Injector is missing.');
 
     const factories = injector._moduleFactories;
     const moduleNames = Object.keys(factories);
@@ -30,14 +30,14 @@
       if (!factories[name]) {
         // قد تكون وحدة أساسية مثل System.Utils تم بناؤها بالفعل
         if (name === 'System.Utils') {
-           builtModules.add(name);
-           return;
+          builtModules.add(name);
+          return;
         }
         throw new Error(`Module factory not found for "${name}".`);
       }
 
       const factory = factories[name];
-      
+
       // استخراج التبعيات من الدالة المصنعية
       const fnStr = factory.toString();
       const argsMatch = fnStr.match(/^(?:function|\()?\s*\(?([^)]*)\)?\s*=>|function[^(]*\(([^)]*)\)/);
@@ -136,7 +136,7 @@
     } catch (e) {
       const errorMessage = `CRITICAL FAILURE: G-Assistant could not be initialized. ${e.stack || e.message}`;
       console.error(errorMessage);
-      
+
       // في حالة الفشل الكارثي، أظهر تنبيهًا للمستخدم
       try {
         SpreadsheetApp.getUi().alert('فشل حرج في تهيئة النظام. يرجى مراجعة السجلات.');
@@ -151,7 +151,7 @@
   function runSystemDoctor() {
     console.log('🩺 G-Assistant System Doctor v3.0 - Comprehensive Analysis');
     console.log('=' .repeat(60));
-    
+
     const report = { timestamp: new Date().toISOString(), overall: 'UNKNOWN', checks: {} };
 
     // 1. Core System Check
@@ -160,7 +160,7 @@
     const hasDefineModule = typeof global.defineModule === 'function';
     const hasBuildFunction = typeof global.GAssistant?.Utils?.Injector?.buildAllModules === 'function';
     const coreHealthy = hasInjector && hasDefineModule && hasBuildFunction;
-    
+
     report.checks.core = { healthy: coreHealthy, hasInjector, hasDefineModule, hasBuildFunction };
     console.log(`Status: ${coreHealthy ? '✅ HEALTHY' : '❌ CRITICAL'}`);
     console.log(`Details: ${coreHealthy ? 'Core system components present' : 'Missing core - check 00_utils.js'}`);
@@ -179,7 +179,7 @@
     const valid = exports.filter(name => !injector._moduleExports[name]?._isFallback);
     const fallbacks = exports.filter(name => injector._moduleExports[name]?._isFallback);
     const failed = factories.filter(name => !exports.includes(name));
-    
+
     report.checks.modules = { total: factories.length, valid, fallbacks, failed };
     console.log(`Total: ${factories.length} | Valid: ${valid.length} | Fallbacks: ${fallbacks.length} | Failed: ${failed.length}`);
     if (valid.length > 0) console.log(`✅ Valid: ${valid.join(', ')}`);
@@ -189,7 +189,7 @@
     // 3. Overall Status
     const criticalIssues = failed.length;
     const warnings = fallbacks.length;
-    
+
     if (criticalIssues > 0) {
       report.overall = 'CRITICAL';
     } else if (warnings > 0) {
@@ -210,7 +210,7 @@
   global.initializeGAssistantSystem = initializeSystem;
   global.runSystemDoctor = runSystemDoctor;
   global.systemDoctor = runSystemDoctor; // Alias for easier access
-  
+
   // System Doctor v3.5 Integration
   try {
     const doctorPath = './system_doctor_final.cjs';
@@ -222,7 +222,7 @@
   } catch (e) {
     Logger.log('⚠️ System Doctor v3.5 not available:', e.message);
   }
-  
+
   initializeSystem();
 
 })(this);

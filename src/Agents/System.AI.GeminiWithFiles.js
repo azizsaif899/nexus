@@ -5,7 +5,7 @@ defineModule('System.AI.GeminiWithFiles', ({ Utils, Config }) => {
     try {
       const file = DriveApp.getFileById(fileId);
       const blob = file.getBlob();
-      
+
       // تحويل الملف إلى base64
       const base64Data = Utilities.base64Encode(blob.getBytes());
       const mimeType = blob.getContentType();
@@ -41,7 +41,7 @@ defineModule('System.AI.GeminiWithFiles', ({ Utils, Config }) => {
   }
 
   function extractTableFromImage(fileId) {
-    const prompt = `استخرج الجدول من هذه الصورة وأرجعه بتنسيق CSV مع العناوين`;
+    const prompt = 'استخرج الجدول من هذه الصورة وأرجعه بتنسيق CSV مع العناوين';
     return analyzeFileFromDrive(fileId, prompt);
   }
 
@@ -58,23 +58,23 @@ defineModule('System.AI.GeminiWithFiles', ({ Utils, Config }) => {
 
   function processMultipleFiles(fileIds, analysisType = 'summary') {
     const results = [];
-    
+
     fileIds.forEach(fileId => {
       let result;
       switch (analysisType) {
-        case 'summary':
-          result = summarizeDocument(fileId);
-          break;
-        case 'financial':
-          result = analyzeFinancialDocument(fileId);
-          break;
-        case 'table':
-          result = extractTableFromImage(fileId);
-          break;
-        default:
-          result = { type: 'error', text: 'نوع تحليل غير مدعوم' };
+      case 'summary':
+        result = summarizeDocument(fileId);
+        break;
+      case 'financial':
+        result = analyzeFinancialDocument(fileId);
+        break;
+      case 'table':
+        result = extractTableFromImage(fileId);
+        break;
+      default:
+        result = { type: 'error', text: 'نوع تحليل غير مدعوم' };
       }
-      
+
       results.push({
         fileId,
         fileName: DriveApp.getFileById(fileId).getName(),
@@ -92,7 +92,7 @@ defineModule('System.AI.GeminiWithFiles', ({ Utils, Config }) => {
   function _callGeminiAPI(request) {
     const apiKey = Config.get('GEMINI_API_KEY');
     const model = 'gemini-2.0-flash-exp';
-    
+
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     try {
@@ -103,7 +103,7 @@ defineModule('System.AI.GeminiWithFiles', ({ Utils, Config }) => {
       });
 
       const result = JSON.parse(response.getContentText());
-      
+
       if (result.candidates && result.candidates[0]) {
         return {
           type: 'success',

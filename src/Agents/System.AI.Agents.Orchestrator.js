@@ -4,7 +4,7 @@ defineModule('System.AI.Agents.Orchestrator', ({ Utils, Config, AI, RoleManager 
   function routeRequest({ sessionId, message, intent }) {
     const detectedRole = RoleManager.detectIntentRole(message);
     const rolePrompt = RoleManager.getRolePrompt(detectedRole);
-    
+
     // تحسين الرسالة بناءً على الدور
     const enhancedPrompt = `${rolePrompt}
 
@@ -14,34 +14,34 @@ defineModule('System.AI.Agents.Orchestrator', ({ Utils, Config, AI, RoleManager 
 
     // توجيه للوكيل المناسب
     switch (detectedRole) {
-      case RoleManager.ROLES.FINANCIAL:
-        if (GAssistant?.AI?.Agents?.CFO?.handleRequest) {
-          return GAssistant.AI.Agents.CFO.handleRequest({
-            sessionId,
-            message: enhancedPrompt,
-            intent: { ...intent, role: detectedRole }
-          });
-        }
-        break;
-        
-      case RoleManager.ROLES.PROGRAMMER:
-        if (GAssistant?.AI?.Agents?.Developer?.handleRequest) {
-          return GAssistant.AI.Agents.Developer.handleRequest({
-            sessionId,
-            message: enhancedPrompt,
-            intent: { ...intent, role: detectedRole }
-          });
-        }
-        break;
-        
-      default:
-        // استخدام AI العام مع الدور المحدد
-        if (AI?.Core?.ask) {
-          return AI.Core.ask(enhancedPrompt, {
-            sessionId,
-            generationConfig: { temperature: 0.3, maxOutputTokens: 2000 }
-          });
-        }
+    case RoleManager.ROLES.FINANCIAL:
+      if (GAssistant?.AI?.Agents?.CFO?.handleRequest) {
+        return GAssistant.AI.Agents.CFO.handleRequest({
+          sessionId,
+          message: enhancedPrompt,
+          intent: { ...intent, role: detectedRole }
+        });
+      }
+      break;
+
+    case RoleManager.ROLES.PROGRAMMER:
+      if (GAssistant?.AI?.Agents?.Developer?.handleRequest) {
+        return GAssistant.AI.Agents.Developer.handleRequest({
+          sessionId,
+          message: enhancedPrompt,
+          intent: { ...intent, role: detectedRole }
+        });
+      }
+      break;
+
+    default:
+      // استخدام AI العام مع الدور المحدد
+      if (AI?.Core?.ask) {
+        return AI.Core.ask(enhancedPrompt, {
+          sessionId,
+          generationConfig: { temperature: 0.3, maxOutputTokens: 2000 }
+        });
+      }
     }
 
     return {

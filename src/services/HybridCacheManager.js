@@ -42,10 +42,10 @@ defineModule('Services.HybridCacheManager', ({ Utils, Config }) => {
 
     async set(key, value, options = {}) {
       const ttl = options.ttl || this.remoteTTL;
-      
+
       // Store locally
       this._setLocal(key, value);
-      
+
       // Store remotely (simulate with PropertiesService)
       try {
         const remoteKey = `cache_${key}`;
@@ -54,7 +54,7 @@ defineModule('Services.HybridCacheManager', ({ Utils, Config }) => {
           timestamp: Date.now(),
           ttl
         };
-        
+
         PropertiesService.getScriptProperties()
           .setProperty(remoteKey, JSON.stringify(cacheData));
       } catch (error) {
@@ -92,7 +92,7 @@ defineModule('Services.HybridCacheManager', ({ Utils, Config }) => {
         const remoteKey = `cache_${key}`;
         const cached = PropertiesService.getScriptProperties()
           .getProperty(remoteKey);
-        
+
         if (!cached) return null;
 
         const cacheData = JSON.parse(cached);
@@ -121,10 +121,10 @@ defineModule('Services.HybridCacheManager', ({ Utils, Config }) => {
     async migrateToVectorDB(threshold = 10000) {
       const properties = PropertiesService.getScriptProperties().getProperties();
       const cacheKeys = Object.keys(properties).filter(key => key.startsWith('cache_'));
-      
+
       if (cacheKeys.length > threshold) {
         Utils.log(`Migrating ${cacheKeys.length} items to Vector DB`);
-        
+
         // Simulate migration to vector database
         for (const key of cacheKeys.slice(0, threshold / 2)) {
           try {
@@ -141,11 +141,11 @@ defineModule('Services.HybridCacheManager', ({ Utils, Config }) => {
 
     clearCache() {
       this.localCache.clear();
-      
+
       // Clear remote cache
       const properties = PropertiesService.getScriptProperties().getProperties();
       const cacheKeys = Object.keys(properties).filter(key => key.startsWith('cache_'));
-      
+
       cacheKeys.forEach(key => {
         PropertiesService.getScriptProperties().deleteProperty(key);
       });

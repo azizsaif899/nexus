@@ -12,22 +12,22 @@ defineModule('System.UI', ({ UI, Utils }) => {
    * @description
    * The main UI module responsible for creating menus and managing the overall user interface.
    */
-  
-  
-  
+
+
+
   /**
        * Creates the main 'G-Assistant' menu in the Google Sheets UI.
        * This function is called from the global onOpen trigger.
        */
-      function onOpen() {
-          Utils.executeSafely(() => {
-              SpreadsheetApp.getUi()
-                  .createMenu('G-Assistant')
-                  .addItem('Developer Tools', 'showDeveloperSidebar') // Calls the new global function
-                  .addToUi();
-              Utils.log('System.UI: G-Assistant menu created successfully.');
-          }, 'UI.onOpen');
-      }
+  function onOpen() {
+    Utils.executeSafely(() => {
+      SpreadsheetApp.getUi()
+        .createMenu('G-Assistant')
+        .addItem('Developer Tools', 'showDeveloperSidebar') // Calls the new global function
+        .addToUi();
+      Utils.log('System.UI: G-Assistant menu created successfully.');
+    }, 'UI.onOpen');
+  }
 
   // === التصدير ===
   return {

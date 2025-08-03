@@ -33,7 +33,7 @@ defineModule('Services.VectorStore.InMemory', ({ Utils, Injector }) => {
     async findSimilar(queryVector, options = {}) {
       const startTime = Date.now();
       const opts = this._validateSearchOptions(options);
-      
+
       const results = [];
       for (const [id, vector] of this.vectors) {
         const similarity = this._cosineSimilarity(queryVector, vector.embedding);

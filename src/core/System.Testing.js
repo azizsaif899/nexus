@@ -1,13 +1,13 @@
 defineModule('System.Testing', ({ Utils }) => {
   const MODULE_VERSION = '1.0.0';
-  
+
   const testResults = [];
 
   function createMockUrlFetch(mockResponses) {
     return {
       fetch: function(url, options) {
         const mockResponse = mockResponses[url] || mockResponses['default'];
-        
+
         if (!mockResponse) {
           throw new Error(`No mock response for URL: ${url}`);
         }
@@ -23,7 +23,7 @@ defineModule('System.Testing', ({ Utils }) => {
 
   function runTest(testName, testFunction) {
     const start = Date.now();
-    let result = { name: testName, status: 'PASS', duration: 0, error: null };
+    const result = { name: testName, status: 'PASS', duration: 0, error: null };
 
     try {
       testFunction();
@@ -60,7 +60,7 @@ defineModule('System.Testing', ({ Utils }) => {
 
   function runAllTests() {
     testResults.length = 0; // مسح النتائج السابقة
-    
+
     // اختبار وحدة Config
     runTest('Config.get should return value', () => {
       // Mock test - في التطبيق الفعلي سيتم استخدام القيم الحقيقية
@@ -81,11 +81,11 @@ defineModule('System.Testing', ({ Utils }) => {
           status: 200
         }
       });
-      
+
       // محاكاة استدعاء API
       const response = mockFetch.fetch('https://api.example.com/test');
       const data = JSON.parse(response.getContentText());
-      
+
       assertNotNull(data.candidates, 'Response should have candidates');
       assertEqual(data.candidates[0].content.parts[0].text, 'Test response');
     });
@@ -100,7 +100,7 @@ defineModule('System.Testing', ({ Utils }) => {
 
   function getTestReport() {
     const summary = runAllTests();
-    
+
     const report = {
       summary,
       details: testResults.map(r => ({
@@ -116,7 +116,7 @@ defineModule('System.Testing', ({ Utils }) => {
       const sheet = Utils.getSheet('TestResults', [
         'Test Name', 'Status', 'Duration', 'Error', 'Timestamp'
       ]);
-      
+
       if (sheet) {
         testResults.forEach(r => {
           sheet.appendRow([r.name, r.status, r.duration, r.error || '', new Date()]);

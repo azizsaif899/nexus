@@ -3,7 +3,7 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
 
   function initializeProject() {
     Utils.log('Starting G-Assistant initialization...');
-    
+
     const steps = [
       { name: 'Validate Configuration', fn: _validateConfig },
       { name: 'Test Authentication', fn: _testAuth },
@@ -13,11 +13,11 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
     ];
 
     const results = [];
-    
+
     for (const step of steps) {
       Utils.log(`Executing: ${step.name}`);
       const start = Date.now();
-      
+
       try {
         const result = step.fn();
         results.push({
@@ -43,7 +43,7 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
 
   function _validateConfig() {
     const validation = Config.validateConfig();
-    
+
     if (!validation.valid) {
       throw new Error(`Missing required configuration: ${validation.missing.join(', ')}`);
     }
@@ -59,7 +59,7 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
 
   function _testAuth() {
     const token = Auth.getServiceAccountToken();
-    
+
     if (!token) {
       throw new Error('Failed to obtain service account token');
     }
@@ -70,7 +70,7 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
   function _setupSheets() {
     const requiredSheets = [
       'AgentTriggers_Metrics',
-      'AI_CFO_Agent_Metrics', 
+      'AI_CFO_Agent_Metrics',
       'AI_Developer_Agent_Metrics',
       'AutomationCommands',
       'AutomationLog',
@@ -97,7 +97,7 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
 
   function _initializeAgents() {
     const agents = [];
-    
+
     // تهيئة Agent Triggers
     if (GAssistant?.AI?.Agents?.Triggers?.setupAgentTriggers) {
       const result = GAssistant.AI.Agents.Triggers.setupAgentTriggers();
@@ -115,7 +115,7 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
 
   function _runTests() {
     const testReport = Testing.getTestReport();
-    
+
     if (testReport.summary.failed > 0) {
       Utils.warn(`${testReport.summary.failed} tests failed out of ${testReport.summary.total}`);
     }
@@ -143,9 +143,9 @@ defineModule('System.Setup', ({ Utils, Config, Auth, Testing }) => {
     // عرض ملخص في السجل
     const successful = results.filter(r => r.status === 'SUCCESS').length;
     const total = results.length;
-    
+
     Utils.log(`Setup completed: ${successful}/${total} steps successful`);
-    
+
     if (successful === total) {
       Utils.log('🎉 G-Assistant initialized successfully!');
     } else {

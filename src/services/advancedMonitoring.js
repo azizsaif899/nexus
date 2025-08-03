@@ -38,10 +38,10 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
 
       // إرسال إلى Google Cloud Logging
       this._sendToCloudLogging(logEntry);
-      
+
       // فحص الإنذارات
       this._checkAlerts(logEntry);
-      
+
       return logEntry;
     }
 
@@ -60,10 +60,10 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
       };
 
       this.metrics.set(`${name}_${Date.now()}`, metric);
-      
+
       // فحص العتبات
       this._checkThresholds(name, value);
-      
+
       return metric;
     }
 
@@ -73,7 +73,7 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
     monitorRequest(req, res, next) {
       const startTime = Date.now();
       const requestId = this._generateRequestId();
-      
+
       // تسجيل بداية الطلب
       this.logStructured('info', 'Request started', {
         requestId,
@@ -87,7 +87,7 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
       res.on('finish', () => {
         const duration = Date.now() - startTime;
         const statusCode = res.statusCode;
-        
+
         // تسجيل انتهاء الطلب
         this.logStructured(statusCode >= 400 ? 'error' : 'info', 'Request completed', {
           requestId,
@@ -118,7 +118,7 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
     monitorMemoryUsage() {
       const usage = process.memoryUsage();
       const totalMemory = require('os').totalmem();
-      
+
       const memoryMetrics = {
         heapUsed: usage.heapUsed,
         heapTotal: usage.heapTotal,
@@ -139,10 +139,10 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
      */
     monitorEmbeddingService(embeddingService) {
       const stats = embeddingService.getStats();
-      
+
       this.recordMetric('embedding_cache_size', stats.cacheSize);
       this.recordMetric('embedding_cache_hit_rate', this._calculateCacheHitRate());
-      
+
       return stats;
     }
 
@@ -171,7 +171,7 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
     getDashboardData() {
       const now = Date.now();
       const oneHourAgo = now - 3600000;
-      
+
       const recentMetrics = Array.from(this.metrics.entries())
         .filter(([key, metric]) => metric.timestamp > oneHourAgo)
         .map(([key, metric]) => metric);
@@ -259,7 +259,7 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
         if (typeof console !== 'undefined') {
           console.log(JSON.stringify(logEntry));
         }
-        
+
         // في بيئة Node.js - يمكن إرسال إلى خدمة خارجية
         if (typeof process !== 'undefined') {
           process.stdout.write(JSON.stringify(logEntry) + '\n');
@@ -276,7 +276,7 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
     _calculateErrorRate(metrics) {
       const requests = metrics.filter(m => m.name === 'http_requests_total');
       const errors = requests.filter(m => m.tags.status >= 400);
-      
+
       return requests.length > 0 ? errors.length / requests.length : 0;
     }
 
@@ -304,7 +304,7 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
       const metrics = Array.from(this.metrics.values())
         .filter(m => m.name === metricName)
         .sort((a, b) => b.timestamp - a.timestamp);
-      
+
       return metrics.length > 0 ? metrics[0].value : null;
     }
 
@@ -351,9 +351,9 @@ defineModule('Services.AdvancedMonitoring', ({ Utils, Config }) => {
 
   // إعداد الإنذارات الافتراضية
   const monitoring = new AdvancedMonitoring();
-  
+
   // إنذار معدل الأخطاء العالي
-  monitoring.setupAlert('high_error_rate', 
+  monitoring.setupAlert('high_error_rate',
     (logEntry) => logEntry.level === 'ERROR',
     (data) => console.log('🚨 High error rate detected:', data)
   );

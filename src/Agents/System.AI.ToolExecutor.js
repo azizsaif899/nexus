@@ -27,7 +27,7 @@ defineModule('System.AI.ToolExecutor', ({ Utils, Config }) => {
   function executeTool(toolCall) {
     try {
       const { name, parameters } = toolCall;
-      
+
       // التحقق من الأمان
       if (!_validateToolSafety(name, parameters)) {
         return {
@@ -38,19 +38,19 @@ defineModule('System.AI.ToolExecutor', ({ Utils, Config }) => {
 
       // تنفيذ الأداة
       switch (name) {
-        case 'create_sheet':
-          return _createSheet(parameters);
-        case 'send_email':
-          return _sendEmail(parameters);
-        case 'analyze_data':
-          return _analyzeData(parameters);
-        case 'call_webhook':
-          return _callWebhook(parameters);
-        default:
-          return {
-            type: 'error',
-            text: `أداة غير معروفة: ${name}`
-          };
+      case 'create_sheet':
+        return _createSheet(parameters);
+      case 'send_email':
+        return _sendEmail(parameters);
+      case 'analyze_data':
+        return _analyzeData(parameters);
+      case 'call_webhook':
+        return _callWebhook(parameters);
+      default:
+        return {
+          type: 'error',
+          text: `أداة غير معروفة: ${name}`
+        };
       }
     } catch (e) {
       Utils.error(`Tool execution failed: ${toolCall.name}`, e);
@@ -75,14 +75,14 @@ defineModule('System.AI.ToolExecutor', ({ Utils, Config }) => {
 
     // فحص الأمان حسب مستوى الخطر
     switch (tool.safety) {
-      case 'high':
-        return _validateHighRiskTool(toolName, parameters);
-      case 'medium':
-        return _validateMediumRiskTool(toolName, parameters);
-      case 'low':
-        return true;
-      default:
-        return false;
+    case 'high':
+      return _validateHighRiskTool(toolName, parameters);
+    case 'medium':
+      return _validateMediumRiskTool(toolName, parameters);
+    case 'low':
+      return true;
+    default:
+      return false;
     }
   }
 
@@ -185,8 +185,8 @@ defineModule('System.AI.ToolExecutor', ({ Utils, Config }) => {
 
       return {
         type: 'success',
-        text: `تم استدعاء webhook بنجاح`,
-        data: { 
+        text: 'تم استدعاء webhook بنجاح',
+        data: {
           status: response.getResponseCode(),
           url: params.url
         }
@@ -216,14 +216,14 @@ defineModule('System.AI.ToolExecutor', ({ Utils, Config }) => {
 
   function processChainedExecution(toolCalls) {
     const results = [];
-    
+
     for (const toolCall of toolCalls) {
       const result = executeTool(toolCall);
       results.push({
         tool: toolCall.name,
         result: result
       });
-      
+
       // إيقاف التسلسل في حالة الخطأ
       if (result.type === 'error') {
         break;

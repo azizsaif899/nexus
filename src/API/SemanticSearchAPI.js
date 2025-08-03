@@ -25,7 +25,7 @@ class SemanticSearchAPI {
     this.embeddingService = Injector.get('Services.EmbeddingService');
     this.vectorStore = Injector.get('Services.VectorStore');
     this.auth = Injector.get('System.Auth');
-    
+
     // إعدادات قابلة للتكوين
     this.DEFAULT_THRESHOLD = 0.5;
     this.MAX_RESULTS = 50;
@@ -50,7 +50,7 @@ class SemanticSearchAPI {
       // 2. استخراج وتنظيف المعاملات
       const params = this.extractSearchParams(request);
       const validationResult = this.validateSearchParams(params);
-      
+
       if (!validationResult.valid) {
         return this.createErrorResponse(400, 'معاملات غير صحيحة', validationResult.errors);
       }
@@ -58,7 +58,7 @@ class SemanticSearchAPI {
       // 3. التحقق من الذاكرة المؤقتة
       const cacheKey = this.generateCacheKey(params);
       const cachedResult = this.getCachedResult(cacheKey);
-      
+
       if (cachedResult) {
         console.log('📋 إرجاع نتيجة من الذاكرة المؤقتة');
         return this.createSuccessResponse(cachedResult, { fromCache: true });
@@ -71,9 +71,9 @@ class SemanticSearchAPI {
       this.cacheResult(cacheKey, searchResult);
 
       // 6. إرجاع النتيجة
-      return this.createSuccessResponse(searchResult, { 
+      return this.createSuccessResponse(searchResult, {
         fromCache: false,
-        processingTime: searchResult.processingTime 
+        processingTime: searchResult.processingTime
       });
 
     } catch (error) {
@@ -91,13 +91,13 @@ class SemanticSearchAPI {
    */
   async executeOptimizedSearch(params) {
     const startTime = Date.now();
-    
+
     try {
       console.log(`🔍 بدء البحث الدلالي: "${params.query}"`);
 
       // 1. توليد embedding للاستعلام فقط (استدعاء API واحد)
       const queryEmbedding = await this.embeddingService.generateEmbedding(params.query);
-      
+
       if (!queryEmbedding) {
         throw new Error('فشل في معالجة الاستعلام');
       }
@@ -118,7 +118,7 @@ class SemanticSearchAPI {
       const finalResults = this.organizeResults(enrichedResults, params.groupBy);
 
       const processingTime = Date.now() - startTime;
-      
+
       console.log(`✅ اكتمل البحث في ${processingTime}ms - ${finalResults.length} نتيجة`);
 
       return {
@@ -143,7 +143,7 @@ class SemanticSearchAPI {
     try {
       // التحقق من وجود رمز المصادقة
       const authHeader = request.headers?.authorization || request.parameter?.token;
-      
+
       if (!authHeader) {
         return { valid: false, error: 'رمز المصادقة مطلوب' };
       }
@@ -151,7 +151,7 @@ class SemanticSearchAPI {
       // التحقق من صحة الرمز
       const token = authHeader.replace('Bearer ', '');
       const user = await this.auth.validateToken(token);
-      
+
       if (!user) {
         return { valid: false, error: 'رمز مصادقة غير صحيح' };
       }
@@ -175,7 +175,7 @@ class SemanticSearchAPI {
   extractSearchParams(request) {
     const body = request.postData ? JSON.parse(request.postData.contents) : {};
     const params = request.parameter || {};
-    
+
     return {
       query: body.query || params.query || '',
       threshold: parseFloat(body.threshold || params.threshold || this.DEFAULT_THRESHOLD),
@@ -259,7 +259,7 @@ class SemanticSearchAPI {
           enrichedResult.title = fullContent.title;
           enrichedResult.preview = fullContent.content.substring(0, 200) + '...';
           enrichedResult.metadata = fullContent.metadata;
-          
+
           if (includeContent === 'full') {
             enrichedResult.fullContent = fullContent.content;
           }
@@ -285,7 +285,7 @@ class SemanticSearchAPI {
 
     // تجميع النتائج
     const grouped = {};
-    
+
     results.forEach(result => {
       const groupKey = this.getGroupKey(result, groupBy);
       if (!grouped[groupKey]) {
@@ -302,16 +302,16 @@ class SemanticSearchAPI {
    */
   getGroupKey(result, groupBy) {
     switch (groupBy) {
-      case 'type':
-        return result.id.split('_')[0] || 'unknown';
-      case 'similarity':
-        if (result.similarity >= 0.8) return 'high';
-        if (result.similarity >= 0.6) return 'medium';
-        return 'low';
-      case 'date':
-        return result.metadata?.date?.substring(0, 7) || 'unknown'; // YYYY-MM
-      default:
-        return 'all';
+    case 'type':
+      return result.id.split('_')[0] || 'unknown';
+    case 'similarity':
+      if (result.similarity >= 0.8) return 'high';
+      if (result.similarity >= 0.6) return 'medium';
+      return 'low';
+    case 'date':
+      return result.metadata?.date?.substring(0, 7) || 'unknown'; // YYYY-MM
+    default:
+      return 'all';
     }
   }
 
@@ -322,7 +322,7 @@ class SemanticSearchAPI {
     try {
       // تحديد المصدر حسب نمط الـ ID
       let sheetName, contentColumn;
-      
+
       if (id.startsWith('Financial_Reports_')) {
         sheetName = 'Financial_Reports';
         contentColumn = 2; // العمود C
@@ -372,7 +372,7 @@ class SemanticSearchAPI {
       maxResults: params.maxResults,
       filters: params.filters
     };
-    
+
     return 'search_' + this.hashObject(keyData);
   }
 
@@ -381,16 +381,16 @@ class SemanticSearchAPI {
    */
   getCachedResult(cacheKey) {
     const cached = this.queryCache.get(cacheKey);
-    
+
     if (cached && (Date.now() - cached.timestamp) < this.CACHE_DURATION) {
       return cached.data;
     }
-    
+
     // إزالة النتيجة المنتهية الصلاحية
     if (cached) {
       this.queryCache.delete(cacheKey);
     }
-    
+
     return null;
   }
 
@@ -403,7 +403,7 @@ class SemanticSearchAPI {
       const oldestKey = this.queryCache.keys().next().value;
       this.queryCache.delete(oldestKey);
     }
-    
+
     this.queryCache.set(cacheKey, {
       data,
       timestamp: Date.now()
@@ -418,13 +418,13 @@ class SemanticSearchAPI {
   hashObject(obj) {
     const str = JSON.stringify(obj);
     let hash = 0;
-    
+
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
-    
+
     return hash.toString();
   }
 
@@ -469,7 +469,7 @@ if (typeof Injector !== 'undefined') {
 function doPost(e) {
   const api = Injector.get('API.SemanticSearch');
   const result = api.handleSemanticSearch(e);
-  
+
   return ContentService
     .createTextOutput(JSON.stringify(result))
     .setMimeType(ContentService.MimeType.JSON);
@@ -479,7 +479,7 @@ function doPost(e) {
 function doGet(e) {
   const api = Injector.get('API.SemanticSearch');
   const result = api.handleSemanticSearch(e);
-  
+
   return ContentService
     .createTextOutput(JSON.stringify(result))
     .setMimeType(ContentService.MimeType.JSON);

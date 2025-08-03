@@ -74,7 +74,7 @@ defineModule('Connectors.VectorDB', ({ Utils, Config }) => {
 
     async _makeRequest(method, endpoint, data = null) {
       const url = `https://${this.indexName}-${this.provider}.svc.cluster.local${endpoint}`;
-      
+
       const options = {
         method,
         headers: {

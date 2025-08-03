@@ -31,7 +31,7 @@ GAssistant.Utils.Injector = {
   _moduleFactories: {},
   _moduleExports: {},
   _isInitialized: false,
-  
+
   registerFactory: function(name, factory) {
     this._moduleFactories[name] = factory;
   },
@@ -104,7 +104,7 @@ GAssistant.Utils.Injector = {
       this._moduleExports = {};
       Logger.log('⚠️ _moduleExports was undefined, initialized to empty object');
     }
-    
+
     const sorted = [];
     const visited = new Set(); // Modules whose sub-graph has been fully explored
     const visiting = new Set(); // Modules currently in the recursion stack for cycle detection
@@ -116,7 +116,7 @@ GAssistant.Utils.Injector = {
         Logger.warn(`Circular dependency detected involving: ${moduleName}. A fallback will be used.`);
         return; // Don't throw, allow fallback mechanism to handle it
       }
-      
+
       visiting.add(moduleName);
 
       const factory = this._moduleFactories[moduleName];
@@ -170,7 +170,7 @@ GAssistant.Utils.Injector = {
     const fnStr = factory.toString();
     const match = fnStr.match(/^(?:async\s+)?(?:function\*?|\s*)\s*(?:\w*\s*)?\(((?:[^()]*|\((?:[^()]*|\([^()]*\))*\))*)\)\s*=>|function\s*\w*\s*\(((?:[^()]*|\((?:[^()]*|\([^()]*\))*\))*)\)/);
     if (!match) return [];
-    
+
     const paramsStr = (match[1] || match[2] || '').trim();
     if (!paramsStr) return [];
 
@@ -183,12 +183,12 @@ GAssistant.Utils.Injector = {
   _attachToNamespace: function(name, exports) {
     const parts = name.split('.');
     let current = GAssistant;
-    
+
     for (let i = 0; i < parts.length - 1; i++) {
       current[parts[i]] = current[parts[i]] || {};
       current = current[parts[i]];
     }
-    
+
     current[parts[parts.length - 1]] = exports;
   }
 };
@@ -212,7 +212,7 @@ GAssistant.Utils.Injector = {
 
 // تعريف الوحدة الأساسية Utils مباشرة لأنها ضرورية لعملية الإقلاع
 const CoreUtils = {
-  log: function(msg, ...args) { 
+  log: function(msg, ...args) {
     if (typeof Logger !== 'undefined' && Logger.log) {
       Logger.log(`[Utils] ${msg}`, ...args);
     } else {

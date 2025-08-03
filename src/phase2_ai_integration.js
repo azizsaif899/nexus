@@ -9,7 +9,7 @@
  * @description
  * تنفيذ المرحلة الثانية من خطة الوصول إلى 100% - تكامل الذكاء الاصطناعي
  * الهدف: الوصول إلى 50% - AI يعمل بكفاءة
- * 
+ *
  * الأولويات:
  * 1. Gemini API Integration - تكامل كامل مع API
  * 2. AI Core Functions - وظائف الذكاء الاصطناعي الأساسية
@@ -23,14 +23,14 @@
  */
 function enhanceGeminiAdapter() {
   console.log('🔧 تحسين GeminiAdapter...');
-  
+
   // التحقق من وجود API Key
   const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
   if (!apiKey) {
     console.error('❌ GEMINI_API_KEY غير موجود في Script Properties');
     return false;
   }
-  
+
   // اختبار الاتصال
   try {
     const testPayload = {
@@ -39,7 +39,7 @@ function enhanceGeminiAdapter() {
         parts: [{ text: 'Hello, are you working?' }]
       }]
     };
-    
+
     const response = UrlFetchApp.fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${apiKey}`,
       {
@@ -49,10 +49,10 @@ function enhanceGeminiAdapter() {
         muteHttpExceptions: true
       }
     );
-    
+
     const responseCode = response.getResponseCode();
     const responseText = response.getContentText();
-    
+
     if (responseCode === 200) {
       const data = JSON.parse(responseText);
       if (data.candidates && data.candidates[0] && data.candidates[0].content) {
@@ -60,13 +60,13 @@ function enhanceGeminiAdapter() {
         return true;
       }
     }
-    
+
     EnhancedSecureLogger.error('Gemini API Error', null, {
       responseCode: responseCode,
       function: 'enhanceGeminiAdapter'
     });
     return false;
-    
+
   } catch (error) {
     EnhancedSecureLogger.error('خطأ في اختبار Gemini API', error.message, {
       function: 'enhanceGeminiAdapter'
@@ -80,7 +80,7 @@ function enhanceGeminiAdapter() {
  */
 function setupScriptProperties() {
   console.log('⚙️ إعداد Script Properties...');
-  
+
   const properties = PropertiesService.getScriptProperties();
   const requiredProps = {
     'DEBUG_MODE': 'true',
@@ -96,7 +96,7 @@ function setupScriptProperties() {
     'AI_CONTEXT_VERSION': '1.0.0',
     'AI_TOOL_EXECUTOR_VERSION': '1.2.0'
   };
-  
+
   // إعداد الخصائص المطلوبة
   for (const [key, value] of Object.entries(requiredProps)) {
     if (!properties.getProperty(key)) {
@@ -107,14 +107,14 @@ function setupScriptProperties() {
       });
     }
   }
-  
+
   // التحقق من GEMINI_API_KEY
   if (!properties.getProperty('GEMINI_API_KEY')) {
     EnhancedSecureLogger.warn('يجب إعداد GEMINI_API_KEY يدوياً في Script Properties');
     EnhancedSecureLogger.info('اذهب إلى: Extensions > Apps Script > Project Settings > Script Properties');
     EnhancedSecureLogger.info('أضف: GEMINI_API_KEY = your_actual_api_key_here');
   }
-  
+
   console.log('✅ تم إعداد Script Properties');
 }
 
@@ -123,20 +123,20 @@ function setupScriptProperties() {
  */
 function createMetricsSheets() {
   console.log('📊 إنشاء أوراق المقاييس...');
-  
+
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   if (!ss) {
     console.error('❌ لا توجد ورقة عمل نشطة');
     return false;
   }
-  
+
   const sheetsToCreate = [
     {
       name: 'AI_Gemini_Metrics',
       headers: ['Timestamp', 'Action', 'Model', 'DurationMs', 'Status', 'Version', 'PromptLength', 'ResponseLength', 'ErrorMessage']
     },
     {
-      name: 'AI_Core_Metrics', 
+      name: 'AI_Core_Metrics',
       headers: ['Timestamp', 'Action', 'Status', 'DurationMs', 'Version', 'Model', 'PromptLength', 'ResponseLength', 'Error']
     },
     {
@@ -156,7 +156,7 @@ function createMetricsSheets() {
       headers: ['Timestamp', 'Status']
     }
   ];
-  
+
   for (const sheetInfo of sheetsToCreate) {
     let sheet = ss.getSheetByName(sheetInfo.name);
     if (!sheet) {
@@ -168,7 +168,7 @@ function createMetricsSheets() {
       console.log(`ℹ️ ورقة موجودة: ${sheetInfo.name}`);
     }
   }
-  
+
   return true;
 }
 
@@ -179,7 +179,7 @@ function createMetricsSheets() {
  */
 function testAICoreFunctions() {
   console.log('🧠 اختبار AI Core Functions...');
-  
+
   try {
     // تحميل النظام
     if (typeof GAssistant === 'undefined') {
@@ -187,14 +187,14 @@ function testAICoreFunctions() {
       // هنا يجب تحميل النظام الأساسي
       return false;
     }
-    
+
     // اختبار AI.Core.ask
     if (GAssistant.AI && GAssistant.AI.Core && GAssistant.AI.Core.ask) {
       console.log('🔍 اختبار AI.Core.ask...');
-      
-      const testPrompt = "مرحبا، هل تعمل بشكل صحيح؟";
+
+      const testPrompt = 'مرحبا، هل تعمل بشكل صحيح؟';
       const response = GAssistant.AI.Core.ask(testPrompt, { sessionId: 'test_session' });
-      
+
       if (response && response.type) {
         console.log(`✅ AI.Core.ask يعمل - النوع: ${response.type}`);
         console.log(`📝 الرد: ${response.text ? response.text.substring(0, 100) + '...' : 'لا يوجد نص'}`);
@@ -207,7 +207,7 @@ function testAICoreFunctions() {
       console.error('❌ AI.Core.ask غير متاح');
       return false;
     }
-    
+
   } catch (error) {
     console.error('❌ خطأ في اختبار AI Core Functions:', error.message);
     return false;
@@ -219,24 +219,24 @@ function testAICoreFunctions() {
  */
 function testAIMemorySystem() {
   console.log('🧠 اختبار AI Memory System...');
-  
+
   try {
     if (!GAssistant.AI || !GAssistant.AI.Memory) {
       console.error('❌ AI.Memory غير متاح');
       return false;
     }
-    
+
     const sessionId = 'test_memory_session';
-    
+
     // اختبار إضافة رسالة
     const testMessage = {
       role: 'user',
       parts: [{ text: 'هذه رسالة اختبار للذاكرة' }]
     };
-    
+
     GAssistant.AI.Memory.addMessageToHistory({ sessionId, message: testMessage });
     console.log('✅ تم إضافة رسالة إلى الذاكرة');
-    
+
     // اختبار استرجاع التاريخ
     const history = GAssistant.AI.Memory.getSessionHistory({ sessionId });
     if (Array.isArray(history) && history.length > 0) {
@@ -245,13 +245,13 @@ function testAIMemorySystem() {
       console.error('❌ فشل في استرجاع التاريخ');
       return false;
     }
-    
+
     // اختبار مسح الجلسة
     GAssistant.AI.Memory.clearSessionContext({ sessionId });
     console.log('✅ تم مسح جلسة الاختبار');
-    
+
     return true;
-    
+
   } catch (error) {
     console.error('❌ خطأ في اختبار AI Memory System:', error.message);
     return false;
@@ -266,7 +266,7 @@ function testAIMemorySystem() {
 function runPhase2Tests() {
   console.log('🚀 بدء اختبارات المرحلة الثانية...');
   console.log('=' .repeat(50));
-  
+
   const tests = [
     { name: 'إعداد Script Properties', fn: setupScriptProperties },
     { name: 'إنشاء أوراق المقاييس', fn: createMetricsSheets },
@@ -274,10 +274,10 @@ function runPhase2Tests() {
     { name: 'اختبار AI Core Functions', fn: testAICoreFunctions },
     { name: 'اختبار AI Memory System', fn: testAIMemorySystem }
   ];
-  
+
   let passedTests = 0;
   const results = [];
-  
+
   for (const test of tests) {
     console.log(`\n🔄 تشغيل: ${test.name}...`);
     try {
@@ -295,12 +295,12 @@ function runPhase2Tests() {
       results.push({ name: test.name, status: 'خطأ', error: error.message });
     }
   }
-  
+
   // تقرير النتائج
   console.log('\n' + '=' .repeat(50));
   console.log('📊 تقرير نتائج المرحلة الثانية:');
   console.log('=' .repeat(50));
-  
+
   results.forEach(result => {
     const icon = result.status === 'نجح' ? '✅' : '❌';
     console.log(`${icon} ${result.name}: ${result.status}`);
@@ -308,10 +308,10 @@ function runPhase2Tests() {
       console.log(`   📝 الخطأ: ${result.error}`);
     }
   });
-  
+
   const successRate = Math.round((passedTests / tests.length) * 100);
   console.log(`\n🎯 معدل النجاح: ${successRate}% (${passedTests}/${tests.length})`);
-  
+
   if (successRate >= 80) {
     console.log('🎉 المرحلة الثانية مكتملة بنجاح!');
     console.log('📈 التقدم الإجمالي: ~50% (AI يعمل)');
@@ -323,7 +323,7 @@ function runPhase2Tests() {
     console.log('❌ المرحلة الثانية تحتاج إلى مراجعة شاملة');
     console.log('🛠️ يجب إصلاح المشاكل الأساسية أولاً');
   }
-  
+
   return { successRate, results, passedTests, totalTests: tests.length };
 }
 
@@ -334,7 +334,7 @@ function runPhase2Tests() {
  */
 function quickSetupForDevelopers() {
   console.log('⚡ إعداد سريع للمطورين...');
-  
+
   // إعداد API Key تجريبي (يجب استبداله بالحقيقي)
   const properties = PropertiesService.getScriptProperties();
   if (!properties.getProperty('GEMINI_API_KEY')) {
@@ -342,7 +342,7 @@ function quickSetupForDevelopers() {
     console.log('📝 يرجى إعداد API Key الحقيقي في Script Properties');
     console.log('🔗 احصل على API Key من: https://makersuite.google.com/app/apikey');
   }
-  
+
   // تشغيل الاختبارات
   return runPhase2Tests();
 }
@@ -352,7 +352,7 @@ function quickSetupForDevelopers() {
  */
 function cleanupTestData() {
   console.log('🧹 تنظيف البيانات التجريبية...');
-  
+
   try {
     // مسح جلسات الاختبار من الذاكرة
     if (GAssistant && GAssistant.AI && GAssistant.AI.Memory) {
@@ -360,14 +360,14 @@ function cleanupTestData() {
       GAssistant.AI.Memory.clearSessionContext({ sessionId: 'test_memory_session' });
       console.log('✅ تم مسح جلسات الاختبار');
     }
-    
+
     // مسح الكاش
     CacheService.getUserCache().removeAll();
     CacheService.getScriptCache().removeAll();
     console.log('✅ تم مسح الكاش');
-    
+
     console.log('🎯 تم تنظيف البيانات التجريبية');
-    
+
   } catch (error) {
     console.error('❌ خطأ في تنظيف البيانات:', error.message);
   }
@@ -383,16 +383,16 @@ function executePhase2() {
   console.log('📅 المدة المتوقعة: أسبوع 3-4');
   console.log('🎯 الهدف: الوصول إلى 50% - AI يعمل');
   console.log('\n' + '=' .repeat(60));
-  
+
   const startTime = new Date();
   const results = runPhase2Tests();
   const endTime = new Date();
   const duration = Math.round((endTime - startTime) / 1000);
-  
+
   console.log('\n' + '=' .repeat(60));
   console.log(`⏱️ وقت التنفيذ: ${duration} ثانية`);
   console.log(`📊 النتيجة النهائية: ${results.successRate}%`);
-  
+
   // حفظ التقرير
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -403,7 +403,7 @@ function executePhase2() {
         reportSheet.getRange(1, 1, 1, 5).setValues([['Timestamp', 'Test', 'Status', 'Error', 'Duration']]);
         reportSheet.getRange(1, 1, 1, 5).setFontWeight('bold');
       }
-      
+
       results.results.forEach(result => {
         reportSheet.appendRow([
           new Date(),
@@ -413,13 +413,13 @@ function executePhase2() {
           duration
         ]);
       });
-      
+
       console.log('📋 تم حفظ التقرير في ورقة Phase2_Report');
     }
   } catch (error) {
     console.warn('⚠️ لم يتم حفظ التقرير:', error.message);
   }
-  
+
   return results;
 }
 

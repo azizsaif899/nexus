@@ -1,7 +1,7 @@
 /**
  * المرحلة الرابعة: نظام الأتمتة
  * Phase 4: Automation System
- * 
+ *
  * نظام أتمتة متقدم للمهام المجدولة والمشغلات الذكية
  */
 
@@ -15,7 +15,7 @@ defineModule('System.TaskScheduler', function(injector) {
 
     scheduleTask(taskName, agentType, params, schedule) {
       logging.info('TaskScheduler', `Scheduling task: ${taskName}`);
-      
+
       const task = {
         id: Date.now(),
         name: taskName,
@@ -29,7 +29,7 @@ defineModule('System.TaskScheduler', function(injector) {
 
       this.scheduledTasks.push(task);
       this.saveTasksToSheet();
-      
+
       logging.info('TaskScheduler', `Task scheduled: ${taskName} - Next run: ${task.nextRun}`);
       return { success: true, taskId: task.id };
     },
@@ -37,29 +37,29 @@ defineModule('System.TaskScheduler', function(injector) {
     calculateNextRun(schedule) {
       const now = new Date();
       switch (schedule.type) {
-        case 'daily':
-          const tomorrow = new Date(now);
-          tomorrow.setDate(tomorrow.getDate() + 1);
-          tomorrow.setHours(schedule.hour || 9, schedule.minute || 0, 0, 0);
-          return tomorrow;
-        case 'weekly':
-          const nextWeek = new Date(now);
-          nextWeek.setDate(nextWeek.getDate() + 7);
-          return nextWeek;
-        case 'monthly':
-          const nextMonth = new Date(now);
-          nextMonth.setMonth(nextMonth.getMonth() + 1);
-          return nextMonth;
-        default:
-          return new Date(now.getTime() + 3600000); // 1 hour default
+      case 'daily':
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(schedule.hour || 9, schedule.minute || 0, 0, 0);
+        return tomorrow;
+      case 'weekly':
+        const nextWeek = new Date(now);
+        nextWeek.setDate(nextWeek.getDate() + 7);
+        return nextWeek;
+      case 'monthly':
+        const nextMonth = new Date(now);
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        return nextMonth;
+      default:
+        return new Date(now.getTime() + 3600000); // 1 hour default
       }
     },
 
     async runScheduledTasks() {
       logging.info('TaskScheduler', 'Checking scheduled tasks');
-      
+
       const now = new Date();
-      const tasksToRun = this.scheduledTasks.filter(task => 
+      const tasksToRun = this.scheduledTasks.filter(task =>
         task.status === 'active' && task.nextRun <= now
       );
 
@@ -84,7 +84,7 @@ defineModule('System.TaskScheduler', function(injector) {
     async executeTask(task) {
       const router = injector.get('System.AgentRouter');
       const routing = await router.routeRequest(task.params.request || 'execute task', task.agentType);
-      
+
       if (routing.success) {
         return await routing.agent.processRequest(task.params.request, task.params);
       }
@@ -107,7 +107,7 @@ defineModule('System.TaskScheduler', function(injector) {
         crud.createSheet('Scheduled_Tasks', [
           'ID', 'Name', 'Agent', 'Params', 'Schedule', 'Last Run', 'Next Run', 'Status'
         ]);
-        
+
         if (taskData.length > 0) {
           crud.writeData('Scheduled_Tasks', `A2:H${taskData.length + 1}`, taskData);
         }
@@ -127,7 +127,7 @@ defineModule('System.SmartTriggers', function(injector) {
 
     addTrigger(name, condition, action) {
       logging.info('SmartTriggers', `Adding trigger: ${name}`);
-      
+
       const trigger = {
         id: Date.now(),
         name: name,
@@ -138,14 +138,14 @@ defineModule('System.SmartTriggers', function(injector) {
       };
 
       this.triggers.push(trigger);
-      
+
       logging.info('SmartTriggers', `Trigger added: ${name}`);
       return { success: true, triggerId: trigger.id };
     },
 
     async checkTriggers(eventData) {
       logging.debug('SmartTriggers', 'Checking triggers for event', JSON.stringify(eventData));
-      
+
       const triggeredActions = [];
 
       for (const trigger of this.triggers) {
@@ -156,7 +156,7 @@ defineModule('System.SmartTriggers', function(injector) {
             await this.executeAction(trigger.action, eventData);
             trigger.lastTriggered = new Date();
             triggeredActions.push(trigger.name);
-            
+
             logging.info('SmartTriggers', `Trigger executed: ${trigger.name}`);
           }
         } catch (error) {
@@ -170,15 +170,15 @@ defineModule('System.SmartTriggers', function(injector) {
     evaluateCondition(condition, data) {
       try {
         switch (condition.type) {
-          case 'value_change':
-            return data.type === 'edit' && data.range === condition.range;
-          case 'threshold':
-            return data.value > condition.threshold;
-          case 'time_based':
-            const now = new Date();
-            return now.getHours() === condition.hour;
-          default:
-            return false;
+        case 'value_change':
+          return data.type === 'edit' && data.range === condition.range;
+        case 'threshold':
+          return data.value > condition.threshold;
+        case 'time_based':
+          const now = new Date();
+          return now.getHours() === condition.hour;
+        default:
+          return false;
         }
       } catch (error) {
         logging.error('SmartTriggers', 'Condition evaluation failed', error.message);
@@ -188,20 +188,20 @@ defineModule('System.SmartTriggers', function(injector) {
 
     async executeAction(action, data) {
       const router = injector.get('System.AgentRouter');
-      
+
       switch (action.type) {
-        case 'agent_call':
-          const routing = await router.routeRequest(action.request, action.agentType);
-          if (routing.success) {
-            return await routing.agent.processRequest(action.request, data);
-          }
-          break;
-        case 'notification':
-          return this.sendNotification(action.message, data);
-        case 'report':
-          return this.generateReport(action.reportType, data);
-        default:
-          throw new Error(`Unknown action type: ${action.type}`);
+      case 'agent_call':
+        const routing = await router.routeRequest(action.request, action.agentType);
+        if (routing.success) {
+          return await routing.agent.processRequest(action.request, data);
+        }
+        break;
+      case 'notification':
+        return this.sendNotification(action.message, data);
+      case 'report':
+        return this.generateReport(action.reportType, data);
+      default:
+        throw new Error(`Unknown action type: ${action.type}`);
       }
     },
 
@@ -229,7 +229,7 @@ defineModule('System.AutoNotifications', function(injector) {
 
     addNotificationRule(name, condition, message, recipients) {
       logging.info('AutoNotifications', `Adding notification rule: ${name}`);
-      
+
       const rule = {
         id: Date.now(),
         name: name,
@@ -241,14 +241,14 @@ defineModule('System.AutoNotifications', function(injector) {
       };
 
       this.notifications.push(rule);
-      
+
       logging.info('AutoNotifications', `Notification rule added: ${name}`);
       return { success: true, ruleId: rule.id };
     },
 
     async checkNotifications(eventData) {
       logging.debug('AutoNotifications', 'Checking notification rules');
-      
+
       const sentNotifications = [];
 
       for (const rule of this.notifications) {
@@ -259,7 +259,7 @@ defineModule('System.AutoNotifications', function(injector) {
             await this.sendNotification(rule);
             rule.lastSent = new Date();
             sentNotifications.push(rule.name);
-            
+
             logging.info('AutoNotifications', `Notification sent: ${rule.name}`);
           }
         } catch (error) {
@@ -273,14 +273,14 @@ defineModule('System.AutoNotifications', function(injector) {
     shouldNotify(condition, data) {
       // تحديد ما إذا كان يجب إرسال الإشعار
       switch (condition.type) {
-        case 'error':
-          return data.type === 'error';
-        case 'completion':
-          return data.type === 'task_completed';
-        case 'threshold':
-          return data.value && data.value > condition.value;
-        default:
-          return false;
+      case 'error':
+        return data.type === 'error';
+      case 'completion':
+        return data.type === 'task_completed';
+      case 'threshold':
+        return data.value && data.value > condition.value;
+      default:
+        return false;
       }
     },
 
@@ -298,11 +298,11 @@ defineModule('System.AutoNotifications', function(injector) {
         crud.createSheet('Notifications_Log', [
           'Timestamp', 'Rule', 'Message', 'Recipients', 'Status'
         ]);
-        
+
         const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Notifications_Log');
         const lastRow = sheet.getLastRow();
         crud.writeData('Notifications_Log', `A${lastRow + 1}:E${lastRow + 1}`, notificationData);
-        
+
         return { success: true };
       } catch (error) {
         logging.error('AutoNotifications', 'Failed to log notification', error.message);
@@ -322,7 +322,7 @@ defineModule('System.PeriodicReports', function(injector) {
 
     scheduleReport(name, agentType, sheetName, frequency, recipients) {
       logging.info('PeriodicReports', `Scheduling report: ${name}`);
-      
+
       const report = {
         id: Date.now(),
         name: name,
@@ -336,7 +336,7 @@ defineModule('System.PeriodicReports', function(injector) {
       };
 
       this.reports.push(report);
-      
+
       logging.info('PeriodicReports', `Report scheduled: ${name}`);
       return { success: true, reportId: report.id };
     },
@@ -344,24 +344,24 @@ defineModule('System.PeriodicReports', function(injector) {
     calculateNextGeneration(frequency) {
       const now = new Date();
       switch (frequency) {
-        case 'daily':
-          return new Date(now.getTime() + 24 * 60 * 60 * 1000);
-        case 'weekly':
-          return new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-        case 'monthly':
-          const nextMonth = new Date(now);
-          nextMonth.setMonth(nextMonth.getMonth() + 1);
-          return nextMonth;
-        default:
-          return new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      case 'daily':
+        return new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      case 'weekly':
+        return new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+      case 'monthly':
+        const nextMonth = new Date(now);
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        return nextMonth;
+      default:
+        return new Date(now.getTime() + 24 * 60 * 60 * 1000);
       }
     },
 
     async generateScheduledReports() {
       logging.info('PeriodicReports', 'Checking scheduled reports');
-      
+
       const now = new Date();
-      const reportsToGenerate = this.reports.filter(report => 
+      const reportsToGenerate = this.reports.filter(report =>
         report.active && report.nextGeneration <= now
       );
 
@@ -373,7 +373,7 @@ defineModule('System.PeriodicReports', function(injector) {
           report.lastGenerated = now;
           report.nextGeneration = this.calculateNextGeneration(report.frequency);
           generatedReports.push(report.name);
-          
+
           logging.info('PeriodicReports', `Report generated: ${report.name}`);
         } catch (error) {
           logging.error('PeriodicReports', `Report generation failed: ${report.name}`, error.message);
@@ -386,7 +386,7 @@ defineModule('System.PeriodicReports', function(injector) {
     async generateReport(report) {
       const router = injector.get('System.AgentRouter');
       const routing = await router.routeRequest(`generate report for ${report.sheetName}`, report.agentType);
-      
+
       if (!routing.success) throw new Error('Failed to route report request');
 
       // توليد التقرير حسب نوع الوكيل
@@ -412,7 +412,7 @@ defineModule('System.PeriodicReports', function(injector) {
       crud.createSheet('Reports_Log', [
         'Timestamp', 'Report Name', 'Agent Type', 'Source Sheet', 'Status', 'Output'
       ]);
-      
+
       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Reports_Log');
       const lastRow = sheet.getLastRow();
       crud.writeData('Reports_Log', `A${lastRow + 1}:F${lastRow + 1}`, reportData);
@@ -433,7 +433,7 @@ defineModule('System.AutomationController', function(injector) {
   return {
     async runAutomationCycle() {
       logging.info('AutomationController', 'Starting automation cycle');
-      
+
       const results = {
         timestamp: new Date().toISOString(),
         scheduledTasks: await scheduler.runScheduledTasks(),
@@ -447,10 +447,10 @@ defineModule('System.AutomationController', function(injector) {
 
     handleEvent(eventType, eventData) {
       logging.debug('AutomationController', `Handling event: ${eventType}`);
-      
+
       // تشغيل المشغلات
       triggers.checkTriggers({ type: eventType, ...eventData });
-      
+
       // فحص الإشعارات
       notifications.checkNotifications({ type: eventType, ...eventData });
     },

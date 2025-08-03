@@ -1,7 +1,7 @@
 /**
  * المرحلة الثالثة: تكامل Google Sheets وGemini AI
  * Phase 3: Google Sheets & Gemini AI Integration
- * 
+ *
  * الهدف: 70% - تكامل كامل مع Sheets وGemini AI
  * Target: 70% - Complete Sheets & Gemini AI Integration
  */
@@ -13,46 +13,46 @@ defineModule('System.SheetsTemplates', function(injector) {
     createFinancialTemplate() {
       const ss = SpreadsheetApp.getActiveSpreadsheet();
       const sheet = ss.insertSheet('Financial_Template');
-      
+
       // Headers
       const headers = [
         ['Date', 'Description', 'Amount', 'Category', 'Type', 'Balance'],
         ['التاريخ', 'الوصف', 'المبلغ', 'الفئة', 'النوع', 'الرصيد']
       ];
-      
+
       sheet.getRange(1, 1, 2, 6).setValues(headers);
       sheet.getRange(1, 1, 2, 6).setFontWeight('bold');
-      
+
       return sheet;
     },
 
     createProjectTemplate() {
       const ss = SpreadsheetApp.getActiveSpreadsheet();
       const sheet = ss.insertSheet('Project_Template');
-      
+
       const headers = [
         ['Task', 'Status', 'Priority', 'Assigned', 'Due Date', 'Progress'],
         ['المهمة', 'الحالة', 'الأولوية', 'المكلف', 'تاريخ الاستحقاق', 'التقدم']
       ];
-      
+
       sheet.getRange(1, 1, 2, 6).setValues(headers);
       sheet.getRange(1, 1, 2, 6).setFontWeight('bold');
-      
+
       return sheet;
     },
 
     createDataAnalysisTemplate() {
       const ss = SpreadsheetApp.getActiveSpreadsheet();
       const sheet = ss.insertSheet('Data_Analysis_Template');
-      
+
       const headers = [
         ['Metric', 'Value', 'Target', 'Variance', 'Status', 'Notes'],
         ['المقياس', 'القيمة', 'الهدف', 'الانحراف', 'الحالة', 'الملاحظات']
       ];
-      
+
       sheet.getRange(1, 1, 2, 6).setValues(headers);
       sheet.getRange(1, 1, 2, 6).setFontWeight('bold');
-      
+
       return sheet;
     }
   };
@@ -67,7 +67,7 @@ defineModule('System.SheetsCRUD', function(injector) {
         const ss = SpreadsheetApp.getActiveSpreadsheet();
         const sheet = ss.getSheetByName(sheetName);
         if (!sheet) throw new Error(`Sheet ${sheetName} not found`);
-        
+
         return sheet.getRange(range).getValues();
       } catch (error) {
         Logger.log(`Error reading data: ${error.message}`);
@@ -80,11 +80,11 @@ defineModule('System.SheetsCRUD', function(injector) {
       try {
         const ss = SpreadsheetApp.getActiveSpreadsheet();
         let sheet = ss.getSheetByName(sheetName);
-        
+
         if (!sheet) {
           sheet = ss.insertSheet(sheetName);
         }
-        
+
         sheet.getRange(range).setValues(data);
         return true;
       } catch (error) {
@@ -98,12 +98,12 @@ defineModule('System.SheetsCRUD', function(injector) {
       try {
         const ss = SpreadsheetApp.getActiveSpreadsheet();
         const sheet = ss.insertSheet(name);
-        
+
         if (headers.length > 0) {
           sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
           sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
         }
-        
+
         return sheet;
       } catch (error) {
         Logger.log(`Error creating sheet: ${error.message}`);
@@ -133,7 +133,7 @@ defineModule('System.SheetsCRUD', function(injector) {
         const ss = SpreadsheetApp.getActiveSpreadsheet();
         const sheet = ss.getSheetByName(sheetName);
         if (!sheet) throw new Error(`Sheet ${sheetName} not found`);
-        
+
         sheet.getRange(row, col).setValue(value);
         return true;
       } catch (error) {
@@ -147,7 +147,7 @@ defineModule('System.SheetsCRUD', function(injector) {
 // 3. Enhanced Gemini API Integration with Retry & Fallback
 defineModule('System.GeminiEnhanced', function(injector) {
   const config = injector.get('System.Config');
-  
+
   return {
     // إعدادات إعادة المحاولة
     retryConfig: {
@@ -161,25 +161,25 @@ defineModule('System.GeminiEnhanced', function(injector) {
     async callGeminiWithRetry(prompt, options = {}) {
       const { maxRetries, baseDelay, backoffMultiplier } = this.retryConfig;
       let lastError;
-      
+
       for (let attempt = 0; attempt <= maxRetries; attempt++) {
         try {
           return await this.callGemini(prompt, options);
         } catch (error) {
           lastError = error;
-          
+
           if (attempt === maxRetries) break;
-          
+
           // حساب زمن التأخير
           const delay = Math.min(baseDelay * Math.pow(backoffMultiplier, attempt), this.retryConfig.maxDelay);
-          
+
           Logger.log(`Gemini API attempt ${attempt + 1} failed: ${error.message}. Retrying in ${delay}ms...`);
-          
+
           // انتظار قبل إعادة المحاولة
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
-      
+
       // إذا فشلت جميع المحاولات، استخدم Fallback
       return this.fallbackResponse(prompt, lastError);
     },
@@ -188,10 +188,10 @@ defineModule('System.GeminiEnhanced', function(injector) {
     async callGemini(prompt, options = {}) {
       const apiKey = config.get('GEMINI_API_KEY');
       if (!apiKey) throw new Error('Gemini API key not configured');
-      
+
       const model = options.model || 'gemini-pro';
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-      
+
       const payload = {
         contents: [{
           parts: [{ text: prompt }]
@@ -203,7 +203,7 @@ defineModule('System.GeminiEnhanced', function(injector) {
           maxOutputTokens: options.maxTokens || 2048
         }
       };
-      
+
       const response = UrlFetchApp.fetch(url, {
         method: 'POST',
         headers: {
@@ -211,17 +211,17 @@ defineModule('System.GeminiEnhanced', function(injector) {
         },
         payload: JSON.stringify(payload)
       });
-      
+
       if (response.getResponseCode() !== 200) {
         throw new Error(`Gemini API error: ${response.getResponseCode()} - ${response.getContentText()}`);
       }
-      
+
       const data = JSON.parse(response.getContentText());
-      
+
       if (!data.candidates || data.candidates.length === 0) {
         throw new Error('No response from Gemini API');
       }
-      
+
       return data.candidates[0].content.parts[0].text;
     },
 
@@ -229,16 +229,16 @@ defineModule('System.GeminiEnhanced', function(injector) {
     fallbackResponse(prompt, error) {
       Logger.log(`Using fallback response for prompt: ${prompt.substring(0, 100)}...`);
       Logger.log(`Original error: ${error.message}`);
-      
+
       // استجابة احتياطية بسيطة
       if (prompt.includes('تحليل') || prompt.includes('analysis')) {
         return 'عذراً، لا يمكنني إجراء التحليل في الوقت الحالي. يرجى المحاولة لاحقاً.';
       }
-      
+
       if (prompt.includes('كود') || prompt.includes('code')) {
         return 'عذراً، لا يمكنني مراجعة الكود في الوقت الحالي. يرجى المحاولة لاحقاً.';
       }
-      
+
       return 'عذراً، حدث خطأ في الخدمة. يرجى المحاولة لاحقاً أو التواصل مع الدعم الفني.';
     },
 
@@ -257,7 +257,7 @@ defineModule('System.GeminiEnhanced', function(injector) {
 // 4. Extended Logging System
 defineModule('System.ExtendedLogging', function(injector) {
   const sheetsCRUD = injector.get('System.SheetsCRUD');
-  
+
   return {
     // إعداد ورقة السجلات
     initializeLogging() {
@@ -270,22 +270,22 @@ defineModule('System.ExtendedLogging', function(injector) {
       try {
         const timestamp = new Date().toISOString();
         const logData = [[timestamp, level, module, message, details, user]];
-        
+
         // كتابة في ورقة السجلات
         const ss = SpreadsheetApp.getActiveSpreadsheet();
         let logSheet = ss.getSheetByName('System_Logs');
-        
+
         if (!logSheet) {
           this.initializeLogging();
           logSheet = ss.getSheetByName('System_Logs');
         }
-        
+
         const lastRow = logSheet.getLastRow();
         logSheet.getRange(lastRow + 1, 1, 1, 6).setValues(logData);
-        
+
         // تسجيل في Logger أيضاً
         Logger.log(`[${level}] ${module}: ${message}`);
-        
+
         return true;
       } catch (error) {
         Logger.log(`Logging error: ${error.message}`);
@@ -314,9 +314,9 @@ defineModule('System.ExtendedLogging', function(injector) {
     getLogs(level = null, module = null, limit = 100) {
       try {
         const logs = sheetsCRUD.readData('System_Logs', `A2:F${limit + 1}`);
-        
+
         if (!level && !module) return logs;
-        
+
         return logs.filter(log => {
           const matchLevel = !level || log[1] === level;
           const matchModule = !module || log[2] === module;
@@ -333,22 +333,22 @@ defineModule('System.ExtendedLogging', function(injector) {
       try {
         const cutoffDate = new Date();
         cutoffDate.setDate(cutoffDate.getDate() - daysToKeep);
-        
+
         const ss = SpreadsheetApp.getActiveSpreadsheet();
         const logSheet = ss.getSheetByName('System_Logs');
-        
+
         if (!logSheet) return false;
-        
+
         const data = logSheet.getDataRange().getValues();
         const filteredData = data.filter((row, index) => {
           if (index === 0) return true; // Keep header
           const logDate = new Date(row[0]);
           return logDate >= cutoffDate;
         });
-        
+
         logSheet.clear();
         logSheet.getRange(1, 1, filteredData.length, 6).setValues(filteredData);
-        
+
         this.info('System.ExtendedLogging', `Cleaned logs older than ${daysToKeep} days`);
         return true;
       } catch (error) {
@@ -364,41 +364,41 @@ defineModule('System.Phase3Tests', function(injector) {
   const sheetsCRUD = injector.get('System.SheetsCRUD');
   const gemini = injector.get('System.GeminiEnhanced');
   const logging = injector.get('System.ExtendedLogging');
-  
+
   return {
     // اختبار CRUD مع Sheets
     async testSheetsCRUD() {
       logging.info('Phase3Tests', 'Starting Sheets CRUD test');
-      
+
       try {
         // إنشاء ورقة اختبار
         const testSheet = sheetsCRUD.createSheet('Test_CRUD', ['Name', 'Value', 'Status']);
         if (!testSheet) throw new Error('Failed to create test sheet');
-        
+
         // كتابة بيانات اختبار
         const testData = [
           ['Test 1', '100', 'Active'],
           ['Test 2', '200', 'Inactive'],
           ['Test 3', '300', 'Pending']
         ];
-        
+
         const writeSuccess = sheetsCRUD.writeData('Test_CRUD', 'A2:C4', testData);
         if (!writeSuccess) throw new Error('Failed to write test data');
-        
+
         // قراءة البيانات
         const readData = sheetsCRUD.readData('Test_CRUD', 'A1:C4');
         if (readData.length !== 4) throw new Error('Failed to read correct amount of data');
-        
+
         // تحديث بيانات
         const updateSuccess = sheetsCRUD.updateData('Test_CRUD', 2, 3, 'Updated');
         if (!updateSuccess) throw new Error('Failed to update data');
-        
+
         // حذف ورقة الاختبار
         sheetsCRUD.deleteSheet('Test_CRUD');
-        
+
         logging.info('Phase3Tests', 'Sheets CRUD test passed successfully');
         return { success: true, message: 'Sheets CRUD test passed' };
-        
+
       } catch (error) {
         logging.error('Phase3Tests', 'Sheets CRUD test failed', error.message);
         return { success: false, error: error.message };
@@ -408,34 +408,34 @@ defineModule('System.Phase3Tests', function(injector) {
     // اختبار Gemini AI
     async testGeminiIntegration() {
       logging.info('Phase3Tests', 'Starting Gemini AI test');
-      
+
       try {
         // اختبار الاتصال
         const connectionTest = await gemini.testConnection();
         if (!connectionTest.success) {
           throw new Error(`Connection test failed: ${connectionTest.error}`);
         }
-        
+
         // اختبار استدعاء بسيط
         const simpleResponse = await gemini.callGeminiWithRetry('ما هو 2 + 2؟');
         if (!simpleResponse || simpleResponse.length === 0) {
           throw new Error('Empty response from Gemini');
         }
-        
+
         // اختبار استدعاء معقد
         const complexPrompt = 'قم بتحليل البيانات التالية وأعط ملخصاً: المبيعات: 1000، التكاليف: 600، الربح: 400';
         const complexResponse = await gemini.callGeminiWithRetry(complexPrompt);
-        
+
         logging.info('Phase3Tests', 'Gemini AI test passed successfully', `Response length: ${complexResponse.length}`);
-        return { 
-          success: true, 
+        return {
+          success: true,
           message: 'Gemini AI test passed',
           responses: {
             simple: simpleResponse,
             complex: complexResponse
           }
         };
-        
+
       } catch (error) {
         logging.error('Phase3Tests', 'Gemini AI test failed', error.message);
         return { success: false, error: error.message };
@@ -445,16 +445,16 @@ defineModule('System.Phase3Tests', function(injector) {
     // اختبار التكامل الكامل
     async testFullIntegration() {
       logging.info('Phase3Tests', 'Starting full integration test');
-      
+
       try {
         // اختبار CRUD
         const crudTest = await this.testSheetsCRUD();
         if (!crudTest.success) throw new Error(`CRUD test failed: ${crudTest.error}`);
-        
+
         // اختبار Gemini
         const geminiTest = await this.testGeminiIntegration();
         if (!geminiTest.success) throw new Error(`Gemini test failed: ${geminiTest.error}`);
-        
+
         // اختبار تكامل البيانات مع AI
         const integrationData = [
           ['Product', 'Sales', 'Profit'],
@@ -462,25 +462,25 @@ defineModule('System.Phase3Tests', function(injector) {
           ['Product B', '1500', '450'],
           ['Product C', '800', '200']
         ];
-        
+
         sheetsCRUD.writeData('Integration_Test', 'A1:C4', integrationData);
-        
+
         const dataForAnalysis = sheetsCRUD.readData('Integration_Test', 'A1:C4');
         const analysisPrompt = `قم بتحليل بيانات المبيعات التالية: ${JSON.stringify(dataForAnalysis)}`;
-        
+
         const analysisResult = await gemini.callGeminiWithRetry(analysisPrompt);
-        
+
         // حفظ نتيجة التحليل
         sheetsCRUD.writeData('Integration_Test', 'E1:E1', [['AI Analysis']]);
         sheetsCRUD.writeData('Integration_Test', 'E2:E2', [[analysisResult]]);
-        
+
         logging.info('Phase3Tests', 'Full integration test passed successfully');
-        return { 
-          success: true, 
+        return {
+          success: true,
           message: 'Full integration test passed',
           analysis: analysisResult
         };
-        
+
       } catch (error) {
         logging.error('Phase3Tests', 'Full integration test failed', error.message);
         return { success: false, error: error.message };
@@ -496,25 +496,25 @@ defineModule('System.Phase3Controller', function(injector) {
   const gemini = injector.get('System.GeminiEnhanced');
   const logging = injector.get('System.ExtendedLogging');
   const tests = injector.get('System.Phase3Tests');
-  
+
   return {
     // تهيئة المرحلة الثالثة
     async initialize() {
       logging.info('Phase3Controller', 'Initializing Phase 3: Sheets & Gemini Integration');
-      
+
       try {
         // تهيئة نظام السجلات
         logging.initializeLogging();
-        
+
         // اختبار الاتصال بـ Gemini
         const connectionTest = await gemini.testConnection();
         if (!connectionTest.success) {
           throw new Error(`Gemini connection failed: ${connectionTest.error}`);
         }
-        
+
         logging.info('Phase3Controller', 'Phase 3 initialized successfully');
         return { success: true, message: 'Phase 3 initialized successfully' };
-        
+
       } catch (error) {
         logging.error('Phase3Controller', 'Phase 3 initialization failed', error.message);
         return { success: false, error: error.message };
@@ -524,21 +524,21 @@ defineModule('System.Phase3Controller', function(injector) {
     // تشغيل جميع الاختبارات
     async runAllTests() {
       logging.info('Phase3Controller', 'Running all Phase 3 tests');
-      
+
       const results = {
         crud: await tests.testSheetsCRUD(),
         gemini: await tests.testGeminiIntegration(),
         integration: await tests.testFullIntegration()
       };
-      
+
       const allPassed = Object.values(results).every(result => result.success);
-      
+
       if (allPassed) {
         logging.info('Phase3Controller', 'All Phase 3 tests passed successfully');
       } else {
         logging.error('Phase3Controller', 'Some Phase 3 tests failed', JSON.stringify(results));
       }
-      
+
       return { success: allPassed, results };
     },
 
@@ -557,7 +557,7 @@ defineModule('System.Phase3Controller', function(injector) {
         },
         testResults: await this.runAllTests()
       };
-      
+
       // حفظ التقرير في ورقة
       const reportData = [
         ['Component', 'Status', 'Details'],
@@ -567,10 +567,10 @@ defineModule('System.Phase3Controller', function(injector) {
         ['Extended Logging', report.components.extendedLogging, 'Multi-level logging to sheets'],
         ['Integration Tests', report.components.integrationTests, 'Comprehensive test suite']
       ];
-      
+
       crud.createSheet('Phase3_Status_Report', ['Component', 'Status', 'Details']);
       crud.writeData('Phase3_Status_Report', 'A1:C6', reportData);
-      
+
       logging.info('Phase3Controller', 'Status report generated successfully');
       return report;
     }

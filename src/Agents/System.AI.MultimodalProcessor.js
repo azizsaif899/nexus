@@ -38,7 +38,7 @@ defineModule('System.AI.MultimodalProcessor', ({ Utils, Config, AI }) => {
   }
 
   function extractTableFromImage(imageBlob) {
-    const prompt = `استخرج البيانات من هذا الجدول في الصورة وأرجعها بتنسيق CSV:`;
+    const prompt = 'استخرج البيانات من هذا الجدول في الصورة وأرجعها بتنسيق CSV:';
     return processImageWithText(imageBlob, prompt);
   }
 

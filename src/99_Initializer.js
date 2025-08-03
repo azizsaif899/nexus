@@ -53,7 +53,7 @@
       const factories = Object.keys(injector._moduleFactories || {}).length;
       const exports = Object.keys(injector._moduleExports || {}).length;
       const fallbacks = Object.keys(injector._moduleExports || {}).filter(name => injector._moduleExports[name]?._isFallback).length;
-      
+
       Logger.log(`📊 إحصائيات النظام: ${factories} مسجلة, ${exports} مبنية, ${fallbacks} fallbacks`);
       Logger.log('✅ G-Assistant system initialized successfully!');
       return true;
@@ -89,13 +89,13 @@ function debugModules() {
     Logger.log('❌ Injector not available');
     return { factories: 0, exports: 0, fallbacks: 0 };
   }
-  
+
   const detailed = validateModuleFactoriesDetailed();
   Logger.log(`📦 Detailed: ${detailed.valid.length} valid, ${detailed.fallbacks.length} fallbacks, ${detailed.failed.length} failed`);
-  
-  return { 
-    factories: detailed.total, 
-    exports: detailed.valid.length + detailed.fallbacks.length, 
+
+  return {
+    factories: detailed.total,
+    exports: detailed.valid.length + detailed.fallbacks.length,
     fallbacks: detailed.fallbacks.length,
     details: detailed
   };
@@ -105,7 +105,7 @@ function debugModules() {
 // 🔧 SystemAutoRepairAgent v2.0 - فحص شامل ومتقدم
 function runAutoRepair() {
   Logger.log('🔧 Starting SystemAutoRepairAgent v2.0...');
-  
+
   const results = {
     coreIntegrity: verifyInjectorIntegrity(),
     defineModule: verifyDefineModule(),
@@ -114,7 +114,7 @@ function runAutoRepair() {
     fileStructure: scanAllFiles(),
     loadOrder: suggestCorrectLoadOrder()
   };
-  
+
   Logger.log('✅ Comprehensive auto-repair completed:', results);
   return results;
 }
@@ -146,28 +146,28 @@ function verifyDefineModule() {
 function validateModuleFactoriesDetailed() {
   const injector = GAssistant?.Utils?.Injector;
   if (!injector) return { valid: [], invalid: [], failed: [], total: 0 };
-  
+
   const factories = Object.keys(injector._moduleFactories || {});
   const exports = Object.keys(injector._moduleExports || {});
   const valid = exports.filter(name => !injector._moduleExports[name]?._isFallback);
   const fallbacks = exports.filter(name => injector._moduleExports[name]?._isFallback);
   const failed = factories.filter(name => !exports.includes(name));
-  
+
   Logger.log(`📦 Module Analysis: ${valid.length} valid, ${fallbacks.length} fallbacks, ${failed.length} failed`);
   Logger.log(`✅ Valid modules: ${valid.join(', ') || 'none'}`);
   if (fallbacks.length > 0) Logger.log(`⚠️ Fallback modules: ${fallbacks.join(', ')}`);
   if (failed.length > 0) Logger.log(`❌ Failed modules: ${failed.join(', ')}`);
-  
+
   return { valid, fallbacks, failed, total: factories.length };
 }
 
 function checkModuleReadiness() {
   const injector = GAssistant?.Utils?.Injector;
   if (!injector) return { ready: [], notReady: [] };
-  
+
   const ready = [];
   const notReady = [];
-  
+
   Object.keys(injector._moduleExports || {}).forEach(name => {
     const module = injector._moduleExports[name];
     if (module && !module._isFallback) {
@@ -180,30 +180,30 @@ function checkModuleReadiness() {
       }
     }
   });
-  
+
   Logger.log(`🚀 Ready modules: ${ready.join(', ') || 'none'}`);
   if (notReady.length > 0) Logger.log(`⚠️ Not ready: ${notReady.join(', ')}`);
-  
+
   return { ready, notReady };
 }
 
 function scanAllFiles() {
   Logger.log('📁 Scanning comprehensive file structure...');
-  
+
   // محاولة اكتشاف الملفات من مصادر مختلفة
   const discoveredModules = Object.keys(GAssistant?.Utils?.Injector?._moduleFactories || {});
   const coreFiles = ['00_utils.js', '99_Initializer.js'];
-  
+
   // تصنيف الوحدات حسب النوع
   const systemModules = discoveredModules.filter(name => name.startsWith('System.'));
   const agentModules = discoveredModules.filter(name => name.startsWith('Agent.'));
   const otherModules = discoveredModules.filter(name => !name.startsWith('System.') && !name.startsWith('Agent.'));
-  
+
   Logger.log(`🔍 Core files: ${coreFiles.join(', ')}`);
   Logger.log(`🏗️ System modules (${systemModules.length}): ${systemModules.join(', ') || 'none'}`);
   Logger.log(`🤖 Agent modules (${agentModules.length}): ${agentModules.join(', ') || 'none'}`);
   Logger.log(`📦 Other modules (${otherModules.length}): ${otherModules.join(', ') || 'none'}`);
-  
+
   return {
     coreFiles,
     systemModules,
@@ -218,12 +218,12 @@ function suggestCorrectLoadOrder() {
   const order = [
     '00_utils.js (CRITICAL FIRST - contains Injector & defineModule)',
     '01_*.js (System configuration modules)',
-    '10_*.js (Core system modules)', 
+    '10_*.js (Core system modules)',
     '20_*.js (Agent modules)',
     '30_*.js (UI modules)',
     '99_Initializer.js (CRITICAL LAST - runs initialization)'
   ];
-  
+
   order.forEach((item, i) => Logger.log(`${i + 1}. ${item}`));
   return order;
 }
@@ -235,19 +235,19 @@ function scanFileStructure() {
 
 function validateModuleFactories() {
   const detailed = validateModuleFactoriesDetailed();
-  return { 
-    valid: detailed.valid.length, 
-    invalid: detailed.failed.length, 
-    failed: detailed.failed 
+  return {
+    valid: detailed.valid.length,
+    invalid: detailed.failed.length,
+    failed: detailed.failed
   };
 }
 
 // Advanced diagnostic function
 function runSystemAutoRepairAgent() {
   Logger.log('====== 🔧 SystemAutoRepairAgent v2.0 - Comprehensive Analysis ======');
-  
+
   const results = runAutoRepair();
-  
+
   // Enhanced reporting
   Logger.log('\n📊 DETAILED SYSTEM REPORT:');
   Logger.log(`Core Integrity: ${results.coreIntegrity.status ? '✅' : '❌'}`);
@@ -255,7 +255,7 @@ function runSystemAutoRepairAgent() {
   Logger.log(`Total Modules: ${results.moduleFactories.total}`);
   Logger.log(`Ready Modules: ${results.moduleReadiness.ready.length}`);
   Logger.log(`File Categories: ${Object.keys(results.fileStructure).length - 1}`);
-  
+
   return results;
 }
 

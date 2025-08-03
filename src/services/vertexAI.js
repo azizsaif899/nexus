@@ -3,7 +3,7 @@
  * Status: 🟡 Beta
  */
 defineModule('Services.VertexAI', function(injector) {
-  
+
   const PROJECT_ID = PropertiesService.getScriptProperties().getProperty('GCP_PROJECT_ID');
   const LOCATION = 'us-central1';
 
@@ -15,7 +15,7 @@ defineModule('Services.VertexAI', function(injector) {
       try {
         const accessToken = this.getAccessToken();
         const endpoint = `https://${LOCATION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/${modelId}:predict`;
-        
+
         const payload = {
           instances: [{
             prompt: prompt
@@ -53,7 +53,7 @@ defineModule('Services.VertexAI', function(injector) {
       try {
         const accessToken = this.getAccessToken();
         const endpoint = `https://${LOCATION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/tuningJobs`;
-        
+
         const payload = {
           baseModel: baseModel,
           tuningTask: {
@@ -117,7 +117,7 @@ defineModule('Services.VertexAI', function(injector) {
           citationMetadata: result.predictions[0].citationMetadata
         };
       }
-      
+
       throw new Error('لم يتم العثور على تنبؤات في الاستجابة');
     },
 

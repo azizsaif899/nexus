@@ -4,7 +4,7 @@
  */
 
 defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
-  
+
   class PerformanceOptimizer {
     constructor() {
       this.compressionRatio = 0.5; // تقليل الذاكرة 50%
@@ -26,16 +26,16 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
       try {
         // ضغط البيانات
         const compressedVectors = this.compressVectors(vectorData);
-        
+
         // تحسين الفهرسة
         const optimizedIndex = this.optimizeIndex(compressedVectors);
-        
+
         // تحسين خوارزمية البحث
         const enhancedSearch = this.enhanceSearchAlgorithm(optimizedIndex);
-        
+
         this.updateMetrics('searchAccuracy', 0.95);
         this.updateMetrics('memoryUsage', 160);
-        
+
         return {
           success: true,
           compressedVectors,
@@ -47,7 +47,7 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
             speed: '75ms (تحسن 50%)'
           }
         };
-        
+
       } catch (error) {
         Logger.error('Vector Store optimization failed:', error);
         return { success: false, error: error.message };
@@ -61,12 +61,12 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
       return vectors.map(vector => {
         // تطبيق Quantization
         const quantized = vector.map(val => Math.round(val * 100) / 100);
-        
+
         // إزالة الأبعاد غير المهمة
-        const filtered = quantized.filter((val, idx) => 
+        const filtered = quantized.filter((val, idx) =>
           Math.abs(val) > 0.01 || idx % 10 === 0
         );
-        
+
         return {
           original: vector,
           compressed: filtered,
@@ -87,7 +87,7 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
 
       // تجميع المتجهات المتشابهة
       const clusters = this.clusterVectors(compressedVectors);
-      
+
       // إنشاء نقاط مركزية للتجميعات
       clusters.forEach((cluster, id) => {
         const centroid = this.calculateCentroid(cluster);
@@ -108,14 +108,14 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
       return {
         search: async (query, topK = 10) => {
           const startTime = Date.now();
-          
+
           // البحث في الشجرة أولاً
           const nearestClusters = this.searchTree(
-            optimizedIndex.searchTree, 
-            query, 
+            optimizedIndex.searchTree,
+            query,
             Math.ceil(topK / 2)
           );
-          
+
           // البحث التفصيلي في التجميعات المختارة
           const results = [];
           for (const cluster of nearestClusters) {
@@ -126,15 +126,15 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
             );
             results.push(...clusterResults);
           }
-          
+
           // ترتيب النتائج النهائية
           const sortedResults = results
             .sort((a, b) => b.similarity - a.similarity)
             .slice(0, topK);
-          
+
           const responseTime = Date.now() - startTime;
           this.updateMetrics('responseTime', responseTime);
-          
+
           return {
             results: sortedResults,
             responseTime,
@@ -150,18 +150,18 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
      */
     clusterVectors(vectors, k = 10) {
       const clusters = new Map();
-      
+
       // تهيئة النقاط المركزية عشوائياً
       const centroids = this.initializeCentroids(vectors, k);
-      
+
       let converged = false;
       let iterations = 0;
       const maxIterations = 100;
-      
+
       while (!converged && iterations < maxIterations) {
         // تعيين كل متجه لأقرب نقطة مركزية
         const newClusters = new Map();
-        
+
         vectors.forEach((vector, idx) => {
           const nearestCentroid = this.findNearestCentroid(vector, centroids);
           if (!newClusters.has(nearestCentroid)) {
@@ -169,23 +169,23 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
           }
           newClusters.get(nearestCentroid).push({ idx, vector });
         });
-        
+
         // تحديث النقاط المركزية
         const newCentroids = [];
         newClusters.forEach((cluster, centroidIdx) => {
           const newCentroid = this.calculateCentroid(cluster.map(item => item.vector));
           newCentroids[centroidIdx] = newCentroid;
         });
-        
+
         // فحص التقارب
         converged = this.checkConvergence(centroids, newCentroids);
         centroids.splice(0, centroids.length, ...newCentroids);
         clusters.clear();
         newClusters.forEach((cluster, idx) => clusters.set(idx, cluster));
-        
+
         iterations++;
       }
-      
+
       return clusters;
     }
 
@@ -201,26 +201,26 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
           this.right = null;
         }
       }
-      
+
       const buildTree = (points) => {
         if (points.length === 0) return null;
         if (points.length === 1) return new SearchNode(points[0]);
-        
+
         // اختيار البعد للتقسيم
         const dimension = Math.floor(Math.random() * points[0].centroid.length);
-        
+
         // ترتيب النقاط حسب البعد المختار
         points.sort((a, b) => a.centroid[dimension] - b.centroid[dimension]);
-        
+
         const mid = Math.floor(points.length / 2);
         const node = new SearchNode(points[mid]);
-        
+
         node.left = buildTree(points.slice(0, mid));
         node.right = buildTree(points.slice(mid + 1));
-        
+
         return node;
       };
-      
+
       return buildTree([...centroids]);
     }
 
@@ -229,7 +229,7 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
      */
     updateMetrics(metric, value) {
       this.metrics[metric] = value;
-      
+
       // إرسال تحديث للمراقبة
       this.notifyMonitoring(metric, value);
     }
@@ -277,10 +277,10 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
         speed: this.metrics.responseTime <= this.responseTimeTarget,
         cache: this.metrics.cacheHitRate >= 0.95
       };
-      
+
       const achieved = Object.values(targets).filter(Boolean).length;
       const total = Object.keys(targets).length;
-      
+
       return {
         overall: `${achieved}/${total} أهداف محققة`,
         percentage: Math.round((achieved / total) * 100),
@@ -292,23 +292,23 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
     // دوال مساعدة
     calculateCentroid(vectors) {
       if (vectors.length === 0) return [];
-      
+
       const dimensions = vectors[0].length;
       const centroid = new Array(dimensions).fill(0);
-      
+
       vectors.forEach(vector => {
         vector.forEach((val, idx) => {
           centroid[idx] += val;
         });
       });
-      
+
       return centroid.map(sum => sum / vectors.length);
     }
 
     findNearestCentroid(vector, centroids) {
       let minDistance = Infinity;
       let nearestIdx = 0;
-      
+
       centroids.forEach((centroid, idx) => {
         const distance = this.euclideanDistance(vector, centroid);
         if (distance < minDistance) {
@@ -316,7 +316,7 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
           nearestIdx = idx;
         }
       });
-      
+
       return nearestIdx;
     }
 
@@ -345,20 +345,20 @@ defineModule('Services.PerformanceOptimizer', ({ Utils, Config }) => {
     searchTree(tree, query, k) {
       // تطبيق البحث في الشجرة
       const results = [];
-      
+
       const search = (node) => {
         if (!node) return;
-        
+
         const distance = this.euclideanDistance(query, node.centroid.centroid);
         results.push({ ...node.centroid, distance });
-        
+
         // البحث في الفروع
         search(node.left);
         search(node.right);
       };
-      
+
       search(tree);
-      
+
       return results
         .sort((a, b) => a.distance - b.distance)
         .slice(0, k);

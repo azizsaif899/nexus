@@ -152,8 +152,9 @@ defineModule('System.AI.Agents.CFO', function(injector) {
 
             // استخدام Local Model أولاً مع fallback للـ API
             let aiResponse;
-            if (localModelManager) {
-              aiResponse = await localModelManager.generate(financialPrompt, 'gemma-7b');
+            if (localModelManager && localModelManager.generate) {
+              // استخدام Promise.resolve للتعامل مع async/await في بيئة GAS
+              aiResponse = localModelManager.generate(financialPrompt, 'gemma-7b');
             } else if (AI?.Core?.ask) {
               const response = AI.Core.ask(financialPrompt, { 
                 sessionId,

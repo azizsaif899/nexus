@@ -29,7 +29,7 @@ defineModule('System.AI.ModelManager', ({ Utils, Config }) => {
   function getOptimalModel(task, priority = 'balanced') {
     const taskModels = {
       'code': 'gemini-1.5-pro-latest',
-      'analysis': 'gemini-2.0-flash-exp', 
+      'analysis': 'gemini-2.0-flash-exp',
       'chat': 'gemini-1.5-flash-8b-latest',
       'multimodal': 'gemini-2.0-flash-exp'
     };
@@ -50,7 +50,7 @@ defineModule('System.AI.ModelManager', ({ Utils, Config }) => {
 
   function buildRequest(prompt, modelId, options = {}) {
     const model = getModelConfig(modelId);
-    
+
     return {
       model: modelId,
       generationConfig: {

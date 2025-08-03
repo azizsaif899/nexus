@@ -6,7 +6,7 @@
  */
 
 defineModule('Services.StreamProcessor', ({ Utils, Config }) => {
-  
+
   /**
    * Stream Processor for high-performance data processing
    */
@@ -41,20 +41,20 @@ defineModule('Services.StreamProcessor', ({ Utils, Config }) => {
      */
     async process(input) {
       const startTime = Date.now();
-      
+
       try {
         let result = input;
-        
+
         // Process through pipeline
         for (const processor of this.pipeline) {
           result = await processor.process(result);
         }
-        
+
         // Update metrics
         this.updateMetrics(Date.now() - startTime, true);
-        
+
         return result;
-        
+
       } catch (error) {
         this.updateMetrics(Date.now() - startTime, false);
         Utils.SystemLogger.error('Stream processing failed', error);
@@ -69,7 +69,7 @@ defineModule('Services.StreamProcessor', ({ Utils, Config }) => {
      */
     async processStream(dataStream) {
       const results = [];
-      
+
       for (const item of dataStream) {
         try {
           const result = await this.process(item);
@@ -78,7 +78,7 @@ defineModule('Services.StreamProcessor', ({ Utils, Config }) => {
           results.push({ error: error.message, input: item });
         }
       }
-      
+
       return results;
     }
 
@@ -90,7 +90,7 @@ defineModule('Services.StreamProcessor', ({ Utils, Config }) => {
     updateMetrics(duration, success) {
       this.metrics.processed++;
       if (!success) this.metrics.errors++;
-      
+
       // Calculate average time
       this.metrics.avgTime = (this.metrics.avgTime + duration) / 2;
     }
@@ -137,7 +137,7 @@ defineModule('Services.StreamProcessor', ({ Utils, Config }) => {
       if (!cfoAgent) {
         throw new Error('CFO Agent not available');
       }
-      
+
       return await cfoAgent.analyzeFinancials(data);
     }
   }
@@ -146,7 +146,7 @@ defineModule('Services.StreamProcessor', ({ Utils, Config }) => {
     StreamProcessor,
     DataValidator,
     CFOAnalyzer,
-    
+
     /**
      * Create financial processing pipeline
      * @returns {StreamProcessor} - Configured processor

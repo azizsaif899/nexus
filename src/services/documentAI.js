@@ -3,7 +3,7 @@
  * Status: 🟡 Beta
  */
 defineModule('Services.DocumentAI', function(injector) {
-  
+
   const PROJECT_ID = PropertiesService.getScriptProperties().getProperty('GCP_PROJECT_ID');
   const LOCATION = 'us';
   const PROCESSOR_ID = PropertiesService.getScriptProperties().getProperty('DOCUMENT_AI_PROCESSOR_ID');
@@ -16,7 +16,7 @@ defineModule('Services.DocumentAI', function(injector) {
       try {
         const accessToken = this.getAccessToken();
         const endpoint = `https://${LOCATION}-documentai.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/processors/${PROCESSOR_ID}:process`;
-        
+
         const payload = {
           rawDocument: {
             content: Utilities.base64Encode(fileBlob.getBytes()),
@@ -114,14 +114,14 @@ defineModule('Services.DocumentAI', function(injector) {
      */
     extractTextFromSegments(segments, fullText) {
       if (!segments || segments.length === 0) return '';
-      
+
       let extractedText = '';
       segments.forEach(segment => {
         const startIndex = parseInt(segment.startIndex) || 0;
         const endIndex = parseInt(segment.endIndex) || fullText.length;
         extractedText += fullText.substring(startIndex, endIndex);
       });
-      
+
       return extractedText;
     },
 

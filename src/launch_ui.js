@@ -4,7 +4,7 @@ function showEnhancedSidebar() {
   const htmlOutput = HtmlService.createHtmlOutput(html)
     .setWidth(400)
     .setTitle('AzizSys Enhanced');
-  
+
   SpreadsheetApp.getUi().showSidebar(htmlOutput);
 }
 

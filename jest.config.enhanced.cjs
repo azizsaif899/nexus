@@ -30,7 +30,8 @@ module.exports = {
     'src/**/*.js',
     '!src/**/*.test.js',
     '!src/**/mock*.js',
-    '!src/build*.js'
+    '!src/build*.js',
+    'packages/**/*.js' // Include packages in coverage
   ],
   
   // حدود التغطية المطلوبة
@@ -46,6 +47,12 @@ module.exports = {
       functions: 95,
       lines: 95,
       statements: 95
+    },
+    './packages/': { // Add coverage threshold for packages
+      branches: 80,
+      functions: 85,
+      lines: 85,
+      statements: 85
     }
   },
   
@@ -53,14 +60,20 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
   
   // Mock modules
-  moduleNameMapping: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@packages/executor-service$': '<rootDir>/packages/executor-service/index.js',
+    '^@packages/executor-service/plugins/amazon$': '<rootDir>/packages/executor-service/plugins/amazon/index.js'
   },
   
   // تحويل الملفات
   transform: {
-    '^.+\\.js$': 'babel-jest'
+    '^.+\.js$': 'babel-jest'
   },
+  // Ensure packages are transformed
+  transformIgnorePatterns: [
+    '/node_modules/(?!(@packages)/)' // Transform everything except node_modules, unless it's our package
+  ],
   
   // مهلة زمنية للاختبارات
   testTimeout: 10000,

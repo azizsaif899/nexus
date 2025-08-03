@@ -1,7 +1,7 @@
 /**
  * SheetsOptimizer - معالج العمليات المجمعة لـ Google Sheets
  * يحول العمليات الفردية إلى عمليات دفعية عالية الأداء
- * 
+ *
  * @module System.SheetsOptimizer
  * @requires System.ErrorLogger
  * @requires System.PerformanceProfiler
@@ -11,7 +11,7 @@
 defineModule('System.SheetsOptimizer', function(injector) {
   const errorLogger = injector.get('System.ErrorLogger');
   const performanceProfiler = injector.get('System.PerformanceProfiler');
-  
+
   return {
     /**
      * قراءة مجمعة للبيانات مع تحسين الذاكرة
@@ -22,7 +22,7 @@ defineModule('System.SheetsOptimizer', function(injector) {
      */
     batchRead(sheet, range) {
       const timerId = performanceProfiler.startTimer('batch_read');
-      
+
       try {
         const data = sheet.getRange(range).getValues();
         performanceProfiler.endTimer(timerId);
@@ -36,26 +36,26 @@ defineModule('System.SheetsOptimizer', function(injector) {
 
     /**
      * كتابة مجمعة للبيانات مع التحقق من الصحة
-     * @param {Sheet} sheet - ورقة العمل  
+     * @param {Sheet} sheet - ورقة العمل
      * @param {string} startCell - الخلية البداية (A1)
      * @param {Array<Array>} data - البيانات للكتابة
      * @throws {Error} عند فشل الكتابة
      */
     batchWrite(sheet, startCell, data) {
       const timerId = performanceProfiler.startTimer('batch_write');
-      
+
       try {
         if (!data || data.length === 0) {
           throw new Error('No data provided for batch write');
         }
-        
+
         const rows = data.length;
         const cols = Math.max(...data.map(row => row.length));
         const range = sheet.getRange(startCell).offset(0, 0, rows, cols);
-        
+
         range.setValues(data);
         performanceProfiler.endTimer(timerId);
-        
+
       } catch (error) {
         performanceProfiler.endTimer(timerId);
         errorLogger.logError(error, { operation: 'batch_write', startCell });
@@ -71,10 +71,10 @@ defineModule('System.SheetsOptimizer', function(injector) {
      */
     batchFormat(sheet, range, format) {
       const timerId = performanceProfiler.startTimer('batch_format');
-      
+
       try {
         const rangeObj = sheet.getRange(range);
-        
+
         if (format.backgroundColor) {
           rangeObj.setBackgrounds(format.backgroundColor);
         }
@@ -84,9 +84,9 @@ defineModule('System.SheetsOptimizer', function(injector) {
         if (format.numberFormat) {
           rangeObj.setNumberFormat(format.numberFormat);
         }
-        
+
         performanceProfiler.endTimer(timerId);
-        
+
       } catch (error) {
         performanceProfiler.endTimer(timerId);
         errorLogger.logError(error, { operation: 'batch_format', range });
@@ -102,7 +102,7 @@ defineModule('System.SheetsOptimizer', function(injector) {
      */
     processInMemory(data, processor) {
       const timerId = performanceProfiler.startTimer('process_in_memory');
-      
+
       try {
         const processedData = data.map(row => processor(row));
         performanceProfiler.endTimer(timerId);

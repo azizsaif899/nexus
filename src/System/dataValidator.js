@@ -3,7 +3,7 @@
  * Status: 🟡 Beta
  */
 defineModule('System.DataValidator', function(injector) {
-  
+
   return {
     /**
      * فحص جودة الجداول المستخرجة
@@ -51,7 +51,7 @@ defineModule('System.DataValidator', function(injector) {
         validation.recommendations.push(`إضافة عناوين للجدول ${index + 1}`);
       } else {
         validation.score += 25;
-        
+
         // فحص جودة العناوين
         const emptyHeaders = table.headers.filter(h => !h || h.trim() === '').length;
         if (emptyHeaders > 0) {
@@ -67,11 +67,11 @@ defineModule('System.DataValidator', function(injector) {
         validation.recommendations.push(`التحقق من جودة المسح الضوئي للجدول ${index + 1}`);
       } else {
         validation.score += 25;
-        
+
         // فحص اكتمال البيانات
         const completenessScore = this.checkDataCompleteness(table.rows);
         validation.score += completenessScore;
-        
+
         if (completenessScore < 20) {
           validation.issues.push(`الجدول ${index + 1}: بيانات ناقصة (${Math.round(completenessScore)}%)`);
         }
@@ -81,7 +81,7 @@ defineModule('System.DataValidator', function(injector) {
       if (table.headers && table.rows) {
         const consistencyScore = this.checkColumnConsistency(table);
         validation.score += consistencyScore;
-        
+
         if (consistencyScore < 10) {
           validation.issues.push(`الجدول ${index + 1}: عدم تناسق في الأعمدة`);
         }
@@ -95,17 +95,17 @@ defineModule('System.DataValidator', function(injector) {
      */
     checkDataCompleteness(rows) {
       if (!rows || rows.length === 0) return 0;
-      
+
       let totalCells = 0;
       let filledCells = 0;
-      
+
       rows.forEach(row => {
         if (Array.isArray(row)) {
           totalCells += row.length;
           filledCells += row.filter(cell => cell && cell.toString().trim() !== '').length;
         }
       });
-      
+
       return totalCells > 0 ? (filledCells / totalCells) * 35 : 0;
     },
 
@@ -114,16 +114,16 @@ defineModule('System.DataValidator', function(injector) {
      */
     checkColumnConsistency(table) {
       if (!table.headers || !table.rows) return 0;
-      
+
       const headerCount = table.headers.length;
       let consistentRows = 0;
-      
+
       table.rows.forEach(row => {
         if (Array.isArray(row) && row.length === headerCount) {
           consistentRows++;
         }
       });
-      
+
       return table.rows.length > 0 ? (consistentRows / table.rows.length) * 15 : 0;
     },
 
@@ -232,7 +232,7 @@ defineModule('System.DataValidator', function(injector) {
      */
     generateSummary(validationResult) {
       const summary = [];
-      
+
       if (validationResult.isValid) {
         summary.push('البيانات المستخرجة تلبي معايير الجودة');
       } else {

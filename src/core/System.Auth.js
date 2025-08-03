@@ -1,6 +1,6 @@
 defineModule('System.Auth', ({ Utils, Config }) => {
   const MODULE_VERSION = '1.0.0';
-  
+
   let cachedToken = null;
   let tokenExpiry = null;
 
@@ -18,7 +18,7 @@ defineModule('System.Auth', ({ Utils, Config }) => {
 
       const serviceAccount = JSON.parse(serviceAccountKey);
       const jwt = _createJWT(serviceAccount);
-      
+
       const response = UrlFetchApp.fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -26,7 +26,7 @@ defineModule('System.Auth', ({ Utils, Config }) => {
       });
 
       const result = JSON.parse(response.getContentText());
-      
+
       if (result.access_token) {
         cachedToken = result.access_token;
         // تعيين انتهاء الصلاحية قبل الوقت الفعلي بـ 5 دقائق
@@ -44,7 +44,7 @@ defineModule('System.Auth', ({ Utils, Config }) => {
   function _createJWT(serviceAccount) {
     const header = { alg: 'RS256', typ: 'JWT' };
     const now = Math.floor(Date.now() / 1000);
-    
+
     const payload = {
       iss: serviceAccount.client_email,
       scope: 'https://www.googleapis.com/auth/cloud-platform',
@@ -55,7 +55,7 @@ defineModule('System.Auth', ({ Utils, Config }) => {
 
     const headerB64 = Utilities.base64EncodeWebSafe(JSON.stringify(header));
     const payloadB64 = Utilities.base64EncodeWebSafe(JSON.stringify(payload));
-    
+
     const signature = Utilities.computeRsaSha256Signature(
       `${headerB64}.${payloadB64}`,
       serviceAccount.private_key

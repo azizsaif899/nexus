@@ -9,7 +9,7 @@
  * إدارة واجهة الإعدادات
  */
 const SettingsView = {
-  
+
   /**
    * عرض لوحة الإعدادات
    */
@@ -196,7 +196,7 @@ const SettingsView = {
     // تحديث قيمة درجة الحرارة
     const tempSlider = document.getElementById('temperature');
     const tempValue = document.getElementById('temperatureValue');
-    
+
     if (tempSlider && tempValue) {
       tempSlider.addEventListener('input', function() {
         tempValue.textContent = this.value;
@@ -270,7 +270,7 @@ const SettingsView = {
    */
   saveSettings() {
     const settings = this.collectSettings();
-    
+
     google.script.run
       .withSuccessHandler(this.handleSaveSuccess)
       .withFailureHandler(this.handleSaveError)
@@ -286,7 +286,7 @@ const SettingsView = {
       defaultModel: document.getElementById('defaultModel')?.value || 'gemini-pro',
       temperature: parseFloat(document.getElementById('temperature')?.value || 0.7),
       maxTokens: parseInt(document.getElementById('maxTokens')?.value || 2048),
-      
+
       // إعدادات الوكلاء
       activeAgents: {
         CFO: document.getElementById('agentCFO')?.checked || true,
@@ -295,13 +295,13 @@ const SettingsView = {
         General: document.getElementById('agentGeneral')?.checked || true
       },
       defaultAgent: document.getElementById('defaultAgent')?.value || 'General',
-      
+
       // إعدادات الواجهة
       theme: document.getElementById('theme')?.value || 'default',
       fontSize: document.getElementById('fontSize')?.value || 'medium',
       autoScroll: document.getElementById('autoScroll')?.checked || true,
       notifications: document.getElementById('notifications')?.checked || true,
-      
+
       // إعدادات الأداء
       performanceTracking: document.getElementById('performanceTracking')?.checked || true,
       cloudLogging: document.getElementById('cloudLogging')?.checked || true,
@@ -315,7 +315,7 @@ const SettingsView = {
   handleSaveSuccess() {
     showNotification('تم حفظ الإعدادات بنجاح!', 'success');
     SettingsView.hide();
-    
+
     // إعادة تحميل الصفحة لتطبيق التغييرات
     setTimeout(() => {
       if (confirm('هل تريد إعادة تحميل الصفحة لتطبيق التغييرات؟')) {

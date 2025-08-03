@@ -29,68 +29,46 @@ defineModule('System.Analytics.Dashboard', ({ Utils, Config, Tools }) => {
   }
 
   /**
-   * دالة داخلية لتجميع بيانات الملخص من مختلف الوحدات.
+   * دالة داخلية لتجميع بيانات الملخص من ملف لوحة المراقبة المركزي.
    * @private
    */
   function _generateSummaryData() {
-    const today = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd");
-
-    const metricProviders = [
-      {
-        label: 'أرباح اليوم',
-        provider: () => {
-          if (!AccountingTools?.calculateGrossProfit) return 'وحدة المحاسبة غير متاحة';
-          const profitResponse = AccountingTools.calculateGrossProfit({ startDate: today, endDate: today });
-          if (profitResponse?.type === 'table' && profitResponse.data?.rows?.length > 0) {
-            // Assuming the first row/col is the value
-            return profitResponse.data.rows[0][1];
-          }
-          return 'لا توجد بيانات';
-        },
-        fallback: 'خطأ في الحساب'
-      },
-      {
-        label: 'إجمالي العمليات المسجلة',
-        provider: () => {
-          if (!Config?.get) return 'وحدة الإعدادات غير متاحة';
-          // ✅ إصلاح: التحقق من وجود اسم الورقة أولاً
-          const sheetName = Config.get('OPERATION_LOG_SHEET');
-          if (!sheetName) {
-            return 'اسم ورقة السجل غير مهيأ';
-          }
-          const logSheet = getSheet(sheetName);
-          // التحقق من أن getSheet لم تُرجع null
-          if (!logSheet) return `تعذر العثور على ورقة السجل: ${sheetName}`;
-          return Math.max(0, logSheet.getLastRow() - 1); // getLastRow موجودة طالما الورقة موجودة
-        },
-        fallback: 'خطأ في الوصول'
-      },
-      {
-        label: 'عدد الأدوات المتاحة للـ AI',
-        provider: () => {
-          if (!ToolsCatalog?.getDeclarations) return 'كتالوج الأدوات غير متاح';
-          const toolDeclarations = ToolsCatalog.getDeclarations() || [];
-          return toolDeclarations.length;
-        },
-        fallback: 'خطأ في الوصول'
+    try {
+      // Read the central dashboard data file directly from the project files pushed by clasp
+      const dashboardJsonContent = DriveApp.getFilesByName('dashboard_data.json').next().getBlob().getDataAsString();
+      
+      if (!dashboardJsonContent) {
+        return [{ metric: 'حالة لوحة المراقبة', value: 'ملف البيانات (dashboard_data.json) غير موجود' }];
       }
-    ];
 
-    const metrics = metricProviders.map(({ label, provider, fallback }) => {
-      let value;
-      try {
-        value = provider();
-      } catch (error) {
-        log(`Analytics._generateSummaryData: Error in metric provider for "${label}"`, error);
-        value = fallback;
+      const dashboardData = JSON.parse(dashboardJsonContent);
+      
+      const metrics = [];
+
+      // Add summary from the new strategic plan
+      if (dashboardData.summary && dashboardData.summary.priority_alerts && dashboardData.summary.priority_alerts.length > 0) {
+        metrics.push({ metric: '🚨 تنبيه', value: dashboardData.summary.priority_alerts[0] });
       }
-      return { metric: label, value };
-    });
-    
-    // يمكنك إضافة المزيد من المقاييس هنا بسهولة
 
-    log('Analytics._generateSummaryData: Metrics collected', { count: metrics.length });
-    return metrics;
+      if (dashboardData.monthly_progress) {
+        metrics.push({ metric: '🎯 التركيز الحالي', value: dashboardData.monthly_progress.current_focus || 'غير محدد' });
+        metrics.push({ metric: '📈 نسبة الإنجاز', value: `${dashboardData.monthly_progress.completion_rate || 0}%` });
+      }
+
+      if (dashboardData.active_tasks && dashboardData.active_tasks.length > 0) {
+        const task = dashboardData.active_tasks[0];
+        metrics.push({ metric: '🚧 قيد التنفيذ', value: `${task.title} (${task.progress}%)` });
+      } else {
+        metrics.push({ metric: '🚧 المهام النشطة', value: 'لا يوجد' });
+      }
+
+      log('Analytics._generateSummaryData: Metrics collected from dashboard_data.json');
+      return metrics;
+
+    } catch (error) {
+      log('Analytics._generateSummaryData: Error processing dashboard_data.json', { error: error.message, stack: error.stack });
+      return [{ metric: 'خطأ في لوحة المراقبة', value: 'لا يمكن قراءة أو تحليل ملف البيانات. راجع السجلات.' }];
+    }
   }
 
   /**

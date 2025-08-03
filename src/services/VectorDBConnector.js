@@ -4,21 +4,21 @@
  */
 
 defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
-  
+
   // Base interface for all vector databases
   class BaseVectorStore {
     async storeEmbedding(id, embedding, metadata = {}) {
       throw new Error('storeEmbedding must be implemented');
     }
-    
+
     async semanticSearch(embedding, topK = 10, threshold = 0.5) {
       throw new Error('semanticSearch must be implemented');
     }
-    
+
     async deleteEmbedding(id) {
       throw new Error('deleteEmbedding must be implemented');
     }
-    
+
     async getStats() {
       throw new Error('getStats must be implemented');
     }
@@ -44,10 +44,10 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
 
     async semanticSearch(queryEmbedding, topK = 10, threshold = 0.5) {
       const results = [];
-      
+
       for (const [id, embedding] of this.vectors) {
         const similarity = this.cosineSimilarity(queryEmbedding, embedding);
-        
+
         if (similarity >= threshold) {
           results.push({
             id,
@@ -57,7 +57,7 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
           });
         }
       }
-      
+
       return results
         .sort((a, b) => b.similarity - a.similarity)
         .slice(0, topK);
@@ -79,28 +79,28 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
 
     cosineSimilarity(vec1, vec2) {
       if (vec1.length !== vec2.length) return 0;
-      
+
       let dotProduct = 0;
       let norm1 = 0;
       let norm2 = 0;
-      
+
       for (let i = 0; i < vec1.length; i++) {
         dotProduct += vec1[i] * vec2[i];
         norm1 += vec1[i] * vec1[i];
         norm2 += vec2[i] * vec2[i];
       }
-      
+
       return dotProduct / (Math.sqrt(norm1) * Math.sqrt(norm2));
     }
 
     calculateAvgDimensions() {
       if (this.vectors.size === 0) return 0;
-      
+
       let totalDims = 0;
       for (const embedding of this.vectors.values()) {
         totalDims += embedding.length;
       }
-      
+
       return Math.round(totalDims / this.vectors.size);
     }
 
@@ -148,7 +148,7 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
     async semanticSearch(queryEmbedding, topK = 10, threshold = 0.5) {
       try {
         const mockResults = this.generateMockResults(queryEmbedding, topK, threshold);
-        
+
         return mockResults
           .filter(match => match.score >= threshold)
           .map(match => ({
@@ -211,26 +211,26 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
 
     initializeProvider() {
       const providerType = process.env.VECTOR_DB_PROVIDER || 'in-memory';
-      
+
       try {
         switch (providerType.toLowerCase()) {
-          case 'pinecone':
-            this.provider = new PineconeVectorStore(
-              process.env.PINECONE_API_KEY || 'mock-key',
-              process.env.PINECONE_ENVIRONMENT || 'mock-env',
-              process.env.PINECONE_INDEX_NAME || 'financial-embeddings'
-            );
-            break;
-            
-          default:
-            this.provider = new InMemoryVectorStore();
+        case 'pinecone':
+          this.provider = new PineconeVectorStore(
+            process.env.PINECONE_API_KEY || 'mock-key',
+            process.env.PINECONE_ENVIRONMENT || 'mock-env',
+            process.env.PINECONE_INDEX_NAME || 'financial-embeddings'
+          );
+          break;
+
+        default:
+          this.provider = new InMemoryVectorStore();
         }
-        
+
         // Always have in-memory as fallback
         this.fallbackProvider = new InMemoryVectorStore();
-        
+
         Logger.log(`✅ Vector DB initialized: ${providerType}`);
-        
+
       } catch (error) {
         Logger.error('Vector DB initialization error:', error);
         this.provider = new InMemoryVectorStore();
@@ -249,7 +249,7 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
     async semanticSearch(embedding, topK = 10, threshold = 0.5) {
       try {
         const results = await this.provider.semanticSearch(embedding, topK, threshold);
-        
+
         // If primary provider returns few results, try fallback
         if (results.length < topK / 2 && this.fallbackProvider) {
           const fallbackResults = await this.fallbackProvider.semanticSearch(
@@ -257,9 +257,9 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
           );
           return [...results, ...fallbackResults];
         }
-        
+
         return results;
-        
+
       } catch (error) {
         Logger.warn('Primary search failed, using fallback');
         return await this.fallbackProvider.semanticSearch(embedding, topK, threshold);
@@ -271,7 +271,7 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
         this.provider.deleteEmbedding(id),
         this.fallbackProvider?.deleteEmbedding(id)
       ]);
-      
+
       return { success: results.some(r => r.status === 'fulfilled' && r.value.success) };
     }
 
@@ -279,13 +279,13 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
       try {
         const primaryStats = await this.provider.getStats();
         const fallbackStats = this.fallbackProvider ? await this.fallbackProvider.getStats() : null;
-        
+
         return {
           primary: primaryStats,
           fallback: fallbackStats,
           healthStatus: this.getHealthStatus()
         };
-        
+
       } catch (error) {
         return { error: error.message };
       }
@@ -302,17 +302,17 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
     async batchStore(embeddings) {
       const results = [];
       const batchSize = 100;
-      
+
       for (let i = 0; i < embeddings.length; i += batchSize) {
         const batch = embeddings.slice(i, i + batchSize);
         const batchResults = await Promise.allSettled(
-          batch.map(({ id, embedding, metadata }) => 
+          batch.map(({ id, embedding, metadata }) =>
             this.storeEmbedding(id, embedding, metadata)
           )
         );
         results.push(...batchResults);
       }
-      
+
       return {
         total: embeddings.length,
         successful: results.filter(r => r.status === 'fulfilled').length,
@@ -323,7 +323,7 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
     async optimizeCosts() {
       const stats = await this.getStats();
       const recommendations = [];
-      
+
       if (stats.primary?.totalVectors > 50000) {
         recommendations.push({
           type: 'storage_optimization',
@@ -331,7 +331,7 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
           priority: 'medium'
         });
       }
-      
+
       return {
         currentCosts: this.estimateMonthlyCosts(stats),
         recommendations
@@ -341,12 +341,12 @@ defineModule('Services.VectorDBConnector', ({ Utils, Config }) => {
     estimateMonthlyCosts(stats) {
       const provider = stats.primary?.provider;
       const vectorCount = stats.primary?.totalVectors || 0;
-      
+
       switch (provider) {
-        case 'pinecone':
-          return Math.round((vectorCount / 1000000) * 0.096 * 100) / 100;
-        default:
-          return 0;
+      case 'pinecone':
+        return Math.round((vectorCount / 1000000) * 0.096 * 100) / 100;
+      default:
+        return 0;
       }
     }
   }

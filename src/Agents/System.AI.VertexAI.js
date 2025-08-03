@@ -4,7 +4,7 @@ defineModule('System.AI.VertexAI', ({ Utils, Config }) => {
   function callTunedModel(modelId, prompt, config = {}) {
     const projectId = Config.get('VERTEX_PROJECT_ID');
     const accessToken = _getAccessToken();
-    
+
     if (!accessToken) return { type: 'error', text: 'فشل في المصادقة' };
 
     const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${projectId}/locations/us-central1/publishers/google/models/${modelId}:generateContent`;
@@ -41,13 +41,13 @@ defineModule('System.AI.VertexAI', ({ Utils, Config }) => {
     try {
       const serviceAccount = JSON.parse(Config.get('VERTEX_SERVICE_ACCOUNT_KEY'));
       const jwt = _createJWT(serviceAccount);
-      
+
       const response = UrlFetchApp.fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         payload: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${jwt}`
       });
-      
+
       return JSON.parse(response.getContentText()).access_token;
     } catch (e) {
       Utils.error('Vertex AI auth failed', e);

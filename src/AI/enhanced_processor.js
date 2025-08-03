@@ -18,11 +18,11 @@ class EnhancedProcessor {
       },
       advancedProcess: async (text, options) => {
         await new Promise(resolve => setTimeout(resolve, 200));
-        return { 
-          result: `تحليل متقدم: ${text}`, 
-          options, 
+        return {
+          result: `تحليل متقدم: ${text}`,
+          options,
           confidence: 0.95,
-          timestamp: Date.now() 
+          timestamp: Date.now()
         };
       }
     };

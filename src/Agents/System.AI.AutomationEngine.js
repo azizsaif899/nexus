@@ -30,20 +30,20 @@ defineModule('System.AI.AutomationEngine', ({ Utils, Config }) => {
 
     try {
       switch (command) {
-        case 'SEND_EMAIL':
-          result = _sendAutomatedEmail(parameters);
-          break;
-        case 'CREATE_SHEET':
-          result = _createAutomatedSheet(parameters);
-          break;
-        case 'WEBHOOK_CALL':
-          result = _callWebhook(parameters);
-          break;
-        case 'ANALYZE_DATA':
-          result = _analyzeDataRange(parameters);
-          break;
-        default:
-          result = { type: 'error', text: `أمر غير معروف: ${command}` };
+      case 'SEND_EMAIL':
+        result = _sendAutomatedEmail(parameters);
+        break;
+      case 'CREATE_SHEET':
+        result = _createAutomatedSheet(parameters);
+        break;
+      case 'WEBHOOK_CALL':
+        result = _callWebhook(parameters);
+        break;
+      case 'ANALYZE_DATA':
+        result = _analyzeDataRange(parameters);
+        break;
+      default:
+        result = { type: 'error', text: `أمر غير معروف: ${command}` };
       }
 
       _logAutomationResult(command, result, Date.now() - start);
@@ -106,7 +106,7 @@ defineModule('System.AI.AutomationEngine', ({ Utils, Config }) => {
 
       return {
         type: 'success',
-        text: `تم استدعاء webhook بنجاح`,
+        text: 'تم استدعاء webhook بنجاح',
         data: { status: response.getResponseCode() }
       };
     } catch (e) {

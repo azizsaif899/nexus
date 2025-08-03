@@ -8,7 +8,7 @@ class EmbeddingScheduler {
     this.preprocessor = Injector.get('Services.EmbeddingPreprocessor');
     this.vectorStore = Injector.get('Services.VectorStore');
     this.logger = Injector.get('Utils.SystemLogger');
-    
+
     this.SCHEDULE_INTERVAL = 60 * 60 * 1000; // كل ساعة
     this.isRunning = false;
     this.lastRun = null;
@@ -31,10 +31,10 @@ class EmbeddingScheduler {
 
     console.log('🚀 بدء مجدول المعالجة التلقائية');
     this.isRunning = true;
-    
+
     // تشغيل فوري أول مرة
     this.runScheduledTask();
-    
+
     // تشغيل دوري
     this.intervalId = setInterval(() => {
       this.runScheduledTask();
@@ -52,7 +52,7 @@ class EmbeddingScheduler {
 
     console.log('🛑 إيقاف مجدول المعالجة التلقائية');
     this.isRunning = false;
-    
+
     if (this.intervalId) {
       clearInterval(this.intervalId);
       this.intervalId = null;
@@ -68,23 +68,23 @@ class EmbeddingScheduler {
     try {
       console.log('⏰ بدء المهمة المجدولة...');
       this.stats.totalRuns++;
-      
+
       const startTime = Date.now();
-      
+
       // معالجة التقارير الجديدة
       const result = await this.preprocessor.runScheduledProcessing();
-      
+
       const duration = Date.now() - startTime;
       this.lastRun = new Date().toISOString();
       this.stats.successfulRuns++;
-      
+
       console.log(`✅ اكتملت المهمة المجدولة في ${duration}ms`);
       console.log(`📊 معالج: ${result.processed}, منظف: ${result.cleaned}`);
-      
+
     } catch (error) {
       this.stats.failedRuns++;
       this.stats.lastError = error.message;
-      
+
       console.error('❌ فشل في المهمة المجدولة:', error);
     }
   }
@@ -97,8 +97,8 @@ class EmbeddingScheduler {
       ...this.stats,
       isRunning: this.isRunning,
       lastRun: this.lastRun,
-      nextRun: this.isRunning ? 
-        new Date(Date.now() + this.SCHEDULE_INTERVAL).toISOString() : 
+      nextRun: this.isRunning ?
+        new Date(Date.now() + this.SCHEDULE_INTERVAL).toISOString() :
         null
     };
   }

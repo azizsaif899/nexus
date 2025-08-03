@@ -38,7 +38,7 @@ defineModule('Services.VectorStore.Factory', ({ Config, Injector, Utils }) => {
      */
     async createVectorStore(providerType = null) {
       const provider = providerType || Config.get('VECTOR_STORE_PROVIDER') || 'in-memory';
-      
+
       if (!this.providers.has(provider)) {
         throw new Error(`Unknown vector store provider: ${provider}`);
       }
@@ -46,20 +46,20 @@ defineModule('Services.VectorStore.Factory', ({ Config, Injector, Utils }) => {
       try {
         const vectorStore = this.providers.get(provider)();
         await vectorStore.initialize();
-        
+
         this.currentProvider = provider;
         Utils.log(`VectorStoreFactory: Created ${provider} vector store`);
-        
+
         return vectorStore;
       } catch (error) {
         Utils.error(`VectorStoreFactory: Failed to create ${provider} vector store`, error);
-        
+
         // Fallback to in-memory if production provider fails
         if (provider !== 'in-memory') {
           Utils.log('VectorStoreFactory: Falling back to in-memory store');
           return this.createVectorStore('in-memory');
         }
-        
+
         throw error;
       }
     }
@@ -91,12 +91,12 @@ defineModule('Services.VectorStore.Factory', ({ Config, Injector, Utils }) => {
      */
     async healthCheck(providerType = null) {
       const provider = providerType || this.currentProvider || 'in-memory';
-      
+
       try {
         const vectorStore = await this.createVectorStore(provider);
         const health = await vectorStore.healthCheck();
         await vectorStore.cleanup();
-        
+
         return {
           provider,
           status: 'healthy',

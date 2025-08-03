@@ -28,11 +28,11 @@ defineModule('System.AgentTriggers', ({ Utils, Config, DocsManager, Telemetry })
           removed.push(handlerName);
           Utils.log(`AgentTriggers: removed trigger ${handlerName}`);
         });
-      
+
       if (removed.length > 0) {
         Telemetry.track('AgentTriggers.TriggersRemoved', { count: removed.length, handlers: removed });
       }
-      
+
       return removed;
     } catch (e) {
       Utils.error('AgentTriggers: Could not remove existing triggers', e);
@@ -120,7 +120,7 @@ defineModule('System.AgentTriggers', ({ Utils, Config, DocsManager, Telemetry })
           source: t.getTriggerSource().toString(),
           uid: t.getUniqueId()
         }));
-      
+
       return triggers;
     } catch (e) {
       Utils.error('Failed to get triggers status', e);
@@ -128,9 +128,9 @@ defineModule('System.AgentTriggers', ({ Utils, Config, DocsManager, Telemetry })
     }
   }
 
-  return { 
-    setupAgentTriggers, 
+  return {
+    setupAgentTriggers,
     getTriggersStatus,
-    MODULE_VERSION 
+    MODULE_VERSION
   };
 });

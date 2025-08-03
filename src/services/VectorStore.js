@@ -16,7 +16,7 @@ class VectorStore {
   initializeSheet() {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     let sheet = ss.getSheetByName(this.SHEET_NAME);
-    
+
     if (!sheet) {
       sheet = ss.insertSheet(this.SHEET_NAME);
       sheet.getRange(1, 1, 1, 4).setValues([
@@ -33,10 +33,10 @@ class VectorStore {
   async storeEmbedding(id, contentHash, embedding) {
     const sheet = this.initializeSheet();
     const timestamp = new Date().toISOString();
-    
+
     // تحقق من وجود السجل
     const existingRow = this.findExistingRow(sheet, id);
-    
+
     if (existingRow > 0) {
       // تحديث السجل الموجود
       sheet.getRange(existingRow, 2, 1, 3).setValues([[
@@ -46,7 +46,7 @@ class VectorStore {
       // إضافة سجل جديد
       sheet.appendRow([id, contentHash, JSON.stringify(embedding), timestamp]);
     }
-    
+
     // تحديث الذاكرة المؤقتة
     this.cache.set(id, { embedding, contentHash, timestamp });
   }
@@ -57,19 +57,19 @@ class VectorStore {
   async storeBatchEmbeddings(items) {
     const sheet = this.initializeSheet();
     const timestamp = new Date().toISOString();
-    
+
     const rows = items.map(item => [
-      item.id, 
-      item.contentHash, 
-      JSON.stringify(item.embedding), 
+      item.id,
+      item.contentHash,
+      JSON.stringify(item.embedding),
       timestamp
     ]);
-    
+
     // تخزين مجمع - أسرع بكثير من التخزين الفردي
     if (rows.length > 0) {
       const range = sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, 4);
       range.setValues(rows);
-      
+
       // تحديث الذاكرة المؤقتة
       items.forEach(item => {
         this.cache.set(item.id, {
@@ -89,10 +89,10 @@ class VectorStore {
     if (this.cache.has(id)) {
       return this.cache.get(id);
     }
-    
+
     const sheet = this.initializeSheet();
     const data = sheet.getDataRange().getValues();
-    
+
     for (let i = 1; i < data.length; i++) {
       if (data[i][0] === id) {
         const result = {
@@ -100,13 +100,13 @@ class VectorStore {
           contentHash: data[i][1],
           timestamp: data[i][3]
         };
-        
+
         // حفظ في الذاكرة المؤقتة
         this.cache.set(id, result);
         return result;
       }
     }
-    
+
     return null;
   }
 
@@ -117,7 +117,7 @@ class VectorStore {
     const sheet = this.initializeSheet();
     const data = sheet.getDataRange().getValues();
     const results = [];
-    
+
     for (let i = 1; i < data.length; i++) {
       if (data[i][2]) { // تأكد من وجود embedding
         results.push({
@@ -128,7 +128,7 @@ class VectorStore {
         });
       }
     }
-    
+
     return results;
   }
 
@@ -139,10 +139,10 @@ class VectorStore {
     const { threshold = 0.5, topN = 10 } = options;
     const allEmbeddings = await this.getAllEmbeddings();
     const results = [];
-    
+
     for (const item of allEmbeddings) {
       const similarity = this.calculateCosineSimilarity(queryEmbedding, item.embedding);
-      
+
       if (similarity >= threshold) {
         results.push({
           id: item.id,
@@ -152,10 +152,10 @@ class VectorStore {
         });
       }
     }
-    
+
     // ترتيب حسب التشابه (الأعلى أولاً)
     results.sort((a, b) => b.similarity - a.similarity);
-    
+
     return results.slice(0, topN);
   }
 
@@ -166,17 +166,17 @@ class VectorStore {
     if (vecA.length !== vecB.length) {
       throw new Error('Vector dimensions must match');
     }
-    
+
     let dotProduct = 0;
     let normA = 0;
     let normB = 0;
-    
+
     for (let i = 0; i < vecA.length; i++) {
       dotProduct += vecA[i] * vecB[i];
       normA += vecA[i] * vecA[i];
       normB += vecB[i] * vecB[i];
     }
-    
+
     return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
   }
 
@@ -201,21 +201,21 @@ class VectorStore {
     const data = sheet.getDataRange().getValues();
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - daysOld);
-    
+
     const rowsToDelete = [];
-    
+
     for (let i = data.length - 1; i >= 1; i--) {
       const recordDate = new Date(data[i][3]);
       if (recordDate < cutoffDate) {
         rowsToDelete.push(i + 1);
       }
     }
-    
+
     // حذف الصفوف القديمة
     rowsToDelete.forEach(rowIndex => {
       sheet.deleteRow(rowIndex);
     });
-    
+
     return rowsToDelete.length;
   }
 
@@ -225,7 +225,7 @@ class VectorStore {
   async getStats() {
     const sheet = this.initializeSheet();
     const data = sheet.getDataRange().getValues();
-    
+
     return {
       totalRecords: data.length - 1,
       cacheSize: this.cache.size,

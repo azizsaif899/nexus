@@ -26,13 +26,13 @@ defineModule('System.AI.Core', ({ AI }) => {
    * • 37  التعامل مع تسلسل الأدوات (Tool Chaining - عبر إعادة استدعاء ask - ملاحظة في التنفيذ)
    * • **جديد: دمج askJSON و askForCodeAnalysis كوظائف أساسية هنا مع تسجيل مفصل**
    */
-  
-  
-  
+
+
+
   // ✅ تفعيل فحص مسبق: التحقق من جاهزية الوحدات الأساسية قبل المتابعة
-    if (!ModuleVerifier?.checkReady('Config', ['get', 'getAll'])) {
-      Telemetry?.logError("❌ AI.Core: وحدة 'Config' غير جاهزة. تم إيقاف التهيئة.");
-  
+  if (!ModuleVerifier?.checkReady('Config', ['get', 'getAll'])) {
+    Telemetry?.logError('❌ AI.Core: وحدة \'Config\' غير جاهزة. تم إيقاف التهيئة.');
+
   }
 
   // === التصدير ===

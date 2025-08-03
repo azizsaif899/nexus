@@ -1,0 +1,13 @@
+{
+  "name": "executor-service",
+  "version": "1.0.0",
+  "description": "Automated fix execution service for AzizSys",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": ["automation", "fixes", "azizsys"],
+  "author": "AzizSys Team",
+  "license": "MIT"
+}

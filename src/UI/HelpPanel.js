@@ -9,7 +9,7 @@
  * إدارة لوحة المساعدة
  */
 const HelpPanel = {
-  
+
   /**
    * عرض لوحة المساعدة
    */
@@ -163,7 +163,7 @@ const HelpPanel = {
 
     const step = steps[currentStep];
     const element = document.querySelector(step.element);
-    
+
     if (element) {
       this.highlightElement(element, step.message, () => {
         this.runTourSteps(steps, currentStep + 1);
@@ -199,7 +199,7 @@ const HelpPanel = {
    */
   showWelcomeMessage() {
     const isFirstTime = !localStorage.getItem('g_assistant_welcomed');
-    
+
     if (isFirstTime) {
       setTimeout(() => {
         this.displayWelcomeModal();
@@ -242,7 +242,7 @@ const HelpPanel = {
         </div>
       </div>
     `;
-    
+
     this.displayModal(welcomeContent);
   }
 };

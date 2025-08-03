@@ -31,7 +31,7 @@ function onOpenSmartTriggers(e) {
     if (GAssistant?.AI?.SmartTriggers?.setupSmartTriggers) {
       GAssistant.AI.SmartTriggers.setupSmartTriggers();
     }
-    
+
     // إضافة قائمة مخصصة
     const ui = SpreadsheetApp.getUi();
     ui.createMenu('G-Assistant')
@@ -44,7 +44,7 @@ function onOpenSmartTriggers(e) {
         .addItem('وكيل المطور', 'activateDeveloperAgent')
         .addItem('مدير قاعدة البيانات', 'activateDatabaseAgent'))
       .addToUi();
-      
+
   } catch (error) {
     Logger.log('onOpenSmartTriggers error: ' + error.message);
   }
@@ -88,7 +88,7 @@ function activateCFOAgent() {
   try {
     const ui = SpreadsheetApp.getUi();
     const response = ui.prompt('وكيل المدير المالي', 'أدخل طلبك المالي:', ui.ButtonSet.OK_CANCEL);
-    
+
     if (response.getSelectedButton() === ui.Button.OK) {
       const message = response.getResponseText();
       if (GAssistant?.AI?.Agents?.CFO?.handleRequest) {
@@ -109,7 +109,7 @@ function activateDeveloperAgent() {
   try {
     const ui = SpreadsheetApp.getUi();
     const response = ui.prompt('وكيل المطور', 'أدخل طلبك التقني:', ui.ButtonSet.OK_CANCEL);
-    
+
     if (response.getSelectedButton() === ui.Button.OK) {
       const message = response.getResponseText();
       if (GAssistant?.AI?.Agents?.Developer?.handleRequest) {
@@ -130,7 +130,7 @@ function activateDatabaseAgent() {
   try {
     const ui = SpreadsheetApp.getUi();
     const response = ui.prompt('مدير قاعدة البيانات', 'أدخل طلبك لإدارة البيانات:', ui.ButtonSet.OK_CANCEL);
-    
+
     if (response.getSelectedButton() === ui.Button.OK) {
       const message = response.getResponseText();
       if (GAssistant?.AI?.Agents?.DatabaseManager?.handleRequest) {

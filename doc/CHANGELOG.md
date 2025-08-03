@@ -35,7 +35,7 @@
   - `TEAM_PROJECT_RULES.md` (الدستور المحدث)
   - `PROJECT_STRUCTURE.md`
   - `COMMIT_MESSAGE.md`
-  - `architecture.md`
+  - `architecture-new.md`
   - `CODING_STANDARDS.md`
   - `DEPENDENCY_MANAGEMENT.md`
   - `CHANGELOG.md` (هذا الملف)

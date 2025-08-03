@@ -6,13 +6,13 @@ defineModule('System.UI.Enhanced', ({ Utils, Config }) => {
       const template = HtmlService.createTemplateFromFile('EnhancedSidebar');
       template.version = MODULE_VERSION;
       template.timestamp = new Date().getTime();
-      
+
       const html = template.evaluate()
         .setTitle('G-Assistant AI')
         .setWidth(400);
-      
+
       SpreadsheetApp.getUi().showSidebar(html);
-      
+
       Utils.log('Enhanced sidebar displayed successfully');
       return { type: 'success', text: 'تم عرض الشريط الجانبي المحسن' };
     } catch (e) {
@@ -27,7 +27,7 @@ defineModule('System.UI.Enhanced', ({ Utils, Config }) => {
       const historySheet = Utils.getSheet('ChatHistory', [
         'Timestamp', 'User', 'Message', 'Response', 'Agent'
       ]);
-      
+
       if (!historySheet) {
         return { type: 'success', data: [] };
       }
@@ -53,7 +53,7 @@ defineModule('System.UI.Enhanced', ({ Utils, Config }) => {
       const historySheet = Utils.getSheet('ChatHistory', [
         'Timestamp', 'User', 'Message', 'Response', 'Agent'
       ]);
-      
+
       if (historySheet) {
         historySheet.appendRow([
           new Date(),

@@ -8,6 +8,8 @@
 | :--- | :--- | :--- | :--- |
 | `Gemini` | Refactor `csvParser.js` | `src/lib/csvParser.js` | `In Progress` 🚧 |
 | `Copilot` | Unit tests for `dateHelper.js` | `tests/utils/dateHelper.test.js` | `In Progress` 🚧 |
+| `Amazon` | Write unit tests for dateHelper.js | `src/utils/dateHelper.js, 85_tests/dateHelper.test.js` | `Completed` ✅ |
+| `Amazon` | Fix Critical: Database connection error in staging | `config/database.js` | `Pending` ⏳ |
 
 ---
 **تعليمات:**

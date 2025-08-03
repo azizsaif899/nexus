@@ -4,7 +4,7 @@
  */
 
 defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
-  
+
   class AdvancedMonitor {
     constructor() {
       this.metrics = new Map();
@@ -100,7 +100,7 @@ defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
         // مقاييس الأداء
         const performanceOptimizer = Injector.get('Services.PerformanceOptimizer');
         const performanceReport = performanceOptimizer.getPerformanceReport();
-        
+
         Object.entries(performanceReport.currentMetrics).forEach(([metric, value]) => {
           this.updateMetric(metric, value);
         });
@@ -187,7 +187,7 @@ defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
       };
 
       this.dashboard = { ...this.dashboard, ...dashboard };
-      
+
       // حفظ البيانات التاريخية
       this.dashboard.historicalData.push({
         timestamp: dashboard.timestamp,
@@ -207,7 +207,7 @@ defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
     checkAlerts() {
       this.metrics.forEach((history, metricName) => {
         if (history.length === 0) return;
-        
+
         const latestValue = history[history.length - 1].value;
         this.checkMetricAlert(metricName, latestValue);
       });
@@ -417,16 +417,16 @@ defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
 
       const values = history.slice(-10).map(h => h.value);
       const n = values.length;
-      
+
       // حساب الانحدار الخطي البسيط
       const sumX = values.reduce((sum, _, i) => sum + i, 0);
       const sumY = values.reduce((sum, val) => sum + val, 0);
       const sumXY = values.reduce((sum, val, i) => sum + i * val, 0);
       const sumXX = values.reduce((sum, _, i) => sum + i * i, 0);
-      
+
       const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
       const confidence = Math.abs(slope) > 0.1 ? Math.min(Math.abs(slope) * 10, 1) : 0;
-      
+
       return {
         direction: slope > 0.1 ? 'increasing' : slope < -0.1 ? 'decreasing' : 'stable',
         slope,
@@ -465,10 +465,10 @@ defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
 
       const trend = this.analyzeTrend(history);
       const lastValue = history[history.length - 1].value;
-      
+
       // تنبؤ بسيط بناءً على الاتجاه
       const prediction = lastValue + (trend.slope * trend.confidence);
-      
+
       return {
         value: prediction,
         confidence: trend.confidence,
@@ -527,7 +527,7 @@ defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
     getAverageResponseTime() {
       const responseTimeHistory = this.metrics.get('responseTime');
       if (!responseTimeHistory || responseTimeHistory.length === 0) return 0;
-      
+
       const recent = responseTimeHistory.slice(-10);
       return recent.reduce((sum, h) => sum + h.value, 0) / recent.length;
     }
@@ -535,39 +535,39 @@ defineModule('System.AdvancedMonitor', ({ Utils, Config }) => {
     getThroughput() {
       const apiCallsHistory = this.metrics.get('apiCalls');
       if (!apiCallsHistory || apiCallsHistory.length < 2) return 0;
-      
+
       const recent = apiCallsHistory.slice(-2);
       const timeDiff = (recent[1].timestamp - recent[0].timestamp) / 1000; // seconds
       const callsDiff = recent[1].value - recent[0].value;
-      
+
       return callsDiff / timeDiff; // calls per second
     }
 
     getErrorRate() {
       const errorHistory = this.metrics.get('errorCount');
       const apiHistory = this.metrics.get('apiCalls');
-      
+
       if (!errorHistory || !apiHistory || errorHistory.length === 0 || apiHistory.length === 0) {
         return 0;
       }
-      
+
       const latestErrors = errorHistory[errorHistory.length - 1].value;
       const latestCalls = apiHistory[apiHistory.length - 1].value;
-      
+
       return latestCalls > 0 ? latestErrors / latestCalls : 0;
     }
 
     getAvailability() {
       const uptime = this.getSystemUptime();
       const totalTime = uptime + (this.getErrorCount() * 1000); // assume 1 second downtime per error
-      
+
       return uptime / totalTime;
     }
 
     setupRealTimeMonitoring() {
       // مراقبة الأحداث الحرجة في الوقت الفعلي
       Logger.log('🔄 إعداد المراقبة الفورية...');
-      
+
       // يمكن إضافة WebSocket أو EventSource هنا للمراقبة الفورية
     }
   }

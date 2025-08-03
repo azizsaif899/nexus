@@ -1,6 +1,6 @@
 // src/processors/financial_processor.js - معالج مالي متكامل مع النظام الحالي
 defineModule('System.Processors.Financial', ({ Utils, Config, AI }) => {
-  
+
   class FinancialProcessor {
     constructor() {
       this.ai = Utils.Injector.get('AI.Core');
@@ -9,7 +9,7 @@ defineModule('System.Processors.Financial', ({ Utils, Config, AI }) => {
 
     async processInvoice(invoiceData) {
       const cacheKey = `financial_${Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, JSON.stringify(invoiceData))}`;
-      
+
       const cached = this.cache.get(cacheKey);
       if (cached) {
         return { ...JSON.parse(cached), fromCache: true };
@@ -17,7 +17,7 @@ defineModule('System.Processors.Financial', ({ Utils, Config, AI }) => {
 
       const analysis = await this.analyzeWithAI(invoiceData);
       this.cache.put(cacheKey, JSON.stringify(analysis), 3600);
-      
+
       return { ...analysis, fromCache: false };
     }
 

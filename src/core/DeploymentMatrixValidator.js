@@ -3,7 +3,7 @@
  * يتحقق من أذونات النشر وينفذ قواعد التوافق
  */
 defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
-  
+
   let deploymentMatrix = null;
 
   return {
@@ -16,7 +16,7 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
           // قراءة ملف YAML (محاكاة)
           const matrixData = PropertiesService.getScriptProperties()
             .getProperty('DEPLOYMENT_MATRIX');
-          
+
           if (matrixData) {
             deploymentMatrix = JSON.parse(matrixData);
           } else {
@@ -37,7 +37,7 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
     async validateDeployment(assistant, changeType, files, options = {}) {
       const matrix = await this.loadDeploymentMatrix();
       const assistantConfig = matrix.deployment_matrix[assistant];
-      
+
       if (!assistantConfig) {
         return {
           allowed: false,
@@ -66,8 +66,8 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
 
       // فحص القيود
       const restrictionCheck = await this.checkRestrictions(
-        assistant, 
-        changeType, 
+        assistant,
+        changeType,
         assistantConfig.restrictions[changeType],
         files
       );
@@ -124,10 +124,10 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
       }
 
       const conditions = restrictions.conditions || {};
-      
+
       for (const [condition, required] of Object.entries(conditions)) {
         const checkResult = await this.evaluateCondition(condition, required, files);
-        
+
         if (!checkResult.passed) {
           return {
             passed: false,
@@ -146,27 +146,27 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
      */
     async evaluateCondition(condition, required, files) {
       switch (condition) {
-        case 'backend_stable':
-          return await this.checkBackendStability();
-        
-        case 'no_breaking_changes':
-          return await this.checkBreakingChanges(files);
-        
-        case 'api_version_match':
-          return await this.checkApiVersionMatch();
-        
-        case 'existing_tests_pass':
-          return await this.runExistingTests();
-        
-        case 'ui_compatible':
-          return await this.checkUICompatibility();
-        
-        case 'memory_usage_acceptable':
-          return await this.checkMemoryUsage();
-        
-        default:
-          Logger.warn(`شرط غير معروف: ${condition}`);
-          return { passed: true };
+      case 'backend_stable':
+        return await this.checkBackendStability();
+
+      case 'no_breaking_changes':
+        return await this.checkBreakingChanges(files);
+
+      case 'api_version_match':
+        return await this.checkApiVersionMatch();
+
+      case 'existing_tests_pass':
+        return await this.runExistingTests();
+
+      case 'ui_compatible':
+        return await this.checkUICompatibility();
+
+      case 'memory_usage_acceptable':
+        return await this.checkMemoryUsage();
+
+      default:
+        Logger.warn(`شرط غير معروف: ${condition}`);
+        return { passed: true };
       }
     },
 
@@ -177,19 +177,19 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
       const matrix = await this.loadDeploymentMatrix();
       const checks = matrix.compatibility_checks || {};
       const warnings = [];
-      
+
       for (const dependency of dependencies) {
         const checkName = dependency.check;
         const action = dependency.action;
         const checkConfig = checks[checkName];
-        
+
         if (!checkConfig) {
           warnings.push(`فحص التوافق ${checkName} غير موجود`);
           continue;
         }
 
         const result = await this.runCompatibilityCheck(checkConfig);
-        
+
         if (!result.passed) {
           if (action === 'block_if_false') {
             return {
@@ -218,7 +218,7 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
         const result = await Utils.executeCommand(checkConfig.command, {
           timeout: checkConfig.timeout * 1000
         });
-        
+
         return {
           passed: result.exitCode === 0,
           output: result.output
@@ -239,7 +239,7 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
       const matrix = deploymentMatrix;
       const windows = matrix.deployment_windows;
       const now = new Date();
-      
+
       // فحص النشر الطارئ
       if (changeType === 'critical') {
         const emergencyWindow = windows.emergency;
@@ -252,7 +252,7 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
       const normalWindow = windows.normal;
       const currentDay = now.toLocaleDateString('en', { weekday: 'lowercase' });
       const currentHour = now.getHours();
-      
+
       if (!normalWindow.days.includes(currentDay)) {
         return {
           allowed: false,
@@ -279,15 +279,15 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
     async checkConflicts(assistant, changeType, files) {
       const matrix = await this.loadDeploymentMatrix();
       const conflictRules = matrix.conflict_resolution;
-      
+
       // فحص التضارب بين UI و AI
       if (changeType === 'ui' || changeType === 'ai') {
         const activeDeployments = await this.getActiveDeployments();
-        const conflictingDeployment = activeDeployments.find(d => 
+        const conflictingDeployment = activeDeployments.find(d =>
           (d.changeType === 'ui' && changeType === 'ai') ||
           (d.changeType === 'ai' && changeType === 'ui')
         );
-        
+
         if (conflictingDeployment) {
           const rule = conflictRules.ui_ai_conflict;
           return {
@@ -300,10 +300,10 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
 
       // فحص تضارب الملفات الحرجة
       const criticalFiles = ['src/core/', 'config/', 'package.json'];
-      const hasCriticalFiles = files.some(file => 
+      const hasCriticalFiles = files.some(file =>
         criticalFiles.some(critical => file.includes(critical))
       );
-      
+
       if (hasCriticalFiles) {
         const activeDeployments = await this.getActiveDeployments();
         if (activeDeployments.length > 0) {
@@ -325,7 +325,7 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
     async requestHumanReview(assistant, changeType, reason, details = {}) {
       const matrix = await this.loadDeploymentMatrix();
       const notifications = matrix.notifications;
-      
+
       const message = this.formatMessage('deployment_blocked', {
         assistant,
         change_type: changeType,
@@ -367,17 +367,17 @@ defineModule('System.Core.DeploymentMatrixValidator', ({ Utils, Config }) => {
     formatMessage(template, variables) {
       const matrix = deploymentMatrix;
       const messageTemplate = matrix.message_templates[template];
-      
+
       if (!messageTemplate) {
         return `${template}: ${JSON.stringify(variables)}`;
       }
 
       let message = `${messageTemplate.title}\n\n${messageTemplate.body}`;
-      
+
       for (const [key, value] of Object.entries(variables)) {
         message = message.replace(`{${key}}`, value);
       }
-      
+
       return message;
     },
 

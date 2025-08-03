@@ -3,7 +3,7 @@
  * Status: 🟡 Beta
  */
 defineModule('Services.IntermediateStorage', function(injector) {
-  
+
   const PROJECT_ID = PropertiesService.getScriptProperties().getProperty('GCP_PROJECT_ID');
   const DATASET_ID = 'g_assistant_intermediate';
   const TABLE_ID = 'document_extractions';
@@ -16,7 +16,7 @@ defineModule('Services.IntermediateStorage', function(injector) {
       try {
         const accessToken = this.getAccessToken();
         const tableId = `${PROJECT_ID}.${DATASET_ID}.${TABLE_ID}`;
-        
+
         const row = {
           document_id: documentId,
           extraction_timestamp: new Date().toISOString(),
@@ -28,7 +28,7 @@ defineModule('Services.IntermediateStorage', function(injector) {
         };
 
         const response = await this.insertRowToBigQuery(tableId, row, accessToken);
-        
+
         return {
           success: true,
           insertId: response.insertId,
@@ -56,7 +56,7 @@ defineModule('Services.IntermediateStorage', function(injector) {
         `;
 
         const response = await this.queryBigQuery(query, accessToken);
-        
+
         if (response.rows && response.rows.length > 0) {
           const row = response.rows[0];
           return {
@@ -83,7 +83,7 @@ defineModule('Services.IntermediateStorage', function(injector) {
      */
     async insertRowToBigQuery(tableId, row, accessToken) {
       const endpoint = `https://bigquery.googleapis.com/bigquery/v2/projects/${PROJECT_ID}/datasets/${DATASET_ID}/tables/${TABLE_ID}/insertAll`;
-      
+
       const payload = {
         rows: [{
           insertId: Utilities.getUuid(),
@@ -108,7 +108,7 @@ defineModule('Services.IntermediateStorage', function(injector) {
      */
     async queryBigQuery(query, accessToken) {
       const endpoint = `https://bigquery.googleapis.com/bigquery/v2/projects/${PROJECT_ID}/queries`;
-      
+
       const payload = {
         query: query,
         useLegacySql: false
@@ -140,7 +140,7 @@ defineModule('Services.IntermediateStorage', function(injector) {
         };
 
         PropertiesService.getScriptProperties().setProperty(
-          key, 
+          key,
           JSON.stringify(data)
         );
 
@@ -163,11 +163,11 @@ defineModule('Services.IntermediateStorage', function(injector) {
       try {
         const key = `extracted_data_${documentId}`;
         const savedData = PropertiesService.getScriptProperties().getProperty(key);
-        
+
         if (savedData) {
           return JSON.parse(savedData);
         }
-        
+
         return null;
 
       } catch (error) {
@@ -195,7 +195,7 @@ defineModule('Services.IntermediateStorage', function(injector) {
         };
 
         const endpoint = `https://bigquery.googleapis.com/bigquery/v2/projects/${PROJECT_ID}/datasets/${DATASET_ID}/tables`;
-        
+
         const payload = {
           tableReference: {
             projectId: PROJECT_ID,
@@ -238,14 +238,14 @@ defineModule('Services.IntermediateStorage', function(injector) {
         const accessToken = this.getAccessToken();
         const cutoffDate = new Date();
         cutoffDate.setDate(cutoffDate.getDate() - daysOld);
-        
+
         const query = `
           DELETE FROM \`${PROJECT_ID}.${DATASET_ID}.${TABLE_ID}\`
           WHERE extraction_timestamp < '${cutoffDate.toISOString()}'
         `;
 
         await this.queryBigQuery(query, accessToken);
-        
+
         return { success: true, cleanupDate: cutoffDate.toISOString() };
 
       } catch (error) {

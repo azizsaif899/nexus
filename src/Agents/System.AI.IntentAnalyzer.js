@@ -2,19 +2,19 @@ defineModule('System.AI.IntentAnalyzer', ({ Utils, Config, AI }) => {
   const MODULE_VERSION = '1.0.0';
 
   const INTENT_EXAMPLES = {
-    "create_database": ["أنشئ جدول للمبيعات", "أريد قاعدة بيانات للعملاء"],
-    "financial_analysis": ["حلل الأرباح", "تقرير مالي شهري", "ما هي الخسائر؟"],
-    "code_generation": ["اكتب دالة", "أنشئ سكريبت", "برمج لي"],
-    "data_import": ["استورد من PDF", "اقرأ الملف", "استخرج البيانات"],
-    "automation": ["أتمت هذا", "اعمل تلقائياً", "جدول المهام"]
+    'create_database': ['أنشئ جدول للمبيعات', 'أريد قاعدة بيانات للعملاء'],
+    'financial_analysis': ['حلل الأرباح', 'تقرير مالي شهري', 'ما هي الخسائر؟'],
+    'code_generation': ['اكتب دالة', 'أنشئ سكريبت', 'برمج لي'],
+    'data_import': ['استورد من PDF', 'اقرأ الملف', 'استخرج البيانات'],
+    'automation': ['أتمت هذا', 'اعمل تلقائياً', 'جدول المهام']
   };
 
   function analyzeIntent(message, context = {}) {
     try {
       const prompt = _buildIntentPrompt(message, context);
-      
+
       const response = AI.Core.ask(prompt, {
-        generationConfig: { 
+        generationConfig: {
           temperature: 0.1,
           maxOutputTokens: 500
         }
@@ -33,7 +33,7 @@ defineModule('System.AI.IntentAnalyzer', ({ Utils, Config, AI }) => {
 
   function _buildIntentPrompt(message, context) {
     const examples = Object.entries(INTENT_EXAMPLES)
-      .map(([intent, msgs]) => 
+      .map(([intent, msgs]) =>
         msgs.map(msg => `"${msg}" -> {"intent": "${intent}", "confidence": 0.9}`)
       ).flat().join('\n');
 
@@ -60,7 +60,7 @@ ${examples}
       if (!jsonMatch) throw new Error('No JSON found');
 
       const parsed = JSON.parse(jsonMatch[0]);
-      
+
       return {
         intent: parsed.intent || 'general_query',
         confidence: parsed.confidence || 0.5,
@@ -123,8 +123,8 @@ ${examples}
     try {
       const sheet = SpreadsheetApp.getActiveSheet();
       const selection = SpreadsheetApp.getSelection();
-      
-      let context = {
+
+      const context = {
         sheetName: sheet.getName(),
         selectedRange: null,
         dataType: 'unknown'
@@ -147,17 +147,17 @@ ${examples}
 
   function _detectDataType(values) {
     const flatValues = values.flat().filter(v => v !== '');
-    
+
     if (flatValues.length === 0) return 'empty';
-    
+
     const numbers = flatValues.filter(v => typeof v === 'number').length;
     const dates = flatValues.filter(v => v instanceof Date).length;
     const strings = flatValues.filter(v => typeof v === 'string').length;
-    
+
     if (numbers / flatValues.length > 0.6) return 'financial';
     if (dates / flatValues.length > 0.3) return 'temporal';
     if (strings / flatValues.length > 0.8) return 'textual';
-    
+
     return 'mixed';
   }
 

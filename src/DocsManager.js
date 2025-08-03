@@ -4,7 +4,7 @@
  */
 defineModule('System.DocsManager', ({ DocsManager }) => {
   // === المحتوى الأصلي ===
-  
+
   /**
    * @file 30_tools/DocsManager.js
    * @module System.DocsManager
@@ -15,12 +15,12 @@ defineModule('System.DocsManager', ({ DocsManager }) => {
    * تعتمد على سجل في الذاكرة (in-memory registry) لتوفير أداء عالٍ ومرونة،
    * وتوفر واجهة لتسجيل التوثيق برمجيًا من كل وحدة.
    */
-  
-  
-  
+
+
+
   const _docsRegistry = {
-  }
-  
+  };
+
 
   // === التصدير ===
   return {

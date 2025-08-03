@@ -471,23 +471,23 @@ defineModule('System.AI.Memory.Enhanced', ({ Utils, Config, DocsManager, AI, Tel
  */
 function createAdvancedTests() {
   console.log('🧪 إنشاء اختبارات متقدمة...');
-  
+
   const tests = {
     // اختبار الاتصال الأساسي
     basicConnectivity: function() {
       console.log('🔌 اختبار الاتصال الأساسي...');
-      
+
       const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
       if (!apiKey) {
         throw new Error('GEMINI_API_KEY غير موجود');
       }
-      
+
       const testUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`;
-      
+
       try {
         const response = UrlFetchApp.fetch(testUrl, { muteHttpExceptions: true });
         const responseCode = response.getResponseCode();
-        
+
         if (responseCode === 200) {
           console.log('✅ الاتصال الأساسي يعمل');
           return true;
@@ -500,19 +500,19 @@ function createAdvancedTests() {
         return false;
       }
     },
-    
+
     // اختبار النماذج المتاحة
     availableModels: function() {
       console.log('🤖 اختبار النماذج المتاحة...');
-      
+
       const models = [
         'gemini-1.5-pro-latest',
         'gemini-1.5-flash-latest',
         'gemini-pro'
       ];
-      
+
       const results = [];
-      
+
       for (const model of models) {
         try {
           const testPayload = {
@@ -521,7 +521,7 @@ function createAdvancedTests() {
               parts: [{ text: 'Hello' }]
             }]
           };
-          
+
           const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
           const response = UrlFetchApp.fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
@@ -532,14 +532,14 @@ function createAdvancedTests() {
               muteHttpExceptions: true
             }
           );
-          
+
           const responseCode = response.getResponseCode();
           results.push({
             model,
             available: responseCode === 200,
             code: responseCode
           });
-          
+
         } catch (error) {
           results.push({
             model,
@@ -548,15 +548,15 @@ function createAdvancedTests() {
           });
         }
       }
-      
+
       console.log('📊 نتائج النماذج:', results);
       return results.some(r => r.available);
     },
-    
+
     // اختبار معالجة الأخطاء
     errorHandling: function() {
       console.log('⚠️ اختبار معالجة الأخطاء...');
-      
+
       try {
         // اختبار طلب خاطئ
         const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
@@ -569,9 +569,9 @@ function createAdvancedTests() {
             muteHttpExceptions: true
           }
         );
-        
+
         const responseCode = response.getResponseCode();
-        
+
         if (responseCode >= 400) {
           console.log('✅ معالجة الأخطاء تعمل (تم اكتشاف خطأ متوقع)');
           return true;
@@ -579,19 +579,19 @@ function createAdvancedTests() {
           console.warn('⚠️ لم يتم اكتشاف خطأ متوقع');
           return false;
         }
-        
+
       } catch (error) {
         console.log('✅ معالجة الأخطاء تعمل (تم التقاط استثناء)');
         return true;
       }
     },
-    
+
     // اختبار الأداء
     performance: function() {
       console.log('⚡ اختبار الأداء...');
-      
+
       const startTime = Date.now();
-      
+
       try {
         const testPayload = {
           contents: [{
@@ -599,7 +599,7 @@ function createAdvancedTests() {
             parts: [{ text: 'مرحبا، هذا اختبار سرعة' }]
           }]
         };
-        
+
         const apiKey = PropertiesService.getScriptProperties().getProperty('GEMINI_API_KEY');
         const response = UrlFetchApp.fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
@@ -610,12 +610,12 @@ function createAdvancedTests() {
             muteHttpExceptions: true
           }
         );
-        
+
         const duration = Date.now() - startTime;
         const responseCode = response.getResponseCode();
-        
+
         console.log(`⏱️ وقت الاستجابة: ${duration}ms`);
-        
+
         if (responseCode === 200 && duration < 10000) { // أقل من 10 ثواني
           console.log('✅ الأداء مقبول');
           return true;
@@ -623,7 +623,7 @@ function createAdvancedTests() {
           console.warn(`⚠️ الأداء بطيء أو فشل: ${duration}ms, code: ${responseCode}`);
           return false;
         }
-        
+
       } catch (error) {
         const duration = Date.now() - startTime;
         console.error(`❌ فشل اختبار الأداء بعد ${duration}ms:`, error.message);
@@ -631,7 +631,7 @@ function createAdvancedTests() {
       }
     }
   };
-  
+
   return tests;
 }
 
@@ -643,19 +643,19 @@ function createAdvancedTests() {
 function runAdvancedTests() {
   console.log('🚀 تشغيل الاختبارات المتقدمة...');
   console.log('=' .repeat(50));
-  
+
   const tests = createAdvancedTests();
   const results = [];
   let passedTests = 0;
-  
+
   for (const [testName, testFn] of Object.entries(tests)) {
     console.log(`\n🔄 تشغيل: ${testName}...`);
-    
+
     try {
       const startTime = Date.now();
       const result = testFn();
       const duration = Date.now() - startTime;
-      
+
       if (result) {
         console.log(`✅ نجح: ${testName} (${duration}ms)`);
         passedTests++;
@@ -669,12 +669,12 @@ function runAdvancedTests() {
       results.push({ name: testName, status: 'خطأ', duration: 0, error: error.message });
     }
   }
-  
+
   // تقرير النتائج
   console.log('\n' + '=' .repeat(50));
   console.log('📊 تقرير الاختبارات المتقدمة:');
   console.log('=' .repeat(50));
-  
+
   results.forEach(result => {
     const icon = result.status === 'نجح' ? '✅' : '❌';
     console.log(`${icon} ${result.name}: ${result.status} (${result.duration}ms)`);
@@ -682,10 +682,10 @@ function runAdvancedTests() {
       console.log(`   📝 الخطأ: ${result.error}`);
     }
   });
-  
+
   const successRate = Math.round((passedTests / Object.keys(tests).length) * 100);
   console.log(`\n🎯 معدل النجاح: ${successRate}% (${passedTests}/${Object.keys(tests).length})`);
-  
+
   return { successRate, results, passedTests, totalTests: Object.keys(tests).length };
 }
 
@@ -708,10 +708,10 @@ function testGeminiIntegration() {
 
 function setupEnhancedGeminiAdapter() {
   console.log('🔧 إعداد GeminiAdapter المحسن...');
-  
+
   // هنا يمكن إضافة كود لتحديث الملف الفعلي
   console.log('📝 يرجى نسخ الكود المحسن إلى ملف GeminiAdapter');
-  
+
   return createEnhancedGeminiAdapter();
 }
 

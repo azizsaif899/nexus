@@ -9,10 +9,10 @@ defineModule('System.DependencyChecker', ({ Utils }) => {
     try {
       if (GAssistant?.System?.Config) modules.push('System.Config (OLD)');
       if (GAssistant?.System?.Config?.Enhanced) modules.push('System.Config.Enhanced (NEW)');
-      
+
       if (GAssistant?.AI?.Agents?.CFO) modules.push('AI.Agents.CFO (NEW)');
       if (GAssistant?.AgentCFO) modules.push('AgentCFO (OLD)');
-      
+
       if (GAssistant?.AI?.Agents?.Developer) modules.push('AI.Agents.Developer (NEW)');
       if (GAssistant?.AgentDeveloper) modules.push('AgentDeveloper (OLD)');
 
@@ -25,7 +25,7 @@ defineModule('System.DependencyChecker', ({ Utils }) => {
       const triggers = ScriptApp.getProjectTriggers();
       const triggerFunctions = triggers.map(t => t.getHandlerFunction());
       const duplicates = triggerFunctions.filter((item, index) => triggerFunctions.indexOf(item) !== index);
-      
+
       if (duplicates.length > 0) {
         conflicts.push(`Duplicate triggers: ${duplicates.join(', ')}`);
       }
@@ -57,7 +57,7 @@ defineModule('System.DependencyChecker', ({ Utils }) => {
       try {
         const parts = path.split('.');
         let current = window;
-        
+
         for (const part of parts) {
           if (current[part]) {
             current = current[part];

@@ -52,7 +52,7 @@ function analyzeCodeComplexity(code) {
   // حساب عمق التداخل
   let maxNesting = 0;
   let currentNesting = 0;
-  for (let char of code) {
+  for (const char of code) {
     if (char === '{') {
       currentNesting++;
       maxNesting = Math.max(maxNesting, currentNesting);
@@ -81,7 +81,7 @@ function getProjectInfo() {
     if (typeof AppsScript !== 'undefined' && AppsScript.Projects?.getContent) {
       const content = AppsScript.Projects.getContent(ScriptApp.getScriptId());
       const jsFiles = content.files.filter(f => f.type === 'SERVER_JS');
-      
+
       return {
         totalFiles: jsFiles.length,
         totalSize: jsFiles.reduce((sum, f) => sum + (f.source?.length || 0), 0),
@@ -95,7 +95,7 @@ function getProjectInfo() {
   } catch (e) {
     console.error('Failed to get project info:', e);
   }
-  
+
   return { error: 'Unable to access project information' };
 }
 
@@ -106,7 +106,7 @@ function getProjectInfo() {
  */
 function sanitizeText(text) {
   if (!text || typeof text !== 'string') return '';
-  
+
   return text
     .replace(/[<>]/g, '') // إزالة HTML tags الأساسية
     .replace(/\s+/g, ' ') // تقليل المسافات المتعددة
@@ -125,7 +125,7 @@ function formatAsTable(headers, rows) {
   }
 
   const headerRow = headers.map(h => `<th style="padding:8px; border:1px solid #ddd; background:#f5f5f5;">${sanitizeText(h)}</th>`).join('');
-  const bodyRows = rows.map(row => 
+  const bodyRows = rows.map(row =>
     `<tr>${row.map(cell => `<td style="padding:8px; border:1px solid #ddd;">${sanitizeText(String(cell))}</td>`).join('')}</tr>`
   ).join('');
 
@@ -152,7 +152,7 @@ function generateSessionId() {
  */
 function formatArabicDate(date) {
   if (!(date instanceof Date)) date = new Date(date);
-  
+
   return date.toLocaleString('ar-SA', {
     weekday: 'long',
     year: 'numeric',

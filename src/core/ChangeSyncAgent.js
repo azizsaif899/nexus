@@ -3,7 +3,7 @@
  * ChangeSyncAgent - Coordinates changes between AI assistants
  */
 defineModule('System.Core.ChangeSyncAgent', ({ Utils, Config }) => {
-  
+
   const ASSISTANTS = {
     COPILOT: 'copilot',
     GEMINI: 'gemini',
@@ -12,7 +12,7 @@ defineModule('System.Core.ChangeSyncAgent', ({ Utils, Config }) => {
 
   const CHANGE_TYPES = {
     UI: 'ui',
-    AI: 'ai', 
+    AI: 'ai',
     CONFIG: 'config',
     CRITICAL: 'critical'
   };
@@ -34,7 +34,7 @@ defineModule('System.Core.ChangeSyncAgent', ({ Utils, Config }) => {
 
       this.saveChange(change);
       this.notifyOtherAssistants(change);
-      
+
       return change.id;
     },
 
@@ -63,7 +63,7 @@ defineModule('System.Core.ChangeSyncAgent', ({ Utils, Config }) => {
 
       // حفظ في قائمة الإشعارات
       this.saveNotification(notification);
-      
+
       // إرسال webhook إذا كان متاح
       if (Config.get('WEBHOOK_ENABLED')) {
         this.sendWebhook(notification);
@@ -97,13 +97,13 @@ defineModule('System.Core.ChangeSyncAgent', ({ Utils, Config }) => {
       try {
         // تجميع التغييرات حسب النوع
         const groupedChanges = this.groupChangesByType(changes);
-        
+
         // إنشاء commit message
         const commitMessage = this.generateCommitMessage(groupedChanges, assistant);
-        
+
         // تنفيذ Git commands
         const result = await this.executeGitCommands(commitMessage);
-        
+
         // تحديث حالة التغييرات
         changes.forEach(change => {
           this.updateChangeStatus(change.id, 'pushed');
@@ -136,20 +136,20 @@ defineModule('System.Core.ChangeSyncAgent', ({ Utils, Config }) => {
     generateCommitMessage(groupedChanges, assistant) {
       const emoji = {
         [CHANGE_TYPES.UI]: '🎨',
-        [CHANGE_TYPES.AI]: '🤖', 
+        [CHANGE_TYPES.AI]: '🤖',
         [CHANGE_TYPES.CONFIG]: '⚙️',
         [CHANGE_TYPES.CRITICAL]: '🚨'
       };
 
       let message = `${emoji[Object.keys(groupedChanges)[0]] || '🔧'} ${assistant.toUpperCase()}: `;
-      
+
       const descriptions = Object.values(groupedChanges)
         .flat()
         .map(change => change.description)
         .slice(0, 3);
 
       message += descriptions.join(' + ');
-      
+
       return message;
     },
 
@@ -177,7 +177,7 @@ defineModule('System.Core.ChangeSyncAgent', ({ Utils, Config }) => {
      */
     checkConflicts(newChange) {
       const recentChanges = this.getRecentChanges(5); // آخر 5 تغييرات
-      
+
       const conflicts = recentChanges.filter(change => {
         return this.hasFileOverlap(newChange.files, change.files) &&
                change.status === 'pending';

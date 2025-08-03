@@ -75,7 +75,7 @@ defineModule('System.EnhancedTest', ({ Utils, DependencyChecker }) => {
 
   function testCustomFunctions() {
     const results = { passed: 0, failed: 0, tests: [] };
-    
+
     const customFunctions = ['GEMINI', 'GEMINI_ANALYZE', 'GEMINI_CODE', 'GEMINI_FORMULA'];
     customFunctions.forEach(funcName => {
       try {
@@ -105,34 +105,34 @@ defineModule('System.EnhancedTest', ({ Utils, DependencyChecker }) => {
 
   function runComprehensiveTest() {
     console.log('🧪 Starting Comprehensive System Test...\n');
-    
+
     const agentResults = testAgentModules();
     const functionsResults = testCustomFunctions();
     const dependencyResults = testDependencies();
-    
+
     console.log('\n📊 Test Summary:');
     console.log(`Agent Modules: ${agentResults.passed}/${agentResults.total} passed`);
     console.log(`Custom Functions: ${functionsResults.passed}/${functionsResults.passed + functionsResults.failed} passed`);
     console.log(`Dependencies: ${dependencyResults.overall ? 'PASSED' : 'FAILED'}`);
-    
+
     if (dependencyResults.conflicts?.hasConflicts) {
       console.log('\n⚠️ Dependency Conflicts:');
       dependencyResults.conflicts.conflicts.forEach(conflict => {
         console.log(`  - ${conflict}`);
       });
     }
-    
+
     const totalPassed = agentResults.passed + functionsResults.passed + (dependencyResults.overall ? 1 : 0);
     const totalTests = agentResults.total + functionsResults.passed + functionsResults.failed + 1;
-    
+
     console.log(`\n🎯 Overall: ${totalPassed}/${totalTests} tests passed`);
-    
+
     const success = totalPassed === totalTests && !dependencyResults.conflicts?.hasConflicts;
     console.log(`\n${success ? '✅ ALL TESTS PASSED' : '❌ SOME TESTS FAILED'}`);
-    
+
     // حفظ النتائج
     const sheet = Utils.getSheet('EnhancedTestResults', [
-      'Timestamp', 'AgentsPassed', 'AgentsTotal', 'FunctionsPassed', 'FunctionsTotal', 
+      'Timestamp', 'AgentsPassed', 'AgentsTotal', 'FunctionsPassed', 'FunctionsTotal',
       'DependenciesOK', 'OverallSuccess'
     ]);
 
@@ -147,7 +147,7 @@ defineModule('System.EnhancedTest', ({ Utils, DependencyChecker }) => {
         success
       ]);
     }
-    
+
     return {
       success,
       agentResults,

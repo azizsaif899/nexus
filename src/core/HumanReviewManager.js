@@ -3,7 +3,7 @@
  * يدير طلبات المراجعة البشرية والإشعارات
  */
 defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
-  
+
   return {
     /**
      * طلب مراجعة بشرية
@@ -40,25 +40,25 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
      */
     calculatePriority(reviewData) {
       const { changeType, assistant, files, impact } = reviewData;
-      
+
       let priority = 'medium';
-      
+
       // أولوية عالية للتغييرات الحرجة
       if (changeType === 'critical' || changeType === 'security') {
         priority = 'urgent';
       }
-      
+
       // أولوية عالية للملفات الحساسة
       const criticalFiles = ['src/core/', 'config/', 'package.json', 'security/'];
       if (files.some(file => criticalFiles.some(critical => file.includes(critical)))) {
         priority = priority === 'medium' ? 'high' : priority;
       }
-      
+
       // أولوية عالية للتأثير الكبير
       if (impact === 'high' || impact === 'breaking') {
         priority = priority === 'medium' ? 'high' : priority;
       }
-      
+
       return priority;
     },
 
@@ -67,9 +67,9 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
      */
     estimateReviewTime(reviewData) {
       const { changeType, files, complexity } = reviewData;
-      
+
       let baseTime = 15; // دقائق
-      
+
       // وقت إضافي حسب نوع التغيير
       const timeMultipliers = {
         critical: 3,
@@ -80,19 +80,19 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
         docs: 0.8,
         test: 1
       };
-      
+
       baseTime *= timeMultipliers[changeType] || 1;
-      
+
       // وقت إضافي حسب عدد الملفات
       baseTime += files.length * 2;
-      
+
       // وقت إضافي حسب التعقيد
       if (complexity === 'high') {
         baseTime *= 1.5;
       } else if (complexity === 'low') {
         baseTime *= 0.8;
       }
-      
+
       return Math.round(baseTime);
     },
 
@@ -101,19 +101,19 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
      */
     async sendReviewNotifications(review) {
       const notifications = [];
-      
+
       // إشعار Slack
       const slackNotification = await this.sendSlackReviewRequest(review);
       if (slackNotification.success) {
         notifications.push({ type: 'slack', success: true });
       }
-      
+
       // إشعار Discord
       const discordNotification = await this.sendDiscordReviewRequest(review);
       if (discordNotification.success) {
         notifications.push({ type: 'discord', success: true });
       }
-      
+
       // إشعار Email (للحالات الحرجة)
       if (review.priority === 'urgent') {
         const emailNotification = await this.sendEmailReviewRequest(review);
@@ -121,10 +121,10 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
           notifications.push({ type: 'email', success: true });
         }
       }
-      
+
       // تحديث سجل الإشعارات
       this.updateReviewNotifications(review.id, notifications);
-      
+
       return notifications;
     },
 
@@ -252,7 +252,7 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
             },
             {
               name: 'الملفات',
-              value: review.files.slice(0, 5).join('\n') + 
+              value: review.files.slice(0, 5).join('\n') +
                      (review.files.length > 5 ? `\n... و ${review.files.length - 5} ملف آخر` : ''),
               inline: false
             }
@@ -289,7 +289,7 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
      */
     scheduleReminders(review) {
       const reminders = [];
-      
+
       // تذكير بعد نصف الوقت المتوقع
       const halfTimeReminder = {
         reviewId: review.id,
@@ -298,7 +298,7 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
         message: `تذكير: مراجعة ${review.id} في انتظار الموافقة`
       };
       reminders.push(halfTimeReminder);
-      
+
       // تذكير عند انتهاء الوقت المتوقع
       const overdueReminder = {
         reviewId: review.id,
@@ -307,7 +307,7 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
         message: `تحذير: مراجعة ${review.id} متأخرة عن الموعد المتوقع`
       };
       reminders.push(overdueReminder);
-      
+
       // حفظ التذكيرات
       this.saveReminders(reminders);
     },
@@ -330,8 +330,8 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
       };
 
       // تحديث حالة المراجعة
-      review.status = action === 'approve' ? 'approved' : 
-                     action === 'reject' ? 'rejected' : 'changes_requested';
+      review.status = action === 'approve' ? 'approved' :
+        action === 'reject' ? 'rejected' : 'changes_requested';
       review.reviewedAt = response.timestamp;
       review.reviewer = reviewer;
       review.reviewComments = comments;
@@ -353,7 +353,7 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
      */
     async notifyAssistant(review, response) {
       const coordinator = Injector.get('System.Utils.AssistantCoordinator');
-      
+
       const notification = {
         to: review.assistant,
         type: 'review_response',
@@ -399,7 +399,7 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
     saveReviewRequest(review) {
       const reviews = this.getStoredReviews();
       reviews.push(review);
-      
+
       PropertiesService.getScriptProperties()
         .setProperty('REVIEW_REQUESTS', JSON.stringify(reviews));
     },
@@ -427,7 +427,7 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
     updateReviewRequest(updatedReview) {
       const reviews = this.getStoredReviews();
       const index = reviews.findIndex(r => r.id === updatedReview.id);
-      
+
       if (index !== -1) {
         reviews[index] = updatedReview;
         PropertiesService.getScriptProperties()
@@ -445,9 +445,9 @@ defineModule('System.Core.HumanReviewManager', ({ Utils, Config }) => {
           // ترتيب حسب الأولوية ثم التاريخ
           const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
           const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
-          
+
           if (priorityDiff !== 0) return priorityDiff;
-          
+
           return new Date(a.createdAt) - new Date(b.createdAt);
         });
     }

@@ -81,29 +81,29 @@ defineModule('System.AI.Agents.CFO', ({ Utils, Config, DocsManager, AI, Tools, T
       Utils.log(`CFO Agent: Processing request - Intent: ${intent.type}, Message: "${message}"`);
 
       switch (intent.type) {
-        case 'tool_call':
-          const toolName = intent.data?.toolName || intent.data?.functionName;
-          
-          if (toolName === 'CFO.runMonthlyPNL' || toolName?.includes('monthlyPNL')) {
-            const result = runMonthlyPNL();
-            status = result.type === 'success' ? 'success' : 'error';
-            return result;
-          } else if (toolName === 'CFO.analyzeFinancialTrends') {
-            const result = analyzeFinancialTrends({ period: intent.data?.period });
-            status = result.type === 'success' ? 'success' : 'error';
-            return result;
-          } else {
-            status = 'unknown_tool';
-            return { 
-              type: 'warning', 
-              text: `CFO Agent: أداة مالية غير معروفة: ${toolName || 'غير محددة'}` 
-            };
-          }
+      case 'tool_call':
+        const toolName = intent.data?.toolName || intent.data?.functionName;
 
-        case 'general_query':
-          // استخدام AI محسن للاستعلامات المالية
-          if (AI?.Core?.ask) {
-            const financialPrompt = `كخبير مالي (CFO) متخصص، أجب على السؤال التالي بدقة وتفصيل:
+        if (toolName === 'CFO.runMonthlyPNL' || toolName?.includes('monthlyPNL')) {
+          const result = runMonthlyPNL();
+          status = result.type === 'success' ? 'success' : 'error';
+          return result;
+        } else if (toolName === 'CFO.analyzeFinancialTrends') {
+          const result = analyzeFinancialTrends({ period: intent.data?.period });
+          status = result.type === 'success' ? 'success' : 'error';
+          return result;
+        } else {
+          status = 'unknown_tool';
+          return {
+            type: 'warning',
+            text: `CFO Agent: أداة مالية غير معروفة: ${toolName || 'غير محددة'}`
+          };
+        }
+
+      case 'general_query':
+        // استخدام AI محسن للاستعلامات المالية
+        if (AI?.Core?.ask) {
+          const financialPrompt = `كخبير مالي (CFO) متخصص، أجب على السؤال التالي بدقة وتفصيل:
             
 السؤال: ${message}
 
@@ -113,46 +113,46 @@ defineModule('System.AI.Agents.CFO', ({ Utils, Config, DocsManager, AI, Tools, T
 3. تحذيرات مالية إذا لزم الأمر
 4. اقتراحات للخطوات التالية`;
 
-            const aiResponse = AI.Core.ask(financialPrompt, { 
-              sessionId,
-              generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
-            });
-            
-            status = aiResponse.type === 'info' ? 'success' : 'ai_error';
-            return {
-              type: aiResponse.type,
-              text: aiResponse.text,
-              data: { ...aiResponse.data, agent: 'CFO', expertise: 'financial' }
-            };
-          } else {
-            status = 'ai_unavailable';
-            return { 
-              type: 'error', 
-              text: 'CFO Agent: خدمة الذكاء الاصطناعي غير متوفرة حالياً' 
-            };
-          }
+          const aiResponse = AI.Core.ask(financialPrompt, {
+            sessionId,
+            generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
+          });
 
-        case 'clarification_needed':
-          status = 'clarification';
-          return { 
-            type: 'warning', 
-            text: 'CFO Agent: هل يمكنك توضيح استفسارك المالي أكثر؟ مثلاً: تقرير شهري، تحليل اتجاهات، أو استشارة مالية محددة.' 
+          status = aiResponse.type === 'info' ? 'success' : 'ai_error';
+          return {
+            type: aiResponse.type,
+            text: aiResponse.text,
+            data: { ...aiResponse.data, agent: 'CFO', expertise: 'financial' }
           };
+        } else {
+          status = 'ai_unavailable';
+          return {
+            type: 'error',
+            text: 'CFO Agent: خدمة الذكاء الاصطناعي غير متوفرة حالياً'
+          };
+        }
 
-        default:
-          status = 'unknown_intent';
-          return { 
-            type: 'info', 
-            text: `CFO Agent: تم استلام رسالة "${message}" بنوع نية غير متوقع: "${intent.type}"` 
-          };
+      case 'clarification_needed':
+        status = 'clarification';
+        return {
+          type: 'warning',
+          text: 'CFO Agent: هل يمكنك توضيح استفسارك المالي أكثر؟ مثلاً: تقرير شهري، تحليل اتجاهات، أو استشارة مالية محددة.'
+        };
+
+      default:
+        status = 'unknown_intent';
+        return {
+          type: 'info',
+          text: `CFO Agent: تم استلام رسالة "${message}" بنوع نية غير متوقع: "${intent.type}"`
+        };
       }
 
     } catch (e) {
       status = 'exception';
       Utils.error(`CFO Agent error for session '${sessionId}': ${e.message}`, e.stack);
-      return { 
-        type: 'error', 
-        text: `💥 خطأ في CFO Agent: ${e.message}` 
+      return {
+        type: 'error',
+        text: `💥 خطأ في CFO Agent: ${e.message}`
       };
     } finally {
       const duration = Date.now() - start;
@@ -174,9 +174,9 @@ defineModule('System.AI.Agents.CFO', ({ Utils, Config, DocsManager, AI, Tools, T
       // التحقق من توفر أدوات المحاسبة
       if (!Tools?.Accounting?.calculateGrossProfit) {
         status = 'tools_unavailable';
-        return { 
-          type: 'error', 
-          text: 'فشل في توليد التقرير: أدوات المحاسبة غير متوفرة' 
+        return {
+          type: 'error',
+          text: 'فشل في توليد التقرير: أدوات المحاسبة غير متوفرة'
         };
       }
 
@@ -184,17 +184,17 @@ defineModule('System.AI.Agents.CFO', ({ Utils, Config, DocsManager, AI, Tools, T
       const firstDay = new Date(today.getFullYear(), today.getMonth() - 1, 1);
       const lastDay = new Date(today.getFullYear(), today.getMonth(), 0);
 
-      const startDate = Utilities.formatDate(firstDay, Session.getScriptTimeZone(), "yyyy-MM-dd");
-      const endDate = Utilities.formatDate(lastDay, Session.getScriptTimeZone(), "yyyy-MM-dd");
+      const startDate = Utilities.formatDate(firstDay, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+      const endDate = Utilities.formatDate(lastDay, Session.getScriptTimeZone(), 'yyyy-MM-dd');
 
       // توليد التقرير الأساسي
       const pnlResponse = Tools.Accounting.calculateGrossProfit({ startDate, endDate });
-      
+
       if (pnlResponse.type !== 'table' || !pnlResponse.data?.headers || !pnlResponse.data?.rows) {
         status = 'calculation_error';
-        return { 
-          type: 'error', 
-          text: 'فشل في توليد بيانات تقرير الربح والخسارة' 
+        return {
+          type: 'error',
+          text: 'فشل في توليد بيانات تقرير الربح والخسارة'
         };
       }
 
@@ -216,7 +216,7 @@ ${JSON.stringify(pnlResponse.data, null, 2)}
           const analysisResult = AI.Core.ask(analysisPrompt, {
             generationConfig: { temperature: 0.2, maxOutputTokens: 1500 }
           });
-          
+
           if (analysisResult.type === 'info' && analysisResult.text) {
             aiAnalysis = analysisResult.text;
           }
@@ -232,10 +232,10 @@ ${JSON.stringify(pnlResponse.data, null, 2)}
         const htmlBody = _buildEnhancedEmailBody(reportTitle, pnlResponse.data.headers, pnlResponse.data.rows, aiAnalysis);
 
         try {
-          MailApp.sendEmail({ 
-            to: ownerEmail, 
-            subject: reportTitle, 
-            htmlBody 
+          MailApp.sendEmail({
+            to: ownerEmail,
+            subject: reportTitle,
+            htmlBody
           });
           Utils.log('CFO Agent: Enhanced monthly report sent successfully');
         } catch (e) {
@@ -257,8 +257,8 @@ ${JSON.stringify(pnlResponse.data, null, 2)}
       }
 
       status = 'success';
-      return { 
-        type: 'success', 
+      return {
+        type: 'success',
         text: 'تم إرسال التقرير المالي الشهري المحسن بنجاح عبر البريد الإلكتروني',
         data: {
           period: `${startDate} إلى ${endDate}`,
@@ -284,40 +284,40 @@ ${JSON.stringify(pnlResponse.data, null, 2)}
 
       // تحديد الفترة الزمنية
       const endDate = new Date();
-      let startDate = new Date();
-      
+      const startDate = new Date();
+
       switch (period) {
-        case '1month':
-          startDate.setMonth(endDate.getMonth() - 1);
-          break;
-        case '3months':
-          startDate.setMonth(endDate.getMonth() - 3);
-          break;
-        case '6months':
-          startDate.setMonth(endDate.getMonth() - 6);
-          break;
-        case '1year':
-          startDate.setFullYear(endDate.getFullYear() - 1);
-          break;
-        default:
-          startDate.setMonth(endDate.getMonth() - 3);
+      case '1month':
+        startDate.setMonth(endDate.getMonth() - 1);
+        break;
+      case '3months':
+        startDate.setMonth(endDate.getMonth() - 3);
+        break;
+      case '6months':
+        startDate.setMonth(endDate.getMonth() - 6);
+        break;
+      case '1year':
+        startDate.setFullYear(endDate.getFullYear() - 1);
+        break;
+      default:
+        startDate.setMonth(endDate.getMonth() - 3);
       }
 
       // جمع البيانات المالية التاريخية
       const historicalData = [];
       const currentDate = new Date(startDate);
-      
+
       while (currentDate <= endDate) {
         const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-        
+
         if (Tools?.Accounting?.calculateGrossProfit) {
           try {
             const monthlyData = Tools.Accounting.calculateGrossProfit({
-              startDate: Utilities.formatDate(monthStart, Session.getScriptTimeZone(), "yyyy-MM-dd"),
-              endDate: Utilities.formatDate(monthEnd, Session.getScriptTimeZone(), "yyyy-MM-dd")
+              startDate: Utilities.formatDate(monthStart, Session.getScriptTimeZone(), 'yyyy-MM-dd'),
+              endDate: Utilities.formatDate(monthEnd, Session.getScriptTimeZone(), 'yyyy-MM-dd')
             });
-            
+
             if (monthlyData.type === 'table' && monthlyData.data) {
               historicalData.push({
                 month: monthStart.toLocaleString('ar-SA', { month: 'long', year: 'numeric' }),
@@ -328,7 +328,7 @@ ${JSON.stringify(pnlResponse.data, null, 2)}
             Utils.warn(`Failed to get data for ${monthStart.toISOString()}`, e);
           }
         }
-        
+
         currentDate.setMonth(currentDate.getMonth() + 1);
       }
 
@@ -359,7 +359,7 @@ ${JSON.stringify(historicalData, null, 2)}
           const analysisResult = AI.Core.ask(trendsPrompt, {
             generationConfig: { temperature: 0.3, maxOutputTokens: 2000 }
           });
-          
+
           if (analysisResult.type === 'info' && analysisResult.text) {
             trendsAnalysis = analysisResult.text;
           }
@@ -434,10 +434,10 @@ ${JSON.stringify(historicalData, null, 2)}
           ${aiSection}
           
           <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666;">
-            <p><strong>📅 تاريخ التوليد:</strong> ${new Date().toLocaleString('ar-SA', { 
-              weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', 
-              hour: '2-digit', minute: '2-digit', hour12: true 
-            })}</p>
+            <p><strong>📅 تاريخ التوليد:</strong> ${new Date().toLocaleString('ar-SA', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+    hour: '2-digit', minute: '2-digit', hour12: true
+  })}</p>
             <p><strong>🤖 المولد:</strong> G-Assistant CFO Agent v2.1.0</p>
             <p style="font-style: italic;">هذا التقرير تم توليده تلقائياً بواسطة نظام الذكاء الاصطناعي المتقدم.</p>
           </div>

@@ -777,15 +777,15 @@ defineModule('System.AI.LongTermMemory.Enhanced', ({ Utils, Config, DocsManager,
  */
 function createMemoryTests() {
   console.log('🧪 إنشاء اختبارات نظام الذاكرة...');
-  
+
   const tests = {
     // اختبار الذاكرة قصيرة الأمد
     shortTermMemory: function() {
       console.log('💭 اختبار الذاكرة قصيرة الأمد...');
-      
+
       try {
         const sessionId = 'test_memory_' + Date.now();
-        
+
         // إضافة رسائل تجريبية
         const testMessages = [
           { role: 'user', parts: [{ text: 'مرحبا، كيف حالك؟' }] },
@@ -793,19 +793,19 @@ function createMemoryTests() {
           { role: 'user', parts: [{ text: 'أريد معلومات مهمة عن المشروع' }] },
           { role: 'model', parts: [{ text: 'بالطبع! يمكنني مساعدتك في ذلك.' }] }
         ];
-        
+
         // إضافة الرسائل
         if (typeof GAssistant !== 'undefined' && GAssistant.AI && GAssistant.AI.Memory) {
           testMessages.forEach(msg => {
             GAssistant.AI.Memory.addMessageToHistory({ sessionId, message: msg });
           });
-          
+
           // استرجاع التاريخ
           const history = GAssistant.AI.Memory.getSessionHistory({ sessionId });
-          
+
           if (history.length === testMessages.length) {
             console.log('✅ الذاكرة قصيرة الأمد تعمل');
-            
+
             // تنظيف
             GAssistant.AI.Memory.clearSessionContext({ sessionId });
             return true;
@@ -817,17 +817,17 @@ function createMemoryTests() {
           console.error('❌ AI.Memory غير متاح');
           return false;
         }
-        
+
       } catch (error) {
         console.error('❌ خطأ في اختبار الذاكرة قصيرة الأمد:', error.message);
         return false;
       }
     },
-    
+
     // اختبار ضغط الذاكرة
     memoryCompression: function() {
       console.log('🗜️ اختبار ضغط الذاكرة...');
-      
+
       try {
         // إنشاء رسائل كثيرة للاختبار
         const longHistory = [];
@@ -837,24 +837,24 @@ function createMemoryTests() {
             parts: [{ text: `رسالة رقم ${i + 1} - هذا نص طويل نسبياً لاختبار ضغط الذاكرة` }]
           });
         }
-        
+
         // محاكاة ضغط الذاكرة
         const maxTokens = 1000; // حد منخفض للاختبار
-        
+
         // تقدير التوكنز الأولي
-        const initialTokens = longHistory.reduce((acc, msg) => 
+        const initialTokens = longHistory.reduce((acc, msg) =>
           acc + JSON.stringify(msg).length / 4, 0);
-        
+
         console.log(`📊 التوكنز الأولية: ${Math.round(initialTokens)}`);
-        
+
         if (initialTokens > maxTokens) {
           // محاكاة الضغط البسيط
           const compressed = longHistory.slice(-10); // الاحتفاظ بآخر 10 رسائل
-          const compressedTokens = compressed.reduce((acc, msg) => 
+          const compressedTokens = compressed.reduce((acc, msg) =>
             acc + JSON.stringify(msg).length / 4, 0);
-          
+
           console.log(`📊 التوكنز بعد الضغط: ${Math.round(compressedTokens)}`);
-          
+
           if (compressedTokens < initialTokens) {
             console.log('✅ ضغط الذاكرة يعمل');
             return true;
@@ -866,17 +866,17 @@ function createMemoryTests() {
           console.log('ℹ️ الذاكرة لا تحتاج ضغط');
           return true;
         }
-        
+
       } catch (error) {
         console.error('❌ خطأ في اختبار ضغط الذاكرة:', error.message);
         return false;
       }
     },
-    
+
     // اختبار الذاكرة طويلة الأمد
     longTermMemory: function() {
       console.log('🏛️ اختبار الذاكرة طويلة الأمد...');
-      
+
       try {
         if (typeof GAssistant !== 'undefined' && GAssistant.AI && GAssistant.AI.LongTermMemory) {
           // حفظ بيانات تجريبية
@@ -886,13 +886,13 @@ function createMemoryTests() {
             importance: 'high',
             timestamp: new Date().toISOString()
           };
-          
+
           GAssistant.AI.LongTermMemory.save('MemoryTest', testData);
           console.log('✅ تم حفظ البيانات في الذاكرة طويلة الأمد');
-          
+
           // محاولة استرجاع البيانات
           const retrieved = GAssistant.AI.LongTermMemory.load(5);
-          
+
           if (Array.isArray(retrieved) && retrieved.length > 0) {
             console.log(`✅ تم استرجاع ${retrieved.length} عنصر من الذاكرة طويلة الأمد`);
             return true;
@@ -904,40 +904,40 @@ function createMemoryTests() {
           console.error('❌ AI.LongTermMemory غير متاح');
           return false;
         }
-        
+
       } catch (error) {
         console.error('❌ خطأ في اختبار الذاكرة طويلة الأمد:', error.message);
         return false;
       }
     },
-    
+
     // اختبار الكاش
     cacheSystem: function() {
       console.log('💾 اختبار نظام الكاش...');
-      
+
       try {
         const userCache = CacheService.getUserCache();
         const scriptCache = CacheService.getScriptCache();
-        
+
         // اختبار User Cache
         const testKey = 'test_cache_' + Date.now();
         const testValue = { message: 'اختبار الكاش', timestamp: new Date().toISOString() };
-        
+
         userCache.put(testKey, JSON.stringify(testValue), 300); // 5 دقائق
-        
+
         const retrieved = userCache.get(testKey);
         if (retrieved) {
           const parsedValue = JSON.parse(retrieved);
           if (parsedValue.message === testValue.message) {
             console.log('✅ User Cache يعمل');
-            
+
             // تنظيف
             userCache.remove(testKey);
-            
+
             // اختبار Script Cache
             scriptCache.put(testKey + '_script', JSON.stringify(testValue), 300);
             const scriptRetrieved = scriptCache.get(testKey + '_script');
-            
+
             if (scriptRetrieved) {
               console.log('✅ Script Cache يعمل');
               scriptCache.remove(testKey + '_script');
@@ -954,14 +954,14 @@ function createMemoryTests() {
           console.error('❌ فشل في استرجاع البيانات من الكاش');
           return false;
         }
-        
+
       } catch (error) {
         console.error('❌ خطأ في اختبار نظام الكاش:', error.message);
         return false;
       }
     }
   };
-  
+
   return tests;
 }
 
@@ -973,19 +973,19 @@ function createMemoryTests() {
 function runMemoryTests() {
   console.log('🧠 تشغيل اختبارات نظام الذاكرة...');
   console.log('=' .repeat(50));
-  
+
   const tests = createMemoryTests();
   const results = [];
   let passedTests = 0;
-  
+
   for (const [testName, testFn] of Object.entries(tests)) {
     console.log(`\n🔄 تشغيل: ${testName}...`);
-    
+
     try {
       const startTime = Date.now();
       const result = testFn();
       const duration = Date.now() - startTime;
-      
+
       if (result) {
         console.log(`✅ نجح: ${testName} (${duration}ms)`);
         passedTests++;
@@ -999,12 +999,12 @@ function runMemoryTests() {
       results.push({ name: testName, status: 'خطأ', duration: 0, error: error.message });
     }
   }
-  
+
   // تقرير النتائج
   console.log('\n' + '=' .repeat(50));
   console.log('📊 تقرير اختبارات الذاكرة:');
   console.log('=' .repeat(50));
-  
+
   results.forEach(result => {
     const icon = result.status === 'نجح' ? '✅' : '❌';
     console.log(`${icon} ${result.name}: ${result.status} (${result.duration}ms)`);
@@ -1012,10 +1012,10 @@ function runMemoryTests() {
       console.log(`   📝 الخطأ: ${result.error}`);
     }
   });
-  
+
   const successRate = Math.round((passedTests / Object.keys(tests).length) * 100);
   console.log(`\n🎯 معدل النجاح: ${successRate}% (${passedTests}/${Object.keys(tests).length})`);
-  
+
   return { successRate, results, passedTests, totalTests: Object.keys(tests).length };
 }
 
@@ -1038,13 +1038,13 @@ function testMemorySystem() {
 
 function setupEnhancedMemory() {
   console.log('🧠 إعداد نظام الذاكرة المحسن...');
-  
+
   console.log('📝 Enhanced Memory System:');
   console.log(createEnhancedMemorySystem());
-  
+
   console.log('\n📝 Enhanced Long Term Memory:');
   console.log(createEnhancedLongTermMemory());
-  
+
   return true;
 }
 

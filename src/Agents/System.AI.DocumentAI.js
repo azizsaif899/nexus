@@ -40,16 +40,16 @@ defineModule('System.AI.DocumentAI', ({ Utils, Config }) => {
 
   function extractTablesFromPDF(pdfBlob) {
     const result = processDocument(pdfBlob, PROCESSORS.TABLE_EXTRACTOR);
-    
+
     if (result.type !== 'success') return result;
 
     const tables = result.data.tables || [];
     const extractedTables = tables.map(table => {
-      const rows = table.bodyRows?.map(row => 
+      const rows = table.bodyRows?.map(row =>
         row.cells?.map(cell => cell.layout?.textAnchor?.content || '') || []
       ) || [];
-      
-      const headers = table.headerRows?.[0]?.cells?.map(cell => 
+
+      const headers = table.headerRows?.[0]?.cells?.map(cell =>
         cell.layout?.textAnchor?.content || ''
       ) || [];
 
@@ -65,12 +65,12 @@ defineModule('System.AI.DocumentAI', ({ Utils, Config }) => {
 
   function extractFormFields(documentBlob) {
     const result = processDocument(documentBlob, PROCESSORS.FORM_PARSER);
-    
+
     if (result.type !== 'success') return result;
 
     const formFields = {};
     const entities = result.data.entities || [];
-    
+
     entities.forEach(entity => {
       if (entity.type && entity.mentionText) {
         formFields[entity.type] = entity.mentionText;
@@ -104,13 +104,13 @@ defineModule('System.AI.DocumentAI', ({ Utils, Config }) => {
     try {
       const serviceAccount = JSON.parse(Config.get('VERTEX_SERVICE_ACCOUNT_KEY'));
       const jwt = _createJWT(serviceAccount);
-      
+
       const response = UrlFetchApp.fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         payload: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${jwt}`
       });
-      
+
       return JSON.parse(response.getContentText()).access_token;
     } catch (e) {
       Utils.error('Document AI auth failed', e);

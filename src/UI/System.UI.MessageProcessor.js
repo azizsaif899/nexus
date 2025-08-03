@@ -3,19 +3,19 @@ defineModule('System.UI.MessageProcessor', ({ Utils, Config, AI }) => {
 
   function processUserMessage(message, selectedAgent = 'auto') {
     const start = Date.now();
-    
+
     try {
       Utils.log(`Processing message: "${message}" with agent: ${selectedAgent}`);
 
       // تحديد الوكيل المناسب
       const agent = _determineAgent(message, selectedAgent);
-      
+
       // معالجة الرسالة
       const response = _routeToAgent(agent, message);
-      
+
       // تسجيل الإحصائيات
       _logInteraction(message, response, agent, Date.now() - start);
-      
+
       return response;
     } catch (e) {
       Utils.error('Message processing failed', e);
@@ -54,44 +54,44 @@ defineModule('System.UI.MessageProcessor', ({ Utils, Config, AI }) => {
 
     try {
       switch (agent) {
-        case 'CFO':
-          if (GAssistant?.AI?.Agents?.CFO?.handleRequest) {
-            return GAssistant.AI.Agents.CFO.handleRequest({
-              sessionId,
-              message,
-              intent
-            });
-          }
-          break;
+      case 'CFO':
+        if (GAssistant?.AI?.Agents?.CFO?.handleRequest) {
+          return GAssistant.AI.Agents.CFO.handleRequest({
+            sessionId,
+            message,
+            intent
+          });
+        }
+        break;
 
-        case 'Developer':
-          if (GAssistant?.AI?.Agents?.Developer?.handleRequest) {
-            return GAssistant.AI.Agents.Developer.handleRequest({
-              sessionId,
-              message,
-              intent
-            });
-          }
-          break;
+      case 'Developer':
+        if (GAssistant?.AI?.Agents?.Developer?.handleRequest) {
+          return GAssistant.AI.Agents.Developer.handleRequest({
+            sessionId,
+            message,
+            intent
+          });
+        }
+        break;
 
-        case 'DatabaseManager':
-          if (GAssistant?.AI?.Agents?.DatabaseManager?.handleRequest) {
-            return GAssistant.AI.Agents.DatabaseManager.handleRequest({
-              sessionId,
-              message,
-              intent
-            });
-          }
-          break;
+      case 'DatabaseManager':
+        if (GAssistant?.AI?.Agents?.DatabaseManager?.handleRequest) {
+          return GAssistant.AI.Agents.DatabaseManager.handleRequest({
+            sessionId,
+            message,
+            intent
+          });
+        }
+        break;
 
-        default:
-          // استخدام AI العام
-          if (AI?.Core?.ask) {
-            return AI.Core.ask(message, {
-              sessionId,
-              generationConfig: { temperature: 0.3, maxOutputTokens: 2000 }
-            });
-          }
+      default:
+        // استخدام AI العام
+        if (AI?.Core?.ask) {
+          return AI.Core.ask(message, {
+            sessionId,
+            generationConfig: { temperature: 0.3, maxOutputTokens: 2000 }
+          });
+        }
       }
 
       return {
@@ -132,7 +132,7 @@ defineModule('System.UI.MessageProcessor', ({ Utils, Config, AI }) => {
       const historySheet = Utils.getSheet('ChatHistory', [
         'Timestamp', 'User', 'Message', 'Response', 'Agent'
       ]);
-      
+
       if (!historySheet) {
         return { type: 'success', data: [] };
       }
@@ -140,7 +140,7 @@ defineModule('System.UI.MessageProcessor', ({ Utils, Config, AI }) => {
       const data = historySheet.getDataRange().getValues();
       const startIndex = Math.max(0, data.length - offset - 20);
       const endIndex = data.length - offset;
-      
+
       const history = data.slice(startIndex, endIndex).map(row => ({
         timestamp: row[0],
         user: row[1],

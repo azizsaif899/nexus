@@ -17,28 +17,28 @@ function callEnhancedAI(prompt, options = {}) {
 
 function testHybridConnection() {
   const nodeServiceUrl = GAssistant.Config.get('NODE_SERVICE_URL');
-  
+
   try {
     const response = UrlFetchApp.fetch(`${nodeServiceUrl}/health`, {
       method: 'GET',
       muteHttpExceptions: true
     });
-    
+
     if (response.getResponseCode() === 200) {
-      return { 
-        type: 'success', 
-        text: `✅ الاتصال بالخدمة الخارجية نجح!\nالعنوان: ${nodeServiceUrl}\nالحالة: ${response.getContentText()}` 
+      return {
+        type: 'success',
+        text: `✅ الاتصال بالخدمة الخارجية نجح!\nالعنوان: ${nodeServiceUrl}\nالحالة: ${response.getContentText()}`
       };
     } else {
-      return { 
-        type: 'error', 
-        text: `❌ فشل الاتصال - كود الخطأ: ${response.getResponseCode()}` 
+      return {
+        type: 'error',
+        text: `❌ فشل الاتصال - كود الخطأ: ${response.getResponseCode()}`
       };
     }
   } catch (e) {
-    return { 
-      type: 'error', 
-      text: `❌ خطأ في الاتصال: ${e.message}\nتأكد من تشغيل الخدمة على ${nodeServiceUrl}` 
+    return {
+      type: 'error',
+      text: `❌ خطأ في الاتصال: ${e.message}\nتأكد من تشغيل الخدمة على ${nodeServiceUrl}`
     };
   }
 }
@@ -49,7 +49,7 @@ function streamResponse(prompt, options = {}) {
       ...options,
       streaming: true
     });
-    
+
     return {
       type: 'success',
       text: result.text || 'تم الإرسال بنجاح',

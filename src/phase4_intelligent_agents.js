@@ -1,7 +1,7 @@
 /**
  * المرحلة الرابعة: الوكلاء الذكيون
  * Phase 4: Intelligent Agents
- * 
+ *
  * الهدف: 85% - وكلاء ذكيون متخصصين
  * Target: 85% - Specialized Intelligent Agents
  */
@@ -18,7 +18,7 @@ defineModule('Agent.CFO', function(injector) {
 
     async analyzeFinancials(sheetName) {
       logging.info('AgentCFO', `Starting financial analysis for ${sheetName}`);
-      
+
       try {
         const data = crud.readData(sheetName, 'A1:F100');
         if (!data || data.length < 2) throw new Error('No financial data found');
@@ -33,7 +33,7 @@ defineModule('Agent.CFO', function(injector) {
         4. المخاطر المحتملة`;
 
         const analysis = await gemini.callGeminiWithRetry(prompt);
-        
+
         logging.info('AgentCFO', 'Financial analysis completed');
         return {
           success: true,
@@ -48,23 +48,23 @@ defineModule('Agent.CFO', function(injector) {
 
     async generateReport(sheetName, reportType = 'summary') {
       logging.info('AgentCFO', `Generating ${reportType} report for ${sheetName}`);
-      
+
       try {
         const analysis = await this.analyzeFinancials(sheetName);
         if (!analysis.success) throw new Error(analysis.error);
 
-        const reportSheet = crud.createSheet(`CFO_Report_${Date.now()}`, 
+        const reportSheet = crud.createSheet(`CFO_Report_${Date.now()}`,
           ['التاريخ', 'نوع التقرير', 'التحليل', 'التوصيات']);
-        
+
         const reportData = [[
           new Date().toISOString(),
           reportType,
           analysis.analysis.substring(0, 500) + '...',
           'راجع التحليل الكامل'
         ]];
-        
+
         crud.writeData(reportSheet.getName(), 'A2:D2', reportData);
-        
+
         logging.info('AgentCFO', 'Report generated successfully');
         return {
           success: true,
@@ -90,7 +90,7 @@ defineModule('Agent.Developer', function(injector) {
 
     async reviewCode(code, language = 'javascript') {
       logging.info('AgentDeveloper', `Reviewing ${language} code`);
-      
+
       try {
         const prompt = `كمطور خبير، راجع الكود التالي وأعط تقييماً شاملاً:
 
@@ -105,7 +105,7 @@ defineModule('Agent.Developer', function(injector) {
         4. اقتراحات للتحسين`;
 
         const review = await gemini.callGeminiWithRetry(prompt);
-        
+
         logging.info('AgentDeveloper', 'Code review completed');
         return {
           success: true,
@@ -121,7 +121,7 @@ defineModule('Agent.Developer', function(injector) {
 
     async generateCode(requirements, language = 'javascript') {
       logging.info('AgentDeveloper', `Generating ${language} code`);
-      
+
       try {
         const prompt = `كمطور خبير، اكتب كود ${language} يحقق المتطلبات التالية:
         
@@ -134,7 +134,7 @@ defineModule('Agent.Developer', function(injector) {
         4. اتباع أفضل الممارسات`;
 
         const code = await gemini.callGeminiWithRetry(prompt);
-        
+
         logging.info('AgentDeveloper', 'Code generation completed');
         return {
           success: true,
@@ -162,7 +162,7 @@ defineModule('Agent.Analyst', function(injector) {
 
     async analyzeData(sheetName, analysisType = 'statistical') {
       logging.info('AgentAnalyst', `Analyzing data in ${sheetName} - Type: ${analysisType}`);
-      
+
       try {
         const data = crud.readData(sheetName, 'A1:Z100');
         if (!data || data.length < 2) throw new Error('No data found for analysis');
@@ -171,21 +171,21 @@ defineModule('Agent.Analyst', function(injector) {
         ${JSON.stringify(data.slice(0, 15))}`;
 
         switch (analysisType) {
-          case 'statistical':
-            prompt += '\nأعط تحليلاً إحصائياً شاملاً مع المتوسطات والانحرافات والاتجاهات.';
-            break;
-          case 'trends':
-            prompt += '\nركز على تحديد الاتجاهات والأنماط الزمنية في البيانات.';
-            break;
-          case 'correlations':
-            prompt += '\nحلل العلاقات والارتباطات بين المتغيرات المختلفة.';
-            break;
-          default:
-            prompt += '\nأعط تحليلاً عاماً شاملاً للبيانات.';
+        case 'statistical':
+          prompt += '\nأعط تحليلاً إحصائياً شاملاً مع المتوسطات والانحرافات والاتجاهات.';
+          break;
+        case 'trends':
+          prompt += '\nركز على تحديد الاتجاهات والأنماط الزمنية في البيانات.';
+          break;
+        case 'correlations':
+          prompt += '\nحلل العلاقات والارتباطات بين المتغيرات المختلفة.';
+          break;
+        default:
+          prompt += '\nأعط تحليلاً عاماً شاملاً للبيانات.';
         }
 
         const analysis = await gemini.callGeminiWithRetry(prompt);
-        
+
         logging.info('AgentAnalyst', 'Data analysis completed');
         return {
           success: true,
@@ -201,22 +201,22 @@ defineModule('Agent.Analyst', function(injector) {
 
     async createVisualization(sheetName, chartType = 'summary') {
       logging.info('AgentAnalyst', `Creating ${chartType} visualization for ${sheetName}`);
-      
+
       try {
         const analysis = await this.analyzeData(sheetName);
         if (!analysis.success) throw new Error(analysis.error);
 
-        const vizSheet = crud.createSheet(`Analysis_${Date.now()}`, 
+        const vizSheet = crud.createSheet(`Analysis_${Date.now()}`,
           ['المقياس', 'القيمة', 'التفسير', 'التوصية']);
-        
+
         const vizData = [
           ['تحليل البيانات', 'مكتمل', analysis.analysis.substring(0, 200), 'راجع التحليل الكامل'],
           ['عدد الصفوف', analysis.dataRows, 'حجم البيانات', 'بيانات كافية للتحليل'],
           ['نوع التحليل', analysis.analysisType, 'نوع التحليل المطبق', 'مناسب للبيانات']
         ];
-        
+
         crud.writeData(vizSheet.getName(), 'A2:D4', vizData);
-        
+
         logging.info('AgentAnalyst', 'Visualization created successfully');
         return {
           success: true,
@@ -242,7 +242,7 @@ defineModule('Agent.General', function(injector) {
 
     async processRequest(request, context = {}) {
       logging.info('AgentGeneral', `Processing general request: ${request.substring(0, 50)}...`);
-      
+
       try {
         const prompt = `كمساعد ذكي عام، ساعد في الطلب التالي:
         
@@ -252,7 +252,7 @@ defineModule('Agent.General', function(injector) {
         أعط إجابة مفيدة وعملية.`;
 
         const response = await gemini.callGeminiWithRetry(prompt);
-        
+
         logging.info('AgentGeneral', 'General request processed successfully');
         return {
           success: true,
@@ -268,7 +268,7 @@ defineModule('Agent.General', function(injector) {
 
     async delegateToSpecialist(request, agentType) {
       logging.info('AgentGeneral', `Delegating to ${agentType} agent`);
-      
+
       try {
         const agents = {
           'cfo': injector.get('Agent.CFO'),
@@ -310,7 +310,7 @@ defineModule('System.AgentRouter', function(injector) {
   return {
     async routeRequest(request, preferredAgent = null) {
       logging.info('AgentRouter', `Routing request: ${request.substring(0, 50)}...`);
-      
+
       try {
         // تحديد الوكيل المناسب تلقائياً إذا لم يحدد
         if (!preferredAgent) {
@@ -385,9 +385,9 @@ async function askAnalyst(sheetName, analysisType = 'statistical') {
 async function askAgent(request, agentType = null) {
   const router = GAssistant.Utils.Injector.get('System.AgentRouter');
   const routing = await router.routeRequest(request, agentType);
-  
+
   if (!routing.success) return routing;
-  
+
   if (routing.routedTo === 'general') {
     return await routing.agent.processRequest(request);
   } else {

@@ -39,7 +39,7 @@ defineModule('System.AI.SmartTriggers', ({ Utils, Config, IntentAnalyzer, ToolEx
       if (cell === CONTROL_CELLS.COMMAND_CELL && value) {
         _processCommandCell(sheet, value);
       }
-      
+
       // معالجة الأوامر المباشرة
       if (typeof value === 'string' && value.startsWith('!')) {
         _processDirectCommand(e.range, value);
@@ -112,37 +112,37 @@ defineModule('System.AI.SmartTriggers', ({ Utils, Config, IntentAnalyzer, ToolEx
   function _routeToAgent(intent) {
     try {
       const sessionId = `trigger_${Date.now()}`;
-      
+
       switch (intent.agent) {
-        case 'CFO':
-          if (GAssistant?.AI?.Agents?.CFO?.handleRequest) {
-            return GAssistant.AI.Agents.CFO.handleRequest({
-              sessionId,
-              message: intent.originalMessage,
-              intent: { type: intent.intent, data: intent.parameters }
-            });
-          }
-          break;
+      case 'CFO':
+        if (GAssistant?.AI?.Agents?.CFO?.handleRequest) {
+          return GAssistant.AI.Agents.CFO.handleRequest({
+            sessionId,
+            message: intent.originalMessage,
+            intent: { type: intent.intent, data: intent.parameters }
+          });
+        }
+        break;
 
-        case 'Developer':
-          if (GAssistant?.AI?.Agents?.Developer?.handleRequest) {
-            return GAssistant.AI.Agents.Developer.handleRequest({
-              sessionId,
-              message: intent.originalMessage,
-              intent: { type: intent.intent, data: intent.parameters }
-            });
-          }
-          break;
+      case 'Developer':
+        if (GAssistant?.AI?.Agents?.Developer?.handleRequest) {
+          return GAssistant.AI.Agents.Developer.handleRequest({
+            sessionId,
+            message: intent.originalMessage,
+            intent: { type: intent.intent, data: intent.parameters }
+          });
+        }
+        break;
 
-        case 'DatabaseManager':
-          if (GAssistant?.AI?.Agents?.DatabaseManager?.handleRequest) {
-            return GAssistant.AI.Agents.DatabaseManager.handleRequest({
-              sessionId,
-              message: intent.originalMessage,
-              intent: { type: intent.intent, data: intent.parameters }
-            });
-          }
-          break;
+      case 'DatabaseManager':
+        if (GAssistant?.AI?.Agents?.DatabaseManager?.handleRequest) {
+          return GAssistant.AI.Agents.DatabaseManager.handleRequest({
+            sessionId,
+            message: intent.originalMessage,
+            intent: { type: intent.intent, data: intent.parameters }
+          });
+        }
+        break;
       }
 
       return { type: 'error', text: `الوكيل ${intent.agent} غير متوفر` };
@@ -180,7 +180,7 @@ defineModule('System.AI.SmartTriggers', ({ Utils, Config, IntentAnalyzer, ToolEx
     try {
       const statusCell = sheet.getRange(CONTROL_CELLS.STATUS_CELL);
       statusCell.setValue(message);
-      
+
       // تلوين حسب النوع
       const colors = {
         'processing': '#fff3cd',
@@ -188,7 +188,7 @@ defineModule('System.AI.SmartTriggers', ({ Utils, Config, IntentAnalyzer, ToolEx
         'error': '#f8d7da',
         'info': '#ffffff'
       };
-      
+
       statusCell.setBackground(colors[type] || colors.info);
     } catch (e) {
       Utils.error('Failed to update status', e);

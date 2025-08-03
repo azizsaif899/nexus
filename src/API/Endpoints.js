@@ -15,11 +15,11 @@ defineModule('System.API.Endpoints', ({ API }) => {
    * تشمل: ask, summarizeSheet, getFinancialReport, getSchema
    * مرتبطة بـ: AI.Core, Tools.Accounting, Tools.Sheets, Telemetry
    */
-  
-  
-  
+
+
+
   function _formatResponse(success, payload) {
-  
+
   }
 
   // === التصدير ===

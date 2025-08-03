@@ -55,7 +55,7 @@ defineModule('System.AI.Agents.Developer', ({ Utils, Config, DocsManager, AI, Te
     ]);
     if (sheet) {
       sheet.appendRow([
-        new Date(), action, status, durationMs, MODULE_VERSION, 
+        new Date(), action, status, durationMs, MODULE_VERSION,
         JSON.stringify(meta.details || {})
       ]);
     }
@@ -69,32 +69,32 @@ defineModule('System.AI.Agents.Developer', ({ Utils, Config, DocsManager, AI, Te
       Utils.log(`Developer Agent: Processing - Intent: ${intent.type}, Message: "${message}"`);
 
       switch (intent.type) {
-        case 'tool_call':
-          const toolName = intent.data?.toolName || intent.data?.functionName;
-          
-          if (toolName === 'Developer.runWeeklyCodeReview') {
-            const result = runWeeklyCodeReview();
-            status = result.type === 'success' ? 'success' : 'error';
-            return result;
-          } else if (toolName === 'Developer.analyzeCodeComplexity') {
-            const result = analyzeCodeComplexity(intent.data?.fileName);
-            status = result.type === 'success' ? 'success' : 'error';
-            return result;
-          } else if (toolName === 'Developer.generateCodeDocumentation') {
-            const result = generateCodeDocumentation(intent.data?.fileName);
-            status = result.type === 'success' ? 'success' : 'error';
-            return result;
-          } else {
-            status = 'unknown_tool';
-            return { 
-              type: 'warning', 
-              text: `Developer Agent: أداة مطور غير معروفة: ${toolName || 'غير محددة'}` 
-            };
-          }
+      case 'tool_call':
+        const toolName = intent.data?.toolName || intent.data?.functionName;
 
-        case 'general_query':
-          if (AI?.Core?.ask) {
-            const devPrompt = `كمطور خبير في Google Apps Script وJavaScript، أجب على السؤال التالي بدقة تقنية:
+        if (toolName === 'Developer.runWeeklyCodeReview') {
+          const result = runWeeklyCodeReview();
+          status = result.type === 'success' ? 'success' : 'error';
+          return result;
+        } else if (toolName === 'Developer.analyzeCodeComplexity') {
+          const result = analyzeCodeComplexity(intent.data?.fileName);
+          status = result.type === 'success' ? 'success' : 'error';
+          return result;
+        } else if (toolName === 'Developer.generateCodeDocumentation') {
+          const result = generateCodeDocumentation(intent.data?.fileName);
+          status = result.type === 'success' ? 'success' : 'error';
+          return result;
+        } else {
+          status = 'unknown_tool';
+          return {
+            type: 'warning',
+            text: `Developer Agent: أداة مطور غير معروفة: ${toolName || 'غير محددة'}`
+          };
+        }
+
+      case 'general_query':
+        if (AI?.Core?.ask) {
+          const devPrompt = `كمطور خبير في Google Apps Script وJavaScript، أجب على السؤال التالي بدقة تقنية:
 
 السؤال: ${message}
 
@@ -105,46 +105,46 @@ defineModule('System.AI.Agents.Developer', ({ Utils, Config, DocsManager, AI, Te
 4. تحذيرات تقنية إذا لزم الأمر
 5. موارد إضافية للتعلم`;
 
-            const aiResponse = AI.Core.ask(devPrompt, { 
-              sessionId,
-              generationConfig: { temperature: 0.2, maxOutputTokens: 3000 }
-            });
-            
-            status = aiResponse.type === 'info' ? 'success' : 'ai_error';
-            return {
-              type: aiResponse.type,
-              text: aiResponse.text,
-              data: { ...aiResponse.data, agent: 'Developer', expertise: 'technical' }
-            };
-          } else {
-            status = 'ai_unavailable';
-            return { 
-              type: 'error', 
-              text: 'Developer Agent: خدمة الذكاء الاصطناعي غير متوفرة' 
-            };
-          }
+          const aiResponse = AI.Core.ask(devPrompt, {
+            sessionId,
+            generationConfig: { temperature: 0.2, maxOutputTokens: 3000 }
+          });
 
-        case 'clarification_needed':
-          status = 'clarification';
-          return { 
-            type: 'warning', 
-            text: 'Developer Agent: هل يمكنك توضيح طلبك التقني؟ مثلاً: مراجعة كود، تحليل تعقيد، أو توليد وثائق.' 
+          status = aiResponse.type === 'info' ? 'success' : 'ai_error';
+          return {
+            type: aiResponse.type,
+            text: aiResponse.text,
+            data: { ...aiResponse.data, agent: 'Developer', expertise: 'technical' }
           };
+        } else {
+          status = 'ai_unavailable';
+          return {
+            type: 'error',
+            text: 'Developer Agent: خدمة الذكاء الاصطناعي غير متوفرة'
+          };
+        }
 
-        default:
-          status = 'unknown_intent';
-          return { 
-            type: 'info', 
-            text: `Developer Agent: رسالة "${message}" بنوع نية غير متوقع: "${intent.type}"` 
-          };
+      case 'clarification_needed':
+        status = 'clarification';
+        return {
+          type: 'warning',
+          text: 'Developer Agent: هل يمكنك توضيح طلبك التقني؟ مثلاً: مراجعة كود، تحليل تعقيد، أو توليد وثائق.'
+        };
+
+      default:
+        status = 'unknown_intent';
+        return {
+          type: 'info',
+          text: `Developer Agent: رسالة "${message}" بنوع نية غير متوقع: "${intent.type}"`
+        };
       }
 
     } catch (e) {
       status = 'exception';
       Utils.error(`Developer Agent error: ${e.message}`, e.stack);
-      return { 
-        type: 'error', 
-        text: `💥 خطأ في Developer Agent: ${e.message}` 
+      return {
+        type: 'error',
+        text: `💥 خطأ في Developer Agent: ${e.message}`
       };
     } finally {
       const duration = Date.now() - start;
@@ -166,15 +166,15 @@ defineModule('System.AI.Agents.Developer', ({ Utils, Config, DocsManager, AI, Te
       const projectCode = _getProjectSourceCode();
       if (!projectCode) {
         status = 'no_code';
-        return { 
-          type: 'warning', 
-          text: 'لا يوجد كود مشروع للمراجعة' 
+        return {
+          type: 'warning',
+          text: 'لا يوجد كود مشروع للمراجعة'
         };
       }
 
       // تحليل شامل للكود
       const codeAnalysis = _performCodeAnalysis(projectCode);
-      
+
       // مراجعة بالذكاء الاصطناعي
       let aiReview = null;
       if (AI?.Core?.ask) {
@@ -203,7 +203,7 @@ ${projectCode.substring(0, 8000)} // عرض جزء من الكود
           const reviewResult = AI.Core.ask(reviewPrompt, {
             generationConfig: { temperature: 0.3, maxOutputTokens: 3000 }
           });
-          
+
           if (reviewResult.type === 'info' && reviewResult.text) {
             aiReview = reviewResult.text;
           }
@@ -215,7 +215,7 @@ ${projectCode.substring(0, 8000)} // عرض جزء من الكود
       // حفظ النتائج
       const logSheetName = Config.get('DEVELOPMENT_LOG_SHEET') || 'Development_Log';
       const logSheet = Utils.getSheet(logSheetName, [
-        'تاريخ المراجعة', 'إجمالي الأسطر', 'عدد الدوال', 'متوسط التعقيد', 
+        'تاريخ المراجعة', 'إجمالي الأسطر', 'عدد الدوال', 'متوسط التعقيد',
         'الملفات المعقدة', 'مراجعة الذكاء الاصطناعي'
       ]);
 
@@ -267,14 +267,14 @@ ${projectCode.substring(0, 8000)} // عرض جزء من الكود
       const code = fileName ? _getSingleFileContent(fileName) : _getProjectSourceCode();
       if (!code) {
         status = 'no_code';
-        return { 
-          type: 'warning', 
-          text: `تعذر قراءة الكود${fileName ? ` للملف: ${fileName}` : ''}` 
+        return {
+          type: 'warning',
+          text: `تعذر قراءة الكود${fileName ? ` للملف: ${fileName}` : ''}`
         };
       }
 
       const complexity = _performDetailedComplexityAnalysis(code);
-      
+
       // تحليل بالذكاء الاصطناعي
       let aiComplexityAnalysis = null;
       if (AI?.Core?.ask) {
@@ -301,7 +301,7 @@ ${code.substring(0, 4000)}
           const analysisResult = AI.Core.ask(complexityPrompt, {
             generationConfig: { temperature: 0.2, maxOutputTokens: 2000 }
           });
-          
+
           if (analysisResult.type === 'info' && analysisResult.text) {
             aiComplexityAnalysis = analysisResult.text;
           }
@@ -344,9 +344,9 @@ ${code.substring(0, 4000)}
       const code = fileName ? _getSingleFileContent(fileName) : _getProjectSourceCode();
       if (!code) {
         status = 'no_code';
-        return { 
-          type: 'warning', 
-          text: `تعذر قراءة الكود${fileName ? ` للملف: ${fileName}` : ''}` 
+        return {
+          type: 'warning',
+          text: `تعذر قراءة الكود${fileName ? ` للملف: ${fileName}` : ''}`
         };
       }
 
@@ -376,7 +376,7 @@ ${code}
           const docResult = AI.Core.ask(docPrompt, {
             generationConfig: { temperature: 0.1, maxOutputTokens: 4000 }
           });
-          
+
           if (docResult.type === 'info' && docResult.text) {
             documentation = docResult.text;
           }
@@ -448,11 +448,11 @@ ${code}
     const lines = code.split('\n');
     const functions = code.match(/function\s+\w+|\w+\s*[:=]\s*function|\w+\s*=>|defineModule/g) || [];
     const complexityMatches = code.match(/\b(if|for|while|case|catch|&&|\|\||\?)\b/g) || [];
-    
+
     // تحليل الملفات المعقدة
     const fileBlocks = code.split('// --- START OF FILE:');
     const complexFiles = [];
-    
+
     fileBlocks.forEach(block => {
       const fileMatch = block.match(/([^\n]+)/);
       if (fileMatch) {
@@ -494,8 +494,8 @@ ${code}
   function _calculateMaxNestingDepth(code) {
     let maxDepth = 0;
     let currentDepth = 0;
-    
-    for (let char of code) {
+
+    for (const char of code) {
       if (char === '{') {
         currentDepth++;
         maxDepth = Math.max(maxDepth, currentDepth);
@@ -503,7 +503,7 @@ ${code}
         currentDepth--;
       }
     }
-    
+
     return maxDepth;
   }
 

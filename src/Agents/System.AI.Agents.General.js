@@ -26,7 +26,7 @@ defineModule('System.AI.Agents.General', ({ Utils, Config, DocsManager, AI, Tele
   function performMaintenance() {
     return Utils.executeSafely(() => {
       Utils.log('General Agent: Starting maintenance tasks');
-      
+
       // مهام الصيانة الأساسية
       const maintenanceTasks = [
         'System health check',

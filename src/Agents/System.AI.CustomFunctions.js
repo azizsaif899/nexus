@@ -11,12 +11,12 @@ defineModule('System.AI.CustomFunctions', ({ Utils, Config, AI }) => {
   function GEMINI(prompt, model = 'FLASH', temperature = 0.3) {
     try {
       if (!prompt) return 'خطأ: المطالبة مطلوبة';
-      
+
       const modelName = GEMINI_MODELS[model] || GEMINI_MODELS.FLASH;
-      
+
       const response = AI.Core.ask(prompt, {
         modelOverride: modelName,
-        generationConfig: { 
+        generationConfig: {
           temperature: parseFloat(temperature),
           maxOutputTokens: 1000
         }
@@ -31,10 +31,10 @@ defineModule('System.AI.CustomFunctions', ({ Utils, Config, AI }) => {
   function GEMINI_ANALYZE(range, analysisType = 'summary') {
     try {
       if (!range) return 'خطأ: النطاق مطلوب';
-      
+
       const data = Array.isArray(range) ? range : [[range]];
       const dataText = data.map(row => row.join('\t')).join('\n');
-      
+
       const prompts = {
         'summary': `لخص البيانات التالية:\n${dataText}`,
         'trends': `حلل الاتجاهات في البيانات:\n${dataText}`,

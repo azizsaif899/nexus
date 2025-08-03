@@ -23,11 +23,11 @@ defineModule('System.ComprehensiveTest', ({ Utils, Config, Testing }) => {
         totalPassed += result.passed;
         totalFailed += result.failed;
       } catch (e) {
-        results.push({ 
-          suite: suite.name, 
-          passed: 0, 
-          failed: 1, 
-          error: e.message 
+        results.push({
+          suite: suite.name,
+          passed: 0,
+          failed: 1,
+          error: e.message
         });
         totalFailed++;
       }

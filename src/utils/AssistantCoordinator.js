@@ -3,7 +3,7 @@
  * يدير التنسيق والتعاون بين المساعدين المختلفين
  */
 defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
-  
+
   const assistantsConfig = JSON.parse(
     PropertiesService.getScriptProperties().getProperty('ASSISTANTS_CONFIG') || '{}'
   );
@@ -15,14 +15,14 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
     getResponsibleAssistant(filePath) {
       for (const [assistantId, config] of Object.entries(assistantsConfig.assistants || {})) {
         const patterns = config.file_patterns || [];
-        
+
         for (const pattern of patterns) {
           if (this.matchesPattern(filePath, pattern)) {
             return assistantId;
           }
         }
       }
-      
+
       return 'human'; // افتراضي
     },
 
@@ -35,7 +35,7 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
         .replace(/\*\*/g, '.*')
         .replace(/\*/g, '[^/]*')
         .replace(/\./g, '\\.');
-      
+
       const regex = new RegExp(`^${regexPattern}$`);
       return regex.test(filePath);
     },
@@ -45,7 +45,7 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
      */
     async requestPermission(assistant, files, changeType) {
       const conflicts = [];
-      
+
       for (const file of files) {
         const responsible = this.getResponsibleAssistant(file);
         if (responsible !== assistant && responsible !== 'human') {
@@ -73,12 +73,12 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
      */
     async notifyAssistants(changes, excludeAssistant) {
       const notifications = [];
-      
+
       for (const [assistantId, config] of Object.entries(assistantsConfig.assistants || {})) {
         if (assistantId === excludeAssistant) continue;
-        
-        const relevantChanges = changes.filter(change => 
-          change.files.some(file => 
+
+        const relevantChanges = changes.filter(change =>
+          change.files.some(file =>
             this.getResponsibleAssistant(file) === assistantId
           )
         );
@@ -107,11 +107,11 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
       if (!config) return 'review';
 
       const changeTypes = changes.map(c => c.type);
-      
+
       if (changeTypes.includes('critical')) {
         return 'immediate_review';
       }
-      
+
       if (changeTypes.some(type => config.responsibilities.includes(type))) {
         return 'update_context';
       }
@@ -149,7 +149,7 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
     saveNotification(notification) {
       const notifications = this.getStoredNotifications();
       notifications.push(notification);
-      
+
       // الاحتفاظ بآخر 100 إشعار فقط
       if (notifications.length > 100) {
         notifications.splice(0, notifications.length - 100);
@@ -183,7 +183,7 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
             value: notification.changes.length,
             short: true
           }, {
-            title: 'الإجراء المقترح', 
+            title: 'الإجراء المقترح',
             value: notification.action,
             short: true
           }]
@@ -206,7 +206,7 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
      */
     async sendGeneralNotification(notification) {
       const webhooks = assistantsConfig.webhooks || {};
-      
+
       const message = `🔄 تحديث من ${notification.changes[0]?.assistant || 'مجهول'}: ${notification.changes.length} تغيير`;
 
       // Discord
@@ -214,7 +214,7 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
         await this.sendDiscordNotification(webhooks.discord_webhook, message);
       }
 
-      // Slack  
+      // Slack
       if (webhooks.slack_webhook) {
         await this.sendSlackNotification(webhooks.slack_webhook, message);
       }
@@ -255,15 +255,15 @@ defineModule('System.Utils.AssistantCoordinator', ({ Utils, Config }) => {
      */
     getAssistantsStatus() {
       const notifications = this.getStoredNotifications();
-      const recentNotifications = notifications.filter(n => 
+      const recentNotifications = notifications.filter(n =>
         new Date() - new Date(n.timestamp) < 24 * 60 * 60 * 1000 // آخر 24 ساعة
       );
 
       const status = {};
-      
+
       for (const [assistantId, config] of Object.entries(assistantsConfig.assistants || {})) {
         const assistantNotifications = recentNotifications.filter(n => n.to === assistantId);
-        
+
         status[assistantId] = {
           name: config.name,
           active: assistantNotifications.length > 0,

@@ -12,6 +12,7 @@ const FIXES_LOG_PATH = path.join(__dirname, '../fixes_log.md');
 const TEAM_SYNC_PATH = path.join(__dirname, '../doc/TEAM_SYNC.md');
 const CONFIG_PATH = path.join(__dirname, '../config/daily_boot_config.json');
 const MONTHLY_PROGRESS_PATH = path.join(__dirname, '../monthly_progress.json');
+const DASHBOARD_DATA_PATH = path.join(__dirname, '../dashboard_data.json'); // New path for dashboard data
 
 // Helper Functions
 function readJsonFile(filePath) {
@@ -165,7 +166,51 @@ function getMonthlyProgressSummary() {
     };
 }
 
-function generateBootTasks(systemHealth, highPriorityTasks, pendingFixes) {
+// New function to detect and prioritize errors
+function detectAndPrioritizeErrors(highPriorityTasks) {
+    const errorsLogContent = readTextFile(ERRORS_LOG_PATH);
+    const errorLines = errorsLogContent.split(/\r?\n/).filter(line => line.includes('ERROR') || line.includes('CRITICAL'));
+    const detectedErrors = [];
+
+    errorLines.forEach(errorLine => {
+        let priority = 'low'; // Default priority
+        let isCritical = false;
+
+        // Check for critical keywords
+        if (errorLine.includes('CRITICAL') || errorLine.includes('FATAL') || errorLine.includes('Security')) {
+            priority = 'critical';
+            isCritical = true;
+        } else if (errorLine.includes('ERROR')) {
+            priority = 'medium';
+        }
+
+        // Prioritize based on monthly plan tasks
+        highPriorityTasks.forEach(task => {
+            // Simple keyword matching for now, can be improved with NLP later
+            if (errorLine.toLowerCase().includes(task.toLowerCase())) {
+                priority = 'high';
+            }
+        });
+
+        detectedErrors.push({
+            message: errorLine,
+            priority: priority,
+            isCritical: isCritical,
+            source: 'logs/errors.log'
+        });
+    });
+
+    // Sort errors by priority (critical > high > medium > low)
+    detectedErrors.sort((a, b) => {
+        const priorityOrder = { 'critical': 4, 'high': 3, 'medium': 2, 'low': 1 };
+        return priorityOrder[b.priority] - priorityOrder[a.priority];
+    });
+
+    return detectedErrors;
+}
+
+
+function generateBootTasks(systemHealth, highPriorityTasks, pendingFixes, detectedErrors) {
     const tasks = [];
 
     // System Health Check Task
@@ -183,6 +228,17 @@ function generateBootTasks(systemHealth, highPriorityTasks, pendingFixes) {
             description: 'مهمة ذات أولوية قصوى من الخطة الشهرية.',
             source: 'MONTHLY_PLAN.md',
             type: 'Project Goal'
+        });
+    });
+
+    // Detected Errors Tasks (prioritized)
+    detectedErrors.forEach(error => {
+        tasks.push({
+            title: `خطأ مكتشف: ${error.message.substring(0, 70)}...`,
+            description: `خطأ ${error.priority} الأولوية: ${error.message}`,
+            source: error.source,
+            type: 'Bug Fixing',
+            priority: error.priority
         });
     });
 
@@ -309,10 +365,12 @@ async function main() {
     const systemHealth = checkSystemHealth();
     const highPriorityTasks = getHighPriorityTasks();
     const pendingFixes = getPendingFixes();
-    const generatedTasks = generateBootTasks(systemHealth, highPriorityTasks, pendingFixes);
+    const detectedErrors = detectAndPrioritizeErrors(highPriorityTasks); // Call the new function
+    const generatedTasks = generateBootTasks(systemHealth, highPriorityTasks, pendingFixes, detectedErrors);
 
     updateBootFile(generatedTasks, systemHealth, pendingFixes);
     syncTeamBoard(generatedTasks);
+    updateDashboardData(systemHealth, detectedErrors, getMonthlyProgressSummary(), generatedTasks); // New function call
     notifyIfNeeded(systemHealth, generatedTasks);
     
     console.log('✅ Daily boot generation completed!');
@@ -327,5 +385,6 @@ module.exports = {
     getHighPriorityTasks,
     getPendingFixes,
     getMonthlyProgressSummary,
-    updateMonthlyProgress
+    updateMonthlyProgress,
+    detectAndPrioritizeErrors // Export the new function
 };
