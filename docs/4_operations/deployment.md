@@ -62,3 +62,125 @@ GEMINI_API_KEY=production_key
 - [ ] واجهة الويب متاحة ومتجاوبة
 - [ ] API endpoints تستجيب بشكل صحيح
 - [ ] المتغيرات البيئية محدثة
+
+## 📋 عملية النشر التفصيلية
+
+### الإعداد لمرة واحدة
+
+1. **تثبيت clasp:**
+   ```bash
+   npm install -g @google/clasp
+   ```
+
+2. **تسجيل الدخول:**
+   ```bash
+   clasp login
+   ```
+
+3. **ربط المشروع:**
+   - تأكد من وجود `.clasp.json` مع `scriptId` صحيح
+   - أو استنسخ: `clasp clone <scriptId>`
+
+### عملية النشر القياسية
+
+1. **التأكد من الفرع الصحيح** (main/develop)
+2. **سحب التغييرات:**
+   ```bash
+   clasp pull
+   ```
+3. **دفع التغييرات:**
+   ```bash
+   clasp push
+   ```
+4. **إنشاء إصدار جديد:**
+   - Deploy → Manage deployments
+   - Edit → New version → Deploy
+
+### النشر الآلي (CI/CD)
+
+```yaml
+name: Deploy to Google Apps Script
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install dependencies
+      run: npm install
+    - name: Setup clasp credentials
+      run: echo '${{ secrets.CLASPRC_JSON }}' > ~/.clasprc.json
+    - name: Push to Apps Script
+      run: clasp push --force
+```
+
+**ملاحظة:** `--force` ضروري في CI لتجاوز التعارضات
+
+## 📋 عملية النشر التفصيلية
+
+### الإعداد لمرة واحدة
+
+1. **تثبيت clasp:**
+   ```bash
+   npm install -g @google/clasp
+   ```
+
+2. **تسجيل الدخول:**
+   ```bash
+   clasp login
+   ```
+
+3. **ربط المشروع:**
+   - تأكد من وجود `.clasp.json` مع `scriptId` صحيح
+   - أو استنسخ: `clasp clone <scriptId>`
+
+### عملية النشر القياسية
+
+1. **التأكد من الفرع الصحيح** (main/develop)
+2. **سحب التغييرات:**
+   ```bash
+   clasp pull
+   ```
+3. **دفع التغييرات:**
+   ```bash
+   clasp push
+   ```
+4. **إنشاء إصدار جديد:**
+   - Deploy → Manage deployments
+   - Edit → New version → Deploy
+
+### النشر الآلي (CI/CD)
+
+```yaml
+name: Deploy to Google Apps Script
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install dependencies
+      run: npm install
+    - name: Setup clasp credentials
+      run: echo '${{ secrets.CLASPRC_JSON }}' > ~/.clasprc.json
+    - name: Push to Apps Script
+      run: clasp push --force
+```
+
+**ملاحظة:** `--force` ضروري في CI لتجاوز التعارضات
