@@ -1,133 +1,250 @@
-# 🛠️ إعداد بيئة التطوير - دليل شامل
+# 🛠️ إعداد بيئة التطوير - دليل احترافي
 
-## 📋 المتطلبات الأساسية
+> **الهدف:** توفير نقطة بداية موحدة وخالية من الأخطاء لكل مطور ينضم للمشروع
+
+## 📋 قائمة التحقق الأساسية
 
 ### البرامج المطلوبة
-| البرنامج | الإصدار المطلوب | رابط التحميل |
-|----------|-----------------|---------------|
-| Node.js | 18.0.0+ | [nodejs.org](https://nodejs.org/) |
-| npm | 9.0.0+ | يأتي مع Node.js |
-| Git | أحدث إصدار | [git-scm.com](https://git-scm.com/) |
-| Google Clasp | أحدث إصدار | `npm install -g @google/clasp` |
+| البرنامج | الإصدار | التحقق | رابط التحميل |
+|----------|---------|--------|---------------|
+| Node.js | >= 18.0.0 | `node --version` | [nodejs.org](https://nodejs.org/) |
+| pnpm | >= 8.0.0 | `pnpm --version` | `npm install -g pnpm` |
+| Git | أحدث إصدار | `git --version` | [git-scm.com](https://git-scm.com/) |
+| Google Clasp | أحدث إصدار | `clasp --version` | `npm install -g @google/clasp` |
+| Firebase CLI | أحدث إصدار | `firebase --version` | `npm install -g firebase-tools` |
 
-### حسابات مطلوبة
-- ✅ حساب Google (للوصول إلى Apps Script)
-- ✅ مفتاح Gemini API
-- ⚠️ حساب WhatsApp Business (اختياري)
+### حسابات وخدمات مطلوبة
+- [ ] **حساب Google Cloud** مع تفعيل APIs:
+  - [ ] Vertex AI API
+  - [ ] BigQuery API  
+  - [ ] Google Sheets API
+  - [ ] Apps Script API
+- [ ] **مفتاح Gemini API** من [Google AI Studio](https://makersuite.google.com/)
+- [ ] **حساب GitHub** مع صلاحيات الكتابة على المستودع
+- [ ] **امتدادات VSCode الموصى بها:**
+  - [ ] [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+  - [ ] [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [ ] [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+  - [ ] [Turborepo](https://marketplace.visualstudio.com/items?itemName=Turborepo.turborepo)
 
-## 🚀 الإعداد السريع
+## 🚀 خطوات التثبيت السريع
 
 ### 1. استنساخ المشروع
 ```bash
+# استنساخ المستودع
 git clone https://github.com/azizsaif899/g-assistant.git
 cd g-assistant
+
+# التبديل إلى Monorepo الجديد
+cd monorepo-new
 ```
 
-### 2. استخدام المستودع الجديد
+### 2. تثبيت التبعيات
 ```bash
-cd monorepo-new
-npm install
+# تثبيت جميع التبعيات في Monorepo
+pnpm install
+
+# التحقق من التثبيت
+pnpm turbo build --dry-run
 ```
 
 ### 3. إعداد متغيرات البيئة
+
+#### إنشاء ملفات البيئة
 ```bash
-cp .env.example .env
-# أضف مفاتيح API الخاصة بك
+# نسخ القوالب
+cp .env.example .env.development
+cp .env.example .env.staging  
+cp .env.example .env.production
 ```
 
-#### محتوى ملف .env
+#### ملء المتغيرات المطلوبة
 ```env
-# مفتاح Gemini AI (مطلوب)
-GEMINI_API_KEY=your_gemini_api_key_here
-
-# إعدادات Google Apps Script
-SCRIPT_ID=your_google_apps_script_id
+# .env.development
 NODE_ENV=development
+GEMINI_API_KEY=your_gemini_api_key_here
+GOOGLE_CLOUD_PROJECT_ID=your_project_id
+FIREBASE_PROJECT_ID=your_firebase_project
 
-# إعدادات النظام
-DEBUG_MODE=true
-AI_LONG_TERM_MEMORY_VERSION=1.0.1
-LTM_FOLDER_NAME=AZIZSYS6_Memory
+# Database
+DATABASE_URL=postgresql://localhost:5432/g_assistant_dev
+
+# APIs
+OPENAI_API_KEY=your_openai_key_optional
+ANTHROPIC_API_KEY=your_anthropic_key_optional
+
+# Security
+JWT_SECRET=your_jwt_secret_here
+ENCRYPTION_KEY=your_32_char_encryption_key
+
+# Monitoring
+SENTRY_DSN=your_sentry_dsn_optional
+LOG_LEVEL=debug
 ```
 
-### 4. إعداد Google Apps Script
+## 🔐 إدارة الأسرار المتقدمة
+
+### للتطوير المحلي
 ```bash
-# تسجيل الدخول إلى Google
-clasp login
+# استخدام Google Secret Manager
+gcloud secrets create gemini-api-key --data-file=- <<< "your_api_key"
 
-# للـ Sidebar
-cd apps/sidebar
-clasp create --type standalone --title "G-Assistant Sidebar"
+# أو استخدام dotenv-vault
+npx dotenv-vault new
+npx dotenv-vault push
 ```
 
-### 5. بناء ونشر المشروع
+### للإنتاج
+- **Google Secret Manager** للبيئة السحابية
+- **GitHub Secrets** للـ CI/CD
+- **Kubernetes Secrets** للنشر على Kubernetes
+
+## 🔧 إعداد Google Cloud
+
+### 1. إنشاء مشروع جديد
 ```bash
-# بناء الـ Sidebar
-cd apps/sidebar
-npm run build
-npm run deploy
+# إنشاء مشروع
+gcloud projects create g-assistant-prod --name="G-Assistant Production"
+
+# تعيين المشروع الافتراضي
+gcloud config set project g-assistant-prod
 ```
 
-## 🔧 الإعداد المتقدم
-
-### إعداد VS Code
-الإضافات الموصى بها:
-- ESLint
-- Prettier
-- TypeScript
-- Google Apps Script
-
-### إعداد Script Properties
-في محرر Apps Script، اذهب إلى `Project Settings > Script Properties`:
-```
-GEMINI_API_KEY = your_api_key_here
-AI_LONG_TERM_MEMORY_VERSION = 1.0.1
-LTM_FOLDER_NAME = AZIZSYS6_Memory
-DEBUG_MODE = true
-```
-
-## 🧪 اختبار الإعداد
-
-### 1. اختبار البناء
+### 2. تفعيل APIs المطلوبة
 ```bash
-cd apps/sidebar
-npm run build
-# يجب أن ترى ملفات في dist/
+# تفعيل جميع APIs دفعة واحدة
+gcloud services enable \
+  aiplatform.googleapis.com \
+  bigquery.googleapis.com \
+  sheets.googleapis.com \
+  script.googleapis.com \
+  cloudbuild.googleapis.com \
+  secretmanager.googleapis.com
 ```
 
-### 2. اختبار النشر
+### 3. إنشاء Service Account
 ```bash
-npm run deploy
-# تحقق من عدم وجود أخطاء
+# إنشاء حساب خدمة
+gcloud iam service-accounts create g-assistant-service \
+  --display-name="G-Assistant Service Account"
+
+# منح الصلاحيات
+gcloud projects add-iam-policy-binding g-assistant-prod \
+  --member="serviceAccount:g-assistant-service@g-assistant-prod.iam.gserviceaccount.com" \
+  --role="roles/aiplatform.user"
 ```
 
-### 3. اختبار الواجهة
-1. افتح Google Sheets
-2. تحقق من ظهور قائمة "🤖 G-Assistant"
-3. اختبر فتح الشريط الجانبي
+## 🧪 التحقق من الإعداد
 
-## 🔍 استكشاف الأخطاء
-
-### مشكلة: "clasp: command not found"
+### اختبار البناء
 ```bash
-npm install -g @google/clasp
-clasp --version
+# اختبار بناء جميع التطبيقات
+pnpm turbo build
+
+# اختبار تشغيل الاختبارات
+pnpm turbo test
+
+# اختبار فحص الكود
+pnpm turbo lint
 ```
 
-### مشكلة: "Authorization required"
+### اختبار الاتصال بالخدمات
 ```bash
+# اختبار Gemini API
+curl -H "Authorization: Bearer $GEMINI_API_KEY" \
+  https://generativelanguage.googleapis.com/v1/models
+
+# اختبار Google Cloud
+gcloud auth application-default login
+gcloud projects list
+```
+
+## 🎯 نصائح الإنتاجية
+
+### إعداد VSCode المثالي
+```json
+// .vscode/settings.json
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "turbo.useLocalTurbo": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.turbo": true
+  }
+}
+```
+
+### اختصارات مفيدة
+```bash
+# إضافة aliases مفيدة
+echo 'alias pdev="pnpm run dev"' >> ~/.bashrc
+echo 'alias pbuild="pnpm turbo build"' >> ~/.bashrc
+echo 'alias ptest="pnpm turbo test"' >> ~/.bashrc
+
+# تحديث PATH للأدوات
+export PATH="$PATH:./node_modules/.bin"
+```
+
+### Git Hooks المفيدة
+```bash
+# تثبيت Husky
+pnpm add -D husky
+npx husky install
+
+# إضافة pre-commit hook
+npx husky add .husky/pre-commit "pnpm turbo lint test"
+```
+
+## 🔍 استكشاف الأخطاء الشائعة
+
+### مشكلة: pnpm install بطيء
+```bash
+# الحل: استخدام mirror محلي
+pnpm config set registry https://registry.npmmirror.com/
+
+# أو تنظيف cache
+pnpm store prune
+```
+
+### مشكلة: TypeScript paths لا تعمل
+```bash
+# التحقق من tsconfig.base.json
+cat tsconfig.base.json | grep "paths"
+
+# إعادة بناء التبعيات
+pnpm turbo build --force
+```
+
+### مشكلة: Clasp authentication
+```bash
+# إعادة تسجيل الدخول
 clasp logout
 clasp login
-```
 
-### مشكلة: السايدبار لا يظهر
-1. تحقق من وجود `Sidebar.html` في `dist/`
-2. تأكد من تشغيل `onOpen()` بنجاح
-3. تحقق من console في محرر Apps Script
+# التحقق من الصلاحيات
+clasp list
+```
 
 ## 📚 الخطوات التالية
 
 بعد إكمال الإعداد:
-1. 📖 راجع [معمارية المشروع](./architecture.md)
-2. 🤖 تعرف على [معايير الكود](./coding_standards.md)
-3. 🔍 اقرأ [دليل المساهمة](./contributing.md)
+
+1. 📖 راجع [هيكل مساحة العمل](./workspace_structure.md)
+2. 🏗️ تعرف على [معمارية النظام](./architecture.md)
+3. 📝 اقرأ [معايير الكود](./coding_standards.md)
+4. 🧪 تعلم [دليل الاختبار](./testing.md)
+5. 🚀 ابدأ أول مساهمة مع [دليل المساهمة](./contributing.md)
+
+## 🆘 الحصول على المساعدة
+
+إذا واجهت مشاكل:
+1. تحقق من [دليل استكشاف الأخطاء](./troubleshooting.md)
+2. ابحث في [GitHub Issues](https://github.com/azizsaif899/g-assistant/issues)
+3. اطرح سؤالاً في [Discussions](https://github.com/azizsaif899/g-assistant/discussions)
+4. راسل الفريق على Slack: `#g-assistant-dev`
