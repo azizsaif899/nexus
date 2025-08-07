@@ -10,17 +10,22 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-config/aziz.js
-*.secret.js
-
-# Google Apps Script
-.clasp.json
-appsscript.json
 
 # Build outputs
 dist/
 build/
-gas_ready/
+*.tgz
+*.tar.gz
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
 
 # Logs
 logs/
@@ -36,53 +41,23 @@ pids/
 coverage/
 .nyc_output/
 
-# Dependency directories
-jspm_packages/
+# Temporary folders
+tmp/
+temp/
 
 # Optional npm cache directory
 .npm
 
-# Optional REPL history
-.node_repl_history
+# Optional eslint cache
+.eslintcache
 
-# Output of 'npm pack'
-*.tgz
+# Google Apps Script
+.clasp.json
+appsscript.json
 
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Backup files
-docs_backup/
-*.backup
-*.bak
-
-# Temporary files
-temp/
-tmp/
-*.tmp
-
-# Test files
-test-results/
-coverage/
-
-# Documentation build
-docs_organized/
+# Sensitive files
+config/aziz.js
+**/secrets/**
+**/*secret*
+**/*key*
+**/*token*

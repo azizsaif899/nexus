@@ -1,88 +1,51 @@
 {
-  "projectName": "G-Assistant (AzizSys)",
-  "version": "2.0",
-  "mission": "تحويل المشروع من defineModule إلى ES6 modules مع ضمان الاستقرار والأداء",
-  "goals": [
-    "إلغاء defineModule واعتماد import/export",
-    "توحيد أسلوب الاستيراد باستخدام ESModules",
-    "إصلاح الأخطاء النحوية والتركيبية",
-    "ضمان التوافق مع Google Apps Script",
-    "تطبيق إصلاحات تلقائية للأنماط القديمة"
-  ],
-  "skillsRequired": [
-    "AST Analysis",
-    "Error Detection", 
-    "Code Refactoring",
-    "Google Apps Script Compatibility",
-    "Dependency Resolution"
-  ],
-  "style": {
-    "communication": "دقيق، مرح، يقدم اقتراحات ذكية",
-    "tone": "تحليلي ومبادر",
-    "language": "Arabic with technical English terms"
-  },
-  "knownIssues": [
-    {
-      "pattern": "defineModule",
-      "severity": "CRITICAL",
-      "description": "استخدام defineModule بدلاً من ES6 modules",
-      "autoFix": true,
-      "replacement": "export default"
+  "monitoring": {
+    "enabled": true,
+    "healthCheckInterval": 30000,
+    "metricsCollectionInterval": 60000,
+    "alertThresholds": {
+      "criticalTasks": 1,
+      "completionRateMin": 30,
+      "errorRateMax": 10,
+      "memoryUsageMax": 85
     },
-    {
-      "pattern": "\\bvar\\b",
-      "severity": "LOW", 
-      "description": "استخدام var بدل let/const",
-      "autoFix": true,
-      "replacement": "let"
-    },
-    {
-      "pattern": "missing comma",
-      "severity": "HIGH",
-      "description": "فاصلة مفقودة في الكود",
-      "autoFix": true,
-      "replacement": "add_comma"
-    },
-    {
-      "pattern": "import.*from.*\\.js",
-      "severity": "MEDIUM",
-      "description": "استيراد ES6 في بيئة Apps Script",
-      "autoFix": false,
-      "note": "يحتاج تحويل يدوي"
-    }
-  ],
-  "priorities": {
-    "CRITICAL": 50,
-    "HIGH": 40,
-    "MEDIUM": 15,
-    "LOW": 1
-  },
-  "fixStrategies": {
-    "defineModule": {
-      "action": "CONVERT_TO_ES6",
-      "template": "export default function() { /* module content */ }"
-    },
-    "var_replacement": {
-      "action": "REPLACE_KEYWORD",
-      "from": "var",
-      "to": "let"
-    },
-    "missing_comma": {
-      "action": "ADD_PUNCTUATION",
-      "position": "end_of_line"
+    "notifications": {
+      "slack": {
+        "enabled": false,
+        "webhook": ""
+      },
+      "discord": {
+        "enabled": false,
+        "webhook": ""
+      },
+      "console": {
+        "enabled": true
+      }
     }
   },
-  "excludePatterns": [
-    "node_modules",
-    "*.bak",
-    "*.backup",
-    "test_*",
-    "mock_*"
-  ],
-  "reportFormat": {
-    "includeCodeSnippets": true,
-    "groupBySeverity": true,
-    "showFixSuggestions": true,
-    "language": "ar"
+  "telemetry": {
+    "enabled": true,
+    "retentionDays": 7,
+    "maxLogEntries": 100,
+    "trackEvents": [
+      "task_started",
+      "task_completed",
+      "error_occurred",
+      "alert_sent",
+      "system_health_check"
+    ]
+  },
+  "errorHandling": {
+    "autoRetry": true,
+    "maxRetries": 3,
+    "retryDelay": 5000,
+    "logLevel": "info",
+    "criticalErrorNotification": true
+  },
+  "performance": {
+    "maxConcurrentTasks": 5,
+    "taskTimeout": 300000,
+    "memoryLimit": "1GB",
+    "cpuThreshold": 80
   }
 }

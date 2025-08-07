@@ -1,106 +1,158 @@
-import datetime
 import os
 import json
-import re
+import datetime
+import uuid
+# from google.generativeai import GenerativeModel  # سيتم تفعيله لاحقًا
 
-def get_current_phase_and_tasks(plan_content):
-    """Parses the plan to find the current phase marked as 'In Progress' and its tasks."""
-    phase_name = ""
-    tasks = []
-    found_in_progress_line = False
+def read_file(path):
+    """يقرأ محتوى ملف."""
+    with open(path, 'r', encoding='utf-8') as f:
+        return f.read()
 
-    for line in plan_content.splitlines():
-        line = line.strip()
-        if line.startswith('🎯'):
-            phase_name = line.replace('🎯', '').strip()
-        
-        if "In Progress" in line:
-            found_in_progress_line = True
-            # Extract tasks from the markdown table cell
-            # Assumes tasks are in the third column (index 2) of the table
-            parts = line.split('|')
-            if len(parts) > 3: # Ensure there are enough columns
-                tasks_md = parts[3].strip() # Get the content of the third column
-                tasks = [task.strip() for task in re.findall(r'-+\s*(.*?)(?=<br>|-|$)', tasks_md)]
-                break # Found the line and extracted tasks, so exit loop
+def write_json(path, data):
+    """يكتب البيانات إلى ملف JSON."""
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-    if found_in_progress_line:
-        return phase_name, tasks
-    return "No phase 'In Progress'.", []
+def get_next_task_from_plan(plan_content, existing_tasks):
+    """
+    Parses the monthly plan to find the next actionable, non-completed task.
+    This is a simplified parser that creates tasks based on the plan's high-level goals.
+    """
+    existing_titles = {task['title'] for task in existing_tasks}
 
-def get_amazon_tasks(amazon_executor_content):
-    """Extracts Amazon-related tasks from the AI_Amazon_Executor.md document."""
-    amazon_tasks = []
-    for line in amazon_executor_content.splitlines():
-        line = line.strip()
-        if line.startswith('- Amazon task:') or line.startswith('- AWS task:'):
-            task_description = line.split(':', 1)[1].strip()
-            amazon_tasks.append(f"🚨 FIX: {task_description}") # Format as a fix task
-        elif line.startswith('* Amazon task:') or line.startswith('* AWS task:'):
-            task_description = line.split(':', 1)[1].strip()
-            amazon_tasks.append(f"🚨 FIX: {task_description}") # Format as a fix task
-    return amazon_tasks
+    # Define a sequence of tasks based on the monthly plan
+    plan_tasks = [
+        {
+            "title": "بناء هيكل الـ Monorepo الاحترافي باستخدام أدوات حديثة",
+            "description": "تنفيذ المرحلة 1.1 من الخطة الشهرية: بناء الأساس التقني الصلب، المؤتمت، والموجه بالمواصفات.",
+            "files_to_modify": ["pnpm-workspace.yaml", "turbo.json", "package.json"],
+            "acceptance_criteria": [
+                "pnpm is used as the package manager.",
+                "Turborepo is set up for build coordination.",
+                "The monorepo folder structure is created as per `PROJECT_STRUCTURE.md`."
+            ],
+            "priority": "critical",
+        },
+        {
+            "title": "فرض معايير الجودة الصارمة بشكل مركزي",
+            "description": "تنفيذ المرحلة 1.2 من الخطة: إنشاء حزمة `packages/config/tsconfig` مع ملف `base.json` يفرض قواعد صارمة.",
+            "files_to_modify": [
+                "packages/config/tsconfig/base.json",
+                "packages/config/tsconfig/package.json"
+            ],
+            "acceptance_criteria": [
+                "The `base.json` file must contain `\"strict\": true`.",
+                "Other packages should be able to extend this configuration."
+            ],
+            "priority": "high",
+        },
+        {
+            "title": "توحيد تنسيق وجودة الكود عبر ESLint",
+            "description": "تنفيذ المرحلة 1.2 من الخطة: إنشاء حزمة `packages/config/eslint-preset` تحتوي على إعدادات ESLint و Prettier الموحدة.",
+            "files_to_modify": [
+                "packages/config/eslint-preset/index.js",
+                "packages/config/eslint-preset/package.json"
+            ],
+            "acceptance_criteria": [
+                "The package provides a shareable ESLint configuration.",
+                "It should include rules from a strong base like 'eslint-config-airbnb-typescript'.",
+                "Other packages should be able to extend this configuration."
+            ],
+            "priority": "high",
+        },
+        {
+            "title": "بناء النواة المنطقية للمنصة (core-logic)",
+            "description": "تنفيذ المرحلة 2.1 من الخطة: بناء حزمة core-logic تحتوي على الخدمات الأساسية للتفاعل مع Gemini و Google APIs.",
+            "files_to_modify": [
+                "packages/core-logic/src/index.ts",
+                "packages/core-logic/src/clients/gemini-client.ts",
+                "packages/core-logic/src/clients/sheets-client.ts"
+            ],
+            "acceptance_criteria": [
+                "The package provides a GeminiClient class to interact with the Gemini API.",
+                "The package provides a SheetsClient class for Google Sheets operations.",
+                "All methods must have robust error handling and JSDoc documentation."
+            ],
+            "priority": "critical",
+        },
+        {
+            "title": "تفعيل أول ميزة في الشريط الجانبي: التحليل الذكي",
+            "description": "استخدام `GeminiClient` من حزمة `core-logic` لتنفيذ أول حالة استخدام حقيقية. سيقوم المستخدم بتحديد نطاق في Google Sheets، وسيقوم الشريط الجانبي بإرسال البيانات إلى `GeminiClient` للحصول على تحليل نصي.",
+            "files_to_modify": [
+                "apps/sheets-addon/src/client/sidebar.ts",
+                "apps/sheets-addon/src/server/main.ts"
+            ],
+            "acceptance_criteria": [
+                "A button in the sidebar triggers the analysis.",
+                "The client-side code correctly gets the selected range data.",
+                "The server-side function calls the `GeminiClient` from the core-logic package.",
+                "The analysis result from Gemini is successfully displayed back in the sidebar UI."
+            ],
+            "priority": "high",
+        },
+    ]
 
-def generate_daily_boot():
-    # --- Configuration ---
-    config = {
-        "monthly_plan_path": "e:/azizsys5/MONTHLY_PLAN.md",
-        "dashboard_path": "e:/azizsys5/dashboard_data.json",
-        "amazon_executor_path": "e:/azizsys5/doc/AI_Amazon_Executor.md", # New config entry
-        "output_path": "e:/azizsys5/doc/context/DAILY_BOOT.md",
-        "template_path": "e:/azizsys5/doc/templates/DAILY_BOOT_TEMPLATE.md"
-    }
+    # Find the first task from the plan that doesn't exist in the dashboard
+    for task_def in plan_tasks:
+        if task_def["title"] not in existing_titles:
+            task_def["id"] = f"TASK-{uuid.uuid4().hex[:8].upper()}"
+            task_def["status"] = "pending"
+            task_def["created_at"] = datetime.datetime.now().isoformat()
+            task_def["source"] = "MONTHLY_PLAN.md"
+            return task_def
 
-    # --- Read Source Files ---
+    return None
+
+def main():
+    """
+    الدالة الرئيسية لإنشاء المهام اليومية.
+    """
+    print("Starting ProjectManagerAgent...")
+
+    # تحديد المسارات
+    project_root = "e:/azizsys5"
+    monthly_plan_path = os.path.join(project_root, "MONTHLY_PLAN.md")
+    dashboard_path = os.path.join(project_root, "docs/6_fixing/reports/central_dashboard.json")
+
+    # 1. قراءة البيانات الحالية
     try:
-        with open(config["monthly_plan_path"], 'r', encoding='utf-8') as f:
-            plan_content = f.read()
-        with open(config["dashboard_path"], 'r', encoding='utf-8') as f:
-            dashboard_data = json.load(f)
-        with open(config["amazon_executor_path"], 'r', encoding='utf-8') as f: # Read Amazon Executor doc
-            amazon_executor_content = f.read()
-        with open(config["template_path"], 'r', encoding='utf-8') as f:
-            template_content = f.read()
-    except FileNotFoundError as e:
-        print(f"Error: Could not find a source file: {e.filename}")
+        monthly_plan_content = read_file(monthly_plan_path)
+        print("Successfully read MONTHLY_PLAN.md")
+        dashboard_data = json.loads(read_file(dashboard_path))
+        existing_tasks = dashboard_data.get("tasksDetails", [])
+        print(f"Successfully read central_dashboard.json, found {len(existing_tasks)} existing tasks.")
+    except FileNotFoundError:
+        print(f"Error: {monthly_plan_path} not found.")
         return
 
-    # --- Analyze and Prioritize ---
-    critical_alerts = dashboard_data.get("summary", {}).get("priority_alerts", [])
-    current_phase, phase_tasks = get_current_phase_and_tasks(plan_content)
-    amazon_tasks = get_amazon_tasks(amazon_executor_content) # Get Amazon tasks
+    # 2. توليد المهمة التالية من الخطة
+    new_task = get_next_task_from_plan(monthly_plan_content, existing_tasks)
 
-    # Combine and prioritize tasks
-    prioritized_tasks = []
-    if critical_alerts:
-        prioritized_tasks.extend([f"🚨 FIX: {alert}" for alert in critical_alerts])
-    # Add Amazon tasks after critical alerts, before general phase tasks
-    if amazon_tasks:
-        prioritized_tasks.extend(amazon_tasks)
-    if phase_tasks:
-        prioritized_tasks.extend([f"- {task}" for task in phase_tasks])
+    if not new_task:
+        print("No new tasks to generate from the monthly plan. All planned tasks may already exist.")
+        return
 
-    # --- Generate Content ---
-    now = datetime.datetime.now()
-    replacements = {
-        "{{DATE}}": now.strftime("%Y-%m-%d"),
-        "{{TIME}}": now.strftime("%H:%M"),
-        "{{PROJECT_NAME}}": "G-Assistant Strategic Execution",
-        "{{MAIN_GOAL}}": f"Execute tasks for: {current_phase}",
-        "{{TASK_LIST}}": '\n'.join(prioritized_tasks) if prioritized_tasks else "- No priority tasks identified. Review plan.",
-        "{{GEMINI_REVIEW_STATUS}}": "Pending",
-        "{{AMAZON_FIX_STATUS}}": "Pending"
-    }
+    print(f"Generated new task: {new_task['id']} - {new_task['title']}")
 
-    generated_content = template_content
-    for key, value in replacements.items():
-        generated_content = generated_content.replace(key, str(value))
+    # 3. إضافة المهمة إلى لوحة التحكم وتحديث الملخص
+    dashboard_data["tasksDetails"].append(new_task)
+    
+    # تحديث الملخص
+    summary = dashboard_data.setdefault("tasksSummary", {}).setdefault("byStatus", {})
+    summary["pending"] = summary.get("pending", 0) + 1
+    dashboard_data["tasksSummary"]["totalTasks"] = dashboard_data["tasksSummary"].get("totalTasks", 0) + 1
 
-    # --- Write Output ---
-    with open(config["output_path"], 'w', encoding='utf-8') as f:
-        f.write(generated_content)
-
-    print(f"Successfully generated DAILY_BOOT.md at {config['output_path']}")
+    write_json(dashboard_path, dashboard_data)
+    print(f"Task {new_task['id']} added to central_dashboard.json")
+    
+    # Update live dashboard
+    try:
+        import subprocess
+        subprocess.run(["python", "scripts/update_dashboard.py"], cwd="e:/azizsys5")
+        print("Live dashboard updated")
+    except:
+        print("Could not update live dashboard")
 
 if __name__ == "__main__":
-    generate_daily_boot()
+    main()

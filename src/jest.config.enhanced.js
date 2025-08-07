@@ -4,7 +4,7 @@
  */
 module.exports = {
   // بيئة الاختبار
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
 
   // مجلدات الاختبارات
   testMatch: [

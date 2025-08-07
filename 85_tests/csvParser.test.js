@@ -101,6 +101,15 @@ describe('CSVParser', () => {
         { name: 'John', description: 'Line 1\nLine 2' }
       ]);
     });
+
+    test('should handle fields with commas inside quotes', () => {
+      const csvText = 'id,name,location\n1,"Doe, John","New York, NY"';
+      const result = parseCSV(csvText);
+      expect(result).toEqual([
+        { id: '1', name: 'Doe, John', location: 'New York, NY' }
+      ]);
+    });
+
   });
 
   describe('arrayToCSV', () => {

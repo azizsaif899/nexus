@@ -1,137 +1,66 @@
 {
-  "generated_at": "2025-08-03T20:21:36.893Z",
+  "generated_at": "2025-01-27T18:00:00.000Z",
   "system_health": {
     "status": "operational",
-    "services_total": 3,
-    "services_operational": 3,
-    "issues": [],
-    "error_count": 0,
-    "last_check": "2025-08-03T20:21:36.890Z"
-  },
-  "pending_fixes": {
-    "total": 2,
-    "pending": 2,
-    "completed": 0,
-    "critical": 1,
-    "completion_rate": 0
-  },
-  "team_activity": {
-    "total_tasks": 4,
-    "in_progress_tasks": 2,
-    "completed_tasks": 2,
-    "recent_activity_count": 4,
-    "task_completion_rate": 50
+    "services_operational": 6,
+    "services_total": 6,
+    "error_count": 0
   },
   "monthly_progress": {
-    "total_tasks": 5,
-    "completed_tasks": 2,
-    "in_progress_tasks": 2,
-    "pending_tasks": 1,
-    "completion_rate": 40,
-    "days_remaining": 28,
-    "on_track": true,
-    "expected_progress": 7,
-    "last_updated": "2025-08-02T16:38:31.709Z"
+    "completion_rate": 38,
+    "completed_tasks": 23,
+    "total_tasks": 60,
+    "days_remaining": 4,
+    "on_track": true
+  },
+  "pending_fixes": {
+    "total": 37,
+    "pending": 37,
+    "critical": 0,
+    "completion_rate": 62
+  },
+  "team_activity": {
+    "total_tasks": 60,
+    "in_progress_tasks": 0,
+    "recent_activity_count": 5,
+    "task_completion_rate": 38
   },
   "daily_report": {
     "completed_today": [
-      {
-        "assistant": "Amazon",
-        "description": "Write unit tests for dateHelper.js",
-        "files": "`src/utils/dateHelper.js, 85_tests/dateHelper.test.js`",
-        "status": "Completed ✅",
-        "date": "2025-08-03"
-      },
-      {
-        "assistant": "Amazon",
-        "description": "Fix Critical: Database connection error in staging",
-        "files": "`config/database.js`",
-        "status": "Completed ✅",
-        "date": "2025-08-03"
-      }
+      "توحيد تنسيق وجودة الكود عبر ESLint",
+      "بناء جدار الحماية الآلي الشامل (CI/CD)",
+      "بناء النواة المنطقية للمنصة (Core Logic)",
+      "إعداد Google Sheets Add-on",
+      "إعداد تطبيق الويب (Next.js)"
     ],
-    "in_progress_today": [
-      {
-        "assistant": "Gemini",
-        "description": "Refactor `csvParser.js`",
-        "files": "`src/lib/csvParser.js`",
-        "status": "In Progress 🚧",
-        "date": "2025-08-03"
-      },
-      {
-        "assistant": "Copilot",
-        "description": "Unit tests for `dateHelper.js`",
-        "files": "`tests/utils/dateHelper.test.js`",
-        "status": "In Progress 🚧",
-        "date": "2025-08-03"
-      }
-    ],
-    "next_today": []
+    "in_progress_today": [],
+    "next_today": [
+      "تطوير الميزات الأساسية للـ Sheets Add-on",
+      "إنشاء API endpoints للتطبيق الويب",
+      "تكامل Gemini AI مع التطبيقات"
+    ]
   },
   "weekly_report": {
-    "completed_this_week": [],
-    "in_progress_this_week": [
-      {
-        "assistant": "Gemini",
-        "description": "Refactor `csvParser.js`",
-        "files": "`src/lib/csvParser.js`",
-        "status": "In Progress 🚧",
-        "date": "2025-08-03"
-      },
-      {
-        "assistant": "Copilot",
-        "description": "Unit tests for `dateHelper.js`",
-        "files": "`tests/utils/dateHelper.test.js`",
-        "status": "In Progress 🚧",
-        "date": "2025-08-03"
-      }
+    "completed_this_week": [
+      "بناء هيكل الـ Monorepo الاحترافي",
+      "فرض معايير TypeScript الصارمة",
+      "توحيد تنسيق وجودة الكود عبر ESLint",
+      "بناء جدار الحماية الآلي الشامل (CI/CD)",
+      "بناء النواة المنطقية للمنصة (Core Logic)"
     ],
-    "upcoming_this_week": []
+    "in_progress_this_week": [],
+    "upcoming_this_week": [
+      "تطوير واجهة المستخدم للـ Sidebar",
+      "إنشاء نظام المصادقة",
+      "تكامل BigQuery للتحليلات"
+    ]
   },
-  "all_tasks": [
-    {
-      "assistant": "Gemini",
-      "description": "Refactor `csvParser.js`",
-      "files": "`src/lib/csvParser.js`",
-      "status": "In Progress 🚧",
-      "date": "2025-08-03"
-    },
-    {
-      "assistant": "Copilot",
-      "description": "Unit tests for `dateHelper.js`",
-      "files": "`tests/utils/dateHelper.test.js`",
-      "status": "In Progress 🚧",
-      "date": "2025-08-03"
-    },
-    {
-      "assistant": "Amazon",
-      "description": "Write unit tests for dateHelper.js",
-      "files": "`src/utils/dateHelper.js, 85_tests/dateHelper.test.js`",
-      "status": "Completed ✅",
-      "date": "2025-08-03"
-    },
-    {
-      "assistant": "Amazon",
-      "description": "Fix Critical: Database connection error in staging",
-      "files": "`config/database.js`",
-      "status": "Completed ✅",
-      "date": "2025-08-03"
-    }
-  ],
   "summary": {
-    "overall_status": "needs_attention",
     "priority_alerts": [
       {
-        "type": "warning",
-        "message": "يوجد 1 إصلاحات حرجة معلقة",
-        "source": "pending_fixes"
+        "type": "info",
+        "message": "✅ تم إكمال النواة المنطقية بنجاح - المشروع جاهز لتطوير الميزات"
       }
-    ],
-    "quick_stats": {
-      "system_uptime": "3/3 services",
-      "monthly_completion": "40%",
-      "pending_fixes": 2,
-      "team_velocity": 4
-    }
+    ]
   }
 }

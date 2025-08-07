@@ -1,13 +1,32 @@
 {
-  "name": "executor-service",
-  "version": "1.0.0",
-  "description": "Automated fix execution service for AzizSys",
-  "main": "index.js",
+  "name": "@azizsys/executor-service",
+  "version": "5.0.0",
+  "description": "المهندس البرمجي الذكي - نظام تنفيذ المهام الآلي",
+  "main": "protocol-executor.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"No tests yet\" && exit 0"
+    "start": "node protocol-executor.js",
+    "test": "jest",
+    "lint": "eslint *.js",
+    "validate": "node -c protocol-executor.js"
   },
-  "keywords": ["automation", "fixes", "azizsys"],
+  "dependencies": {
+    "simple-git": "^3.19.1",
+    "@azizsys/core-logic": "workspace:*",
+    "@azizsys/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "eslint": "^8.0.0"
+  },
+  "keywords": [
+    "automation",
+    "self-healing",
+    "executor",
+    "ai-assistant"
+  ],
   "author": "AzizSys Team",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }

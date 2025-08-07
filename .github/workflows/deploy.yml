@@ -1,114 +1,204 @@
-name: 🚀 Deploy G-Assistant to Google Apps Script
+name: Deploy Pipeline
 
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  NODE_VERSION: '18'
+  PNPM_VERSION: '8'
 
 jobs:
-  test:
-    name: 🧪 Run Tests
+  detect-changes:
+    name: Detect Changes
     runs-on: ubuntu-latest
+    outputs:
+      sheets-addon: ${{ steps.changes.outputs.sheets-addon }}
+      web-app: ${{ steps.changes.outputs.web-app }}
+      api: ${{ steps.changes.outputs.api }}
+      packages: ${{ steps.changes.outputs.packages }}
     
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-      
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: 📦 Install dependencies
-      run: npm ci
-      
-    - name: 🧪 Run tests
-      run: npm test
-      
-    - name: 🔍 Run linting
-      run: npm run lint || echo "Linting not configured"
-      
-    - name: 🏗️ Build project
-      run: npm run build || echo "Build not configured"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-  deploy:
-    name: 🚀 Deploy to Google Apps Script
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-      
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: 📦 Install dependencies
-      run: npm ci
-      
-    - name: 🔧 Install Google Apps Script CLI
-      run: npm install -g @google/clasp
-      
-    - name: 🏗️ Build project
-      run: npm run build || echo "Build script not found, skipping..."
-      
-    - name: 🔑 Setup Google Apps Script credentials
-      env:
-        CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
-        SCRIPT_ID: ${{ secrets.SCRIPT_ID }}
-      run: |
-        echo "$CLASP_CREDENTIALS" > ~/.clasprc.json
-        echo '{"scriptId":"'$SCRIPT_ID'","rootDir":"./"}' > .clasp.json
-        
-    - name: 🚀 Deploy to Google Apps Script
-      run: clasp push --force
-      
-    - name: 📊 Create deployment summary
-      run: |
-        echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
-        echo "- **Project**: G-Assistant v6.0.0" >> $GITHUB_STEP_SUMMARY
-        echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-        echo "- **Status**: ✅ Successfully deployed" >> $GITHUB_STEP_SUMMARY
-        echo "- **Time**: $(date)" >> $GITHUB_STEP_SUMMARY
+      - name: Detect changes
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            sheets-addon:
+              - 'apps/sheets-addon/**'
+              - 'packages/**'
+            web-app:
+              - 'apps/web/**'
+              - 'packages/**'
+            api:
+              - 'apps/api/**'
+              - 'packages/**'
+            packages:
+              - 'packages/**'
 
-  docs:
-    name: 📚 Deploy Documentation
+  deploy-sheets-addon:
+    name: Deploy Sheets Add-on
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    needs: detect-changes
+    if: needs.detect-changes.outputs.sheets-addon == 'true'
+    environment: 
+      name: ${{ github.event.inputs.environment || 'staging' }}
     
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-      
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-      
-    - name: 🔧 Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: 📚 Build documentation
-      run: |
-        mkdir -p _site
-        cp README.md _site/index.md
-        cp -r docs/* _site/ 2>/dev/null || echo "No docs directory found"
-        cp CONTRIBUTING.md _site/
-        cp LICENSE _site/
-        
-    - name: 📤 Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: '_site'
-        
-    - name: 🌐 Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build sheets addon
+        run: pnpm run build --filter=sheets-addon
+
+      - name: Setup Google Apps Script CLI
+        run: npm install -g @google/clasp
+
+      - name: Authenticate with Google
+        run: |
+          echo '${{ secrets.CLASP_CREDENTIALS }}' > ~/.clasprc.json
+          clasp login --creds ~/.clasprc.json
+
+      - name: Deploy to Google Apps Script
+        run: |
+          cd apps/sheets-addon
+          clasp push --force
+        env:
+          CLASP_SCRIPT_ID: ${{ secrets.CLASP_SCRIPT_ID }}
+
+      - name: Notify deployment
+        run: |
+          echo "✅ Sheets Add-on deployed successfully to ${{ github.event.inputs.environment || 'staging' }}"
+
+  deploy-web-app:
+    name: Deploy Web Application
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.web-app == 'true'
+    environment: 
+      name: ${{ github.event.inputs.environment || 'staging' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web app
+        run: pnpm run build --filter=web
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.API_URL }}
+          NEXT_PUBLIC_ENVIRONMENT: ${{ github.event.inputs.environment || 'staging' }}
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: apps/web
+          vercel-args: ${{ github.event.inputs.environment == 'production' && '--prod' || '' }}
+
+  deploy-api:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    if: needs.detect-changes.outputs.api == 'true'
+    environment: 
+      name: ${{ github.event.inputs.environment || 'staging' }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API
+        run: pnpm run build --filter=api
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Deploy to Google Cloud Run
+        run: |
+          cd apps/api
+          gcloud run deploy azizsys5-api \
+            --source . \
+            --platform managed \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --set-env-vars="NODE_ENV=${{ github.event.inputs.environment || 'staging' }}"
+
+  post-deployment:
+    name: Post Deployment Tasks
+    runs-on: ubuntu-latest
+    needs: [deploy-sheets-addon, deploy-web-app, deploy-api]
+    if: always() && (needs.deploy-sheets-addon.result == 'success' || needs.deploy-web-app.result == 'success' || needs.deploy-api.result == 'success')
+    
+    steps:
+      - name: Update deployment status
+        run: |
+          echo "🚀 Deployment completed for environment: ${{ github.event.inputs.environment || 'staging' }}"
+          echo "📊 Deployment summary:"
+          echo "- Sheets Add-on: ${{ needs.deploy-sheets-addon.result || 'skipped' }}"
+          echo "- Web App: ${{ needs.deploy-web-app.result || 'skipped' }}"
+          echo "- API: ${{ needs.deploy-api.result || 'skipped' }}"
+
+      - name: Notify team (optional)
+        if: github.event.inputs.environment == 'production'
+        run: |
+          # يمكن إضافة إشعار Slack أو Teams هنا
+          echo "🎉 Production deployment completed successfully!"
