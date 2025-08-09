@@ -1,0 +1,9 @@
+{
+  "name": "client-web-interface",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "client-web-interface/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project client-web-interface --web",
+  "targets": {}
+}

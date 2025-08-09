@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 توثيق AzizSys</title>
+    <style>
+        
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        color: #2c3e50;
+      }
+
+      .header p {
+        font-size: 1.2em;
+        color: #7f8c8d;
+        margin-bottom: 20px;
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        background: #3498db;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9em;
+      }
+
+      .navigation {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        font-size: 1.1em;
+        transition: border-color 0.3s;
+      }
+
+      .search-box input:focus {
+        outline: none;
+        border-color: #3498db;
+      }
+
+      .docs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .doc-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .doc-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .doc-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .doc-header h3 {
+        color: #2c3e50;
+        font-size: 1.3em;
+      }
+
+      .doc-date {
+        color: #7f8c8d;
+        font-size: 0.9em;
+      }
+
+      .doc-sections {
+        margin-bottom: 20px;
+      }
+
+      .section-tag {
+        display: inline-block;
+        background: #ecf0f1;
+        color: #2c3e50;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        margin: 2px;
+      }
+
+      .more-sections {
+        color: #7f8c8d;
+        font-size: 0.8em;
+        font-style: italic;
+      }
+
+      .doc-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn-primary, .btn-secondary {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .btn-primary {
+        background: #3498db;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #2980b9;
+      }
+
+      .btn-secondary {
+        background: #95a5a6;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: #7f8c8d;
+      }
+
+      .quick-links {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .quick-links h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      .quick-link {
+        display: block;
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #2c3e50;
+        text-align: center;
+        transition: background-color 0.3s;
+      }
+
+      .quick-link:hover {
+        background: #e9ecef;
+      }
+
+      .footer {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 15px;
+        color: #7f8c8d;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+        
+        .header {
+          padding: 20px;
+        }
+        
+        .header h1 {
+          font-size: 2em;
+        }
+        
+        .stats {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .docs-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📚 توثيق AzizSys</h1>
+            <p>دليل شامل لنظام إدارة ذكي متكامل</p>
+            <div class="stats">
+                <span class="stat">📄 31 مستند</span>
+                <span class="stat">🔄 آخر تحديث: ٣‏/٨‏/٢٠٢٥</span>
+            </div>
+        </header>
+
+        <nav class="navigation">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 البحث في التوثيق...">
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="docs-grid">
+                
+      <div class="doc-card" data-title="🤖 كتالوج الوكلاء الذكيون - azizsys">
+        <div class="doc-header">
+          <h3>🤖 كتالوج الوكلاء الذكيون - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">نظرة عامة</span><span class="section-tag">🏗️ بنية الوكلاء</span><span class="section-tag">📊 الوكلاء المتاحة</span>
+          <span class="more-sections">+5 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="agents-catalog-new.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('agents-catalog-new.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="ai amazon executor">
+        <div class="doc-header">
+          <h3>AI Amazon Executor</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">Detailed Tasks</span>
+          
+        </div>
+        <div class="doc-actions">
+          <a href="AI_Amazon_Executor.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('AI_Amazon_Executor.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="📜 بروتوكول الإصلاح الذاتي للذكاء الاصطناعي">
+        <div class="doc-header">
+          <h3>📜 بروتوكول الإصلاح الذاتي للذكاء الاصطناعي</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🔄 سير العمل الأساسي (The Core Workflow)</span><span class="section-tag">🚦 قواعد الاشتباك (Rules of Engagement)</span><span class="section-tag">⚙️ آلية المزامنة وإدارة الحالة</span>
+          <span class="more-sections">+1 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="AI_Fix_Protocol.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('AI_Fix_Protocol.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🤖 الدليل التشغيلي للمساعد gemini (المراجع)">
+        <div class="doc-header">
+          <h3>🤖 الدليل التشغيلي للمساعد Gemini (المراجع)</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🎯 المسؤولية الأساسية</span><span class="section-tag">🔄 دورة العمل اليومية (Daily Workflow)</span><span class="section-tag">📥 المدخلات (Inputs) - ما الذي أقرأ منه؟</span>
+          <span class="more-sections">+3 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="AI_Gemini_Reviewer.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('AI_Gemini_Reviewer.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🏗️ البنية المعمارية - azizsys">
+        <div class="doc-header">
+          <h3>🏗️ البنية المعمارية - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">نظرة عامة</span><span class="section-tag">🎯 المبادئ الأساسية</span><span class="section-tag">🔄 تدفق البيانات</span>
+          <span class="more-sections">+7 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="architecture-new.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('architecture-new.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="نظام إدارة المهام والإصلاحات الآلي (automated task & fix management system)">
+        <div class="doc-header">
+          <h3>نظام إدارة المهام والإصلاحات الآلي (Automated Task & Fix Management System)</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1. نظرة عامة على النظام</span><span class="section-tag">2. مكونات النظام وآلية العمل</span><span class="section-tag">3. آلية العمل كبرمجة (Programming Mechanism)</span>
+          <span class="more-sections">+2 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="Automated_Task_and_Fix_Management_System.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('Automated_Task_and_Fix_Management_System.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🤖 دليل نظام الأتمتة اليومي - azizsys">
+        <div class="doc-header">
+          <h3>🤖 دليل نظام الأتمتة اليومي - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">✅ تم تفعيل النظام بنجاح!</span><span class="section-tag">🔄 طرق التشغيل</span><span class="section-tag">📋 ما يحدث عند التشغيل</span>
+          <span class="more-sections">+5 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="AUTOMATION_SYSTEM_GUIDE.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('AUTOMATION_SYSTEM_GUIDE.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="سجل التغييرات (changelog)">
+        <div class="doc-header">
+          <h3>سجل التغييرات (Changelog)</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">[Unreleased] - لم يصدر بعد</span><span class="section-tag">[2.0.0] - 2025-08-01</span><span class="section-tag">[1.0.0] - (تاريخ سابق)</span>
+          
+        </div>
+        <div class="doc-actions">
+          <a href="CHANGELOG.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('CHANGELOG.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="📦 azizsys - حزمة التسليم للعميل">
+        <div class="doc-header">
+          <h3>📦 AzizSys - حزمة التسليم للعميل</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🎯 نظرة عامة على المنتج</span><span class="section-tag">🚀 الإصدارات المتاحة</span><span class="section-tag">📁 محتويات الحزمة المُسلمة</span>
+          <span class="more-sections">+10 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="CLIENT_DELIVERY_PACKAGE.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('CLIENT_DELIVERY_PACKAGE.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="دليل رسائل الـ commit الرسمي - مشروع g-assistant">
+        <div class="doc-header">
+          <h3>دليل رسائل الـ Commit الرسمي - مشروع G-Assistant</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1.0 الغرض</span><span class="section-tag">2.0 هيكل رسالة الـ Commit الإلزامي</span><span class="section-tag">3.0 أنواع الـ Commit المعتمدة (Types)</span>
+          <span class="more-sections">+4 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="COMMIT_MESSAGE.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('COMMIT_MESSAGE.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="دليل إدارة الاعتماديات (dependency management) - مشروع g-assistant">
+        <div class="doc-header">
+          <h3>دليل إدارة الاعتماديات (Dependency Management) - مشروع G-Assistant</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1.0 المبدأ الأساسي</span><span class="section-tag">2.0 مصدر الحقيقة (Source of Truth)</span><span class="section-tag">3.0 أنواع الاعتماديات</span>
+          <span class="more-sections">+4 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="DEPENDENCY_MANAGEMENT.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('DEPENDENCY_MANAGEMENT.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🔍 دليل نظام التضمين (embeddings) - azizsys">
+        <div class="doc-header">
+          <h3>🔍 دليل نظام التضمين (Embeddings) - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">نظرة عامة</span><span class="section-tag">🧠 كيف يعمل النظام</span><span class="section-tag">🏗️ بنية النظام</span>
+          <span class="more-sections">+6 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="embeddings-guide-new.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('embeddings-guide-new.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="external_integration_requirements_v1.md">
+        <div class="doc-header">
+          <h3>External_Integration_Requirements_v1.md</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          
+          
+        </div>
+        <div class="doc-actions">
+          <a href="External_Integration_Requirements_v1.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('External_Integration_Requirements_v1.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="📋 تقرير تنفيذ نظام التوثيق المحسن - azizsys">
+        <div class="doc-header">
+          <h3>📋 تقرير تنفيذ نظام التوثيق المحسن - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🎯 ملخص التنفيذ</span><span class="section-tag">🚀 الميزات المُنفذة</span><span class="section-tag">📊 الإحصائيات</span>
+          <span class="more-sections">+5 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="IMPLEMENTATION_REPORT.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('IMPLEMENTATION_REPORT.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🗺️ خريطة الوحدات (module map)">
+        <div class="doc-header">
+          <h3>🗺️ خريطة الوحدات (Module Map)</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          
+          
+        </div>
+        <div class="doc-actions">
+          <a href="MODULE_MAP.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('MODULE_MAP.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🧭 دليل التنقل - azizsys">
+        <div class="doc-header">
+          <h3>🧭 دليل التنقل - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">الملفات المتاحة</span><span class="section-tag">فهرس سريع</span>
+          
+        </div>
+        <div class="doc-actions">
+          <a href="navigation.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('navigation.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="📊 ملخص المشروع النهائي - g-assistant v6.0.0">
+        <div class="doc-header">
+          <h3>📊 ملخص المشروع النهائي - G-Assistant v6.0.0</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🎯 نظرة عامة</span><span class="section-tag">📈 إحصائيات المشروع</span><span class="section-tag">🚀 الميزات الرئيسية</span>
+          <span class="more-sections">+10 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="PROJECT_OVERVIEW_FULL.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('PROJECT_OVERVIEW_FULL.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="هيكل المشروع (project structure) - مشروع g-assistant">
+        <div class="doc-header">
+          <h3>هيكل المشروع (Project Structure) - مشروع G-Assistant</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1.0 نظرة عامة</span><span class="section-tag">2.0 الهيكل الرئيسي للمجلدات</span><span class="section-tag">3.0 وصف المجلدات الرئيسية</span>
+          <span class="more-sections">+3 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="PROJECT_STRUCTURE.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('PROJECT_STRUCTURE.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="📊 ملخص مشروع g-assistant - (للمراجعة السريعة)">
+        <div class="doc-header">
+          <h3>📊 ملخص مشروع G-Assistant - (للمراجعة السريعة)</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🎯 الهدف العام</span><span class="section-tag">📍 الحالة الحالية: **المرحلة 5 - واجهة المستخدم المحسنة**</span><span class="section-tag">🏗️ البنية التقنية الأساسية</span>
+          <span class="more-sections">+1 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="PROJECT_SUMMARY.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('PROJECT_SUMMARY.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🚀 azizsys - نظام إدارة ذكي متكامل">
+        <div class="doc-header">
+          <h3>🚀 AzizSys - نظام إدارة ذكي متكامل</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🎯 نظرة سريعة</span><span class="section-tag">🚀 البدء السريع</span><span class="section-tag">📚 دليل التوثيق</span>
+          <span class="more-sections">+6 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="README-new.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('README-new.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🚀 azizsys - نظام إدارة ذكي متكامل مدعوم بالذكاء الاصطناعي">
+        <div class="doc-header">
+          <h3>🚀 AzizSys - نظام إدارة ذكي متكامل مدعوم بالذكاء الاصطناعي</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">✨ الميزات الرئيسية</span><span class="section-tag">🏗️ هيكل المشروع</span><span class="section-tag">🚀 كيفية البدء</span>
+          <span class="more-sections">+4 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="README.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('README.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="📚 نظام التوثيق المحسن - azizsys">
+        <div class="doc-header">
+          <h3>📚 نظام التوثيق المحسن - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🎉 تم التنفيذ بنجاح!</span><span class="section-tag">🚀 كيفية الاستخدام</span><span class="section-tag">🎨 الميزات الجديدة</span>
+          <span class="more-sections">+6 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="README_DOCS.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('README_DOCS.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="⚙️ دليل الإعداد - azizsys">
+        <div class="doc-header">
+          <h3>⚙️ دليل الإعداد - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">📋 المتطلبات الأساسية</span><span class="section-tag">🚀 الإعداد السريع</span><span class="section-tag">🔧 الإعداد المتقدم</span>
+          <span class="more-sections">+4 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="setup-new.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('setup-new.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="team_log.md">
+        <div class="doc-header">
+          <h3>TEAM_LOG.md</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          
+          
+        </div>
+        <div class="doc-actions">
+          <a href="TEAM_LOG.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('TEAM_LOG.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="دستور مشروع g-assistant: القواعد الإلزامية">
+        <div class="doc-header">
+          <h3>دستور مشروع G-Assistant: القواعد الإلزامية</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1.0 الغرض والنطاق</span><span class="section-tag">2.0 منظومة التوثيق الحاكمة</span><span class="section-tag">3.0 القواعد الأساسية (Core Mandates)</span>
+          <span class="more-sections">+2 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="TEAM_PROJECT_RULES.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('TEAM_PROJECT_RULES.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="سجل مزامنة الفريق اليومي">
+        <div class="doc-header">
+          <h3>سجل مزامنة الفريق اليومي</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🗓️ 2025-08-02</span><span class="section-tag">🗓️ 2025-08-02 - مهام جديدة:</span><span class="section-tag">🗓️ 2025-08-02 - مهام جديدة:</span>
+          <span class="more-sections">+7 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="TEAM_SYNC.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('TEAM_SYNC.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="استراتيجية الاختبار (testing strategy) - مشروع g-assistant">
+        <div class="doc-header">
+          <h3>استراتيجية الاختبار (Testing Strategy) - مشروع G-Assistant</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1.0 نظرة عامة</span><span class="section-tag">2.0 هرم الاختبار (The Testing Pyramid)</span><span class="section-tag">3.0 الأدوات والبيئة</span>
+          <span class="more-sections">+3 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="TESTING_STRATEGY.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('TESTING_STRATEGY.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="🔧 دليل استكشاف الأخطاء - azizsys">
+        <div class="doc-header">
+          <h3>🔧 دليل استكشاف الأخطاء - AzizSys</h3>
+          <span class="doc-date">٣‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">🚨 المشاكل الشائعة والحلول السريعة</span><span class="section-tag">🛠️ أدوات التشخيص المتقدمة</span><span class="section-tag">📞 الحصول على المساعدة</span>
+          
+        </div>
+        <div class="doc-actions">
+          <a href="troubleshooting-new.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('troubleshooting-new.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="دليل استكشاف الأخطاء وإصلاحها (troubleshooting)">
+        <div class="doc-header">
+          <h3>دليل استكشاف الأخطاء وإصلاحها (Troubleshooting)</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1.0 مقدمة</span><span class="section-tag">2.0 أخطاء المصادقة والوصول (Authentication & Access Errors)</span><span class="section-tag">3.0 مشاكل متعلقة بـ `clasp` (CLI Tool)</span>
+          <span class="more-sections">+1 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="TROUBLESHOOTING.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('TROUBLESHOOTING.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="دليل الترقية (upgrade guide) - مشروع g-assistant">
+        <div class="doc-header">
+          <h3>دليل الترقية (Upgrade Guide) - مشروع G-Assistant</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">1.0 نظرة عامة</span><span class="section-tag">2.0 فهم إصداراتنا (Semantic Versioning)</span><span class="section-tag">3.0 مثال عملي: الترقية من 1.x.x إلى 2.0.0</span>
+          <span class="more-sections">+3 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="UPGRADE_GUIDE.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('UPGRADE_GUIDE.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+      <div class="doc-card" data-title="سجل الإصدارات (version history)">
+        <div class="doc-header">
+          <h3>سجل الإصدارات (Version History)</h3>
+          <span class="doc-date">٢‏/٨‏/٢٠٢٥</span>
+        </div>
+        <div class="doc-sections">
+          <span class="section-tag">نظرة عامة</span><span class="section-tag">[2.0.0] - 2025-08-01</span><span class="section-tag">[1.0.0] - (تاريخ سابق)</span>
+          <span class="more-sections">+1 المزيد</span>
+        </div>
+        <div class="doc-actions">
+          <a href="VERSION_HISTORY.md" class="btn-primary">📖 قراءة</a>
+          <button onclick="previewDoc('VERSION_HISTORY.md')" class="btn-secondary">👁️ معاينة</button>
+        </div>
+      </div>
+    
+            </div>
+            
+            <div class="quick-links">
+                <h2>🚀 روابط سريعة</h2>
+                <div class="links-grid">
+                    <a href="#setup" class="quick-link">⚙️ دليل الإعداد</a>
+                    <a href="#architecture" class="quick-link">🏗️ البنية المعمارية</a>
+                    <a href="#agents" class="quick-link">🤖 الوكلاء الذكيون</a>
+                    <a href="#troubleshooting" class="quick-link">🔧 استكشاف الأخطاء</a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>صُنع بـ ❤️ لمشروع AzizSys</p>
+            <p>تم إنشاؤه تلقائياً في ٣‏/٨‏/٢٠٢٥، ٢:٠٤:٣٨ م</p>
+        </footer>
+    </div>
+
+    <script>
+        
+      // البحث في التوثيق
+      document.getElementById('searchInput').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const docCards = document.querySelectorAll('.doc-card');
+        
+        docCards.forEach(card => {
+          const title = card.dataset.title;
+          const sections = card.querySelectorAll('.section-tag');
+          let matches = title.includes(searchTerm);
+          
+          sections.forEach(section => {
+            if (section.textContent.toLowerCase().includes(searchTerm)) {
+              matches = true;
+            }
+          });
+          
+          card.style.display = matches ? 'block' : 'none';
+        });
+      });
+
+      // معاينة المستند
+      function previewDoc(filename) {
+        // يمكن تطوير هذه الوظيفة لعرض معاينة سريعة
+        alert('معاينة ' + filename + ' - قيد التطوير');
+      }
+
+      // تحليلات بسيطة
+      function trackDocView(docName) {
+        console.log('تم عرض:', docName);
+        // يمكن إرسال إحصائيات للخادم هنا
+      }
+
+      // تحميل الصفحة
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('📚 تم تحميل فهرس التوثيق');
+        
+        // إضافة مستمعي الأحداث للروابط
+        document.querySelectorAll('.btn-primary').forEach(link => {
+          link.addEventListener('click', function() {
+            trackDocView(this.getAttribute('href'));
+          });
+        });
+      });
+    
+    </script>
+</body>
+</html>

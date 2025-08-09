@@ -1,0 +1,45 @@
+{
+  "name": "g-assistant-monorepo",
+  "version": "1.0.0",
+  "description": "G-Assistant Monorepo - نظام إدارة ذكي متكامل",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev",
+    "test:coverage": "turbo run test:coverage",
+    "deploy:sheets": "npm run deploy --workspace=apps/sheets-addon",
+    "deploy:web": "npm run deploy --workspace=apps/web-chatbot",
+    "deploy:api": "npm run deploy --workspace=apps/api",
+    "deploy:interface": "npm run deploy --workspace=apps/web-interface",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.45.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "prettier": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,json,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "author": "AzizSys Team",
+  "license": "MIT"
+}
