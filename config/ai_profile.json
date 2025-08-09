@@ -1,0 +1,51 @@
+{
+  "monitoring": {
+    "enabled": true,
+    "healthCheckInterval": 30000,
+    "metricsCollectionInterval": 60000,
+    "alertThresholds": {
+      "criticalTasks": 1,
+      "completionRateMin": 30,
+      "errorRateMax": 10,
+      "memoryUsageMax": 85
+    },
+    "notifications": {
+      "slack": {
+        "enabled": false,
+        "webhook": ""
+      },
+      "discord": {
+        "enabled": false,
+        "webhook": ""
+      },
+      "console": {
+        "enabled": true
+      }
+    }
+  },
+  "telemetry": {
+    "enabled": true,
+    "retentionDays": 7,
+    "maxLogEntries": 100,
+    "trackEvents": [
+      "task_started",
+      "task_completed",
+      "error_occurred",
+      "alert_sent",
+      "system_health_check"
+    ]
+  },
+  "errorHandling": {
+    "autoRetry": true,
+    "maxRetries": 3,
+    "retryDelay": 5000,
+    "logLevel": "info",
+    "criticalErrorNotification": true
+  },
+  "performance": {
+    "maxConcurrentTasks": 5,
+    "taskTimeout": 300000,
+    "memoryLimit": "1GB",
+    "cpuThreshold": 80
+  }
+}

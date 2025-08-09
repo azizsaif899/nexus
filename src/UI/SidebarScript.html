@@ -1,0 +1,237 @@
+<script>
+// Global variables
+let isProcessing = false;
+let chatHistory = [];
+let converter = new showdown.Converter();
+
+// Initialize app
+document.addEventListener('DOMContentLoaded', function() {
+  initializeApp();
+  setupEventListeners();
+  loadInitialData();
+});
+
+function initializeApp() {
+  console.log('G-Assistant UI initialized');
+  updateStatus('جاري التحميل...', 'processing');
+}
+
+function setupEventListeners() {
+  // Send button
+  document.getElementById('sendButton').addEventListener('click', sendMessage);
+  
+  // Enter key in textarea
+  document.getElementById('messageInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  // Quick action buttons
+  document.querySelectorAll('.quick-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const action = this.dataset.action;
+      handleQuickAction(action);
+    });
+  });
+
+  // Agent selector
+  document.getElementById('agentSelect').addEventListener('change', function() {
+    updateStatus(`تم التبديل إلى: ${this.options[this.selectedIndex].text}`);
+  });
+}
+
+function loadInitialData() {
+  // Load chat history
+  google.script.run
+    .withSuccessHandler(function(result) {
+      if (result.type === 'success') {
+        chatHistory = result.data || [];
+        displayChatHistory();
+      }
+      hideLoading();
+      updateStatus('جاهز');
+    })
+    .withFailureHandler(function(error) {
+      console.error('Failed to load chat history:', error);
+      hideLoading();
+      updateStatus('خطأ في التحميل', 'error');
+    })
+    .loadChatHistory();
+}
+
+function hideLoading() {
+  document.getElementById('loadingIndicator').style.display = 'none';
+  document.getElementById('chatMessages').style.display = 'block';
+}
+
+function displayChatHistory() {
+  const messagesContainer = document.getElementById('chatMessages');
+  messagesContainer.innerHTML = '';
+
+  chatHistory.forEach(chat => {
+    addMessageToUI('user', chat.message, chat.timestamp);
+    addMessageToUI('assistant', chat.response, chat.timestamp, chat.agent);
+  });
+
+  scrollToBottom();
+}
+
+function sendMessage() {
+  if (isProcessing) return;
+
+  const input = document.getElementById('messageInput');
+  const message = input.value.trim();
+  
+  if (!message) return;
+
+  // Add user message to UI
+  addMessageToUI('user', message);
+  input.value = '';
+  
+  // Set processing state
+  setProcessing(true);
+  updateStatus('جاري المعالجة...', 'processing');
+
+  const selectedAgent = document.getElementById('agentSelect').value;
+
+  // Send to backend
+  google.script.run
+    .withSuccessHandler(handleMessageResponse)
+    .withFailureHandler(handleMessageError)
+    .processUserMessage(message, selectedAgent);
+}
+
+function handleMessageResponse(response) {
+  setProcessing(false);
+  
+  if (response && response.text) {
+    const agent = response.data?.agent || 'Assistant';
+    addMessageToUI('assistant', response.text, null, agent);
+    updateStatus('تم', 'success');
+    
+    // Save to history
+    google.script.run.saveChatMessage('User', getLastUserMessage(), response.text, agent);
+  } else {
+    updateStatus('لا توجد استجابة', 'error');
+  }
+}
+
+function handleMessageError(error) {
+  setProcessing(false);
+  addMessageToUI('assistant', `خطأ: ${error.message || 'حدث خطأ غير متوقع'}`);
+  updateStatus('خطأ في المعالجة', 'error');
+}
+
+function addMessageToUI(sender, content, timestamp, agent) {
+  const messagesContainer = document.getElementById('chatMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${sender}`;
+
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'message-content';
+  
+  // Convert markdown to HTML for assistant messages
+  if (sender === 'assistant') {
+    contentDiv.innerHTML = converter.makeHtml(content);
+  } else {
+    contentDiv.textContent = content;
+  }
+
+  messageDiv.appendChild(contentDiv);
+
+  // Add timestamp and agent info
+  if (timestamp || agent) {
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'message-time';
+    
+    let timeText = '';
+    if (timestamp) {
+      timeText = new Date(timestamp).toLocaleTimeString('ar-SA');
+    } else {
+      timeText = new Date().toLocaleTimeString('ar-SA');
+    }
+    
+    if (agent && sender === 'assistant') {
+      timeText += ` • ${agent}`;
+    }
+    
+    timeDiv.textContent = timeText;
+    messageDiv.appendChild(timeDiv);
+  }
+
+  messagesContainer.appendChild(messageDiv);
+  scrollToBottom();
+}
+
+function handleQuickAction(action) {
+  const actions = {
+    'monthly-report': 'أنشئ تقرير مالي شهري',
+    'code-review': 'قم بمراجعة الكود الحالي',
+    'analyze-data': 'حلل البيانات في الورقة النشطة'
+  };
+
+  const message = actions[action];
+  if (message) {
+    document.getElementById('messageInput').value = message;
+    sendMessage();
+  }
+}
+
+function setProcessing(processing) {
+  isProcessing = processing;
+  const sendBtn = document.getElementById('sendButton');
+  const input = document.getElementById('messageInput');
+  
+  sendBtn.disabled = processing;
+  input.disabled = processing;
+  
+  if (processing) {
+    sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+  } else {
+    sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+  }
+}
+
+function updateStatus(text, type = '') {
+  const statusBar = document.getElementById('statusBar');
+  const statusText = document.getElementById('statusText');
+  
+  statusText.textContent = text;
+  statusBar.className = `status-bar ${type}`;
+  
+  // Auto-clear status after 3 seconds for success/error
+  if (type === 'success' || type === 'error') {
+    setTimeout(() => {
+      updateStatus('جاهز');
+    }, 3000);
+  }
+}
+
+function scrollToBottom() {
+  const chatArea = document.getElementById('chatArea');
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function getLastUserMessage() {
+  const messages = document.querySelectorAll('.message.user .message-content');
+  return messages.length > 0 ? messages[messages.length - 1].textContent : '';
+}
+
+// Utility function for lazy loading
+function loadMoreHistory() {
+  // Implementation for loading more chat history
+  updateStatus('جاري تحميل المزيد...', 'processing');
+  
+  google.script.run
+    .withSuccessHandler(function(result) {
+      // Handle additional history
+      updateStatus('تم التحميل', 'success');
+    })
+    .withFailureHandler(function(error) {
+      updateStatus('فشل في التحميل', 'error');
+    })
+    .loadMoreChatHistory(chatHistory.length);
+}
+</script>

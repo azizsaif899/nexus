@@ -1,0 +1,257 @@
+{
+  "timestamp": "2025-08-08T15:08:44.745Z",
+  "totalFiles": 41,
+  "totalSize": 71597,
+  "fileTypes": {
+    "typescript": 36,
+    "javascript": 5
+  },
+  "files": [
+    {
+      "path": "apps\\whatsapp-query-bot\\jest.config.ts",
+      "type": "typescript",
+      "size": 315,
+      "lastModified": "2025-08-08T13:51:26.215Z"
+    },
+    {
+      "path": "apps\\whatsapp-exec-bot\\jest.config.ts",
+      "type": "typescript",
+      "size": 313,
+      "lastModified": "2025-08-08T13:53:57.069Z"
+    },
+    {
+      "path": "apps\\web-chatbot\\jest.config.ts",
+      "type": "typescript",
+      "size": 360,
+      "lastModified": "2025-08-08T13:54:54.612Z"
+    },
+    {
+      "path": "apps\\sheets-addon\\jest.config.ts",
+      "type": "typescript",
+      "size": 307,
+      "lastModified": "2025-08-08T13:50:39.993Z"
+    },
+    {
+      "path": "apps\\admin-dashboard\\jest.config.ts",
+      "type": "typescript",
+      "size": 358,
+      "lastModified": "2025-08-08T13:54:10.737Z"
+    },
+    {
+      "path": "apps\\whatsapp-query-bot\\src\\main.ts",
+      "type": "typescript",
+      "size": 28,
+      "lastModified": "2025-08-08T13:51:26.207Z"
+    },
+    {
+      "path": "apps\\whatsapp-exec-bot\\src\\main.ts",
+      "type": "typescript",
+      "size": 28,
+      "lastModified": "2025-08-08T13:53:57.062Z"
+    },
+    {
+      "path": "apps\\sheets-addon\\src\\main.ts",
+      "type": "typescript",
+      "size": 28,
+      "lastModified": "2025-08-08T13:50:39.990Z"
+    },
+    {
+      "path": "apps\\whatsapp-query-bot\\webpack.config.js",
+      "type": "javascript",
+      "size": 486,
+      "lastModified": "2025-08-08T13:51:26.208Z"
+    },
+    {
+      "path": "apps\\web-chatbot\\webpack.config.js",
+      "type": "javascript",
+      "size": 1050,
+      "lastModified": "2025-08-08T13:54:54.605Z"
+    },
+    {
+      "path": "apps\\whatsapp-exec-bot\\webpack.config.js",
+      "type": "javascript",
+      "size": 485,
+      "lastModified": "2025-08-08T13:53:57.064Z"
+    },
+    {
+      "path": "apps\\sheets-addon\\webpack.config.js",
+      "type": "javascript",
+      "size": 482,
+      "lastModified": "2025-08-08T13:50:39.991Z"
+    },
+    {
+      "path": "apps\\admin-dashboard\\webpack.config.js",
+      "type": "javascript",
+      "size": 1049,
+      "lastModified": "2025-08-08T13:54:10.729Z"
+    },
+    {
+      "path": "apps\\web-chatbot\\src\\main.tsx",
+      "type": "typescript",
+      "size": 258,
+      "lastModified": "2025-08-08T13:54:54.604Z"
+    },
+    {
+      "path": "apps\\admin-dashboard\\src\\main.tsx",
+      "type": "typescript",
+      "size": 258,
+      "lastModified": "2025-08-08T13:54:10.729Z"
+    },
+    {
+      "path": "apps\\web-chatbot\\src\\app\\nx-welcome.tsx",
+      "type": "typescript",
+      "size": 30555,
+      "lastModified": "2025-08-08T13:54:54.605Z"
+    },
+    {
+      "path": "apps\\web-chatbot\\src\\app\\app.tsx",
+      "type": "typescript",
+      "size": 256,
+      "lastModified": "2025-08-08T13:54:54.606Z"
+    },
+    {
+      "path": "apps\\web-chatbot\\src\\app\\app.spec.tsx",
+      "type": "typescript",
+      "size": 453,
+      "lastModified": "2025-08-08T13:54:54.603Z"
+    },
+    {
+      "path": "apps\\admin-dashboard\\src\\app\\nx-welcome.tsx",
+      "type": "typescript",
+      "size": 30555,
+      "lastModified": "2025-08-08T13:54:10.730Z"
+    },
+    {
+      "path": "apps\\admin-dashboard\\src\\app\\app.tsx",
+      "type": "typescript",
+      "size": 255,
+      "lastModified": "2025-08-08T13:54:10.731Z"
+    },
+    {
+      "path": "apps\\admin-dashboard\\src\\app\\app.spec.tsx",
+      "type": "typescript",
+      "size": 452,
+      "lastModified": "2025-08-08T13:54:10.728Z"
+    },
+    {
+      "path": "packages\\ui-components\\jest.config.ts",
+      "type": "typescript",
+      "size": 346,
+      "lastModified": "2025-08-08T13:58:57.651Z"
+    },
+    {
+      "path": "packages\\core-logic\\jest.config.ts",
+      "type": "typescript",
+      "size": 309,
+      "lastModified": "2025-08-08T13:56:06.191Z"
+    },
+    {
+      "path": "packages\\whatsapp-core\\jest.config.ts",
+      "type": "typescript",
+      "size": 305,
+      "lastModified": "2025-08-08T13:58:10.314Z"
+    },
+    {
+      "path": "packages\\business-logic\\jest.config.ts",
+      "type": "typescript",
+      "size": 307,
+      "lastModified": "2025-08-08T13:59:17.008Z"
+    },
+    {
+      "path": "packages\\bigquery-client\\jest.config.ts",
+      "type": "typescript",
+      "size": 309,
+      "lastModified": "2025-08-08T13:56:22.438Z"
+    },
+    {
+      "path": "packages\\ui-components\\src\\index.ts",
+      "type": "typescript",
+      "size": 37,
+      "lastModified": "2025-08-08T13:58:57.644Z"
+    },
+    {
+      "path": "packages\\core-logic\\src\\index.ts",
+      "type": "typescript",
+      "size": 39,
+      "lastModified": "2025-08-08T13:56:06.180Z"
+    },
+    {
+      "path": "packages\\whatsapp-core\\src\\index.ts",
+      "type": "typescript",
+      "size": 37,
+      "lastModified": "2025-08-08T13:58:10.307Z"
+    },
+    {
+      "path": "packages\\business-logic\\src\\index.ts",
+      "type": "typescript",
+      "size": 38,
+      "lastModified": "2025-08-08T13:59:17.000Z"
+    },
+    {
+      "path": "packages\\bigquery-client\\src\\index.ts",
+      "type": "typescript",
+      "size": 39,
+      "lastModified": "2025-08-08T13:56:22.430Z"
+    },
+    {
+      "path": "packages\\core-logic\\src\\lib\\google-services.ts",
+      "type": "typescript",
+      "size": 73,
+      "lastModified": "2025-08-08T13:56:06.181Z"
+    },
+    {
+      "path": "packages\\core-logic\\src\\lib\\google-services.spec.ts",
+      "type": "typescript",
+      "size": 183,
+      "lastModified": "2025-08-08T13:56:06.180Z"
+    },
+    {
+      "path": "packages\\whatsapp-core\\src\\lib\\whatsapp-core.ts",
+      "type": "typescript",
+      "size": 69,
+      "lastModified": "2025-08-08T13:58:10.307Z"
+    },
+    {
+      "path": "packages\\whatsapp-core\\src\\lib\\whatsapp-core.spec.ts",
+      "type": "typescript",
+      "size": 173,
+      "lastModified": "2025-08-08T13:58:10.307Z"
+    },
+    {
+      "path": "packages\\business-logic\\src\\lib\\business-logic.ts",
+      "type": "typescript",
+      "size": 71,
+      "lastModified": "2025-08-08T13:59:17.001Z"
+    },
+    {
+      "path": "packages\\business-logic\\src\\lib\\business-logic.spec.ts",
+      "type": "typescript",
+      "size": 178,
+      "lastModified": "2025-08-08T13:59:17.001Z"
+    },
+    {
+      "path": "packages\\bigquery-client\\src\\lib\\bigquery-client.ts",
+      "type": "typescript",
+      "size": 73,
+      "lastModified": "2025-08-08T13:56:22.431Z"
+    },
+    {
+      "path": "packages\\bigquery-client\\src\\lib\\bigquery-client.spec.ts",
+      "type": "typescript",
+      "size": 183,
+      "lastModified": "2025-08-08T13:56:22.431Z"
+    },
+    {
+      "path": "packages\\ui-components\\src\\lib\\ui-components.tsx",
+      "type": "typescript",
+      "size": 224,
+      "lastModified": "2025-08-08T13:58:57.653Z"
+    },
+    {
+      "path": "packages\\ui-components\\src\\lib\\ui-components.spec.tsx",
+      "type": "typescript",
+      "size": 273,
+      "lastModified": "2025-08-08T13:58:57.652Z"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "name": "azizsys5-monorepo",
+  "version": "1.0.0",
+  "description": "AzizSys5 Monorepo - AI-powered business automation platform",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build --filter=!@azizsys5/docs",
+    "build:all": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "test:coverage": "turbo run test:coverage",
+    "clean": "turbo run clean && rm -rf node_modules/.cache",
+    "format": "turbo run format",
+    "format:check": "turbo run format:check",
+    "prepare": "husky install",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build && changeset publish",
+    "graph": "turbo run build --graph=dependency-graph.html",
+    "turbo:login": "turbo login",
+    "turbo:link": "turbo link"
+  },
+  "devDependencies": {
+    "@azizsys5/eslint-preset": "workspace:*",
+    "@azizsys5/tsconfig": "workspace:*",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.1",
+    "@turbo/gen": "^1.12.0",
+    "eslint": "^8.57.0",
+    "husky": "^8.0.3",
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "turbo": "^2.5.5",
+    "typescript": "^5.3.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "keywords": [
+    "ai",
+    "automation",
+    "business",
+    "monorepo",
+    "typescript"
+  ],
+  "author": "AzizSys5 Team",
+  "license": "MIT"
+}

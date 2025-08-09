@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alert-config
+data:
+  alerts.yaml: |
+    alerts:
+      - name: "High CPU Usage"
+        metric: "cpu_usage"
+        threshold: 70
+        action: "notify_slack"
+        message: "⚠️ استخدام CPU عالي: {value}%"
+      
+      - name: "High Memory Usage"
+        metric: "memory_usage"
+        threshold: 80
+        action: "notify_slack"
+        message: "⚠️ استخدام الذاكرة عالي: {value}%"
+      
+      - name: "Low Success Rate"
+        metric: "success_rate"
+        threshold: 95
+        operator: "less_than"
+        action: "send_email"
+        message: "🚨 معدل النجاح منخفض: {value}%"
+      
+      - name: "High Response Time"
+        metric: "response_time"
+        threshold: 1000
+        action: "auto_scale"
+        message: "⏱️ زمن استجابة عالي: {value}ms"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alert-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert-manager
+  template:
+    metadata:
+      labels:
+        app: alert-manager
+    spec:
+      containers:
+      - name: alert-manager
+        image: prom/alertmanager:latest
+        ports:
+        - containerPort: 9093
+        volumeMounts:
+        - name: alert-config
+          mountPath: /etc/alertmanager
+      volumes:
+      - name: alert-config
+        configMap:
+          name: alert-config

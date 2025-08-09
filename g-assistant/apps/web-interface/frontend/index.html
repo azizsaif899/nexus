@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AzizSys - واجهة التحكم الذكية</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #111827; color: white; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .card { background: #1f2937; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .input { width: 100%; padding: 0.75rem; background: #374151; border: 1px solid #4b5563; border-radius: 6px; color: white; margin-bottom: 1rem; }
+        .button { width: 100%; padding: 0.75rem; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+        .button:hover { background: #1d4ed8; }
+        .button:disabled { background: #6b7280; cursor: not-allowed; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .title { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
+        .result { background: #374151; padding: 1rem; border-radius: 6px; margin-top: 1rem; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function App() {
+            const [query, setQuery] = useState('');
+            const [spreadsheetId, setSpreadsheetId] = useState('');
+            const [results, setResults] = useState(null);
+            const [loading, setLoading] = useState(false);
+
+            const handleSearch = async () => {
+                if (!query || !spreadsheetId) return;
+                
+                setLoading(true);
+                try {
+                    const response = await axios.post(`http://localhost:3002/api/sheets/${spreadsheetId}/query`, {
+                        query,
+                        range: 'A1:Z1000'
+                    });
+                    setResults(response.data);
+                } catch (error) {
+                    setResults({ error: 'فشل في تنفيذ البحث' });
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            return (
+                <div className="container">
+                    <h1 className="title">AzizSys - واجهة التحكم الذكية</h1>
+
+                    <div className="card">
+                        <div className="grid">
+                            <input
+                                className="input"
+                                type="text"
+                                value={spreadsheetId}
+                                onChange={(e) => setSpreadsheetId(e.target.value)}
+                                placeholder="معرف Google Sheet"
+                            />
+                            <select className="input">
+                                <option>بحث ذكي شامل</option>
+                                <option>تحليل البيانات</option>
+                            </select>
+                        </div>
+                        
+                        <textarea
+                            className="input"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="استفسارك هنا..."
+                            rows={3}
+                        />
+
+                        <button
+                            className="button"
+                            onClick={handleSearch}
+                            disabled={loading || !query || !spreadsheetId}
+                        >
+                            {loading ? 'جاري البحث...' : 'بحث ذكي'}
+                        </button>
+                    </div>
+
+                    {results && (
+                        <div className="card">
+                            <h2>النتائج</h2>
+                            {results.error ? (
+                                <div className="result" style={{color: '#ef4444'}}>
+                                    {results.error}
+                                </div>
+                            ) : (
+                                <div className="result">
+                                    <p><strong>الاستفسار:</strong> {results.query}</p>
+                                    <p><strong>الإجابة:</strong> {results.message}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
