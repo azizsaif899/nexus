@@ -154,3 +154,7 @@ Dockerfile.prod
 # Lock files (keep pnpm-lock.yaml, ignore others)
 package-lock.json
 yarn.lock
+
+# Ignore backup directories and files
+backup_before_cleanup/
+*.backup.*
