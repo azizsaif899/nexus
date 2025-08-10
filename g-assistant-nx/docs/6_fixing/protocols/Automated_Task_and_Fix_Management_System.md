@@ -1,46 +1,89 @@
-# ⚙️ خطة الإصلاح الذاتي المتكاملة (v4.0) - النظام المحدث
-**من المشكلة إلى الحل الموثق - مع النظام التلقائي الجديد**
+# ⚙️ نظام إدارة المهام والإصلاح الذاتي المحسن (v5.0)
+**نظام متكامل مع Enhanced Auto-Fix System - من المشكلة إلى الحل الموثق**
 
-**الإصدار:** 4.0  
-**التحديث الأخير:** 8 يناير 2025
-**النظام الجديد:** AutoRepairSuite + مدير النظام التلقائي  
-**التوافق:** بروتوكول المنفذ v5.0، بروتوكول المراجع v3.0، استراتيجية تكامل Gemini v2.0
-
----
-
-## 1. نظرة عامة
-
-خطة الإصلاح الذاتي هي نظام حلقة مغلقة (Closed-Loop) يعمل بشكل آلي لإصلاح الأخطاء وتطوير الميزات الجديدة بدون تدخل بشري، مدعوم بـ Google Gemini AI.
-
-## 2. المكونات الجديدة (v4.0)
-
-### النظام التلقائي الجديد:
-- **`AutoSystemManager` (مدير النظام التلقائي):** يعمل كل 5 دقائق ويدير جميع العمليات
-- **`AutoRepairSuite` (مجموعة الإصلاح الذكي):** يستخدم Gemini AI للإصلاح التلقائي
-- **`NxProjectMonitor` (مراقب مشروع Nx):** يراقب حالة التطبيقات والمكتبات
-- **`DetailedAnalyzer` (محلل مفصل):** يحلل الأخطاء بدقة ويحدد مواقعها
-
-### المكونات الأساسية (محدثة):
-- **`TaskOrchestrator` (منسق المهام):** محدث ليعمل مع Nx
-- **`AICodeFixer` (مصحح الكود الذكي):** يستخدم Gemini لإصلاح الأخطاء
-- **`AutoTester` (مختبر تلقائي):** يختبر الإصلاحات تلقائياً
+**الإصدار:** 5.0  
+**التحديث الأخير:** اليوم
+**النظام المحسن:** Enhanced Auto-Fix System + EnhancedOrchestrator  
+**التوافق:** Smart Executor v3.0، Enhanced Reviewer v4.0، TypeScript Types  
+**الموقع:** `docs/6_fixing/auto-fix-system/`
 
 ---
 
-## 3. النظام الجديد - دورة تلقائية كل 5 دقائق
+## 1. نظرة عامة على النظام المحسن
 
-### العملية التلقائية الجديدة:
-1. **AutoSystemManager** يبدأ دورة جديدة كل 5 دقائق
-2. **NxProjectMonitor** يفحص حالة التطبيقات والمكتبات
-3. **AutoRepairSuite** يكتشف الأخطاء ويصلحها بـ Gemini AI
-4. **TaskOrchestrator** يحدث اللوحة المركزية
-5. **تسجيل العمليات** في auto_system_log.json
+نظام إدارة المهام والإصلاح الذاتي المحسن هو نظام متكامل يجمع بين:
 
-### الملفات الرئيسية:
-- `auto-system-manager.js` - المدير الرئيسي
-- `nx_central_dashboard.json` - اللوحة المركزية
-- `QUICK_START.bat` - تشغيل سريع
-- لوحة التحكم HTML - http://localhost:3000
+- **Enhanced Auto-Fix System**: النظام المحسن للإصلاح التلقائي
+- **EnhancedOrchestrator**: منسق ذكي للمهام
+- **Type Safety**: أمان الأنواع مع TypeScript
+- **EventBus**: نظام أحداث محسن
+- **Plugin System**: نظام إضافات قابل للتوسع
+
+### الهدف الأساسي:
+إنشاء حلقة مغلقة ذكية تعمل بشكل تلقائي للكشف عن الأخطاء وإصلاحها ومراجعتها وتوثيقها.
+
+## 2. المكونات المحسنة (v5.0)
+
+### النظام المحسن الجديد:
+```typescript
+// المكونات الرئيسية
+import { EnhancedOrchestrator } from './auto-fix-system/enhanced-orchestrator';
+import { AutoFixSystem } from './auto-fix-system';
+import { TaskRequest, TaskResult } from './auto-fix-system/core/types';
+
+// التشغيل التلقائي
+const system = new AutoFixSystem();
+await system.start();
+
+// دورة إصلاح واحدة
+await system.runCycle();
+```
+
+### المكونات الأساسية:
+- **`EnhancedOrchestrator`**: منسق ذكي محسن
+- **`Scanner`**: ماسح ملفات متقدم
+- **`Detector`**: كاشف أخطاء مع AI
+- **`TaskQueue`**: طابور مهام ذكي
+- **`Executor`**: منفذ محافظ وآمن
+- **`Reviewer`**: مراجع متعدد المستويات
+
+### الميزات الجديدة:
+- **Type Safety كامل** مع TypeScript
+- **EventBus محسن** للتواصل بين المكونات
+- **Plugin System** قابل للتوسع
+- **Backup & Rollback** ذكي وآمن
+- **تقارير مركزية** محسنة
+
+---
+
+## 3. النظام المحسن - دورة ذكية متقدمة
+
+### الدورة الذكية المحسنة:
+```mermaid
+graph TD
+    A[UNIFIED_START.bat] --> B[EnhancedOrchestrator.runCycle]
+    B --> C[Scanner.scanRepository]
+    C --> D[Detector.detectErrors]
+    D --> E[TaskQueue.enqueue]
+    E --> F[Executor.executeTask]
+    F --> G[Reviewer.reviewBranch]
+    G --> H[Reporter.updateDashboard]
+    H --> I[EventBus.emit]
+```
+
+### الخطوات التفصيلية:
+1. **المسح الذكي**: فحص الملفات في apps/ و packages/
+2. **الكشف المتقدم**: استخدام AI + Static Analysis
+3. **إنشاء المهام**: تحويل الأخطاء إلى TaskRequest
+4. **التنفيذ الآمن**: نسخ احتياطية + إصلاح + تحقق
+5. **المراجعة الشاملة**: جودة + أمان + اختبارات
+6. **التقارير المركزية**: تحديث central_dashboard.json
+
+### الملفات والمواقع الرئيسية:
+- `docs/6_fixing/auto-fix-system/` - النظام المحسن
+- `docs/6_fixing/reports/central_dashboard.json` - اللوحة المركزية
+- `UNIFIED_START.bat` - التشغيل الموحد
+- `http://localhost:3000/dashboard` - لوحة التحكم التفاعلية
 
 ## 4. دورة الحياة الكاملة (النظام القديم - مرجع)
 

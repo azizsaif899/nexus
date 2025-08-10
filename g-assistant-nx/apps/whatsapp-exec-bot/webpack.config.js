@@ -3,7 +3,7 @@ const { join } = require('path');
 
 module.exports = {
   output: {
-    path: join(__dirname, '../dist/whatsapp-exec-bot'),
+    path: join(__dirname, '../../dist/whatsapp-exec-bot'),
   },
   plugins: [
     new NxAppWebpackPlugin({
@@ -11,7 +11,7 @@ module.exports = {
       compiler: 'tsc',
       main: './src/main.ts',
       tsConfig: './tsconfig.app.json',
-      assets: ['./src/assets'],
+      assets: [{ input: './src/assets', glob: '**/*', output: './assets' }],
       optimization: false,
       outputHashing: 'none',
       generatePackageJson: true,

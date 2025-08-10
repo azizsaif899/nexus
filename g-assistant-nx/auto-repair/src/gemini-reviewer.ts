@@ -21,14 +21,15 @@ export class GeminiReviewer {
   // مراجعة المشروع كاملاً
   async reviewProject(): Promise<any> {
     console.log('🔍 مراجعة المشروع كاملاً...');
-    
-    const projectStructure = this.analyzeProjectStructure();
+
     const reports = this.loadAllReports();
     const monthlyPlan = this.loadMonthlyPlan();
-    
-    const prompt = this.buildReviewPrompt(projectStructure, reports, monthlyPlan);
+    const dashboard = this.loadDashboardData();
+    const fixLogs = this.loadFixLogs();
+
+    const prompt = this.buildReviewPrompt(reports, monthlyPlan, dashboard, fixLogs);
     const result = await this.model.generateContent(prompt);
-    
+
     return this.parseReviewResult(result.response.text());
   }
 
@@ -89,33 +90,80 @@ export class GeminiReviewer {
     return 'لا توجد خطة شهرية';
   }
 
+  // تحميل بيانات لوحة التحكم
+  private loadDashboardData() {
+    const dashboardPath = path.join(this.projectRoot, 'docs/6_fixing/reports/central_dashboard.json');
+    if (fs.existsSync(dashboardPath)) {
+        try {
+            const content = fs.readFileSync(dashboardPath, 'utf8');
+            return JSON.parse(content);
+        } catch (error) {
+            console.warn(`تعذر قراءة central_dashboard.json`);
+            return null;
+        }
+    }
+    return null;
+  }
+
+  // تحميل سجلات الإصلاح
+  private loadFixLogs() {
+    const logDir = path.join(this.projectRoot, 'docs/6_fixing/logs');
+    if (fs.existsSync(logDir)) {
+        // ملاحظة: هذا تبسيط. يمكن توسيع هذا الجزء لقراءة وتحليل السجلات بشكل أعمق.
+        return "تم العثور على سجلات الإصلاح. يجب مراجعتها لتجنب تكرار المهام المكتملة أو الفاشلة.";
+    }
+    return "لم يتم العثور على مجلد السجلات.";
+  }
+
+  // استخلاص الأخطاء الحرجة من التقارير
+  private extractCriticalErrors(reports: any): any[] {
+      const errors: any[] = [];
+      Object.values(reports).forEach((report: any) => {
+          if (report.priorities) {
+              const critical = report.priorities.filter(p => p.priority === 'HIGH' || p.priority === 'CRITICAL');
+              errors.push(...critical);
+          }
+      });
+      return errors;
+  }
+
+  // استخلاص المهام من الخطة الشهرية
+  private extractMonthlyTasks(monthlyPlan: string): any[] {
+      const tasks = monthlyPlan.split('\n')
+          .filter(line => line.trim().startsWith('- [ ]') || line.trim().startsWith('*'))
+          .map(line => line.replace(/(- \[[ \]]|\*)/, '').trim());
+      return tasks.map(task => ({ task, source: 'MONTHLY_PLAN.md' }));
+  }
+
   // بناء prompt المراجعة
-  private buildReviewPrompt(structure: any, reports: any, monthlyPlan: string) {
+  private buildReviewPrompt(reports: any, monthlyPlan: string, dashboard: any, fixLogs: string) {
     const criticalErrors = this.extractCriticalErrors(reports);
     const monthlyTasks = this.extractMonthlyTasks(monthlyPlan);
-    
+
     return `
-أنت Gemini AI Reviewer المتقدم لمشروع G-Assistant NX.
+أنت Gemini AI، المراجع الذكي في نظام G-Assistant NX.
+مهمتك هي تحليل المدخلات التالية وتحديد الأولويات والمهام اليومية للمنفذ (Executor).
+يجب أن تكون المهام دقيقة وقابلة للتنفيذ وفقًا لبروتوكول المنفذ الصارم (AI_Amazon_Executor_v2.md) الذي يمنعه من التفكير أو التخطيط.
 
-مهمتك: ترتيب الأولويات بناءً على:
-1. الأخطاء الحرجة من التقارير
-2. المهام من الخطة الشهرية
-3. حالة المشروع الحالية
+المدخلات الأساسية لتحديد الأولويات:
 
-الأخطاء الحرجة المكتشفة:
-${JSON.stringify(criticalErrors, null, 2)}
-
-مهام الخطة الشهرية:
+1. الخطة الشهرية (الأهداف الاستراتيجية):
 ${JSON.stringify(monthlyTasks, null, 2)}
 
-بنية المشروع:
-${JSON.stringify(structure, null, 2)}
+2. لوحة التحكم المركزية (الحالة الحالية والمهام المعلقة):
+${JSON.stringify(dashboard, null, 2)}
+
+3. التقارير والأخطاء المكتشفة (الأخطاء الحرجة):
+${JSON.stringify(criticalErrors, null, 2)}
+
+4. سجلات الإصلاح (لتجنب التكرار):
+${fixLogs}
 
 المطلوب:
-1. تحليل الأخطاء الحالية وترتيبها حسب الأولوية
-2. تحديد ما يحتاج إصلاح/حذف/إنشاء
-3. مراجعة التوافق مع الخطة الشهرية
-4. اقتراح مهام يومية محددة
+1. تحليل شامل للمدخلات لتحديد صحة المشروع.
+2. إنشاء قائمة مهام ذات أولوية (priorities) للمنفذ، مع تحديد الإجراء (FIX, UPDATE, DELETE) والموقع بدقة.
+3. اقتراح قائمة مهام يومية (dailyTasks) واضحة وموجزة.
+4. تقديم توصيات عامة لتحسين النظام.
 
 أجب بـ JSON:
 {
@@ -125,7 +173,7 @@ ${JSON.stringify(structure, null, 2)}
       "priority": "HIGH|MEDIUM|LOW",
       "task": "وصف المهمة",
       "location": "مسار الملف",
-      "action": "CREATE|UPDATE|DELETE|FIX",
+      "action": "FIX|UPDATE|DELETE",
       "estimatedTime": "الوقت المقدر",
       "reason": "سبب الأولوية"
     }

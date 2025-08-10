@@ -23,8 +23,23 @@ jobs:
       - name: Run linting
         run: npm run lint
       
-      - name: Run tests
+      - name: Run frontend tests
         run: npm run test:coverage
+      
+      - name: Test API Backend
+        run: |
+          cd apps/api
+          npm ci
+          npm run test
+      
+      - name: Test Core Logic
+        run: |
+          cd packages/core-logic
+          npm ci
+          npm run test:ci
+      
+      - name: Check for legacy code
+        run: node scripts/check-legacy-code.js
       
       - name: Upload coverage
         uses: codecov/codecov-action@v3

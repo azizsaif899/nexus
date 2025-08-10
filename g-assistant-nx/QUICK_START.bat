@@ -1,26 +1,30 @@
 @echo off
 chcp 65001 >nul
-title G-Assistant NX - Quick Start
+title G-Assistant NX - Quick Start (Legacy)
 color 0A
 
 echo.
 echo ================================================
-echo           G-Assistant NX - Quick Start
+echo    G-Assistant NX - Quick Start (Legacy)
+echo    استخدم UNIFIED_START.bat للنظام المحسن
 echo ================================================
 echo.
 
 cd /d "%~dp0"
 
-echo Choose option:
+echo للنظام المحسن الجديد، استخدم:
+echo UNIFIED_START.bat
 echo.
-echo [1] Full Daily Start (Recommended)
-echo [2] Dashboard Only
-echo [3] Auto System Only
-echo [4] Test System
-echo [5] Install Service
+echo أو اختر من الخيارات التالية:
+echo.
+echo [1] النظام الكامل
+echo [2] لوحة التحكم فقط
+echo [3] النظام التلقائي
+echo [4] اختبار النظام
+echo [U] النظام الموحد الجديد
 echo.
 
-set /p choice="Choose number (1-5): "
+set /p choice="اختر الرقم أو U: "
 
 if "%choice%"=="1" (
     echo Starting full system...
@@ -30,13 +34,13 @@ if "%choice%"=="1" (
     npm run dashboard
 ) else if "%choice%"=="3" (
     echo Starting auto system...
-    npm run auto:full
+    npm run auto:enhanced
 ) else if "%choice%"=="4" (
     echo Testing system...
     npm run test:system
-) else if "%choice%"=="5" (
-    echo Installing service...
-    npm run install:service
+) else if "%choice%"=="U" (
+    echo Starting unified system...
+    call UNIFIED_START.bat
 ) else (
     echo Invalid choice
     pause

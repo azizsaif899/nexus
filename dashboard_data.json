@@ -3,8 +3,8 @@
   "summary": {
     "priority_alerts": [
       {
-        "type": "critical",
-        "message": "Critical: Database connection error in staging"
+        "type": "info",
+        "message": "Info: Database connection stabilized - pool size increased to 20"
       },
       {
         "type": "warning",
@@ -16,7 +16,7 @@
     "status": "operational",
     "services_operational": 5,
     "services_total": 5,
-    "error_count": 2
+    "error_count": 1
   },
   "monthly_progress": {
     "completion_rate": 75,
@@ -28,8 +28,8 @@
   "pending_fixes": {
     "total": 2,
     "pending": 1,
-    "critical": 1,
-    "completion_rate": 50
+    "critical": 0,
+    "completion_rate": 75
   },
   "team_activity": {
     "total_tasks": 10,

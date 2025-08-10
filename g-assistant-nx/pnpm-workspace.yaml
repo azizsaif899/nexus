@@ -1,2 +1,4 @@
-packages: 
-  - "packages/*"
+# TASK-SETUP-001: pnpm workspace configuration
+packages:
+  - 'apps/*'
+  - 'packages/*'

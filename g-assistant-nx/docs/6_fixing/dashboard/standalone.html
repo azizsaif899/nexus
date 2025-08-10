@@ -295,7 +295,10 @@
         </div>
     </div>
 
+    <script src="dashboard-data-loader.js"></script>
     <script>
+        let refreshInterval = null;
+        
         // تحميل ملف التقرير
         function loadReportFile(event) {
             const file = event.target.files[0];
@@ -314,36 +317,82 @@
         }
 
         // تحميل بيانات تجريبية
-        function loadSampleData() {
-            const sampleData = {
-                timestamp: new Date().toISOString(),
-                project: 'g-assistant-nx',
-                summary: {
-                    totalFiles: 41,
-                    totalErrors: 12,
-                    healthScore: 76,
-                    status: 'WARNING'
-                },
-                breakdown: {
-                    fileTypes: {
-                        typescript: 25,
-                        javascript: 10,
-                        json: 6
-                    },
-                    errorSeverity: {
-                        error: 5,
-                        warning: 4,
-                        info: 3
-                    }
-                },
-                fixes: {
-                    total: 8,
-                    successful: 6,
-                    failed: 2
-                }
-            };
+        async function loadSampleData() {
+            const result = await fetchDashboardData();
             
-            updateDashboard(sampleData);
+            if (result.success) {
+                const transformedData = {
+                    timestamp: result.timestamp,
+                    project: 'g-assistant-nx',
+                    summary: {
+                        totalFiles: result.data.team_activity?.total_tasks || 41,
+                        totalErrors: result.data.system_health?.error_count || 12,
+                        healthScore: Math.round((result.data.system_health?.services_operational / result.data.system_health?.services_total) * 100) || 76,
+                        status: result.data.system_health?.status?.toUpperCase() || 'WARNING'
+                    },
+                    breakdown: {
+                        fileTypes: {
+                            typescript: 25,
+                            javascript: 10,
+                            json: 6
+                        },
+                        errorSeverity: {
+                            error: result.data.priority_alerts?.filter(a => a.type === 'critical').length || 5,
+                            warning: result.data.priority_alerts?.filter(a => a.type === 'warning').length || 4,
+                            info: 3
+                        }
+                    },
+                    fixes: {
+                        total: result.data.pending_fixes?.total || 8,
+                        successful: Math.round((result.data.pending_fixes?.total || 8) * (result.data.pending_fixes?.completion_rate || 75) / 100),
+                        failed: 2
+                    }
+                };
+                updateDashboard(transformedData);
+            } else {
+                // بيانات افتراضية في حالة الفشل
+                const sampleData = {
+                    timestamp: new Date().toISOString(),
+                    project: 'g-assistant-nx',
+                    summary: {
+                        totalFiles: 41,
+                        totalErrors: 12,
+                        healthScore: 76,
+                        status: 'WARNING'
+                    },
+                    breakdown: {
+                        fileTypes: {
+                            typescript: 25,
+                            javascript: 10,
+                            json: 6
+                        },
+                        errorSeverity: {
+                            error: 5,
+                            warning: 4,
+                            info: 3
+                        }
+                    },
+                    fixes: {
+                        total: 8,
+                        successful: 6,
+                        failed: 2
+                    }
+                };
+                updateDashboard(sampleData);
+            }
+        }
+        
+        // تحديث تلقائي
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            refreshInterval = setInterval(loadSampleData, 30000);
+        }
+        
+        function stopAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
         }
 
         // تحديث لوحة التحكم
