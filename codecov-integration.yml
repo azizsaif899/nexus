@@ -1,0 +1,8 @@
+# TASK-CI-005: CodeCov integration
+- name: Upload coverage to Codecov
+  uses: codecov/codecov-action@v3
+  with:
+    token: ${{ secrets.CODECOV_TOKEN }}
+    files: ./coverage/lcov.info
+    flags: unittests
+    name: codecov-umbrella

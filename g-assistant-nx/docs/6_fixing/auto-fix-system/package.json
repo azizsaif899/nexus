@@ -1,0 +1,30 @@
+{
+  "name": "@g-assistant/auto-fix-system",
+  "version": "5.0.0",
+  "description": "Enhanced Auto-Fix System for G-Assistant NX",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "cycle": "ts-node index.ts --cycle",
+    "health": "ts-node index.ts --health",
+    "build": "tsc",
+    "dev": "ts-node --watch index.ts"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "auto-fix",
+    "typescript",
+    "nx",
+    "g-assistant"
+  ],
+  "author": "G-Assistant Team",
+  "license": "MIT"
+}

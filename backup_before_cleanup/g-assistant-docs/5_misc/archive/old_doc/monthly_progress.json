@@ -1,0 +1,101 @@
+{
+  "last_updated": "2025-08-03T14:30:00.000Z",
+  "total_tasks": 8,
+  "completed_tasks": 5,
+  "in_progress_tasks": 2,
+  "pending_tasks": 1,
+  "tasks": [
+    {
+      "id": 1,
+      "title": "إصلاح خطأ اتصال قاعدة البيانات الحرج",
+      "description": "تم إصلاح مشكلة الاتصال وزيادة pool size",
+      "status": "completed",
+      "created_date": "2025-08-03",
+      "completed_date": "2025-08-03"
+    },
+    {
+      "id": 2,
+      "title": "إنشاء اختبارات dateHelper.js",
+      "description": "19 اختبار شامل مع 100% نجاح",
+      "status": "completed",
+      "created_date": "2025-08-03",
+      "completed_date": "2025-08-03"
+    },
+    {
+      "id": 3,
+      "title": "تطوير csvParser.js",
+      "description": "26 اختبار وحدة مع معالجة شاملة للأخطاء",
+      "status": "completed",
+      "created_date": "2025-08-03",
+      "completed_date": "2025-08-03"
+    },
+    {
+      "id": 4,
+      "title": "إصلاح Agent CFO ES6",
+      "description": "إصلاح خطأ async/await في الكود",
+      "status": "completed",
+      "created_date": "2025-08-03",
+      "completed_date": "2025-08-03"
+    },
+    {
+      "id": 5,
+      "title": "تحديث نظام التوثيق",
+      "description": "تنظيم وتحديث جميع ملفات التوثيق",
+      "status": "completed",
+      "created_date": "2025-08-03",
+      "completed_date": "2025-08-03"
+    },
+    {
+      "id": 6,
+      "title": "تطوير واجهة المستخدم المحسنة",
+      "description": "تحسين واجهة docs_viewer.html",
+      "status": "in_progress",
+      "created_date": "2025-08-03",
+      "completed_date": null
+    },
+    {
+      "id": 7,
+      "title": "تحسين نظام المراقبة",
+      "description": "تطوير dashboard متقدم للمراقبة",
+      "status": "in_progress",
+      "created_date": "2025-08-03",
+      "completed_date": null
+    },
+    {
+      "id": 8,
+      "title": "تطوير ميزات AI متقدمة",
+      "description": "إضافة قدرات ذكاء اصطناعي جديدة",
+      "status": "pending",
+      "created_date": "2025-08-03",
+      "completed_date": null
+    }
+  ],
+  "monthly_goals": {
+    "target_completion_rate": 80,
+    "critical_milestones": [],
+    "focus_areas": [
+      "System Stability",
+      "Feature Development",
+      "Documentation",
+      "Testing & QA"
+    ]
+  },
+  "weekly_breakdown": {
+    "week_1": {
+      "completed": 0,
+      "target": 0
+    },
+    "week_2": {
+      "completed": 0,
+      "target": 0
+    },
+    "week_3": {
+      "completed": 0,
+      "target": 0
+    },
+    "week_4": {
+      "completed": 0,
+      "target": 0
+    }
+  }
+}

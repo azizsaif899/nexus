@@ -1,0 +1,19 @@
+{
+  "name": "google-services",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "google-services/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/google-services",
+        "main": "google-services/src/index.ts",
+        "tsConfig": "google-services/tsconfig.lib.json",
+        "assets": ["google-services/*.md"]
+      }
+    }
+  }
+}
