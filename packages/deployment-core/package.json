@@ -1,0 +1,19 @@
+{
+  "name": "@azizsys/deployment-core",
+  "version": "1.0.0",
+  "description": "Core deployment utilities",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@google-cloud/run": "^1.0.0",
+    "dockerode": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

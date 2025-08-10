@@ -72,6 +72,19 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: ${{ env.PNPM_VERSION }}
+          
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "store_path=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.store_path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -90,6 +103,7 @@ jobs:
       - name: Deploy to Google Apps Script
         run: |
           cd apps/sheets-addon
+          echo '{"scriptId":"${{ secrets.CLASP_SCRIPT_ID }}"}' > .clasp.json
           clasp push --force
         env:
           CLASP_SCRIPT_ID: ${{ secrets.CLASP_SCRIPT_ID }}
@@ -119,6 +133,19 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: ${{ env.PNPM_VERSION }}
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "store_path=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.store_path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -160,6 +187,19 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
 
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "store_path=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.store_path }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -172,11 +212,16 @@ jobs:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+      - name: Build and Push Docker image to Artifact Registry
+        run: |-
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/azizsys/api:${{ github.sha }} -f apps/api/Dockerfile apps/api
+          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/azizsys/api:${{ github.sha }}
+
       - name: Deploy to Google Cloud Run
         run: |
-          cd apps/api
           gcloud run deploy azizsys5-api \
-            --source . \
+            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/azizsys/api:${{ github.sha }} \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
@@ -202,3 +247,15 @@ jobs:
         run: |
           # يمكن إضافة إشعار Slack أو Teams هنا
           echo "🎉 Production deployment completed successfully!"
+
+      - name: Create deployment summary
+        run: |
+          echo "## 📋 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "**Environment:** ${{ github.event.inputs.environment || 'staging' }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Deployed Components:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sheets Add-on:** ${{ needs.deploy-sheets-addon.result || 'skipped' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Web App:** ${{ needs.deploy-web-app.result || 'skipped' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **API:** ${{ needs.deploy-api.result || 'skipped' }}" >> $GITHUB_STEP_SUMMARY
