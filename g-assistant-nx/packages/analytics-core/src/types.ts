@@ -1,3 +1,9 @@
+// Analytics Core Types
+export interface TimeRange {
+  start: Date;
+  end: Date;
+}
+
 export interface UserEvent {
   id: string;
   userId: string;
@@ -45,22 +51,15 @@ export interface BusinessKPIs {
   };
 }
 
-export type TimeRange = '1h' | '24h' | '7d' | '30d' | '90d' | '1y';
-
-export interface AnalyticsConfig {
-  enableRealtime: boolean;
-  batchSize: number;
-  retentionDays: number;
-  enablePredictive: boolean;
-}
-
-export interface Insight {
+export interface AnalyticsInsight {
   id: string;
   type: 'trend' | 'anomaly' | 'prediction' | 'recommendation';
   title: string;
   description: string;
   confidence: number;
   impact: 'low' | 'medium' | 'high' | 'critical';
-  timestamp: Date;
+  actionable: boolean;
+  recommendations?: string[];
   data: any;
+  generatedAt: Date;
 }

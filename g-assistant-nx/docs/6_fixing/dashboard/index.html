@@ -230,7 +230,7 @@
     <div class="container">
         <div class="header">
             <h1>🤖 لوحة تحكم الإصلاح الذاتي</h1>
-            <p>مراقبة شاملة لحالة مشروع G-Assistant NX</p>
+            <p>مراقبة شاملة لحالة مشروع G-Assistant-NX | آخر تحديث: <span id="live-timestamp"></span></p>
         </div>
 
         <div class="dashboard-grid">
@@ -360,6 +360,11 @@
         let errorsDistributionChart = null;
         let refreshInterval = null;
 
+        // تحديث الوقت المباشر
+        function updateLiveTimestamp() {
+            document.getElementById('live-timestamp').textContent = new Date().toLocaleString('ar-SA');
+        }
+        
         // تحميل بيانات اللوحة
         async function loadDashboardData() {
             // استخدام الدالة الجديدة من dashboard-data-loader.js
@@ -806,7 +811,11 @@
         startAutoRefresh();
         
         // تحميل البيانات عند بدء الصفحة
-        document.addEventListener('DOMContentLoaded', loadDashboardData);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLiveTimestamp();
+            setInterval(updateLiveTimestamp, 1000); // تحديث كل ثانية
+            loadDashboardData();
+        });
         
         // تصدير الدوال للاستخدام الخارجي
         window.dashboard = {

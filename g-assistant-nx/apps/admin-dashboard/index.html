@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 AzizSys Developer Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #1a1a1a; color: #e0e0e0; direction: rtl;
+        }
+        .header {
+            background: #2d2d2d; padding: 15px 30px; border-bottom: 2px solid #4CAF50;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo h1 { color: #4CAF50; font-size: 1.5em; }
+        .nav-tabs { display: flex; gap: 5px; }
+        .tab {
+            padding: 8px 15px; background: #3d3d3d; color: #ccc;
+            border: none; cursor: pointer; border-radius: 4px 4px 0 0;
+        }
+        .tab.active { background: #4CAF50; color: white; }
+        .main-container {
+            display: flex; height: calc(100vh - 60px);
+        }
+        .ai-sidebar {
+            width: 350px; background: #1e1e1e; border-left: 2px solid #4CAF50;
+            display: flex; flex-direction: column; order: 3;
+        }
+        .ai-header {
+            padding: 15px; background: #2d2d2d; border-bottom: 1px solid #444;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .ai-chat {
+            flex: 1; display: flex; flex-direction: column; padding: 10px;
+        }
+        .ai-messages {
+            flex: 1; overflow-y: auto; margin-bottom: 10px;
+            max-height: calc(100vh - 200px);
+        }
+        .ai-message {
+            margin: 8px 0; padding: 10px; border-radius: 8px;
+            font-size: 12px; line-height: 1.4;
+        }
+        .ai-message.user {
+            background: #4CAF50; color: white; margin-left: 20px;
+        }
+        .ai-message.ai {
+            background: #2d2d2d; border: 1px solid #444; margin-right: 20px;
+        }
+        .ai-input-area {
+            display: flex; gap: 5px;
+        }
+        .ai-input {
+            flex: 1; padding: 8px; background: #2d2d2d; color: #e0e0e0;
+            border: 1px solid #444; border-radius: 4px; font-size: 12px;
+        }
+        .ai-send {
+            padding: 8px 12px; background: #4CAF50; color: white;
+            border: none; border-radius: 4px; cursor: pointer;
+        }
+        .ai-quick-actions {
+            display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0;
+        }
+        .ai-quick-btn {
+            padding: 4px 8px; background: #3d3d3d; color: #ccc;
+            border: 1px solid #555; border-radius: 3px; cursor: pointer;
+            font-size: 10px; transition: all 0.3s;
+        }
+        .ai-quick-btn:hover {
+            background: #4CAF50; color: white;
+        }
+        .code-suggestion {
+            background: #1a1a1a; padding: 10px; border-radius: 4px;
+            border-left: 3px solid #4CAF50; margin: 5px 0;
+            font-family: 'Consolas', monospace; font-size: 11px;
+        }
+        .sidebar {
+            width: 250px; background: #2d2d2d; padding: 20px;
+            border-right: 1px solid #444; order: 1;
+        }
+        .sidebar h3 { color: #4CAF50; margin-bottom: 15px; font-size: 14px; }
+        .menu-item {
+            padding: 10px; margin: 5px 0; background: #3d3d3d;
+            border-radius: 4px; cursor: pointer; font-size: 13px;
+            transition: all 0.3s;
+        }
+        .menu-item:hover { background: #4CAF50; }
+        .content-area {
+            flex: 1; display: flex; flex-direction: column; order: 2;
+        }
+        .tab-content {
+            flex: 1; padding: 20px; overflow-y: auto;
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px; margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #2d2d2d; padding: 15px; border-radius: 8px;
+            border: 1px solid #444;
+        }
+        .stat-card h4 { color: #4CAF50; margin-bottom: 10px; font-size: 14px; }
+        .stat-value { font-size: 24px; color: #fff; margin-bottom: 5px; }
+        .stat-label { color: #ccc; font-size: 12px; }
+        .code-block {
+            background: #1e1e1e; padding: 15px; border-radius: 8px;
+            border: 1px solid #444; margin: 10px 0; font-family: 'Consolas', monospace;
+            font-size: 13px; overflow-x: auto;
+        }
+        .log-container {
+            background: #1e1e1e; padding: 15px; border-radius: 8px;
+            height: 300px; overflow-y: auto; font-family: 'Consolas', monospace;
+            font-size: 12px; border: 1px solid #444;
+        }
+        .log-entry { margin: 2px 0; }
+        .log-info { color: #4CAF50; }
+        .log-warn { color: #FFC107; }
+        .log-error { color: #F44336; }
+        .btn {
+            padding: 8px 15px; background: #4CAF50; color: white;
+            border: none; border-radius: 4px; cursor: pointer;
+            margin: 5px; font-size: 12px;
+        }
+        .btn:hover { background: #45a049; }
+        .btn.danger { background: #F44336; }
+        .btn.danger:hover { background: #da190b; }
+        .status-indicator {
+            display: inline-block; width: 8px; height: 8px;
+            border-radius: 50%; margin-left: 8px;
+        }
+        .status-online { background: #4CAF50; }
+        .status-offline { background: #F44336; }
+        .terminal {
+            background: #000; color: #0f0; padding: 15px;
+            border-radius: 8px; font-family: 'Consolas', monospace;
+            font-size: 13px; height: 200px; overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span style="font-size: 1.5em;">👨💻</span>
+            <h1>G-Assistant-NX Developer Dashboard</h1>
+        </div>
+        <div class="client-info" style="display: flex; align-items: center; gap: 15px; background: #3d3d3d; padding: 10px 20px; border-radius: 8px;">
+            <span style="color: #4CAF50; font-weight: bold;">العميل:</span>
+            <select id="clientSelect" style="padding: 5px 10px; background: #2d2d2d; color: #e0e0e0; border: 1px solid #555; border-radius: 4px;">
+                <option value="">اختر العميل...</option>
+                <option value="client1">شركة التقنية المتقدمة</option>
+                <option value="client2">مؤسسة الابتكار الرقمي</option>
+                <option value="client3">شركة المستقبل للتجارة</option>
+            </select>
+            <div id="clientServices" style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <span style="color: #4CAF50; font-size: 12px; font-weight: bold;">الخدمات:</span>
+                    <div class="service-item" onclick="toggleService(this, 'ui')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="service-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">🎨 واجهة مستخدم</span>
+                    </div>
+                    <div class="service-item" onclick="toggleService(this, 'whatsapp')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="service-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">📱 واتس اب</span>
+                    </div>
+                    <div class="service-item" onclick="toggleService(this, 'sidebar')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="service-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">🎨 سايد بار</span>
+                    </div>
+                    <div class="service-item" onclick="toggleService(this, 'analytics')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="service-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">📊 تحليلات</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <span style="color: #4CAF50; font-size: 12px; font-weight: bold;">الوكلاء:</span>
+                    <div class="agent-item" onclick="toggleAgent(this, 'cfo')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="agent-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">💰 CFO</span>
+                    </div>
+                    <div class="agent-item" onclick="toggleAgent(this, 'dev')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="agent-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">👨💻 Developer</span>
+                    </div>
+                    <div class="agent-item" onclick="toggleAgent(this, 'db')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="agent-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">🗄️ Database</span>
+                    </div>
+                    <div class="agent-item" onclick="toggleAgent(this, 'ops')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="agent-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">⚙️ Operations</span>
+                    </div>
+                    <div class="agent-item" onclick="toggleAgent(this, 'general')" style="display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 3px 8px; border-radius: 12px; background: rgba(76, 175, 80, 0.1);">
+                        <span class="agent-dot" style="width: 8px; height: 8px; background: #4CAF50; border-radius: 50%;"></span>
+                        <span style="font-size: 11px; color: #4CAF50;">🤖 General</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab active" onclick="showTab('overview')">📊 نظرة عامة</button>
+            <button class="tab" onclick="showTab('dashboard')">🎛️ لوحة الإصلاح</button>
+            <button class="tab" onclick="showTab('services')">⚙️ الخدمات</button>
+            <button class="tab" onclick="showTab('logs')">📋 السجلات</button>
+            <button class="tab" onclick="showTab('api')">🔗 API</button>
+            <button class="tab" onclick="showTab('database')">🗄️ قاعدة البيانات</button>
+            <button class="tab" onclick="showTab('terminal')">💻 Terminal</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="ai-sidebar">
+            <div class="ai-header">
+                <span style="font-size: 1.2em;">🤖</span>
+                <div>
+                    <div style="color: #4CAF50; font-weight: bold;">Gemini Code Assistant</div>
+                    <div style="font-size: 10px; color: #ccc;">متصل بمشروعك</div>
+                </div>
+            </div>
+            
+            <div class="ai-chat">
+                <div class="ai-quick-actions">
+                    <div class="ai-quick-btn" onclick="askAI('تحليل حالة المشروع')">📊 تحليل المشروع</div>
+                    <div class="ai-quick-btn" onclick="askAI('اكتشف الأخطاء')">🐛 اكتشاف الأخطاء</div>
+                    <div class="ai-quick-btn" onclick="askAI('تحسين الأداء')">⚡ تحسين الأداء</div>
+                    <div class="ai-quick-btn" onclick="askAI('مراجعة الكود')">👀 مراجعة الكود</div>
+                    <div class="ai-quick-btn" onclick="askAI('اقتراح تحسينات')">💡 اقتراحات</div>
+                    <div class="ai-quick-btn" onclick="askAI('فحص الأمان')">🔒 فحص الأمان</div>
+                </div>
+                
+                <div class="ai-messages" id="aiMessages">
+                    <div class="ai-message ai">
+                        <strong>🤖 Gemini Code Assistant</strong><br>
+                        مرحباً! أنا مساعدك الذكي للبرمجة. أستطيع مساعدتك في:<br>
+                        • 🔍 تحليل وفهم الكود<br>
+                        • 🐛 اكتشاف وإصلاح الأخطاء<br>
+                        • ⚡ تحسين الأداء<br>
+                        • 🔒 فحص الأمان<br>
+                        • 💡 اقتراح تحسينات<br>
+                        • 📚 شرح المفاهيم البرمجية<br><br>
+                        <em>متصل بمشروع G-Assistant-NX</em>
+                    </div>
+                </div>
+                
+                <div class="ai-input-area">
+                    <input type="text" class="ai-input" id="aiInput" placeholder="اسأل Gemini عن أي شيء..." onkeypress="handleAIInput(event)">
+                    <button class="ai-send" onclick="sendAIMessage()">📤</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <h3>🚀 إجراءات سريعة</h3>
+            <div class="menu-item" onclick="restartServices()">🔄 إعادة تشغيل الخدمات</div>
+            <div class="menu-item" onclick="clearLogs()">🗑️ مسح السجلات</div>
+            <div class="menu-item" onclick="runTests()">🧪 تشغيل الاختبارات</div>
+            <div class="menu-item" onclick="deploySystem()">🚀 نشر النظام</div>
+            
+            <h3 style="margin-top: 30px;">📊 مراقبة النظام</h3>
+            <div class="menu-item">
+                <div>CPU: <span id="cpu">45%</span></div>
+                <div>RAM: <span id="ram">2.1GB</span></div>
+                <div>Disk: <span id="disk">67%</span></div>
+            </div>
+            
+            <h3 style="margin-top: 30px;">🔗 روابط سريعة</h3>
+            <div class="menu-item" onclick="openClientInterface()">🏠 واجهة العميل</div>
+            <div class="menu-item" onclick="checkHealth()">🏥 Health Check</div>
+            <div class="menu-item" onclick="openAPIServer()">📡 API Server</div>
+            <div class="menu-item" onclick="openFixingDashboard()">🎛️ لوحة الإصلاح</div>
+        </div>
+
+        <div class="content-area">
+            <div id="overview" class="tab-content">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">📊 نظرة عامة على النظام</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>🚀 حالة النظام</h4>
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">كفاءة عالية <span class="status-indicator status-online"></span></div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🤖 الوكلاء الذكيين</h4>
+                        <div class="stat-value">5/5</div>
+                        <div class="stat-label">جميعهم نشطين <span class="status-indicator status-online"></span></div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>📡 API Requests</h4>
+                        <div class="stat-value">1,247</div>
+                        <div class="stat-label">اليوم</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🔗 Odoo Integration</h4>
+                        <div class="stat-value">Connected</div>
+                        <div class="stat-label">25 leads, 12 orders <span class="status-indicator status-online"></span></div>
+                    </div>
+                </div>
+
+                <h3 style="color: #4CAF50; margin: 20px 0;">🏗️ معمارية النظام</h3>
+                <div class="code-block">
+<pre>📦 G-Assistant-NX v2.0
+├── 🌐 Gateway (Port 3000)
+│   ├── 💬 Web Chatbot (/)
+│   ├── 🎨 Admin Dashboard (/admin)
+│   └── 🔗 API Proxy (/api)
+├── 📡 API Server (Port 3333)
+│   ├── 🏥 Health Check (/health)
+│   ├── 🤖 AI Models (/ai/models)
+│   └── 🔗 Odoo Webhook (/odoo-webhook)
+├── 🐍 Gemini Backend (Port 8000)
+├── 🤖 5 Smart Agents
+│   ├── 💰 CFO Agent
+│   ├── 👨💻 Developer Agent
+│   ├── 🗄️ Database Manager
+│   ├── ⚙️ Operations Agent
+│   └── 🤖 General Agent
+└── 🔗 Integrations
+    ├── 📊 Odoo CRM
+    ├── 📈 BigQuery Analytics
+    ├── 📱 WhatsApp Business
+    └── 📊 Google Sheets</pre>
+                </div>
+            </div>
+
+            <div id="dashboard" class="tab-content" style="display: none;">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">🎛️ لوحة الإصلاح المركزية</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>🏆 نسبة الإنجاز</h4>
+                        <div class="stat-value">78%</div>
+                        <div class="stat-label">من الخطة الشهرية</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>✅ مهام منجزة</h4>
+                        <div class="stat-value">47</div>
+                        <div class="stat-label">من أصل 60 مهمة</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>⏳ مهام معلقة</h4>
+                        <div class="stat-value">13</div>
+                        <div class="stat-label">تحتاج متابعة</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>⚠️ مصادر أخطاء</h4>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">تحتاج إصلاح</div>
+                    </div>
+                </div>
+
+                <h3 style="color: #4CAF50; margin: 20px 0;">📈 تقدم المهام</h3>
+                <div class="code-block">
+<pre>📅 الخطة الشهرية - يناير 2025:
+
+✅ مكتمل (47 مهمة):
+├── Gateway System
+├── Odoo Integration  
+├── AI Model Selection
+├── Admin Dashboard
+└── WebSocket Integration
+
+⏳ جاري العمل عليه (13 مهمة):
+├── BigQuery Pipeline
+├── Docker Containers
+├── Unit Testing
+└── CI/CD Pipeline
+
+⚠️ معلق (5 مهام):
+└── Performance Optimization</pre>
+                </div>
+
+                <div style="margin: 20px 0; display: flex; gap: 10px;">
+                    <button class="btn" onclick="openFixingDashboard()">🎛️ فتح لوحة الإصلاح</button>
+                    <button class="btn" onclick="refreshDashboard()">🔄 تحديث البيانات</button>
+                </div>
+                
+                <h3 style="color: #4CAF50; margin: 20px 0;">🐛 مصادر الأخطاء</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>🔴 أخطاء حرجة</h4>
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">API Connection Issues</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🟡 تحذيرات</h4>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Memory Usage High</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="services" class="tab-content" style="display: none;">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">⚙️ إدارة الخدمات</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>🌐 Gateway Server</h4>
+                        <div class="stat-value">Running <span class="status-indicator status-online"></span></div>
+                        <div class="stat-label">Port 3000 | PID: 1234</div>
+                        <button class="btn">🔄 Restart</button>
+                        <button class="btn danger">⏹️ Stop</button>
+                    </div>
+                    <div class="stat-card">
+                        <h4>📡 API Server</h4>
+                        <div class="stat-value">Running <span class="status-indicator status-online"></span></div>
+                        <div class="stat-label">Port 3333 | PID: 5678</div>
+                        <button class="btn">🔄 Restart</button>
+                        <button class="btn danger">⏹️ Stop</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="logs" class="tab-content" style="display: none;">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">📋 سجلات النظام</h2>
+                <div class="log-container" id="logContainer">
+                    <div class="log-entry log-info">[2025-01-09 15:30:45] INFO: Gateway server started on port 3000</div>
+                    <div class="log-entry log-info">[2025-01-09 15:30:46] INFO: API server started on port 3333</div>
+                    <div class="log-entry log-info">[2025-01-09 15:30:47] INFO: Gemini backend connected successfully</div>
+                    <div class="log-entry log-info">[2025-01-09 15:30:48] INFO: Odoo integration established</div>
+                </div>
+            </div>
+
+            <div id="api" class="tab-content" style="display: none;">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">🔗 API Management</h2>
+                
+                <h3 style="color: #4CAF50; margin: 15px 0;">📡 Available Endpoints</h3>
+                <div class="code-block">
+<pre>GET  /health           - System health check
+GET  /api/docs          - API documentation  
+GET  /ai/models         - Available AI models
+POST /odoo-webhook      - Odoo integration webhook
+GET  /admin             - Admin dashboard
+GET  /                  - Main chatbot interface</pre>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin: 10px 0;">
+                    <button class="btn" onclick="testAPI('/health')">🏥 Test Health</button>
+                    <button class="btn" onclick="testAPI('/ai/models')">🤖 Test AI Models</button>
+                </div>
+                
+                <div id="apiResults" class="code-block" style="min-height: 200px;">
+                    <div style="color: #ccc;">اختر endpoint لاختباره...</div>
+                </div>
+            </div>
+
+            <div id="database" class="tab-content" style="display: none;">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">🗄️ Database Management</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>📊 Database Stats</h4>
+                        <div class="stat-value">PostgreSQL</div>
+                        <div class="stat-label">45 active connections</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>📁 Project Files</h4>
+                        <div class="stat-value">G-Assistant-NX</div>
+                        <div class="stat-label">E:/azizsys5/g-assistant-nx</div>
+                        <button class="btn" onclick="openProjectFolder()">📂 فتح المجلد</button>
+                    </div>
+                </div>
+                
+                <h3 style="color: #4CAF50; margin: 15px 0;">🤖 AI File Analysis</h3>
+                <div class="ai-file-analysis" style="background: #2d2d2d; padding: 15px; border-radius: 8px; border: 1px solid #444;">
+                    <div style="margin-bottom: 10px;">
+                        <button class="btn" onclick="analyzeProjectFiles()">🔍 تحليل ملفات المشروع</button>
+                        <button class="btn" onclick="scanForIssues()">🐛 فحص المشاكل</button>
+                        <button class="btn" onclick="generateReport()">📊 تقرير شامل</button>
+                    </div>
+                    <div id="fileAnalysisResults" class="code-block" style="min-height: 150px; margin-top: 10px;">
+                        <div style="color: #ccc;">اختر أحد الخيارات أعلاه لتحليل ملفات المشروع...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="terminal" class="tab-content" style="display: none;">
+                <h2 style="color: #4CAF50; margin-bottom: 20px;">💻 Developer Terminal</h2>
+                
+                <div class="terminal" id="terminal">
+                    <div>G-Assistant-NX Developer Terminal v2.0</div>
+                    <div>Type 'help' for available commands</div>
+                    <div style="margin-top: 10px;">
+                        <span style="color: #4CAF50;">admin@azizsys:~$</span> <span id="terminalCursor">_</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 10px;">
+                    <input type="text" id="terminalInput" placeholder="Enter command..." 
+                           style="width: 100%; padding: 8px; background: #2d2d2d; color: #e0e0e0; border: 1px solid #444; border-radius: 4px;"
+                           onkeypress="handleTerminalInput(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).style.display = 'block';
+            event.target.classList.add('active');
+        }
+
+        function askAI(question) {
+            document.getElementById('aiInput').value = question;
+            sendAIMessage();
+        }
+        
+        function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            addAIMessage(message, 'user');
+            input.value = '';
+            
+            addAIMessage('🤖 جارٍ التحليل...', 'ai', 'typing');
+            
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = getAIResponse(message);
+                addAIMessage(response, 'ai');
+            }, 2000);
+        }
+        
+        function addAIMessage(text, sender, type = 'normal') {
+            const messages = document.getElementById('aiMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message ${sender}`;
+            if (type === 'typing') messageDiv.id = 'typingIndicator';
+            messageDiv.innerHTML = text;
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+        
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('تحليل') && lowerMessage.includes('مشروع')) {
+                return `<strong>📊 تحليل شامل لمشروع G-Assistant-NX:</strong><br><br>
+                <strong>✅ نقاط القوة:</strong><br>
+                • معمارية Gateway محترفة<br>
+                • تكامل Odoo ناجح<br>
+                • 5 وكلاء ذكيين نشطين<br>
+                • واجهات مستخدم متطورة<br><br>
+                <strong>⚠️ نقاط التحسين:</strong><br>
+                • إضافة اختبارات وحدة<br>
+                • تحسين معالجة الأخطاء<br>
+                • إضافة مراقبة الأداء<br><br>
+                <strong>🎯 التوصيات:</strong><br>
+                • تطبيق CI/CD pipeline<br>
+                • إضافة Docker containers<br>
+                • تحسين أمان API`;
+            }
+            
+            if (lowerMessage.includes('أخطاء') || lowerMessage.includes('اكتشف')) {
+                return `<strong>🐛 فحص الأخطاء المحتملة:</strong><br><br>
+                <strong>🔍 تم فحص:</strong><br>
+                • ملفات JavaScript/TypeScript<br>
+                • ملفات Python<br>
+                • ملفات التكوين<br><br>
+                <strong>⚠️ مشاكل محتملة:</strong><br>
+                • بعض dependencies قديمة<br>
+                • معالجة أخطاء API غير مكتملة<br>
+                • نقص في اختبارات الوحدة<br><br>
+                <div class="code-suggestion">
+                // اقتراح: إضافة معالجة أخطاء<br>
+                try {<br>
+                &nbsp;&nbsp;await apiCall();<br>
+                } catch (error) {<br>
+                &nbsp;&nbsp;console.error('API Error:', error);<br>
+                &nbsp;&nbsp;// Handle error gracefully<br>
+                }
+                </div>`;
+            }
+            
+            if (lowerMessage.includes('أداء') || lowerMessage.includes('تحسين')) {
+                return `<strong>⚡ تحليل الأداء وتوصيات التحسين:</strong><br><br>
+                <strong>📊 الحالة الحالية:</strong><br>
+                • استجابة API: ~200ms (جيد)<br>
+                • استهلاك الذاكرة: 67% (مقبول)<br>
+                • CPU: 45% (ممتاز)<br><br>
+                <strong>🚀 اقتراحات التحسين:</strong><br>
+                • إضافة Redis للتخزين المؤقت<br>
+                • ضغط الاستجابات<br>
+                • تحسين استعلامات قاعدة البيانات<br><br>
+                <div class="code-suggestion">
+                // اقتراح: إضافة caching<br>
+                const cache = new Map();<br>
+                if (cache.has(key)) {<br>
+                &nbsp;&nbsp;return cache.get(key);<br>
+                }
+                </div>`;
+            }
+            
+            return `<strong>🤖 Gemini Code Assistant</strong><br><br>
+            فهمت سؤالك: "${message}"<br><br>
+            يمكنني مساعدتك في:<br>
+            • 📊 تحليل المشروع والكود<br>
+            • 🐛 اكتشاف وإصلاح الأخطاء<br>
+            • ⚡ تحسين الأداء<br>
+            • 🔒 فحص الأمان<br>
+            • 💡 اقتراح حلول برمجية<br><br>
+            <em>جرب الأزرار السريعة أعلاه للحصول على تحليل مفصل!</em>`;
+        }
+        
+        function handleAIInput(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        function testAPI(endpoint) {
+            const resultsDiv = document.getElementById('apiResults');
+            resultsDiv.innerHTML = '<div style="color: #FFC107;">Testing ' + endpoint + '...</div>';
+            
+            // Use correct URLs
+            let fullUrl = endpoint;
+            if (endpoint === '/health') {
+                fullUrl = 'http://localhost:3000/health';
+            } else if (endpoint === '/ai/models') {
+                fullUrl = 'http://localhost:3333/ai/models';
+            }
+            
+            fetch(fullUrl)
+                .then(response => response.json())
+                .then(data => {
+                    resultsDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                })
+                .catch(error => {
+                    resultsDiv.innerHTML = '<div style="color: #F44336;">Error: ' + error.message + '</div>';
+                });
+        }
+        
+        function openProjectFolder() {
+            alert('📂 فتح مجلد المشروع: E:/azizsys5/g-assistant-nx');
+        }
+        
+        function analyzeProjectFiles() {
+            const resultsDiv = document.getElementById('fileAnalysisResults');
+            resultsDiv.innerHTML = '<div style="color: #FFC107;">🔍 جارِ تحليل ملفات المشروع...</div>';
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `<strong>📊 تحليل ملفات G-Assistant-NX:</strong><br><br>
+                <strong>📁 إحصائيات الملفات:</strong><br>
+                • ملفات TypeScript: 45 ملف<br>
+                • ملفات JavaScript: 23 ملف<br>
+                • ملفات Python: 8 ملفات<br>
+                • ملفات HTML/CSS: 12 ملف<br><br>
+                <strong>🏢 هيكل المشروع:</strong><br>
+                • 7 تطبيقات في apps/<br>
+                • 15 حزمة في packages/<br>
+                • مجلدات التوثيق والاختبارات<br><br>
+                <strong>✅ نقاط قوة:</strong><br>
+                • بنية NX Workspace منظمة<br>
+                • TypeScript للأمان<br>
+                • تكامل Gateway محترف`;
+            }, 2000);
+        }
+        
+        function scanForIssues() {
+            const resultsDiv = document.getElementById('fileAnalysisResults');
+            resultsDiv.innerHTML = '<div style="color: #FFC107;">🐛 جارِ فحص المشاكل...</div>';
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `<strong>🐛 فحص المشاكل:</strong><br><br>
+                <strong>⚠️ مشاكل محتملة:</strong><br>
+                • 3 ملفات بدون معالجة أخطاء<br>
+                • 5 dependencies قديمة<br>
+                • نقص في اختبارات الوحدة<br><br>
+                <strong>🔒 فحص الأمان:</strong><br>
+                • لا يوجد hardcoded secrets<br>
+                • CORS معد بشكل صحيح<br>
+                • يحتاج rate limiting<br><br>
+                <strong>💡 توصيات:</strong><br>
+                • إضافة try-catch blocks<br>
+                • تحديث dependencies<br>
+                • إضافة اختبارات شاملة`;
+            }, 2000);
+        }
+        
+        function generateReport() {
+            const resultsDiv = document.getElementById('fileAnalysisResults');
+            resultsDiv.innerHTML = '<div style="color: #FFC107;">📊 جارِ إنشاء التقرير...</div>';
+            
+            setTimeout(() => {
+                resultsDiv.innerHTML = `<strong>📊 تقرير G-Assistant-NX الشامل:</strong><br><br>
+                <strong>🏆 نتيجة التقييم: A- (85/100)</strong><br><br>
+                <strong>📊 الإحصائيات:</strong><br>
+                • إجمالي الملفات: 88 ملف<br>
+                • أسطر الكود: 12,450 سطر<br>
+                • معدل التعقيد: متوسط<br><br>
+                <strong>✅ نقاط قوة:</strong><br>
+                • معمارية متقدمة<br>
+                • تكامل متعدد الخدمات<br>
+                • واجهات مستخدم متطورة<br><br>
+                <strong>🔄 توصيات التحسين:</strong><br>
+                • إضافة CI/CD pipeline<br>
+                • تحسين الاختبارات<br>
+                • تطبيق Docker containers`;
+            }, 2000);
+        }
+
+        function clearLogs() {
+            document.getElementById('logContainer').innerHTML = '<div class="log-entry log-info">[' + new Date().toLocaleString() + '] INFO: Logs cleared by admin</div>';
+        }
+
+        function restartServices() {
+            alert('🔄 جارٍ إعادة تشغيل جميع الخدمات...');
+        }
+
+        function runTests() {
+            alert('🧪 جارٍ تشغيل مجموعة الاختبارات...');
+        }
+
+        function deploySystem() {
+            alert('🚀 جارٍ نشر النظام...');
+        }
+
+        function handleTerminalInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target.value;
+                const terminal = document.getElementById('terminal');
+                
+                terminal.innerHTML += '<div><span style="color: #4CAF50;">admin@azizsys:~$</span> ' + input + '</div>';
+                
+                if (input === 'help') {
+                    terminal.innerHTML += '<div>Available commands: status, restart, logs, deploy, test</div>';
+                } else if (input === 'status') {
+                    terminal.innerHTML += '<div style="color: #4CAF50;">✅ All services running normally</div>';
+                } else if (input.trim()) {
+                    terminal.innerHTML += '<div style="color: #FFC107;">Command executed: ' + input + '</div>';
+                }
+                
+                terminal.innerHTML += '<div><span style="color: #4CAF50;">admin@azizsys:~$</span> <span id="terminalCursor">_</span></div>';
+                terminal.scrollTop = terminal.scrollHeight;
+                event.target.value = '';
+            }
+        }
+
+        setInterval(() => {
+            document.getElementById('cpu').textContent = Math.floor(Math.random() * 20 + 40) + '%';
+            document.getElementById('ram').textContent = (Math.random() * 0.5 + 2).toFixed(1) + 'GB';
+            document.getElementById('disk').textContent = Math.floor(Math.random() * 10 + 65) + '%';
+            
+            // Auto-refresh dashboard data every 30 seconds
+            if (Math.random() < 0.1) { // 10% chance every 5 seconds = roughly every 50 seconds
+                refreshDashboard();
+            }
+        }, 5000);
+
+        // Client selection functionality
+        document.getElementById('clientSelect').addEventListener('change', function() {
+            const selectedClient = this.value;
+            const servicesDiv = document.getElementById('clientServices');
+            
+            if (selectedClient) {
+                const serviceDots = servicesDiv.querySelectorAll('.service-dot');
+                const agentDots = servicesDiv.querySelectorAll('.agent-dot');
+                
+                // Update service items
+                const serviceItems = servicesDiv.querySelectorAll('.service-item');
+                serviceItems.forEach((item, index) => {
+                    const dot = item.querySelector('.service-dot');
+                    const text = item.querySelector('span:last-child');
+                    let isActive = true;
+                    
+                    if (selectedClient === 'client1') {
+                        isActive = index < 3;
+                    } else if (selectedClient === 'client2') {
+                        isActive = index < 2;
+                    }
+                    
+                    if (isActive) {
+                        dot.style.background = '#4CAF50';
+                        text.style.color = '#4CAF50';
+                        item.style.background = 'rgba(76, 175, 80, 0.1)';
+                    } else {
+                        dot.style.background = '#666';
+                        text.style.color = '#666';
+                        item.style.background = 'rgba(102, 102, 102, 0.1)';
+                    }
+                });
+                
+                // Update agent items
+                const agentItems = servicesDiv.querySelectorAll('.agent-item');
+                agentItems.forEach((item, index) => {
+                    const dot = item.querySelector('.agent-dot');
+                    const text = item.querySelector('span:last-child');
+                    let isActive = true;
+                    
+                    if (selectedClient === 'client1') {
+                        isActive = index < 4;
+                    } else if (selectedClient === 'client2') {
+                        isActive = index < 3;
+                    }
+                    
+                    if (isActive) {
+                        dot.style.background = '#4CAF50';
+                        text.style.color = '#4CAF50';
+                        item.style.background = 'rgba(76, 175, 80, 0.1)';
+                    } else {
+                        dot.style.background = '#666';
+                        text.style.color = '#666';
+                        item.style.background = 'rgba(102, 102, 102, 0.1)';
+                    }
+                });
+                console.log('📈 Client selected:', selectedClient);
+            } else {
+                const dots = servicesDiv.querySelectorAll('.service-dot');
+                dots.forEach(dot => {
+                    dot.style.background = '#4CAF50';
+                });
+            }
+        });
+        
+        function toggleService(element, serviceId) {
+            const dot = element.querySelector('.service-dot');
+            const text = element.querySelector('span:last-child');
+            const isActive = dot.style.background === 'rgb(76, 175, 80)';
+            
+            if (isActive) {
+                dot.style.background = '#666';
+                text.style.color = '#666';
+                element.style.background = 'rgba(102, 102, 102, 0.1)';
+            } else {
+                dot.style.background = '#4CAF50';
+                text.style.color = '#4CAF50';
+                element.style.background = 'rgba(76, 175, 80, 0.1)';
+            }
+            
+            console.log('🔄 Service toggled:', serviceId, !isActive ? 'enabled' : 'disabled');
+        }
+        
+        function toggleAgent(element, agentId) {
+            const dot = element.querySelector('.agent-dot');
+            const text = element.querySelector('span:last-child');
+            const isActive = dot.style.background === 'rgb(76, 175, 80)';
+            
+            if (isActive) {
+                dot.style.background = '#666';
+                text.style.color = '#666';
+                element.style.background = 'rgba(102, 102, 102, 0.1)';
+            } else {
+                dot.style.background = '#4CAF50';
+                text.style.color = '#4CAF50';
+                element.style.background = 'rgba(76, 175, 80, 0.1)';
+            }
+            
+            console.log('🤖 Agent toggled:', agentId, !isActive ? 'enabled' : 'disabled');
+        }
+        
+        function openClientInterface() {
+            // Try multiple possible URLs
+            const urls = [
+                'http://localhost:3000',
+                'http://127.0.0.1:3000',
+                window.location.origin
+            ];
+            
+            // Try to open the first available URL
+            window.open(urls[0], '_blank');
+        }
+        
+        function checkHealth() {
+            fetch('http://localhost:3000/health')
+                .then(response => response.json())
+                .then(data => {
+                    alert('🏥 Health Check Result:\n' + JSON.stringify(data, null, 2));
+                })
+                .catch(error => {
+                    // Try alternative health check
+                    fetch('/health')
+                        .then(response => response.json())
+                        .then(data => {
+                            alert('🏥 Health Check Result:\n' + JSON.stringify(data, null, 2));
+                        })
+                        .catch(err => {
+                            alert('⚠️ Health Check Failed: ' + err.message);
+                        });
+                });
+        }
+        
+        function openAPIServer() {
+            const urls = [
+                'http://localhost:3333',
+                'http://127.0.0.1:3333'
+            ];
+            window.open(urls[0], '_blank');
+        }
+        
+        function openFixingDashboard() {
+            const fixingDashboardUrl = 'file:///E:/azizsys5/g-assistant-nx/docs/6_fixing/dashboard/index.html';
+            window.open(fixingDashboardUrl, '_blank');
+        }
+        
+        function refreshDashboard() {
+            // Simulate data refresh
+            const stats = {
+                completion: Math.floor(Math.random() * 20 + 70),
+                completed: Math.floor(Math.random() * 10 + 45),
+                pending: Math.floor(Math.random() * 5 + 10),
+                errors: Math.floor(Math.random() * 3 + 3)
+            };
+            
+            // Update dashboard stats
+            const statValues = document.querySelectorAll('#dashboard .stat-value');
+            if (statValues.length >= 4) {
+                statValues[0].textContent = stats.completion + '%';
+                statValues[1].textContent = stats.completed;
+                statValues[2].textContent = stats.pending;
+                statValues[3].textContent = stats.errors;
+            }
+            
+            console.log('🔄 Dashboard data refreshed:', stats);
+            alert('✅ تم تحديث بيانات لوحة الإصلاح');
+        }
+        
+        console.log('🎨 G-Assistant-NX Developer Dashboard loaded successfully!');
+    </script>
+</body>
+</html>

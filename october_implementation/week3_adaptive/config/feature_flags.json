@@ -1,8 +1,0 @@
-{
-  "adaptive_model_enabled": true,
-  "learning_mode": "ADAPTIVE",
-  "percent_enabled": 20,
-  "fallback_enabled": true,
-  "metrics_collection": true,
-  "real_time_monitoring": true
-}

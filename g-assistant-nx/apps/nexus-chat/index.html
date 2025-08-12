@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusChat Pro - AzizSys AI Assistant</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Readex+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <script type="importmap">
+  {
+    "imports": {
+      "@google/generative-ai": "https://esm.sh/@google/generative-ai@^0.21.0"
+    }
+  }
+  </script>
+</head>
+<body data-theme="matrix">
+  <!-- Background Effects -->
+  <div class="cyber-bg">
+    <div class="cyber-gradient"></div>
+    <div id="matrix-rain-container" class="matrix-rain"></div>
+    <div class="grid-overlay">
+      <div class="grid-lines"></div>
+      <div class="grid-glow"></div>
+    </div>
+    <div id="particles-container" class="particles"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+    <div id="data-streams-container" class="data-streams"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">NexusChat Pro</a>
+      <div class="nav-actions">
+        <div class="connection-status">
+          <div id="connection-indicator" class="status-indicator offline">
+            <span class="status-dot"></span>
+            <span class="status-text">غير متصل</span>
+          </div>
+        </div>
+        <div class="theme-switcher">
+          <button id="themeMenuBtn" class="theme-menu-button" aria-label="Change theme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+              <path d="M12 8a2 2 0 100-4 2 2 0 000 4zm0 2a2 2 0 100 4 2 2 0 000-4zm0 6a2 2 0 100 4 2 2 0 000-4z"></path>
+            </svg>
+          </button>
+          <div id="themeMenu" class="theme-menu">
+            <div class="menu-group">
+              <span class="menu-title">الثيم</span>
+              <button class="theme-option" data-theme="matrix">ماتركس</button>
+              <button class="theme-option" data-theme="dark">ليلي</button>
+              <button class="theme-option" data-theme="light">نهاري</button>
+              <button class="theme-option" data-theme="neon">نيون</button>
+            </div>
+            <hr class="menu-divider">
+            <div class="menu-group">
+              <span class="menu-title">الشخصية</span>
+              <button id="btn-developer" class="persona-option">مطور</button>
+              <button id="btn-hr" class="persona-option">اتش ار</button>
+              <button id="btn-finance" class="persona-option">مالي</button>
+              <button id="btn-marketing" class="persona-option">تسويق</button>
+              <button id="btn-ceo" class="persona-option">CEO</button>
+            </div>
+          </div>
+        </div>
+        <button id="settingsBtn" class="settings-button" aria-label="الإعدادات">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1 0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>إعدادات NexusChat Pro</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-group">
+          <label for="apiKeyInput">مفتاح Gemini API:</label>
+          <input type="password" id="apiKeyInput" placeholder="أدخل مفتاح API الخاص بك">
+          <small>سيتم حفظه محلياً وبشكل آمن</small>
+        </div>
+        <div class="setting-group">
+          <label for="fontSizeSlider">حجم الخط:</label>
+          <input type="range" id="fontSizeSlider" min="12" max="20" value="16">
+          <span id="fontSizeValue">16px</span>
+        </div>
+        <div class="setting-group">
+          <label>
+            <input type="checkbox" id="soundEffects"> تفعيل الأصوات التفاعلية
+          </label>
+        </div>
+        <div class="setting-group">
+          <label>
+            <input type="checkbox" id="autoSave" checked> حفظ المحادثات تلقائياً
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="saveSettings" class="btn-primary">حفظ</button>
+        <button id="resetSettings" class="btn-secondary">إعادة تعيين</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Container -->
+  <main id="chat-wrapper">
+    <div id="chat-container">
+      <header>
+        <h1 id="chat-header-title">محادثة مع Gemini Pro</h1>
+        <div class="chat-stats">
+          <span id="messageCount">0 رسالة</span>
+          <span id="sessionTime">00:00</span>
+        </div>
+      </header>
+      
+      <div id="message-list">
+        <!-- Messages will be added here -->
+      </div>
+      
+      <div class="chat-actions">
+        <button id="exportChat" class="action-btn" title="تصدير المحادثة">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+          </svg>
+        </button>
+        <button id="clearChat" class="action-btn" title="مسح المحادثة">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+          </svg>
+        </button>
+        <button id="searchChat" class="action-btn" title="البحث في المحادثة">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="chat-form">
+        <input type="text" id="message-input" placeholder="اكتب رسالتك هنا..." autocomplete="off" required>
+        <button type="button" id="attach-button" aria-label="إضافة مرفقات">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path fill-rule="evenodd" d="M18.97 3.659a2.25 2.25 0 00-3.182 0l-8.609 8.609a4.5 4.5 0 006.364 6.364l7.07-7.07a3 3 0 00-4.242-4.242L8.84 14.793a1.5 1.5 0 002.121 2.121l7.071-7.071a.75.75 0 00-1.06-1.06l-7.07 7.07a1.5 1.5 0 01-2.122-2.121L15.79 5.21a3 3 0 014.242 4.242l-7.07 7.07a4.5 4.5 0 01-6.364-6.364l8.609-8.609a2.25 2.25 0 013.182 0z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <button type="button" id="record-button" aria-label="سجل رسالة صوتية">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M12 2a3 3 0 00-3 3v6a3 3 0 106 0V5a3 3 0 00-3-3z"></path>
+            <path d="M19 10v1a7 7 0 11-14 0v-1h2v1a5 5 0 1010 0v-1h2z"></path>
+          </svg>
+        </button>
+        <button type="submit" id="send-button" aria-label="إرسال">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- File input for attachments -->
+  <input type="file" id="fileInput" multiple accept="image/*,.pdf,.txt,.doc,.docx" style="display: none;">
+
+  <script type="module" src="index.tsx"></script>
+</body>
+</html>

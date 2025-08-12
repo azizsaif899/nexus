@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.2.0",
-    "simple-git": "^3.19.0",
     "axios": "^1.6.0",
-    "glob": "^10.3.0"
+    "glob": "^10.4.5",
+    "simple-git": "^3.19.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0",
     "ts-node": "^10.9.0",
-    "@types/node": "^20.0.0"
+    "typescript": "^5.0.0"
   }
 }

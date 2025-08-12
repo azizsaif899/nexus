@@ -2,7 +2,8 @@
 
 import { CodeScanner } from './scanner';
 import { ErrorDetector } from './detector';
-import { AICodeFixer } from './ai-fixer';
+import { GeminiReviewer } from './gemini-reviewer';
+import { AmazonExecutor } from './amazon-executor';
 import { AutoTester } from './auto-tester';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -13,11 +14,13 @@ import * as fs from 'fs';
 class AutoRepairOrchestrator {
   private projectRoot: string;
   private reportsDir: string;
+  private isDryRun: boolean;
 
-  constructor() {
+  constructor(isDryRun: boolean = false) {
     this.projectRoot = path.resolve(__dirname, '../../');
     this.reportsDir = path.join(this.projectRoot, 'docs/6_fixing/reports');
-    
+    this.isDryRun = isDryRun;
+
     // إنشاء مجلد التقارير إذا لم يكن موجوداً
     if (!fs.existsSync(this.reportsDir)) {
       fs.mkdirSync(this.reportsDir, { recursive: true });
@@ -26,7 +29,11 @@ class AutoRepairOrchestrator {
 
   // تشغيل العملية الكاملة
   async run(): Promise<void> {
-    console.log('🤖 بدء تشغيل AutoRepairSuite...');
+    if (this.isDryRun) {
+      console.log('🤖 بدء تشغيل AutoRepairSuite في وضع المحاكاة (Dry Run)...');
+    } else {
+      console.log('🤖 بدء تشغيل AutoRepairSuite...');
+    }
     console.log('=====================================');
 
     try {
@@ -46,20 +53,28 @@ class AutoRepairOrchestrator {
       const errorsPath = path.join(this.reportsDir, 'detected_errors.json');
       await detector.saveErrors(errors, errorsPath);
 
-      // المرحلة 3: تحديث اللوحة المركزية
-      console.log('\n📊 المرحلة 3: تحديث اللوحة المركزية');
-      await this.updateCentralDashboard(codeFiles.length, errors.length);
+      // المرحلة 3: مراجعة المشروع بواسطة AI
+      console.log('\n🧠 المرحلة 3: مراجعة المشروع بواسطة AI');
+      const reviewer = new GeminiReviewer(this.isDryRun);
+      const review = await reviewer.reviewProject();
+      await reviewer.saveReviewReport(review);
+      const tasks = review.priorities || [];
 
-      // المرحلة 4: الإصلاح الذكي (إذا توفر GEMINI_API_KEY)
-      let fixes = [];
-      if (process.env.GEMINI_API_KEY && errors.length > 0) {
-        console.log('\n🤖 المرحلة 4: الإصلاح الذكي بـ AI');
-        fixes = await this.performAIFixes(errors);
+      // المرحلة 4: تحديث اللوحة المركزية
+      console.log('\n📊 المرحلة 4: تحديث اللوحة المركزية');
+      await this.updateCentralDashboard(codeFiles.length, errors.length, review);
+
+      // المرحلة 5: تنفيذ المهام الموجهة من المراجع
+      if (tasks.length > 0) {
+        console.log(`\n🚀 المرحلة 5: تنفيذ ${tasks.length} مهمة ذات أولوية`);
+        await this.executeReviewerTasks(tasks);
+      } else {
+        console.log('\n✅ لا توجد مهام ذات أولوية من المراجع.');
       }
 
-      // المرحلة 5: توليد التقرير النهائي
-      console.log('\n📋 المرحلة 5: توليد التقرير النهائي');
-      await this.generateFinalReport(codeFiles, errors, fixes);
+      // المرحلة 6: توليد التقرير النهائي
+      console.log('\n📋 المرحلة 6: توليد التقرير النهائي');
+      await this.generateFinalReport(codeFiles, errors, tasks);
 
       console.log('\n🎉 تم إكمال AutoRepairSuite بنجاح!');
       console.log(`📁 التقارير محفوظة في: ${this.reportsDir}`);
@@ -71,26 +86,30 @@ class AutoRepairOrchestrator {
   }
 
   // تحديث اللوحة المركزية
-  private async updateCentralDashboard(totalFiles: number, totalErrors: number): Promise<void> {
+  private async updateCentralDashboard(totalFiles: number, totalErrors: number, review: any): Promise<void> {
     const dashboardPath = path.join(this.reportsDir, 'nx_central_dashboard.json');
     
     const dashboard = {
       lastUpdate: new Date().toISOString(),
       project: 'g-assistant-nx',
-      status: totalErrors === 0 ? 'HEALTHY' : totalErrors < 10 ? 'WARNING' : 'CRITICAL',
+      status: review?.projectHealth || (totalErrors === 0 ? 'HEALTHY' : totalErrors < 10 ? 'WARNING' : 'CRITICAL'),
       autoRepair: {
         lastRun: new Date().toISOString(),
         filesScanned: totalFiles,
         errorsDetected: totalErrors,
-        status: 'COMPLETED'
+        tasksFromReview: review?.priorities?.length || 0,
+        status: 'COMPLETED',
       },
       tasks: {
-        pending: totalErrors > 0 ? [{
-          id: 'AUTO_REPAIR_NEEDED',
-          title: `إصلاح ${totalErrors} خطأ مكتشف`,
-          priority: totalErrors > 10 ? 'HIGH' : 'MEDIUM',
-          createdAt: new Date().toISOString()
-        }] : [],
+        pending: review?.priorities?.map((p: any, i: number) => ({
+          id: p.taskId || `TASK-${Date.now()}-${i}`,
+          title: p.task,
+          priority: p.priority,
+          location: p.location,
+          action: p.action,
+          createdAt: new Date().toISOString(),
+          source: 'GeminiReviewer'
+        })) || [],
         completed: [{
           id: 'AUTO_SCAN_COMPLETED',
           title: 'مسح تلقائي للمشروع',
@@ -110,58 +129,21 @@ class AutoRepairOrchestrator {
     console.log('✅ تم تحديث اللوحة المركزية');
   }
 
-  // الإصلاح الذكي باستخدام AI
-  private async performAIFixes(errors: any[]): Promise<any[]> {
+  // تنفيذ المهام الموجهة من المراجع
+  private async executeReviewerTasks(tasks: any[]): Promise<void> {
     try {
-      const aiFixer = new AICodeFixer();
-      const tester = new AutoTester(this.projectRoot);
-      
-      // فلترة الأخطاء القابلة للإصلاح (أول 5 فقط)
-      const fixableErrors = errors
-        .filter(e => e.severity === 'error' && e.file && e.line)
-        .slice(0, 5);
-      
-      console.log(`🔧 إصلاح ${fixableErrors.length} خطأ باستخدام AI...`);
-      
-      const fixes = await aiFixer.fixMultipleErrors(fixableErrors);
-      const successfulFixes = [];
-      
-      // تطبيق واختبار الإصلاحات
-      for (const fix of fixes) {
-        if (fix.confidence > 0.7) {
-          const error = fixableErrors.find(e => e.id === fix.errorId);
-          if (error) {
-            const filePath = path.resolve(this.projectRoot, error.file);
-            const applied = await aiFixer.applyFix(fix, filePath);
-            
-            if (applied) {
-              // اختبار الإصلاح
-              const testResults = await tester.testFix(fix, filePath);
-              const allPassed = testResults.every(r => r.passed);
-              
-              if (allPassed) {
-                successfulFixes.push({ ...fix, applied: true, tested: true });
-                console.log(`✅ تم إصلاح: ${error.message}`);
-              } else {
-                console.log(`⚠️ فشل اختبار الإصلاح: ${error.message}`);
-                // استعادة من النسخة الاحتياطية
-                this.restoreBackup(filePath);
-              }
-            }
-          }
-        }
+      const executor = new AmazonExecutor(this.isDryRun);
+      const results: boolean[] = [];
+
+      for (const task of tasks) {
+        const result = await executor.executeTask(task);
+        results.push(result);
       }
-      
-      // حفظ تقرير الإصلاحات
-      const fixReportPath = path.join(this.reportsDir, `ai_fixes_${new Date().toISOString().split('T')[0]}.json`);
-      await aiFixer.saveFixReport(fixes, fixReportPath);
-      
-      console.log(`✅ تم إصلاح ${successfulFixes.length} من ${fixes.length} أخطاء بنجاح`);
-      return successfulFixes;
-      
+
+      await executor.generateGitHubReport(tasks, results);
+
     } catch (error) {
-      console.error('❌ فشل في الإصلاح الذكي:', error);
-      return [];
+      console.error('❌ فشل في تنفيذ المهام الموجهة:', error);
     }
   }
 
@@ -180,7 +162,7 @@ class AutoRepairOrchestrator {
   }
 
   // توليد التقرير النهائي
-  private async generateFinalReport(codeFiles: any[], errors: any[], fixes: any[] = []): Promise<void> {
+  private async generateFinalReport(codeFiles: any[], errors: any[], executedTasks: any[]): Promise<void> {
     const timestamp = new Date().toISOString().split('T')[0];
     const reportPath = path.join(this.reportsDir, `auto_repair_report_${timestamp}.json`);
 
@@ -190,6 +172,7 @@ class AutoRepairOrchestrator {
       summary: {
         totalFiles: codeFiles.length,
         totalErrors: errors.length,
+        tasksExecuted: executedTasks.length,
         healthScore: Math.max(0, 100 - (errors.length * 2)),
         status: errors.length === 0 ? 'HEALTHY' : errors.length < 10 ? 'WARNING' : 'CRITICAL'
       },
@@ -269,7 +252,8 @@ class AutoRepairOrchestrator {
 
 // تشغيل المنسق
 if (require.main === module) {
-  const orchestrator = new AutoRepairOrchestrator();
+  const isDryRun = process.argv.includes('--dry-run');
+  const orchestrator = new AutoRepairOrchestrator(isDryRun);
   orchestrator.run();
 }
 

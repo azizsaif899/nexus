@@ -8,14 +8,16 @@ export class GeminiReviewer {
   private genAI: GoogleGenerativeAI;
   private model: any;
   private projectRoot: string;
+  private isDryRun: boolean;
 
-  constructor() {
+  constructor(isDryRun: boolean = false) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) throw new Error('GEMINI_API_KEY required');
     
     this.genAI = new GoogleGenerativeAI(apiKey);
     this.model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
-    this.projectRoot = path.resolve(__dirname, '../../../');
+    this.projectRoot = path.resolve(__dirname, '../../');
+    this.isDryRun = isDryRun;
   }
 
   // مراجعة المشروع كاملاً
@@ -26,6 +28,25 @@ export class GeminiReviewer {
     const monthlyPlan = this.loadMonthlyPlan();
     const dashboard = this.loadDashboardData();
     const fixLogs = this.loadFixLogs();
+
+    if (this.isDryRun) {
+      console.log('[DRY RUN] محاكاة مراجعة المشروع بواسطة Gemini.');
+      return {
+        projectHealth: 'HEALTHY',
+        priorities: [
+          {
+            priority: 'HIGH',
+            task: 'مهمة محاكاة ذات أولوية عالية',
+            location: 'apps/some-app/src/main.ts',
+            action: 'FIX',
+            estimatedTime: '30m',
+            reason: 'تم إنشاؤها في وضع المحاكاة'
+          }
+        ],
+        dailyTasks: ['تنفيذ مهمة المحاكاة', 'التحقق من تقرير المحاكاة'],
+        recommendations: ['تشغيل النظام في الوضع الفعلي بعد التحقق من المحاكاة']
+      };
+    }
 
     const prompt = this.buildReviewPrompt(reports, monthlyPlan, dashboard, fixLogs);
     const result = await this.model.generateContent(prompt);
@@ -71,7 +92,8 @@ export class GeminiReviewer {
             const content = fs.readFileSync(path.join(reportsDir, file), 'utf8');
             reports[file] = JSON.parse(content);
           } catch (error) {
-            console.warn(`تعذر قراءة ${file}`);
+            // Log the actual error for better debugging
+            console.error(`Could not read or parse report file: ${file}`, error);
           }
         });
     }
@@ -98,7 +120,8 @@ export class GeminiReviewer {
             const content = fs.readFileSync(dashboardPath, 'utf8');
             return JSON.parse(content);
         } catch (error) {
-            console.warn(`تعذر قراءة central_dashboard.json`);
+            // Log the actual error for better debugging
+            console.error(`Could not read or parse central_dashboard.json`, error);
             return null;
         }
     }
@@ -195,12 +218,13 @@ ${fixLogs}
       // محاولة تحليل مباشر
       return JSON.parse(response);
     } catch (error) {
-      console.error('فشل تحليل رد Gemini:', error);
+      console.error('Failed to parse Gemini response. Response was:', response);
       return {
         projectHealth: 'WARNING',
         priorities: [],
         dailyTasks: ['مراجعة يدوية مطلوبة'],
-        recommendations: ['تحقق من رد Gemini']
+        // Be more specific in the recommendation
+        recommendations: ['Gemini response was not valid JSON. Manual check required.']
       };
     }
   }

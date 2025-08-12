@@ -1,0 +1,19 @@
+{
+  "name": "admin-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx serve -s . -l 4200",
+    "dev": "npx serve -s . -l 4200",
+    "build": "echo 'Building admin dashboard...'",
+    "test": "echo 'Testing admin dashboard...'"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

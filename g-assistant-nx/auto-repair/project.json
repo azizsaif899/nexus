@@ -1,0 +1,36 @@
+{
+  "name": "auto-repair",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "auto-repair/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/auto-repair",
+        "main": "auto-repair/src/orchestrator.ts",
+        "tsConfig": "auto-repair/tsconfig.app.json",
+        "assets": [
+          "auto-repair/*.md"
+        ]
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "auto-repair:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "auto-repair/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

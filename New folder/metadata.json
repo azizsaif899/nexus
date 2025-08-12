@@ -1,0 +1,7 @@
+{
+  "name": "محادثة مع Gemini",
+  "description": "تطبيق محادثة بسيط مدعوم من Gemini API",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

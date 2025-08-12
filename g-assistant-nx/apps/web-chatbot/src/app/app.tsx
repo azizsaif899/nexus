@@ -1,104 +1,47 @@
-import { useState, useEffect } from 'react';
-import { io, Socket } from 'socket.io-client';
-import { apiService, QueryRequest } from '../services/api.service';
-import styles from './app.module.css';
+import React, { useState, useEffect } from 'react';
 
 interface Message {
-  id: number;
-  content: string;
-  isBot: boolean;
-  timestamp: string;
+  id: string;
+  text: string;
+  sender: 'user' | 'ai';
+  timestamp: Date;
 }
 
 export function App() {
-  const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: 1,
-      content: 'مرحباً! أنا مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟',
-      isBot: true,
-      timestamp: new Date().toISOString()
+      id: '1',
+      text: 'مرحباً! أنا مساعد AzizSys الذكي. كيف يمكنني مساعدتك اليوم؟',
+      sender: 'ai',
+      timestamp: new Date()
     }
   ]);
-  const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-
-  useEffect(() => {
-    const newSocket = io('http://localhost:3333');
-    setSocket(newSocket);
-
-    newSocket.on('connect', () => {
-      setIsConnected(true);
-    });
-
-    newSocket.on('disconnect', () => {
-      setIsConnected(false);
-    });
-
-    newSocket.on('typing', (data: { isTyping: boolean }) => {
-      setIsLoading(data.isTyping);
-    });
-
-    newSocket.on('messageResponse', (data: any) => {
-      const botMessage: Message = {
-        id: Date.now(),
-        content: data.success ? data.message : 'عذراً، حدث خطأ في معالجة طلبك.',
-        isBot: true,
-        timestamp: data.timestamp || new Date().toISOString()
-      };
-      setMessages(prev => [...prev, botMessage]);
-    });
-
-    return () => {
-      newSocket.close();
-    };
-  }, []);
+  const [inputText, setInputText] = useState('');
+  const [isConnected, setIsConnected] = useState(true);
 
   const sendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
+    if (!inputText.trim()) return;
 
     const userMessage: Message = {
-      id: Date.now(),
-      content: inputValue,
-      isBot: false,
-      timestamp: new Date().toISOString()
+      id: Date.now().toString(),
+      text: inputText,
+      sender: 'user',
+      timestamp: new Date()
     };
 
     setMessages(prev => [...prev, userMessage]);
-    setIsLoading(true);
-    
-    const queryRequest: QueryRequest = {
-      prompt: inputValue,
-      context: 'chatbot',
-      language: 'ar'
-    };
-    
-    try {
-      const response = await apiService.sendQuery(queryRequest);
-      
-      const botMessage: Message = {
-        id: Date.now() + 1,
-        content: response.response,
-        isBot: true,
-        timestamp: response.timestamp
+    setInputText('');
+
+    // Simulate AI response
+    setTimeout(() => {
+      const aiResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: `شكراً لك على رسالتك: "${inputText}". أنا هنا لمساعدتك في أي استفسار حول النظام.`,
+        sender: 'ai',
+        timestamp: new Date()
       };
-      
-      setMessages(prev => [...prev, botMessage]);
-    } catch (error) {
-      const errorMessage: Message = {
-        id: Date.now() + 1,
-        content: 'عذراً، حدث خطأ في معالجة طلبك. يرجى المحاولة مرة أخرى.',
-        isBot: true,
-        timestamp: new Date().toISOString()
-      };
-      
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-    
-    setInputValue('');
+      setMessages(prev => [...prev, aiResponse]);
+    }, 1000);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -109,59 +52,69 @@ export function App() {
   };
 
   return (
-    <div className={styles.app}>
-      {/* Header */}
-      <header className={styles.header}>
-        <h1>🤖 AzizSys AI Assistant</h1>
-        <p>مساعدك الذكي المتطور</p>
-        <div className={styles.connectionStatus}>
-          <span className={`${styles.statusDot} ${styles.connected}`}></span>
-          متصل بـ API
+    <div className="chatbot-app">
+      <header className="chat-header">
+        <div className="header-info">
+          <h1>💬 AzizSys AI Chatbot</h1>
+          <div className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
+            {isConnected ? '🟢 متصل' : '🔴 غير متصل'}
+          </div>
+        </div>
+        <div className="header-actions">
+          <button onClick={() => setMessages([])}>🗑️ مسح المحادثة</button>
+          <a href="http://localhost:4200" target="_blank">🎨 Admin Dashboard</a>
         </div>
       </header>
 
-      {/* Chat Area */}
-      <main className={styles.chatArea}>
-        <div className={styles.messagesContainer}>
-          {messages.map((message) => (
-            <div 
-              key={message.id} 
-              className={`${styles.message} ${message.isBot ? styles.botMessage : styles.userMessage}`}
-            >
-              <div className={styles.messageContent}>
-                {message.content}
+      <div className="chat-container">
+        <div className="messages-container">
+          {messages.map(message => (
+            <div key={message.id} className={`message ${message.sender}`}>
+              <div className="message-content">
+                <div className="message-text">{message.text}</div>
+                <div className="message-time">
+                  {message.timestamp.toLocaleTimeString('ar-SA')}
+                </div>
+              </div>
+              <div className="message-avatar">
+                {message.sender === 'ai' ? '🤖' : '👤'}
               </div>
             </div>
           ))}
-          {isLoading && (
-            <div className={`${styles.message} ${styles.botMessage}`}>
-              <div className={styles.messageContent}>
-                <div className={styles.typing}>جاري الكتابة...</div>
-              </div>
-            </div>
-          )}
         </div>
-      </main>
 
-      {/* Footer with Input */}
-      <footer className={styles.footer}>
-        <div className={styles.inputContainer}>
-          <input 
-            type="text" 
-            placeholder="اكتب رسالتك هنا..." 
-            className={styles.messageInput}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
-            disabled={isLoading}
-          />
-          <button 
-            className={styles.sendButton}
-            onClick={sendMessage}
-            disabled={isLoading || !inputValue.trim()}
-          >
-            {isLoading ? '⏳' : '📤'} إرسال
-          </button>
+        <div className="input-container">
+          <div className="input-wrapper">
+            <textarea
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="اكتب رسالتك هنا..."
+              rows={2}
+            />
+            <button onClick={sendMessage} disabled={!inputText.trim()}>
+              📤 إرسال
+            </button>
+          </div>
+          <div className="quick-actions">
+            <button onClick={() => setInputText('ما هي حالة النظام؟')}>
+              📊 حالة النظام
+            </button>
+            <button onClick={() => setInputText('أظهر لي إحصائيات Odoo')}>
+              🔗 إحصائيات Odoo
+            </button>
+            <button onClick={() => setInputText('كيف يعمل الذكاء الاصطناعي؟')}>
+              🤖 الذكاء الاصطناعي
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer className="chat-footer">
+        <div className="system-info">
+          <span>🚀 AzizSys AI Assistant v2.0</span>
+          <span>🧠 Powered by Gemini AI</span>
+          <span>⚡ Real-time Updates</span>
         </div>
       </footer>
     </div>

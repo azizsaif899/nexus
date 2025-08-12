@@ -16,8 +16,9 @@ export interface FixSuggestion {
 export class AICodeFixer {
   private genAI: GoogleGenerativeAI;
   private model: any;
+  private isDryRun: boolean;
 
-  constructor(apiKey?: string) {
+  constructor(apiKey?: string, isDryRun: boolean = false) {
     const key = apiKey || process.env.GEMINI_API_KEY;
     if (!key) {
       throw new Error('GEMINI_API_KEY مطلوب للإصلاح الذكي');
@@ -25,11 +26,25 @@ export class AICodeFixer {
     
     this.genAI = new GoogleGenerativeAI(key);
     this.model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
+    this.isDryRun = isDryRun;
   }
 
   // إصلاح خطأ واحد
   async fixError(error: DetectedError, fileContent: string): Promise<FixSuggestion | null> {
     console.log(`🤖 إصلاح خطأ: ${error.message}`);
+
+    if (this.isDryRun) {
+      console.log('[DRY RUN] محاكاة استدعاء Gemini API');
+      return {
+        errorId: error.id,
+        confidence: 0.95,
+        fixType: 'replace',
+        originalCode: `// الكود الأصلي للخطأ: ${error.message}`,
+        fixedCode: `// الكود المقترح لإصلاح الخطأ: ${error.message}`,
+        explanation: 'هذا إصلاح تمت محاكاته في وضع Dry Run.',
+        testRequired: true,
+      };
+    }
 
     try {
       const prompt = this.buildFixPrompt(error, fileContent);
@@ -77,6 +92,15 @@ export class AICodeFixer {
   async applyFix(fix: FixSuggestion, filePath: string): Promise<boolean> {
     console.log(`✏️ تطبيق إصلاح على: ${filePath}`);
     
+    if (this.isDryRun) {
+      console.log('[DRY RUN] كان سيتم تطبيق التغييرات التالية:');
+      console.log('--- Original ---');
+      console.log(fix.originalCode);
+      console.log('--- Fixed ---');
+      console.log(fix.fixedCode);
+      return true;
+    }
+
     try {
       const content = fs.readFileSync(filePath, 'utf8');
       let newContent: string;

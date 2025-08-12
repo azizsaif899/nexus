@@ -1,58 +1,0 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>G-Assistant</title>
-  <?!= HtmlService.createHtmlOutputFromFile('ui/Sidebar.css').getContent() ?>
-</head>
-<body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h2>🤖 G-Assistant</h2>
-      <div class="status-indicator" id="statusIndicator">●</div>
-    </div>
-
-    <!-- Agent Selection -->
-    <div class="agent-selector">
-      <select id="agentSelect">
-        <option value="General">🔍 وكيل عام</option>
-        <option value="CFO">💼 محلل مالي</option>
-        <option value="Developer">👨‍💻 مطور</option>
-        <option value="DatabaseManager">🗄️ مدير بيانات</option>
-      </select>
-    </div>
-
-    <!-- Chat Messages -->
-    <div class="chat-container" id="chatContainer">
-      <div class="welcome-message">
-        مرحباً! كيف يمكنني مساعدتك اليوم؟
-      </div>
-    </div>
-
-    <!-- Input Area -->
-    <div class="input-container">
-      <textarea id="userInput" placeholder="اكتب رسالتك هنا..." rows="3"></textarea>
-      <div class="input-buttons">
-        <button id="sendButton" onclick="sendMessage()">إرسال</button>
-        <button id="helpButton" onclick="HelpPanel.show()" title="المساعدة">؟</button>
-        <button id="settingsButton" onclick="SettingsView.show()" title="الإعدادات">⚙️</button>
-      </div>
-    </div>
-
-    <!-- Loading Indicator -->
-    <div class="loading" id="loadingIndicator" style="display: none;">
-      <div class="spinner"></div>
-      <span>جاري المعالجة...</span>
-    </div>
-
-    <!-- Notification Area -->
-    <div class="notification" id="notification" style="display: none;"></div>
-  </div>
-
-  <?!= HtmlService.createHtmlOutputFromFile('ui/Sidebar.js').getContent() ?>
-  <?!= HtmlService.createHtmlOutputFromFile('ui/HelpPanel.js').getContent() ?>
-  <?!= HtmlService.createHtmlOutputFromFile('ui/settingsView.js').getContent() ?>
-</body>
-</html>

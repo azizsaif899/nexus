@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- G-Assistant Config Form View -->
+    <record id="view_g_assistant_config_form" model="ir.ui.view">
+        <field name="name">g.assistant.config.form</field>
+        <field name="model">g.assistant.config</field>
+        <field name="arch" type="xml">
+            <form string="G-Assistant Configuration">
+                <header>
+                    <button name="test_connection" string="اختبار الاتصال" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="webhook_url" placeholder="https://your-g-assistant.com/api/odoo-webhook"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active"/>
+                            <field name="secret_key" password="True"/>
+                            <field name="last_sync" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="send_lead_updates"/>
+                            <field name="send_order_updates"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- G-Assistant Config Tree View -->
+    <record id="view_g_assistant_config_tree" model="ir.ui.view">
+        <field name="name">g.assistant.config.tree</field>
+        <field name="model">g.assistant.config</field>
+        <field name="arch" type="xml">
+            <tree string="G-Assistant Configurations">
+                <field name="webhook_url"/>
+                <field name="active"/>
+                <field name="send_lead_updates"/>
+                <field name="send_order_updates"/>
+                <field name="last_sync"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- G-Assistant Config Action -->
+    <record id="action_g_assistant_config" model="ir.actions.act_window">
+        <field name="name">G-Assistant Configuration</field>
+        <field name="res_model">g.assistant.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                إعداد تكامل G-Assistant مع Odoo
+            </p>
+            <p>
+                قم بإعداد URL الخاص بـ G-Assistant والمفتاح السري لبدء إرسال التحديثات التلقائية.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_g_assistant_config"
+              name="G-Assistant"
+              parent="base.menu_administration"
+              action="action_g_assistant_config"
+              sequence="100"/>
+</odoo>

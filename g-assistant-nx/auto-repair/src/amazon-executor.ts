@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { AICodeFixer } from './ai-fixer';
+import { DetectedError } from './detector';
 import * as fs from 'fs';
 import * as path from 'path';
 import { execSync } from 'child_process';
@@ -18,12 +20,14 @@ export class AmazonExecutor {
   private projectRoot: string;
   private backupsDir: string;
   private reportsDir: string;
+  private isDryRun: boolean;
 
-  constructor() {
-    this.projectRoot = path.resolve(__dirname, '../../../');
+  constructor(isDryRun: boolean = false) {
+    this.projectRoot = path.resolve(__dirname, '../../');
     this.backupsDir = path.join(this.projectRoot, '.backups');
     this.reportsDir = path.join(this.projectRoot, 'docs/6_fixing/reports');
-    
+    this.isDryRun = isDryRun;
+
     // إنشاء مجلد النسخ الاحتياطية
     if (!fs.existsSync(this.backupsDir)) {
       fs.mkdirSync(this.backupsDir, { recursive: true });
@@ -75,6 +79,12 @@ export class AmazonExecutor {
       return false;
     }
     
+    if (this.isDryRun) {
+      console.log(`[DRY RUN] 📝 كان سيتم تنفيذ المهمة: ${task.taskId} - ${task.details}`);
+      console.log(`[DRY RUN] ➡️  الإجراء: ${task.action} على ${task.location}`);
+      return true; // محاكاة النجاح
+    }
+
     try {
       // إنشاء نسخة احتياطية
       await this.createBackup(task.location);
@@ -147,6 +157,11 @@ export class AmazonExecutor {
   // إنشاء نسخة احتياطية
   private async createBackup(filePath: string): Promise<string> {
     const fullPath = path.join(this.projectRoot, filePath);
+    if (this.isDryRun) {
+      console.log(`[DRY RUN] 💾 كان سيتم إنشاء نسخة احتياطية لـ: ${filePath}`);
+      return `${filePath}.backup.dryrun`;
+    }
+
     const timestamp = Date.now();
     const backupName = `${path.basename(filePath)}.backup.${timestamp}`;
     const backupPath = path.join(this.backupsDir, backupName);
@@ -161,22 +176,76 @@ export class AmazonExecutor {
   private async updateFile(task: TaskRequest): Promise<boolean> {
     const fullPath = path.join(this.projectRoot, task.location);
     
-    console.log(`✏️ تحديث الملف: ${task.location}`);
-    
-    // هنا يجب أن يكون لديك منطق محدد للتحديث
-    // بناءً على تفاصيل المهمة من Gemini AI
-    
-    // مثال بسيط - يحتاج تطوير حسب نوع الإصلاح
-    const content = fs.readFileSync(fullPath, 'utf8');
-    
-    // تطبيق التغيير (يحتاج تطوير حسب المهمة)
-    // const updatedContent = this.applyFix(content, task.details);
-    // fs.writeFileSync(fullPath, updatedContent);
-    
-    console.log('✅ تم تحديث الملف');
-    
-    // اختبار التغيير
-    return await this.testChanges(task);
+    console.log(`✏️ محاولة تحديث/إصلاح الملف: ${task.location} (الإجراء: ${task.action})`);
+
+    let modificationApplied = false;
+
+    if (task.action === 'FIX') {
+      try {
+        const aiFixer = new AICodeFixer(undefined, this.isDryRun);
+        const fileContent = fs.readFileSync(fullPath, 'utf8');
+
+        const syntheticError: DetectedError = {
+          id: task.taskId,
+          file: task.location,
+          line: 1,
+          column: 1,
+          message: task.details,
+          source: 'GeminiReviewer',
+          severity: 'error',
+          context: fileContent.substring(0, 2000)
+        };
+
+        const fixSuggestion = await aiFixer.fixError(syntheticError, fileContent);
+
+        if (fixSuggestion && fixSuggestion.confidence > 0.7) {
+          modificationApplied = await aiFixer.applyFix(fixSuggestion, fullPath);
+        } else {
+          console.log('🤔 لم يتم العثور على إصلاح بمستوى ثقة كافٍ.');
+        }
+      } catch (error) {
+        console.error('❌ حدث خطأ أثناء محاولة الإصلاح التلقائي:', error);
+        modificationApplied = false;
+      }
+"E:\azizsys5\g-assistant-nx\docs\6_fixing\monthly_plans\DAILY_BOOT_38.md"    } else if (task.action === 'UPDATE') {
+      try {
+        const aiFixer = new AICodeFixer(undefined, this.isDryRun);
+        const fileContent = fs.readFileSync(fullPath, 'utf8');
+
+        // بالنسبة لمهام التحديث، تفاصيل المهمة هي التعليمات
+        const updateRequest: DetectedError = {
+            id: task.taskId,
+            file: task.location,
+            line: 1, // قد لا يكون رقم السطر مهماً للتحديث العام
+            column: 1,
+            message: `Update instruction: ${task.details}`,
+            source: 'GeminiReviewer',
+            severity: 'info',
+            context: fileContent.substring(0, 2000)
+        };
+
+        // يمكننا استخدام نفس المصلح، لكن قد نحتاج لتعديل الـ prompt داخله لمهام التحديث
+        const updateSuggestion = await aiFixer.fixError(updateRequest, fileContent);
+
+        if (updateSuggestion && updateSuggestion.confidence > 0.65) { // يمكن استخدام نسبة ثقة مختلفة للتحديثات
+            modificationApplied = await aiFixer.applyFix(updateSuggestion, fullPath);
+        }
+      } catch (error) {
+          console.error('❌ حدث خطأ أثناء محاولة التحديث التلقائي:', error);
+          modificationApplied = false;
+      }
+    } else {
+      console.log(`[INFO] الإجراء '${task.action}' لم يتم تنفيذ منطق تعديل الكود له بعد.`);
+    }
+
+    // اختبار التغييرات فقط إذا تم تطبيق تعديل
+    if (modificationApplied) {
+      console.log('✅ تم تطبيق التعديل، بدء الاختبارات...');
+      return await this.testChanges(task);
+    } else {
+      console.log('⚠️ لم يتم تطبيق أي تعديل، تخطي الاختبارات.');
+      return false;
+    }
   }
 
   // حذف ملف
@@ -208,6 +277,11 @@ export class AmazonExecutor {
   // اختبار التغييرات
   private async testChanges(task: TaskRequest): Promise<boolean> {
     console.log('🧪 اختبار التغييرات...');
+
+    if (this.isDryRun) {
+      console.log(`[DRY RUN] 🧪 كان سيتم اختبار التغييرات للمهمة: ${task.taskId}`);
+      return true;
+    }
     
     try {
       // تحديد المشروع من المسار
@@ -324,6 +398,7 @@ export class AmazonExecutor {
 
 // تشغيل مباشر
 if (require.main === module) {
-  const executor = new AmazonExecutor();
+  const isDryRun = process.argv.includes('--dry-run');
+  const executor = new AmazonExecutor(isDryRun);
   executor.run();
 }

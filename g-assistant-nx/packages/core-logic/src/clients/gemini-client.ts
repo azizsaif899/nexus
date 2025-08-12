@@ -1,88 +1,96 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export interface GeminiResponse {
-  success: boolean;
-  response: string;
-  confidence: number;
-  processingTime: number;
-  timestamp: string;
-  model: string;
+export interface GeminiConfig {
+  apiKey: string;
+  model?: string;
+  temperature?: number;
+  maxTokens?: number;
 }
 
-@Injectable()
+export interface MediaInput {
+  data: string; // base64 encoded
+  mimeType: string;
+  type: 'image' | 'audio' | 'video';
+}
+
+export interface GeminiResponse {
+  text: string;
+  usage?: {
+    promptTokens: number;
+    completionTokens: number;
+    totalTokens: number;
+  };
+}
+
 export class GeminiClient {
-  private readonly model = 'gemini-pro';
-  private readonly apiKey: string;
-  
-  constructor(private readonly configService: ConfigService) {
-    this.apiKey = this.configService.get<string>('GOOGLE_AI_API_KEY');
+  private genAI: GoogleGenerativeAI;
+  private model: any;
+
+  constructor(private config: GeminiConfig) {
+    this.genAI = new GoogleGenerativeAI(config.apiKey);
+    this.model = this.genAI.getGenerativeModel({ 
+      model: config.model || 'gemini-pro',
+      generationConfig: {
+        temperature: config.temperature || 0.7,
+        maxOutputTokens: config.maxTokens || 1000,
+      }
+    });
   }
-  
-  async query(prompt: string, context?: string): Promise<GeminiResponse> {
-    // If no API key, fall back to mock
-    if (!this.apiKey) {
-      return this.mockQuery(prompt, context);
-    }
-    
+
+  async generateResponse(prompt: string, context?: string, media?: MediaInput[]): Promise<GeminiResponse> {
     try {
-      // TODO: Implement real Gemini API call
-      // For now, enhanced mock with API-like behavior
-      return this.mockQuery(prompt, context);
+      let input: any;
+      
+      if (media && media.length > 0) {
+        // Multimodal input
+        input = [
+          context ? `${context}\n\nUser: ${prompt}` : prompt,
+          ...media.map(m => ({
+            inlineData: {
+              data: m.data,
+              mimeType: m.mimeType
+            }
+          }))
+        ];
+      } else {
+        // Text-only input
+        input = context ? `${context}\n\nUser: ${prompt}` : prompt;
+      }
+      
+      const result = await this.model.generateContent(input);
+      const response = await result.response;
+      
+      return {
+        text: response.text(),
+        usage: {
+          promptTokens: result.response?.usageMetadata?.promptTokenCount || 0,
+          completionTokens: result.response?.usageMetadata?.candidatesTokenCount || 0,
+          totalTokens: result.response?.usageMetadata?.totalTokenCount || 0
+        }
+      };
     } catch (error) {
-      console.error('Gemini API error:', error);
-      return this.mockQuery(prompt, context);
+      console.error('Gemini API Error:', error);
+      throw new Error(`فشل في الحصول على استجابة من Gemini: ${error.message}`);
     }
   }
-  
-  private async mockQuery(prompt: string, context?: string): Promise<GeminiResponse> {
-    // Simulate realistic API delay
-    await this.delay(800 + Math.random() * 1200);
-    
-    // Mock responses based on prompt content
-    const responses = this.generateMockResponse(prompt, context);
-    
-    return {
-      success: true,
-      response: responses,
-      confidence: Math.floor(Math.random() * 25) + 75, // 75-100%
-      processingTime: Math.floor(Math.random() * 1500) + 500,
-      timestamp: new Date().toISOString(),
-      model: this.model
+
+  async analyzeDocument(text: string, analysisType: 'summary' | 'sentiment' | 'keywords'): Promise<string> {
+    const prompts = {
+      summary: `لخص النص التالي باللغة العربية:\n\n${text}`,
+      sentiment: `حلل المشاعر في النص التالي وأعط النتيجة (إيجابي/سلبي/محايد):\n\n${text}`,
+      keywords: `استخرج الكلمات المفتاحية الأهم من النص التالي:\n\n${text}`
     };
+
+    const response = await this.generateResponse(prompts[analysisType]);
+    return response.text;
   }
 
-  private generateMockResponse(prompt: string, context?: string): string {
-    const lowerPrompt = prompt.toLowerCase();
+  async translateText(text: string, targetLanguage: 'ar' | 'en'): Promise<string> {
+    const prompt = targetLanguage === 'ar' 
+      ? `ترجم النص التالي إلى العربية:\n\n${text}`
+      : `Translate the following text to English:\n\n${text}`;
     
-    // Arabic responses based on prompt content
-    if (lowerPrompt.includes('تطوير') || lowerPrompt.includes('برمجة')) {
-      return 'بناءً على خبرتي في التطوير، أنصح باتباع أفضل الممارسات مثل كتابة كود نظيف، استخدام أنماط التصميم المناسبة، وإجراء اختبارات شاملة. من المهم أيضاً توثيق الكود والحفاظ على هيكلة واضحة للمشروع.';
-    }
-    
-    if (lowerPrompt.includes('بيانات') || lowerPrompt.includes('تحليل')) {
-      return 'تحليل البيانات يتطلب فهماً عميقاً للسياق والهدف من التحليل. أنصح بالبدء بتنظيف البيانات، ثم استكشافها بصرياً، وأخيراً تطبيق النماذج المناسبة. من المهم التحقق من جودة البيانات وصحة النتائج.';
-    }
-    
-    if (lowerPrompt.includes('أمان') || lowerPrompt.includes('حماية')) {
-      return 'الأمان السيبراني أولوية قصوى في أي نظام. يجب تطبيق مبدأ الحد الأدنى من الصلاحيات، تشفير البيانات الحساسة، تحديث الأنظمة بانتظام، ومراقبة الأنشطة المشبوهة. كما ينصح بإجراء اختبارات اختراق دورية.';
-    }
-    
-    // Default response
-    return `شكراً لك على استفسارك. بعد تحليل سؤالك "${prompt.substring(0, 50)}${prompt.length > 50 ? '...' : ''}"، يمكنني تقديم المساعدة التالية: هذا موضوع مهم يتطلب دراسة متأنية. أنصح بالبحث في المصادر الموثوقة والاستعانة بالخبراء في المجال. ${context ? `بناءً على السياق المقدم (${context})، ` : ''}يمكنني تقديم المزيد من التفاصيل إذا كنت تحتاج توضيحات إضافية.`;
-  }
-
-  private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  // Health check method
-  async healthCheck(): Promise<boolean> {
-    try {
-      const response = await this.query('health check', 'system');
-      return response.success;
-    } catch (error) {
-      return false;
-    }
+    const response = await this.generateResponse(prompt);
+    return response.text;
   }
 }

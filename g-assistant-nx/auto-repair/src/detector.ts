@@ -10,7 +10,7 @@ export interface DetectedError {
   severity: 'error' | 'warning' | 'info';
   message: string;
   rule?: string;
-  source: 'eslint' | 'typescript' | 'build';
+  source: 'eslint' | 'typescript' | 'build' | 'GeminiReviewer';
   context: string;
   suggestedFix?: string;
 }

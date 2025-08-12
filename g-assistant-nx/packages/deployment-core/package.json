@@ -1,23 +1,16 @@
 {
   "name": "@azizsys/deployment-core",
   "version": "1.0.0",
-  "description": "Core deployment management system for AzizSys",
+  "description": "Advanced deployment and environment management system",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
-    "lint": "eslint src/**/*.ts"
+    "test": "jest"
   },
   "dependencies": {
-    "@kubernetes/client-node": "^0.20.0",
-    "dockerode": "^4.0.2",
-    "yaml": "^2.3.4"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
     "typescript": "^5.0.0",
-    "jest": "^29.0.0",
-    "@types/jest": "^29.0.0"
+    "dockerode": "^3.3.0",
+    "kubernetes-client": "^9.0.0"
   }
 }

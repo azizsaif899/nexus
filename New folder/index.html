@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusChat with Gemini</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Readex+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <script type="importmap">
+  {
+    "imports": {
+      "@google/genai": "https://esm.sh/@google/genai@^0.7.0"
+    }
+  }
+  </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body data-theme="matrix">
+  <!-- Background Effects (Matrix Theme Only) -->
+  <div class="cyber-bg">
+    <div class="cyber-gradient"></div>
+    <div id="matrix-rain-container" class="matrix-rain"></div>
+    <div class="grid-overlay">
+      <div class="grid-lines"></div>
+      <div class="grid-glow"></div>
+    </div>
+    <div id="particles-container" class="particles"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+    <div id="data-streams-container" class="data-streams"></div>
+  </div>
+
+  <!-- Main Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">NexusChat</a>
+      <div class="nav-actions">
+        <div class="theme-switcher">
+          <button id="themeMenuBtn" class="theme-menu-button" aria-label="Change theme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+              <path d="M12 8a2 2 0 100-4 2 2 0 000 4zm0 2a2 2 0 100 4 2 2 0 000-4zm0 6a2 2 0 100 4 2 2 0 000-4z"></path>
+            </svg>
+          </button>
+          <div id="themeMenu" class="theme-menu">
+            <div class="menu-group">
+              <span class="menu-title">الثيم</span>
+              <button class="theme-option" data-theme="matrix">ماتركس</button>
+              <button class="theme-option" data-theme="dark">ليلي</button>
+              <button class="theme-option" data-theme="light">نهاري</button>
+            </div>
+            <hr class="menu-divider">
+            <div class="menu-group">
+              <span class="menu-title">الشخصية</span>
+              <button id="btn-developer" class="persona-option">مطور</button>
+              <button id="btn-hr" class="persona-option">اتش ار</button>
+              <button id="btn-finance" class="persona-option">مالي</button>
+              <button id="btn-marketing" class="persona-option">تسويق</button>
+              <button id="btn-ceo" class="persona-option">CEO</button>
+            </div>
+          </div>
+        </div>
+        <button id="mobileMenuBtn" class="mobile-menu-button" aria-label="Open menu">
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (Structure for JS, no items needed) -->
+  <div class="mobile-menu-overlay"></div>
+  <div class="mobile-menu">
+      <div class="mobile-menu-header">
+          <a href="#" class="mobile-menu-logo">NexusChat</a>
+          <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+      </div>
+      <nav class="mobile-menu-nav">
+          <ul></ul>
+      </nav>
+  </div>
+
+  <!-- Wrapper for Chat UI -->
+  <main id="chat-wrapper">
+    <div id="chat-container">
+      <header>
+        <h1 id="chat-header-title">محادثة مع Gemini</h1>
+      </header>
+      <div id="message-list">
+        <!-- Initial message will be set by JS -->
+      </div>
+      <form id="chat-form">
+        <input type="text" id="message-input" placeholder="اكتب رسالتك هنا..." autocomplete="off" required aria-label="Message Input">
+        <button type="button" id="attach-button" aria-label="إضافة مرفقات" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path fill-rule="evenodd" d="M18.97 3.659a2.25 2.25 0 00-3.182 0l-8.609 8.609a4.5 4.5 0 006.364 6.364l7.07-7.07a3 3 0 00-4.242-4.242L8.84 14.793a1.5 1.5 0 002.121 2.121l7.071-7.071a.75.75 0 00-1.06-1.06l-7.07 7.07a1.5 1.5 0 01-2.122-2.121L15.79 5.21a3 3 0 014.242 4.242l-7.07 7.07a4.5 4.5 0 01-6.364-6.364l8.609-8.609a2.25 2.25 0 013.182 0z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <button type="button" id="record-button" aria-label="سجل رسالة صوتية">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M12 2a3 3 0 00-3 3v6a3 3 0 106 0V5a3 3 0 00-3-3z"></path>
+            <path d="M19 10v1a7 7 0 11-14 0v-1h2v1a5 5 0 1010 0v-1h2z"></path>
+          </svg>
+        </button>
+        <button type="submit" id="send-button" aria-label="Send Message">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

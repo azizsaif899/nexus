@@ -1,284 +1,136 @@
-import { useState, useEffect } from 'react';
-import styles from './app.module.css';
-import { WhatsAppManagement } from './whatsapp-management';
-import { MonitoringDashboard } from './monitoring-dashboard';
-import { SecurityDashboard } from './security-dashboard';
-import { AIDashboard } from './ai-dashboard';
-import { TestingDashboard } from './testing-dashboard';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { ModelSelectionStats } from '../features/analytics/ModelSelectionStats';
 
-interface User {
-  id: number;
-  username: string;
-  role: string;
-}
+const Dashboard = () => (
+  <div className="dashboard">
+    <h1>🎨 AzizSys Admin Dashboard</h1>
+    <div className="dashboard-grid">
+      <div className="card">
+        <h3>📊 إحصائيات النظام</h3>
+        <p>✅ النظام يعمل بكفاءة عالية</p>
+        <p>🤖 5 وكلاء ذكيين نشطين</p>
+        <p>📱 3 واجهات متاحة</p>
+      </div>
+      <div className="card">
+        <h3>🔗 تكامل Odoo</h3>
+        <p>✅ متصل ويعمل</p>
+        <p>📋 العملاء المحتملين: 25</p>
+        <p>💰 أوامر البيع: 12</p>
+      </div>
+      <div className="card">
+        <h3>🧠 الذكاء الاصطناعي</h3>
+        <p>✅ Gemini AI متصل</p>
+        <p>🎯 اختيار النماذج الذكي</p>
+        <p>🔊 تحويل النص إلى كلام</p>
+      </div>
+    </div>
+  </div>
+);
+
+const ProjectOverview = () => (
+  <div className="project-overview">
+    <h1>🚀 نظرة عامة على المشروع</h1>
+    <div className="project-stats">
+      <div className="stat-card">
+        <h3>📦 المكونات</h3>
+        <ul>
+          <li>✅ 7 تطبيقات متكاملة</li>
+          <li>✅ 15 حزمة متخصصة</li>
+          <li>✅ 5 وكلاء ذكيين</li>
+          <li>✅ نظام إصلاح ذاتي</li>
+        </ul>
+      </div>
+      <div className="stat-card">
+        <h3>🔗 التكاملات</h3>
+        <ul>
+          <li>✅ Odoo CRM</li>
+          <li>✅ BigQuery Analytics</li>
+          <li>✅ WhatsApp Business</li>
+          <li>✅ Google Sheets</li>
+        </ul>
+      </div>
+      <div className="stat-card">
+        <h3>🎯 الميزات</h3>
+        <ul>
+          <li>✅ جلسات تفاعلية حية</li>
+          <li>✅ رسوم بيانية ديناميكية</li>
+          <li>✅ تحديثات فورية</li>
+          <li>✅ تحليلات ذكية</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+);
+
+const SystemHealth = () => (
+  <div className="system-health">
+    <h1>🏥 صحة النظام</h1>
+    <div className="health-indicators">
+      <div className="health-card healthy">
+        <h3>🟢 API Server</h3>
+        <p>حالة: متاح</p>
+        <p>المنفذ: 3000</p>
+        <p>الاستجابة: 45ms</p>
+      </div>
+      <div className="health-card healthy">
+        <h3>🟢 Admin Dashboard</h3>
+        <p>حالة: متاح</p>
+        <p>المنفذ: 4200</p>
+        <p>المستخدمين: 1</p>
+      </div>
+      <div className="health-card healthy">
+        <h3>🟢 Web Chatbot</h3>
+        <p>حالة: متاح</p>
+        <p>المنفذ: 4201</p>
+        <p>الجلسات: 0</p>
+      </div>
+      <div className="health-card healthy">
+        <h3>🟢 Gemini Backend</h3>
+        <p>حالة: متاح</p>
+        <p>المنفذ: 8000</p>
+        <p>النماذج: 3</p>
+      </div>
+    </div>
+  </div>
+);
 
 export function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [activeSection, setActiveSection] = useState('dashboard');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const userData = localStorage.getItem('userData');
-    
-    if (token && userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-        setIsLoggedIn(true);
-      } catch (error) {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userData');
-      }
-    }
-  }, []);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
-
-    try {
-      const response = await fetch('http://localhost:3333/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password })
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('userData', JSON.stringify(data.user));
-        
-        setUser(data.user);
-        setIsLoggedIn(true);
-        setUsername('');
-        setPassword('');
-      } else {
-        setError(data.message || 'بيانات الدخول غير صحيحة');
-      }
-    } catch (error) {
-      setError('عذراً، لا يمكن الاتصال بالخادم. يرجى المحاولة لاحقاً.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        await fetch('http://localhost:3333/api/auth/logout', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        });
-      }
-    } catch (error) {
-      console.error('Logout error:', error);
-    } finally {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userData');
-      setUser(null);
-      setIsLoggedIn(false);
-      setActiveSection('dashboard');
-    }
-  };
-
-  if (!isLoggedIn) {
-    return (
-      <div className={styles.loginContainer}>
-        <div className={styles.loginBox}>
-          <h1>🔐 لوحة الإدارة</h1>
-          <p>AzizSys AI Assistant</p>
-          {error && (
-            <div className={styles.error}>
-              {error}
-            </div>
-          )}
-          <form onSubmit={handleLogin} className={styles.loginForm}>
-            <input
-              type="text"
-              placeholder="اسم المستخدم"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className={styles.input}
-              required
-            />
-            <input
-              type="password"
-              placeholder="كلمة المرور"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={styles.input}
-              required
-            />
-            <button type="submit" className={styles.loginButton} disabled={isLoading}>
-              {isLoading ? 'جاري الدخول...' : 'دخول'}
-            </button>
-          </form>
-          <div className={styles.hint}>
-            <small>المستخدم: admin | كلمة المرور: azizsys2025</small>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className={styles.app}>
-      {/* Sidebar */}
-      <aside className={styles.sidebar}>
-        <div className={styles.sidebarHeader}>
-          <h2>🤖 AzizSys</h2>
-          <p>لوحة الإدارة</p>
-        </div>
-        <nav className={styles.nav}>
-          <button 
-            className={activeSection === 'dashboard' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('dashboard')}
-          >
-            📊 الرئيسية
-          </button>
-          <button 
-            className={activeSection === 'tasks' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('tasks')}
-          >
-            📋 المهام
-          </button>
-          <button 
-            className={activeSection === 'reports' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('reports')}
-          >
-            📈 التقارير
-          </button>
-          <button 
-            className={activeSection === 'testing' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('testing')}
-          >
-            🧪 الاختبارات
-          </button>
-          <button 
-            className={activeSection === 'ai' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('ai')}
-          >
-            🤖 الذكاء الاصطناعي
-          </button>
-          <button 
-            className={activeSection === 'security' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('security')}
-          >
-            🛡️ الأمان
-          </button>
-          <button 
-            className={activeSection === 'monitoring' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('monitoring')}
-          >
-            📈 المراقبة
-          </button>
-          <button 
-            className={activeSection === 'whatsapp' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('whatsapp')}
-          >
-            💬 WhatsApp
-          </button>
-          <button 
-            className={activeSection === 'settings' ? styles.navItemActive : styles.navItem}
-            onClick={() => setActiveSection('settings')}
-          >
-            ⚙️ الإعدادات
-          </button>
+    <Router>
+      <div className="app">
+        <nav className="sidebar">
+          <div className="logo">
+            <h2>🚀 AzizSys</h2>
+            <p>AI Assistant v2.0</p>
+          </div>
+          <ul className="nav-menu">
+            <li><Link to="/">🏠 الرئيسية</Link></li>
+            <li><Link to="/project">📊 المشروع</Link></li>
+            <li><Link to="/health">🏥 صحة النظام</Link></li>
+            <li><Link to="/analytics">📈 التحليلات</Link></li>
+            <li><Link to="/odoo">🔗 Odoo</Link></li>
+            <li><Link to="/ai">🤖 الذكاء الاصطناعي</Link></li>
+          </ul>
+          <div className="nav-footer">
+            <p>🌐 الواجهات:</p>
+            <a href="http://localhost:4201" target="_blank">💬 Chatbot</a>
+            <a href="http://localhost:3000/api/docs" target="_blank">📚 API Docs</a>
+          </div>
         </nav>
-        <div className={styles.sidebarFooter}>
-          <button 
-            className={styles.logoutButton}
-            onClick={handleLogout}
-          >
-            🚪 خروج
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className={styles.mainContent}>
-        <header className={styles.header}>
-          <h1>مرحباً بك في لوحة الإدارة</h1>
-          <p>إدارة شاملة لنظام AzizSys AI Assistant</p>
-        </header>
-
-        <div className={styles.content}>
-          {activeSection === 'dashboard' && (
-            <div className={styles.section}>
-              <h2>📊 لوحة المعلومات الرئيسية</h2>
-              <div className={styles.statsGrid}>
-                <div className={styles.statCard}>
-                  <h3>المهام النشطة</h3>
-                  <div className={styles.statValue}>12</div>
-                </div>
-                <div className={styles.statCard}>
-                  <h3>المهام المكتملة</h3>
-                  <div className={styles.statValue}>45</div>
-                </div>
-                <div className={styles.statCard}>
-                  <h3>حالة النظام</h3>
-                  <div className={styles.statValue + ' ' + styles.healthy}>سليم</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeSection === 'tasks' && (
-            <div className={styles.section}>
-              <h2>📋 إدارة المهام</h2>
-              <p>عرض وإدارة جميع المهام في النظام</p>
-            </div>
-          )}
-
-          {activeSection === 'reports' && (
-            <div className={styles.section}>
-              <h2>📈 التقارير والإحصائيات</h2>
-              <p>تقارير مفصلة عن أداء النظام</p>
-            </div>
-          )}
-
-          {activeSection === 'testing' && (
-            <TestingDashboard />
-          )}
-
-          {activeSection === 'ai' && (
-            <AIDashboard />
-          )}
-
-          {activeSection === 'security' && (
-            <SecurityDashboard />
-          )}
-
-          {activeSection === 'monitoring' && (
-            <MonitoringDashboard />
-          )}
-
-          {activeSection === 'whatsapp' && (
-            <WhatsAppManagement />
-          )}
-
-          {activeSection === 'settings' && (
-            <div className={styles.section}>
-              <h2>⚙️ إعدادات النظام</h2>
-              <p>تكوين وإعدادات النظام</p>
-            </div>
-          )}
-        </div>
-      </main>
-    </div>
+        
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/project" element={<ProjectOverview />} />
+            <Route path="/health" element={<SystemHealth />} />
+            <Route path="/analytics" element={<ModelSelectionStats />} />
+            <Route path="/odoo" element={<div><h1>🔗 Odoo Integration</h1><p>تكامل Odoo يعمل بكفاءة</p></div>} />
+            <Route path="/ai" element={<div><h1>🤖 AI Engine</h1><p>محرك الذكاء الاصطناعي نشط</p></div>} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 

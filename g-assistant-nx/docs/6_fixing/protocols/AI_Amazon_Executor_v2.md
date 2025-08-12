@@ -1,9 +1,28 @@
-# 🔧 بروتوكول المنفذ الذكي (v5.0) - "المنفذ التفاعلي"
+# 🔧 بروتوكول المنفذ الذكي (v6.0) - "النظام الهجين المتقدم"
 
-**الإصدار:** 5.0
-**التحديث الأخير:** اليوم  
-**الحالة:** ✅ نشط - هذا البروتوكول يحل محل v4.0 لتصحيح آلية العمل لتكون تفاعلية عبر المحادثة.
-**الغرض:** تحديد آلية عمل واضحة للمنفذ كواجهة محادثة (Chat Interface).
+**🎯 تحديث خاص للإصدار v2.0 - دعم النظام الهجين (Python + TypeScript)**
+
+**الإصدار:** 6.0 - النظام الهجين المتقدم
+**التحديث الأخير:** 2025-01-09  
+**الحالة:** ✅ نشط - دعم كامل للنظام الهجين (Python + TypeScript + React)
+**الغرض:** تنفيذ وإدارة المهام في بيئة هجينة متعددة اللغات.
+
+## 🔥 الجديد في v6.0 - النظام الهجين
+
+### 🐍 Python Backend Support:
+- **LangGraph Research Agent** - بحث متقدم مع تفكير تكراري
+- **FastAPI Services** - خدمات Python عالية الأداء
+- **Docker Containers** - نشر وإدارة حاويات Python
+
+### 📝 TypeScript Integration:
+- **NestJS API Gateway** - بوابة موحدة لجميع الخدمات
+- **Sidebar Agents** - 5 وكلاء ذكيين متخصصين
+- **Hybrid Communication** - تواصل سلس بين Python و TypeScript
+
+### ⚙️ React Frontend:
+- **ActivityTimeline** - عرض مراحل البحث بصرياً
+- **ChatMessagesView** - واجهة محادثة متقدمة
+- **Real-time Streaming** - تحديثات فورية للنتائج
 
 ---
 
@@ -63,6 +82,7 @@ interface TaskRequest {
 - **إنشاء نسخة احتياطية** قبل أي تعديل
 - **التعديل الدقيق** في الموقع المحدد فقط
 - **عدم إضافة** أي كود غير مطلوب
+- **تشغيل الاختبارات** بعد التعديل للتأكد من عدم كسر أي وظائف قائمة.
 - **عدم تغيير** الهيكلة أو المجلدات
 
 ---
@@ -137,6 +157,13 @@ eventBus.emit('task:completed', {
 ### ملفات محذوفة:
 - لا يوجد
 
+### نتائج الاختبارات:
+- ✅ **Unit Tests**: 152/152 passed
+- ✅ **Integration Tests**: 45/45 passed
+- ✅ **E2E Tests**: 12/12 passed
+
+- لا يوجد
+
 ### ملفات جديدة:
 - لا يوجد
 
@@ -151,7 +178,88 @@ eventBus.emit('task:completed', {
 
 ---
 
-## 6. الأدوات المتاحة
+## 6. إدارة الخدمات الهجينة (v6.0 جديد)
+
+### 🐍 Python Services Management:
+```typescript
+class PythonServiceManager {
+  async startGeminiBackend(): Promise<boolean> {
+    // تشغيل Gemini Research Agent (Python)
+    const result = await exec('cd packages/gemini-research-agent/src/backend && python -m uvicorn agent.app:app --reload --port 8000');
+    return result.success;
+  }
+  
+  async healthCheckPython(): Promise<boolean> {
+    // فحص صحة خدمة Python
+    try {
+      const response = await fetch('http://localhost:8000/health');
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  }
+  
+  async deployPythonContainer(): Promise<string> {
+    // نشر حاوية Docker لخدمة Python
+    const containerId = await exec('docker run -d -p 8000:8000 gemini-research-agent:latest');
+    return containerId;
+  }
+}
+```
+
+### 🔄 Hybrid Communication:
+```typescript
+class HybridCommunicator {
+  async callPythonService(endpoint: string, data: any): Promise<any> {
+    // استدعاء خدمة Python من TypeScript
+    const response = await fetch(`http://localhost:8000${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    return response.json();
+  }
+  
+  async streamFromPython(query: string): Promise<ReadableStream> {
+    // تدفق بيانات من Python عبر WebSocket
+    const ws = new WebSocket('ws://localhost:8000/stream');
+    ws.send(JSON.stringify({ query }));
+    return new ReadableStream({
+      start(controller) {
+        ws.onmessage = (event) => {
+          controller.enqueue(event.data);
+        };
+      }
+    });
+  }
+}
+```
+
+### 📊 Monitoring Hybrid Services:
+```typescript
+class HybridMonitor {
+  async checkAllServices(): Promise<ServiceStatus[]> {
+    const services = [
+      { name: 'NestJS API', port: 3333, type: 'typescript' },
+      { name: 'Gemini Backend', port: 8000, type: 'python' },
+      { name: 'React Frontend', port: 3000, type: 'react' },
+      { name: 'Admin Dashboard', port: 4200, type: 'react' }
+    ];
+    
+    const statuses = await Promise.all(
+      services.map(async (service) => ({
+        ...service,
+        status: await this.checkServiceHealth(service.port),
+        lastCheck: new Date()
+      }))
+    );
+    
+    return statuses;
+  }
+}
+```
+
+## 7. الأدوات المتاحة (محدث v6.0)
 
 ### أدوات القراءة:
 - `readFile(path)` - قراءة ملف
