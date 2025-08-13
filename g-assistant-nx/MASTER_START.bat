@@ -200,11 +200,12 @@ echo.
 echo [+] NexusChat Pro starting on http://localhost:5173
 echo [+] Opening in browser...
 echo.
+start "NexusChat Pro Server" cmd /c "npm run dev"
+timeout /t 3 /nobreak >nul
 start http://localhost:5173
-npm run dev
-cd ..\..
 echo.
-pause
+echo NexusChat Pro is running in a separate window.
+cd ..\..
 goto MENU
 
 :INVALID_CHOICE
