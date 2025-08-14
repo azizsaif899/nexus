@@ -1,0 +1,139 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import yaml from 'yaml';
+import { PolicyRule, PolicyDoc } from '../types/audit';
+
+/**
+ * قاعدة المعرفة لإدارة سياسات الامتثال
+ * Knowledge base for managing compliance policies
+ */
+export class KnowledgeBase {
+  private policies: PolicyDoc[] = [];
+
+  constructor(private policiesDir: string) {}
+
+  /**
+   * تحميل جميع ملفات السياسات من المجلد المحدد
+   * Load all policy files from the specified directory
+   */
+  load(): void {
+    try {
+      if (!fs.existsSync(this.policiesDir)) {
+        console.warn(`Policies directory not found: ${this.policiesDir}`);
+        return;
+      }
+
+      const files = fs.readdirSync(this.policiesDir)
+        .filter(f => f.endsWith('.yaml') || f.endsWith('.yml'));
+      
+      this.policies = files.map(f => {
+        const filePath = path.join(this.policiesDir, f);
+        const raw = fs.readFileSync(filePath, 'utf8');
+        const parsed = yaml.parse(raw) as PolicyDoc;
+        
+        console.log(`Loaded policy: ${parsed.name} with ${parsed.rules?.length || 0} rules`);
+        return parsed;
+      });
+
+      console.log(`Successfully loaded ${this.policies.length} policy documents`);
+    } catch (error) {
+      console.error('Error loading policies:', error);
+      this.policies = [];
+    }
+  }
+
+  /**
+   * الحصول على جميع القواعد من كل السياسات
+   * Get all rules from all policies
+   */
+  getRules(): PolicyRule[] {
+    return this.policies.flatMap(p => p.rules ?? []);
+  }
+
+  /**
+   * البحث عن قاعدة محددة بالكود
+   * Find a specific rule by code
+   */
+  findRule(code: string): PolicyRule | undefined {
+    return this.getRules().find(r => r.code === code);
+  }
+
+  /**
+   * الحصول على جميع القواعد لسياسة محددة
+   * Get all rules for a specific policy
+   */
+  getRulesByPolicy(policyName: string): PolicyRule[] {
+    const policy = this.policies.find(p => p.name === policyName);
+    return policy?.rules ?? [];
+  }
+
+  /**
+   * الحصول على القواعد حسب درجة الخطورة
+   * Get rules by severity level
+   */
+  getRulesBySeverity(severity: string): PolicyRule[] {
+    return this.getRules().filter(r => 
+      r.severity?.toLowerCase() === severity.toLowerCase()
+    );
+  }
+
+  /**
+   * الحصول على إحصائيات السياسات المحملة
+   * Get statistics of loaded policies
+   */
+  getStats(): {
+    totalPolicies: number;
+    totalRules: number;
+    rulesBySeverity: Record<string, number>;
+  } {
+    const rules = this.getRules();
+    const rulesBySeverity: Record<string, number> = {};
+    
+    rules.forEach(rule => {
+      const severity = rule.severity?.toLowerCase() || 'unknown';
+      rulesBySeverity[severity] = (rulesBySeverity[severity] || 0) + 1;
+    });
+
+    return {
+      totalPolicies: this.policies.length,
+      totalRules: rules.length,
+      rulesBySeverity
+    };
+  }
+
+  /**
+   * التحقق من صحة السياسات المحملة
+   * Validate loaded policies
+   */
+  validate(): { isValid: boolean; errors: string[] } {
+    const errors: string[] = [];
+
+    this.policies.forEach((policy, index) => {
+      if (!policy.name) {
+        errors.push(`Policy at index ${index} missing name`);
+      }
+
+      if (!policy.rules || !Array.isArray(policy.rules)) {
+        errors.push(`Policy "${policy.name}" missing or invalid rules array`);
+        return;
+      }
+
+      policy.rules.forEach((rule, ruleIndex) => {
+        if (!rule.code) {
+          errors.push(`Rule at index ${ruleIndex} in policy "${policy.name}" missing code`);
+        }
+        if (!rule.title) {
+          errors.push(`Rule "${rule.code}" in policy "${policy.name}" missing title`);
+        }
+        if (!rule.description) {
+          errors.push(`Rule "${rule.code}" in policy "${policy.name}" missing description`);
+        }
+      });
+    });
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  }
+}

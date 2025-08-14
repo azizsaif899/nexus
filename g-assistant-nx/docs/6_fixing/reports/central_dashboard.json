@@ -95,6 +95,18 @@
     "deployment_status": "ready",
     "security_scan": "clean"
   },
+  "compliance_agent": {
+    "status": "ready",
+    "last_audit": "not_run_yet",
+    "compliance_score": null,
+    "critical_issues": 0,
+    "high_issues": 0,
+    "medium_issues": 0,
+    "low_issues": 0,
+    "policies_loaded": 3,
+    "scanners_active": ["gcp", "github", "terraform"],
+    "next_scheduled_run": "auto_with_orchestrator"
+  },
   "daily_maintenance_scripts": {
     "auto_fix_v2": {
       "command": "npm run auto-fix:v2",

@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
+import { DynamicModelSelector } from './dynamic-model-selector';
+
+const dynamicModelSelector = new DynamicModelSelector();
+
 @Injectable()
 export class AdvancedAICore {
   private agents = new Map<string, any>();
@@ -15,6 +19,8 @@ export class AdvancedAICore {
       
       // Select appropriate agent
       const selectedAgent = this.selectAgent(agent, message);
+      
+const model = dynamicModelSelector.selectModel(message);
       
       // Process based on mode
       let response;

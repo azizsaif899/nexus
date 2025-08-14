@@ -1,49 +1,84 @@
-# -*- coding: utf-8 -*-
-from odoo import models, api
+from odoo import models
+import requests
+import json
+import hmac
+import hashlib
+import logging
+from datetime import datetime
+
+_logger = logging.getLogger(__name__)
 
 class CrmLead(models.Model):
     _inherit = 'crm.lead'
 
-    @api.model
-    def create(self, vals):
-        """إرسال webhook عند إنشاء عميل محتمل جديد"""
-        lead = super(CrmLead, self).create(vals)
-        self._send_g_assistant_webhook(lead, 'create')
-        return lead
+    def send_g_assistant_webhook(self):
+        """Send webhook notification to G-Assistant when lead is updated"""
+        if not self.env['ir.config_parameter'].sudo().get_param('g_assistant.enabled'):
+            return
+
+        webhook_url = self.env['ir.config_parameter'].sudo().get_param('g_assistant.webhook_url')
+        secret_key = self.env['ir.config_parameter'].sudo().get_param('g_assistant.secret_key')
+
+        if not webhook_url or not secret_key:
+            _logger.warning("G-Assistant Webhook URL or Secret Key is not configured.")
+            return
+
+        for record in self:
+            payload = {
+                'event': 'lead_updated',
+                'timestamp': datetime.now().isoformat(),
+                'data': {
+                    'id': record.id,
+                    'name': record.name,
+                    'partner_name': record.partner_name,
+                    'email_from': record.email_from,
+                    'phone': record.phone,
+                    'stage_id': record.stage_id.id,
+                    'stage_name': record.stage_id.name,
+                    'user_id': record.user_id.id,
+                    'team_id': record.team_id.id,
+                    'expected_revenue': record.expected_revenue,
+                    'probability': record.probability,
+                    'priority': record.priority,
+                    'source_id': record.source_id.name if record.source_id else None,
+                    'create_date': record.create_date.isoformat() if record.create_date else None,
+                    'write_date': record.write_date.isoformat() if record.write_date else None
+                }
+            }
+
+            try:
+                # Create signature for authentication
+                payload_json = json.dumps(payload, sort_keys=True)
+                signature = hmac.new(
+                    secret_key.encode('utf-8'),
+                    payload_json.encode('utf-8'),
+                    hashlib.sha256
+                ).hexdigest()
+
+                headers = {
+                    'Content-Type': 'application/json',
+                    'X-G-Assistant-Signature': f'sha256={signature}',
+                    'User-Agent': 'Odoo-G-Assistant-Connector/1.0'
+                }
+
+                response = requests.post(
+                    webhook_url,
+                    data=payload_json,
+                    headers=headers,
+                    timeout=10
+                )
+
+                if response.status_code == 200:
+                    _logger.info(f"Successfully sent webhook for lead {record.id} to G-Assistant")
+                else:
+                    _logger.error(f"Failed to send webhook for lead {record.id}. Status: {response.status_code}")
+
+            except Exception as e:
+                _logger.error(f"Error sending webhook for lead {record.id}: {str(e)}")
 
     def write(self, vals):
-        """إرسال webhook عند تحديث عميل محتمل"""
+        """Override write method to trigger webhook on updates"""
         result = super(CrmLead, self).write(vals)
-        for lead in self:
-            self._send_g_assistant_webhook(lead, 'write')
+        # Send webhook after successful update
+        self.send_g_assistant_webhook()
         return result
-
-    def unlink(self):
-        """إرسال webhook عند حذف عميل محتمل"""
-        for lead in self:
-            self._send_g_assistant_webhook(lead, 'unlink')
-        return super(CrmLead, self).unlink()
-
-    def _send_g_assistant_webhook(self, lead, action):
-        """إرسال webhook إلى G-Assistant"""
-        config = self.env['g.assistant.config'].get_config()
-        
-        if not config or not config.send_lead_updates:
-            return
-            
-        lead_data = {
-            'id': lead.id,
-            'name': lead.name,
-            'partner_name': lead.partner_name,
-            'email_from': lead.email_from,
-            'phone': lead.phone,
-            'expected_revenue': lead.expected_revenue,
-            'probability': lead.probability,
-            'stage_id': lead.stage_id.name if lead.stage_id else None,
-            'user_id': lead.user_id.name if lead.user_id else None,
-            'team_id': lead.team_id.name if lead.team_id else None,
-            'create_date': lead.create_date.isoformat() if lead.create_date else None,
-            'write_date': lead.write_date.isoformat() if lead.write_date else None,
-        }
-        
-        config.send_webhook('crm.lead', lead.id, action, lead_data)

@@ -1,0 +1,178 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  margin: 0;
+}
+
+.app {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #111;
+  padding: 1rem;
+  height: 100vh;
+  border-right: 1px solid #333;
+}
+
+.logo h2 {
+  margin-top: 0;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-menu li a {
+  color: #f0f0f0;
+  text-decoration: none;
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.nav-menu li a:hover {
+  background-color: #333;
+}
+
+.main-content {
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+/* CRM Dashboard Styles */
+.crm-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.crm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  padding-bottom: 1rem;
+}
+
+.crm-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.crm-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #357abd;
+}
+
+.btn-secondary {
+  background-color: #444;
+  color: #f0f0f0;
+  border: 1px solid #555;
+}
+
+.btn-secondary:hover {
+  background-color: #555;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.kpi-card {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+}
+
+.kpi-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.kpi-value {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.leads-table-container {
+  background-color: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #3a3a3a;
+}
+
+.leads-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.leads-table th, .leads-table td {
+  padding: 0.8rem 1rem;
+  text-align: right;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.leads-table th {
+  color: #aaa;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.leads-table tbody tr:hover {
+  background-color: #333;
+}
+
+.status-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.status-badge.status-مؤهل {
+  background-color: #28a745; /* Green */
+}
+
+.status-badge.status-قيد-المتابعة {
+  background-color: #ffc107; /* Yellow */
+  color: #333;
+}
+
+.status-badge.status-جديد {
+  background-color: #17a2b8; /* Cyan */
+}
+
+.status-badge.status-مفقود {
+  background-color: #dc3545; /* Red */
+}

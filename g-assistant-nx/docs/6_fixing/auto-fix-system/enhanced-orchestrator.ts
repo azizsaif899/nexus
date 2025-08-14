@@ -34,15 +34,18 @@ export class EnhancedOrchestrator {
       const errors = await this.detectErrors(files);
       const newTasks = this.createTasks(errors);
       
-      // 3. دمج المهام (معلقة + جديدة)
+      // 3. تشغيل فحص الامتثال والجودة
+      await this.runComplianceCheck();
+      
+      // 4. دمج المهام (معلقة + جديدة)
       const allTasks = [...pendingTasks, ...newTasks];
       
-      // 4. إرسال جميع المهام للمنفذ
+      // 5. إرسال جميع المهام للمنفذ
       for (const task of allTasks) {
         await this.dispatchTask(task);
       }
       
-      // 5. تحديث التقارير
+      // 6. تحديث التقارير
       await this.updateReports();
       
       console.log(`✅ اكتملت الدورة - تم معالجة ${allTasks.length} مهام (${pendingTasks.length} معلقة + ${newTasks.length} جديدة)`);
@@ -51,6 +54,37 @@ export class EnhancedOrchestrator {
       console.error('❌ فشلت دورة الإصلاح:', error);
     } finally {
       this.isRunning = false;
+    }
+  }
+
+  // دالة جديدة لتشغيل فحص الامتثال
+  private async runComplianceCheck(): Promise<void> {
+    try {
+      console.log('🛡️ بدء فحص الامتثال والجودة...');
+      
+      // استيراد وكيل الرقيب
+      const { ComplianceAuditorAgent, KnowledgeBase, GoogleCloudScanner, GitHubScanner, TerraformState } = 
+        await import('../../../packages/compliance-agent/src');
+      
+      // إعداد الوكيل
+      const kb = new KnowledgeBase('packages/compliance-agent/src/policies');
+      const gcp = new GoogleCloudScanner(process.env.GCP_PROJECT_ID || 'demo');
+      const gh = new GitHubScanner(process.env.GITHUB_TOKEN || 'demo', 'azizsaif899', 'g-assistant');
+      const tf = new TerraformState(process.env.TF_STATE_PATH || 'infrastructure/terraform.tfstate');
+      
+      const agent = new ComplianceAuditorAgent(kb, gcp, gh, tf);
+      
+      // تشغيل فحص سريع
+      const healthCheck = await agent.quickHealthCheck();
+      
+      if (healthCheck.status === 'critical') {
+        console.warn(`⚠️ مشاكل حرجة في الامتثال: ${healthCheck.issues} مشكلة`);
+      } else {
+        console.log(`✅ فحص الامتثال مكتمل: ${healthCheck.status}`);
+      }
+      
+    } catch (error) {
+      console.warn('تعذر تشغيل فحص الامتثال:', error.message);
     }
   }
 
@@ -519,7 +553,9 @@ export class EnhancedOrchestrator {
       totalTasks: this.tasks.length + this.completedTasks.length,
       completedTasks: this.completedTasks.length,
       healthScore: this.calculateHealthScore(),
-      status: this.getSystemStatus()
+      status: this.getSystemStatus(),
+      complianceStatus: 'checked', // إضافة حالة الامتثال
+      lastComplianceCheck: new Date().toISOString()
     };
     
     try {

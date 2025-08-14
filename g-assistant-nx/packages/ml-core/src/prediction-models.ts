@@ -1,114 +1,156 @@
-import { Injectable } from '@nestjs/common';
+import * as tf from '@tensorflow/tfjs-node';
+import { EventBus } from '@azizsys/core-logic';
 
-@Injectable()
+export interface PredictionInput {
+  features: number[];
+  timeframe: number;
+  context: Record<string, any>;
+}
+
+export interface PredictionResult {
+  value: number;
+  confidence: number;
+  trend: 'up' | 'down' | 'stable';
+  factors: string[];
+}
+
 export class PredictionModels {
-  async predictUserBehavior(userId: string, features: any): Promise<any> {
-    // User behavior prediction
+  private eventBus: EventBus;
+  private models: Map<string, tf.LayersModel>;
+
+  constructor() {
+    this.eventBus = EventBus.getInstance();
+    this.models = new Map();
+    this.initializeModels();
+  }
+
+  private async initializeModels(): Promise<void> {
+    // Revenue Prediction Model
+    const revenueModel = tf.sequential({
+      layers: [
+        tf.layers.dense({ inputShape: [10], units: 64, activation: 'relu' }),
+        tf.layers.dropout({ rate: 0.2 }),
+        tf.layers.dense({ units: 32, activation: 'relu' }),
+        tf.layers.dense({ units: 1, activation: 'linear' })
+      ]
+    });
+
+    revenueModel.compile({
+      optimizer: 'adam',
+      loss: 'meanSquaredError',
+      metrics: ['mae']
+    });
+
+    this.models.set('revenue', revenueModel);
+
+    // Cost Prediction Model
+    const costModel = tf.sequential({
+      layers: [
+        tf.layers.dense({ inputShape: [8], units: 48, activation: 'relu' }),
+        tf.layers.dense({ units: 24, activation: 'relu' }),
+        tf.layers.dense({ units: 1, activation: 'linear' })
+      ]
+    });
+
+    costModel.compile({
+      optimizer: 'adam',
+      loss: 'meanSquaredError'
+    });
+
+    this.models.set('costs', costModel);
+
+    this.eventBus.emit('models:initialized', { modelCount: this.models.size });
+  }
+
+  async predictRevenue(input: PredictionInput): Promise<PredictionResult> {
+    const model = this.models.get('revenue');
+    if (!model) throw new Error('Revenue model not initialized');
+
+    const prediction = model.predict(tf.tensor2d([input.features])) as tf.Tensor;
+    const value = (await prediction.data())[0];
+    
+    const confidence = this.calculateConfidence(input.features);
+    const trend = this.determineTrend(value, input.context.historical || []);
+
     return {
-      nextAction: 'purchase',
-      probability: 0.78,
-      timeframe: '24h',
-      confidence: 0.85
+      value,
+      confidence,
+      trend,
+      factors: this.identifyKeyFactors(input.features)
     };
   }
 
-  async predictSystemLoad(metrics: any[]): Promise<any> {
-    // System load prediction
-    const trend = this.calculateTrend(metrics);
+  async predictCosts(input: PredictionInput): Promise<PredictionResult> {
+    const model = this.models.get('costs');
+    if (!model) throw new Error('Cost model not initialized');
+
+    const prediction = model.predict(tf.tensor2d([input.features])) as tf.Tensor;
+    const value = (await prediction.data())[0];
     
     return {
-      predictedLoad: trend * 1.2,
-      timeframe: '1h',
-      confidence: 0.92,
-      recommendation: trend > 0.8 ? 'scale_up' : 'maintain'
+      value,
+      confidence: this.calculateConfidence(input.features),
+      trend: this.determineTrend(value, input.context.historical || []),
+      factors: this.identifyKeyFactors(input.features)
     };
   }
 
-  async predictChurn(userFeatures: any): Promise<any> {
-    // Customer churn prediction
-    const riskScore = this.calculateChurnRisk(userFeatures);
-    
-    return {
-      churnProbability: riskScore,
-      riskLevel: riskScore > 0.7 ? 'high' : riskScore > 0.4 ? 'medium' : 'low',
-      factors: this.getChurnFactors(userFeatures),
-      recommendations: this.getRetentionRecommendations(riskScore)
-    };
+  async trainModel(modelName: string, trainingData: { inputs: number[][], outputs: number[] }): Promise<void> {
+    const model = this.models.get(modelName);
+    if (!model) throw new Error(`Model ${modelName} not found`);
+
+    const xs = tf.tensor2d(trainingData.inputs);
+    const ys = tf.tensor2d(trainingData.outputs, [trainingData.outputs.length, 1]);
+
+    await model.fit(xs, ys, {
+      epochs: 100,
+      batchSize: 32,
+      validationSplit: 0.2,
+      callbacks: {
+        onEpochEnd: (epoch, logs) => {
+          this.eventBus.emit('model:training:progress', { 
+            model: modelName, 
+            epoch, 
+            loss: logs?.loss 
+          });
+        }
+      }
+    });
+
+    this.eventBus.emit('model:training:completed', { model: modelName });
   }
 
-  async predictDemand(historicalData: any[], features: any): Promise<any> {
-    // Demand forecasting
-    const seasonality = this.detectSeasonality(historicalData);
-    const trend = this.calculateTrend(historicalData);
-    
-    return {
-      predictedDemand: this.forecastDemand(trend, seasonality, features),
-      confidence: 0.88,
-      factors: ['seasonality', 'trend', 'external_factors'],
-      timeframe: '7d'
-    };
+  private calculateConfidence(features: number[]): number {
+    const variance = this.calculateVariance(features);
+    return Math.max(0.1, Math.min(0.95, 1 - variance / 100));
   }
 
-  private calculateTrend(data: any[]): number {
-    if (data.length < 2) return 0;
-    
-    const recent = data.slice(-5);
-    const sum = recent.reduce((acc, item) => acc + (item.value || item), 0);
-    return sum / recent.length;
+  private calculateVariance(data: number[]): number {
+    const mean = data.reduce((a, b) => a + b) / data.length;
+    return data.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / data.length;
   }
 
-  private calculateChurnRisk(features: any): number {
-    let risk = 0;
+  private determineTrend(currentValue: number, historical: number[]): 'up' | 'down' | 'stable' {
+    if (historical.length === 0) return 'stable';
     
-    if (features.lastLogin > 30) risk += 0.3;
-    if (features.supportTickets > 3) risk += 0.2;
-    if (features.usageDecline > 0.5) risk += 0.4;
-    if (features.paymentIssues) risk += 0.1;
+    const lastValue = historical[historical.length - 1];
+    const threshold = 0.05; // 5% threshold
     
-    return Math.min(risk, 1.0);
+    if (currentValue > lastValue * (1 + threshold)) return 'up';
+    if (currentValue < lastValue * (1 - threshold)) return 'down';
+    return 'stable';
   }
 
-  private getChurnFactors(features: any): string[] {
-    const factors = [];
+  private identifyKeyFactors(features: number[]): string[] {
+    const factorNames = [
+      'market_conditions', 'seasonality', 'competition', 
+      'customer_demand', 'operational_efficiency'
+    ];
     
-    if (features.lastLogin > 30) factors.push('inactive_user');
-    if (features.supportTickets > 3) factors.push('support_issues');
-    if (features.usageDecline > 0.5) factors.push('declining_usage');
-    if (features.paymentIssues) factors.push('payment_problems');
-    
-    return factors;
-  }
-
-  private getRetentionRecommendations(riskScore: number): string[] {
-    if (riskScore > 0.7) {
-      return ['immediate_intervention', 'personal_contact', 'special_offer'];
-    } else if (riskScore > 0.4) {
-      return ['engagement_campaign', 'feature_education', 'feedback_survey'];
-    }
-    return ['monitor_closely', 'regular_communication'];
-  }
-
-  private detectSeasonality(data: any[]): any {
-    // Simple seasonality detection
-    return {
-      hasSeasonality: true,
-      period: 7, // weekly
-      strength: 0.6
-    };
-  }
-
-  private forecastDemand(trend: number, seasonality: any, features: any): number {
-    let forecast = trend;
-    
-    if (seasonality.hasSeasonality) {
-      forecast *= (1 + seasonality.strength * 0.2);
-    }
-    
-    // Apply external factors
-    if (features.promotion) forecast *= 1.3;
-    if (features.holiday) forecast *= 1.5;
-    if (features.weather === 'bad') forecast *= 0.8;
-    
-    return Math.max(0, forecast);
+    return features
+      .map((value, index) => ({ name: factorNames[index] || `factor_${index}`, value }))
+      .sort((a, b) => Math.abs(b.value) - Math.abs(a.value))
+      .slice(0, 3)
+      .map(f => f.name);
   }
 }

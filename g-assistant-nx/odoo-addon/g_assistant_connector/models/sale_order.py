@@ -1,48 +1,82 @@
-# -*- coding: utf-8 -*-
-from odoo import models, api
+from odoo import models
+import requests
+import json
+import hmac
+import hashlib
+import logging
+from datetime import datetime
+
+_logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.model
-    def create(self, vals):
-        """إرسال webhook عند إنشاء أمر بيع جديد"""
-        order = super(SaleOrder, self).create(vals)
-        self._send_g_assistant_webhook(order, 'create')
-        return order
+    def send_g_assistant_webhook(self):
+        """Send webhook notification to G-Assistant when sale order is updated"""
+        if not self.env['ir.config_parameter'].sudo().get_param('g_assistant.enabled'):
+            return
+
+        webhook_url = self.env['ir.config_parameter'].sudo().get_param('g_assistant.webhook_url')
+        secret_key = self.env['ir.config_parameter'].sudo().get_param('g_assistant.secret_key')
+
+        if not webhook_url or not secret_key:
+            _logger.warning("G-Assistant Webhook URL or Secret Key is not configured.")
+            return
+
+        for record in self:
+            payload = {
+                'event': 'sale_order_updated',
+                'timestamp': datetime.now().isoformat(),
+                'data': {
+                    'id': record.id,
+                    'name': record.name,
+                    'partner_id': record.partner_id.id,
+                    'partner_name': record.partner_id.name,
+                    'state': record.state,
+                    'amount_total': record.amount_total,
+                    'amount_untaxed': record.amount_untaxed,
+                    'currency_id': record.currency_id.name,
+                    'user_id': record.user_id.id,
+                    'team_id': record.team_id.id,
+                    'date_order': record.date_order.isoformat() if record.date_order else None,
+                    'validity_date': record.validity_date.isoformat() if record.validity_date else None,
+                    'opportunity_id': record.opportunity_id.id if record.opportunity_id else None
+                }
+            }
+
+            try:
+                # Create signature for authentication
+                payload_json = json.dumps(payload, sort_keys=True)
+                signature = hmac.new(
+                    secret_key.encode('utf-8'),
+                    payload_json.encode('utf-8'),
+                    hashlib.sha256
+                ).hexdigest()
+
+                headers = {
+                    'Content-Type': 'application/json',
+                    'X-G-Assistant-Signature': f'sha256={signature}',
+                    'User-Agent': 'Odoo-G-Assistant-Connector/1.0'
+                }
+
+                response = requests.post(
+                    webhook_url,
+                    data=payload_json,
+                    headers=headers,
+                    timeout=10
+                )
+
+                if response.status_code == 200:
+                    _logger.info(f"Successfully sent webhook for sale order {record.id} to G-Assistant")
+                else:
+                    _logger.error(f"Failed to send webhook for sale order {record.id}. Status: {response.status_code}")
+
+            except Exception as e:
+                _logger.error(f"Error sending webhook for sale order {record.id}: {str(e)}")
 
     def write(self, vals):
-        """إرسال webhook عند تحديث أمر بيع"""
+        """Override write method to trigger webhook on updates"""
         result = super(SaleOrder, self).write(vals)
-        for order in self:
-            self._send_g_assistant_webhook(order, 'write')
+        # Send webhook after successful update
+        self.send_g_assistant_webhook()
         return result
-
-    def unlink(self):
-        """إرسال webhook عند حذف أمر بيع"""
-        for order in self:
-            self._send_g_assistant_webhook(order, 'unlink')
-        return super(SaleOrder, self).unlink()
-
-    def _send_g_assistant_webhook(self, order, action):
-        """إرسال webhook إلى G-Assistant"""
-        config = self.env['g.assistant.config'].get_config()
-        
-        if not config or not config.send_order_updates:
-            return
-            
-        order_data = {
-            'id': order.id,
-            'name': order.name,
-            'partner_id': [order.partner_id.id, order.partner_id.name] if order.partner_id else None,
-            'amount_total': order.amount_total,
-            'amount_untaxed': order.amount_untaxed,
-            'state': order.state,
-            'date_order': order.date_order.isoformat() if order.date_order else None,
-            'user_id': order.user_id.name if order.user_id else None,
-            'team_id': order.team_id.name if order.team_id else None,
-            'create_date': order.create_date.isoformat() if order.create_date else None,
-            'write_date': order.write_date.isoformat() if order.write_date else None,
-        }
-        
-        config.send_webhook('sale.order', order.id, action, order_data)

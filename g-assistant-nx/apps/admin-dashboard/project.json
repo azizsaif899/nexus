@@ -5,31 +5,18 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/admin-dashboard",
-        "index": "apps/admin-dashboard/src/index.html",
-        "baseHref": "/",
-        "main": "apps/admin-dashboard/src/main.tsx",
-        "tsConfig": "apps/admin-dashboard/tsconfig.app.json",
-        "assets": [
-          "apps/admin-dashboard/src/favicon.ico",
-          "apps/admin-dashboard/src/assets"
-        ],
-        "styles": ["apps/admin-dashboard/src/styles.css"],
-        "scripts": [],
-        "webpackConfig": "apps/admin-dashboard/webpack.config.js"
+        "outputPath": "dist/apps/admin-dashboard"
       }
     },
     "serve": {
-      "executor": "@nx/webpack:dev-server",
+      "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "admin-dashboard:build",
-        "hmr": true,
         "port": 4200
       }
     },

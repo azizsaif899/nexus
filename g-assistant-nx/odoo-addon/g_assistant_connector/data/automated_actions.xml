@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Automated Action for CRM Lead Updates -->
+        <record id="action_send_lead_webhook" model="base.automation">
+            <field name="name">G-Assistant: Send Lead/Opportunity Update</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="trigger">on_write</field>
+            <field name="state">code</field>
+            <field name="code">
+# Send webhook notification to G-Assistant
+if records:
+    records.send_g_assistant_webhook()
+            </field>
+        </record>
+
+        <!-- Automated Action for Sale Order Updates -->
+        <record id="action_send_sale_order_webhook" model="base.automation">
+            <field name="name">G-Assistant: Send Sale Order Update</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="trigger">on_write</field>
+            <field name="state">code</field>
+            <field name="code">
+# Send webhook notification to G-Assistant
+if records:
+    records.send_g_assistant_webhook()
+            </field>
+        </record>
+
+        <!-- Automated Action for New Lead Creation -->
+        <record id="action_send_new_lead_webhook" model="base.automation">
+            <field name="name">G-Assistant: Send New Lead Notification</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="trigger">on_create</field>
+            <field name="state">code</field>
+            <field name="code">
+# Send webhook notification for new leads
+if records:
+    records.send_g_assistant_webhook()
+            </field>
+        </record>
+
+        <!-- Automated Action for New Sale Order Creation -->
+        <record id="action_send_new_sale_order_webhook" model="base.automation">
+            <field name="name">G-Assistant: Send New Sale Order Notification</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="trigger">on_create</field>
+            <field name="state">code</field>
+            <field name="code">
+# Send webhook notification for new sale orders
+if records:
+    records.send_g_assistant_webhook()
+            </field>
+        </record>
+    </data>
+</odoo>

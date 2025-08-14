@@ -20,7 +20,7 @@ G-Assistant Connector
     'depends': ['base', 'crm', 'sale'],
     'data': [
         'security/ir.model.access.csv',
-        'views/g_assistant_config_views.xml',
+        'views/settings_view.xml',
         'data/automated_actions.xml',
     ],
     'installable': True,
