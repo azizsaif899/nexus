@@ -7,6 +7,7 @@ on:
     branches: [ master, main ]
   schedule:
     - cron: '0 3 * * 2' # كل ثلاثاء الساعة 3 صباحاً
+  workflow_dispatch:  # تشغيل يدوي
 
 jobs:
   analyze:
