@@ -50,7 +50,11 @@
     "auto:enhanced": "tsx scripts/auto-fix-v2.js",
     "october:build": "nx build october-implementation",
     "gemini:build": "nx build gemini-research-agent",
-    "gemini:backend": "nx serve gemini-backend"
+    "gemini:backend": "nx serve gemini-backend",
+    "type-check": "tsc --noEmit",
+    "start:api": "nx serve api",
+    "start:admin-dashboard": "nx serve admin-dashboard",
+    "start:web-chatbot": "nx serve web-chatbot"
   },
   "devDependencies": {
     "@nx/eslint": "19.8.4",
