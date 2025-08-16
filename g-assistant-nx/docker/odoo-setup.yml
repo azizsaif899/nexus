@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for Odoo
+  postgres:
+    image: postgres:15
+    container_name: azizsys_postgres
+    environment:
+      POSTGRES_DB: odoo
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # Odoo Community Edition (Free)
+  odoo:
+    image: odoo:17.0
+    container_name: azizsys_odoo
+    depends_on:
+      - postgres
+    environment:
+      HOST: postgres
+      USER: odoo
+      PASSWORD: odoo123
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - ./odoo-config:/etc/odoo
+      - ../odoo-addon:/mnt/extra-addons
+    ports:
+      - "8069:8069"
+    restart: unless-stopped
+    command: --dev=reload
+
+volumes:
+  postgres_data:
+  odoo_data:
