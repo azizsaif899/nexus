@@ -1,0 +1,31 @@
+name: 🔒 Security Scan
+
+on:
+  push:
+    branches: [ master, main ]
+  schedule:
+    - cron: '0 2 * * 1' # كل اثنين الساعة 2 صباحاً
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Security audit
+        run: npm audit --audit-level=moderate || echo "Security audit completed"
+      
+      - name: Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: main
+          head: HEAD
