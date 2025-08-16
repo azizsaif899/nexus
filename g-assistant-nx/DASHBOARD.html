@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AzizSys Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; color: white; margin-bottom: 40px; }
+        .header h1 { font-size: 3em; margin-bottom: 10px; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { color: #333; margin-bottom: 15px; font-size: 1.5em; }
+        .card p { color: #666; margin-bottom: 10px; }
+        .btn { background: linear-gradient(45deg, #4CAF50, #45a049); color: white; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 15px; transition: all 0.3s; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(76,175,80,0.4); }
+        .status { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 0.8em; margin-left: 10px; }
+        .active { background: #4CAF50; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 AzizSys Dashboard</h1>
+            <p>نظام إدارة الأعمال المتكامل - الإصدار 2.0</p>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <h3>🏢 Odoo CRM <span class="status active">نشط</span></h3>
+                <p>نظام إدارة علاقات العملاء المتكامل</p>
+                <p>📊 قاعدة البيانات: azizsys_crm</p>
+                <p>👤 المستخدم: admin@azizsys.com</p>
+                <a href="http://localhost:8070" class="btn" target="_blank">فتح CRM</a>
+            </div>
+            <div class="card">
+                <h3>📊 إحصائيات مباشرة</h3>
+                <p>👥 العملاء المحتملين: 18</p>
+                <p>📱 عملاء WhatsApp: 11</p>
+                <p>✅ عملاء محولين: 3</p>
+                <p>📈 معدل التحويل: 17%</p>
+                <p>📨 رسائل اليوم: 8</p>
+            </div>
+            <div class="card">
+                <h3>📱 WhatsApp Integration <span class="status active">متصل</span></h3>
+                <p>تكامل كامل مع الواتساب</p>
+                <p>✅ ردود تلقائية مفعلة</p>
+                <p>✅ إضافة عملاء تلقائية</p>
+                <p>✅ إشعارات فريق المبيعات</p>
+            </div>
+            <div class="card">
+                <h3>📈 GTM Analytics <span class="status active">يعمل</span></h3>
+                <p>Container: GTM-58RWKC76</p>
+                <p>✅ تتبع الأحداث نشط</p>
+                <p>✅ تحليل رحلة العميل</p>
+                <p>✅ قياس ROI للحملات</p>
+                <a href="https://tagmanager.google.com" class="btn" target="_blank">فتح GTM</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
