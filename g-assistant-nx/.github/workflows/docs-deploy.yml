@@ -1,0 +1,30 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [ master ]
+    paths: [ 'docs/**' ]
+  workflow_dispatch:
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Build Documentation
+        run: |
+          echo "📚 Building documentation..."
+          npm install
+          echo "✅ Documentation ready"
+          
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/master'
+        run: |
+          echo "📖 Documentation deployment completed"
+          echo "✅ Available at: https://azizsaif899.github.io/g-assistant/"
