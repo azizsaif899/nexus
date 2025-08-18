@@ -15,7 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@g-assistant/*": ["packages/*/src"]
+      "@g-assistant/*": ["packages/*/src"],
+      "@azizsys/shared-types": ["packages/shared-types/src/index.ts"],
+      "@azizsys/json-rpc-client": ["packages/json-rpc-client/src/index.ts"],
+      "@azizsys/whatsapp-client": ["packages/whatsapp-client/src/index.ts"],
+      "@azizsys/shared-hooks": ["packages/shared-hooks/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

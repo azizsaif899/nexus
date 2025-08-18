@@ -137,9 +137,9 @@ async function runAdvancedSimulation(cardId: string, deltaPct: number) {
   };
 
   const scenario = scenarios[cardId] || scenarios['opp-001'];
-  const results = {};
+  const results: Record<string, any> = {};
 
-  Object.entries(scenario).forEach(([metric, config]) => {
+  Object.entries(scenario).forEach(([metric, config]: [string, any]) => {
     const impact = config.baseline * baseImpact * config.multiplier;
     results[metric] = {
       current: config.baseline,

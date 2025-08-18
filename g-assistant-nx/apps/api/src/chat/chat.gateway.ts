@@ -9,7 +9,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { Logger } from '@nestjs/common';
-import { AiCoreService } from '@g-assistant-nx/core-logic';
+import { AiCoreService } from '@azizsys/core/core-logic';
 
 @WebSocketGateway({
   cors: {

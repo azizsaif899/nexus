@@ -1,0 +1,154 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Bell, X, Check, AlertTriangle, Info } from 'lucide-react';
+
+interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: 'info' | 'success' | 'warning' | 'error';
+  timestamp: Date;
+  actions?: { label: string; action: () => void }[];
+}
+
+export function SmartNotifications() {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const mockNotifications: Notification[] = [
+      {
+        id: '1',
+        title: 'صفقة جديدة',
+        message: 'تم إنشاء صفقة جديدة بقيمة 150,000 ريال',
+        type: 'success',
+        timestamp: new Date(),
+        actions: [
+          { label: 'عرض', action: () => console.log('View deal') }
+        ]
+      },
+      {
+        id: '2',
+        title: 'تنبيه متابعة',
+        message: 'حان وقت متابعة العميل أحمد محمد',
+        type: 'warning',
+        timestamp: new Date(Date.now() - 300000),
+        actions: [
+          { label: 'اتصال', action: () => console.log('Call customer') }
+        ]
+      }
+    ];
+
+    setNotifications(mockNotifications);
+  }, []);
+
+  const getIcon = (type: string) => {
+    switch (type) {
+      case 'success': return <Check className="w-5 h-5 text-green-600" />;
+      case 'warning': return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
+      case 'error': return <AlertTriangle className="w-5 h-5 text-red-600" />;
+      default: return <Info className="w-5 h-5 text-blue-600" />;
+    }
+  };
+
+  const getBgColor = (type: string) => {
+    switch (type) {
+      case 'success': return 'bg-green-50 border-green-200';
+      case 'warning': return 'bg-yellow-50 border-yellow-200';
+      case 'error': return 'bg-red-50 border-red-200';
+      default: return 'bg-blue-50 border-blue-200';
+    }
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        <Bell className="w-6 h-6" />
+        {notifications.length > 0 && (
+          <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+            {notifications.length}
+          </span>
+        )}
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            className="absolute top-full right-0 mt-2 w-96 bg-white rounded-lg shadow-2xl border z-50"
+          >
+            <div className="p-4 border-b">
+              <h3 className="font-semibold text-gray-900">الإشعارات</h3>
+            </div>
+
+            <div className="max-h-96 overflow-y-auto">
+              {notifications.length === 0 ? (
+                <div className="p-8 text-center text-gray-500">
+                  <Bell className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <p>لا توجد إشعارات جديدة</p>
+                </div>
+              ) : (
+                <div className="space-y-2 p-2">
+                  {notifications.map((notification, index) => (
+                    <motion.div
+                      key={notification.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className={`p-4 rounded-lg border ${getBgColor(notification.type)}`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start space-x-3">
+                          {getIcon(notification.type)}
+                          <div className="flex-1">
+                            <h4 className="font-medium text-gray-900">
+                              {notification.title}
+                            </h4>
+                            <p className="text-sm text-gray-600 mt-1">
+                              {notification.message}
+                            </p>
+                            <p className="text-xs text-gray-500 mt-2">
+                              {notification.timestamp.toLocaleTimeString('ar-SA')}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <button
+                          onClick={() => setNotifications(prev => prev.filter(n => n.id !== notification.id))}
+                          className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+
+                      {notification.actions && (
+                        <div className="flex items-center space-x-2 mt-3">
+                          {notification.actions.map((action, actionIndex) => (
+                            <button
+                              key={actionIndex}
+                              onClick={action.action}
+                              className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                            >
+                              {action.label}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

@@ -1,0 +1,38 @@
+{
+  "extends": ["./eslint.config.mjs"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": "error",
+    "prefer-const": "error",
+    "no-var": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@azizsys/**",
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["packages/*/src/**/*.ts"],
+      "rules": {
+        "import/no-relative-parent-imports": "error"
+      }
+    }
+  ]
+}

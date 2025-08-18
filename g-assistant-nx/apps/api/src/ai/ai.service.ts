@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MLModelManager, NLPProcessor, PredictiveAnalyzer } from '@g-assistant-nx/ai-engine';
+import { MLModelManager, NLPProcessor, PredictiveAnalyzer } from '@azizsys/domain/ai-engine';
 
 @Injectable()
 export class AIService {

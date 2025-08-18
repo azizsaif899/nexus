@@ -4,7 +4,7 @@
  */
 
 import { Controller, Get, Post, Body, Query } from '@nestjs/common';
-import { eventBus, EventTypes } from '../../../../packages/core-logic/src/event-bus';
+import { eventBus, EventTypes } from '@azizsys/core/event-bus';
 
 interface Command {
   id: string;

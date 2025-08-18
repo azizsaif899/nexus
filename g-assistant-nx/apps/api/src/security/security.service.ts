@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SecurityManager, ThreatDetector, ComplianceChecker } from '@g-assistant-nx/security-core';
+import { SecurityManager, ThreatDetector, ComplianceChecker } from '@azizsys/domain/security-core';
 
 @Injectable()
 export class SecurityService {

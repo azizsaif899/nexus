@@ -7,7 +7,7 @@ export interface OdooWebhookPayload {
 }
 
 import { OdooWebSocketGateway } from '../live/odoo-websocket.gateway';
-import { OdooBigQueryPipeline } from '../../packages/bigquery-client/src/odoo-pipeline';
+import { OdooBigQueryPipeline } from '@azizsys/integrations/bigquery-client';
 
 export class OdooController {
   private websocketGateway: OdooWebSocketGateway;

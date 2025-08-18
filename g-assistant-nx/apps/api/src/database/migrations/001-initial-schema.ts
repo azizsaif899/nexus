@@ -172,11 +172,11 @@ export class InitialSchema1704722400000 implements MigrationInterface {
     );
 
     // Create indexes
-    await queryRunner.createIndex('users', new Index('IDX_users_email', ['email']));
-    await queryRunner.createIndex('users', new Index('IDX_users_username', ['username']));
-    await queryRunner.createIndex('conversations', new Index('IDX_conversations_userId', ['userId']));
-    await queryRunner.createIndex('conversations', new Index('IDX_conversations_sessionId', ['sessionId']));
-    await queryRunner.createIndex('conversations', new Index('IDX_conversations_createdAt', ['createdAt']));
+    await queryRunner.createIndex('users', 'IDX_users_email', ['email']);
+    await queryRunner.createIndex('users', 'IDX_users_username', ['username']);
+    await queryRunner.createIndex('conversations', 'IDX_conversations_userId', ['userId']);
+    await queryRunner.createIndex('conversations', 'IDX_conversations_sessionId', ['sessionId']);
+    await queryRunner.createIndex('conversations', 'IDX_conversations_createdAt', ['createdAt']);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { GeminiClient } from '@azizsys/core-logic';
+import { GeminiClient } from '@azizsys/core/core-logic';
 
 export interface QueryIntent {
   type: 'general' | 'technical' | 'financial' | 'research' | 'analysis' | 'translation';

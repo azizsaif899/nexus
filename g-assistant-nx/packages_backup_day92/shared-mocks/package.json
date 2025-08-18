@@ -1,0 +1,11 @@
+{
+  "name": "@azizsys/shared-mocks",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@azizsys/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

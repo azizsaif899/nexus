@@ -1,0 +1,19 @@
+{
+  "name": "core-logic",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/core-logic/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/core-logic",
+        "main": "packages/core-logic/src/index.ts",
+        "tsConfig": "packages/core-logic/tsconfig.lib.json",
+        "assets": ["packages/core-logic/*.md"]
+      }
+    }
+  }
+}

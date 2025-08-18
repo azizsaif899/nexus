@@ -1,0 +1,7 @@
+{
+  "name": "@azizsys/sidebar-agents",
+  "version": "1.0.0",
+  "description": "السايد بار الثوري مع 5 وكلاء ذكيين",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts"
+}

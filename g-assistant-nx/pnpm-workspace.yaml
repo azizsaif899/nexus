@@ -1,4 +1,10 @@
-# TASK-SETUP-001: pnpm workspace configuration
+# TASK-SETUP-001: pnpm workspace configuration - Updated Day 92
 packages:
   - 'apps/*'
   - 'packages/*'
+  - 'packages/core/*'
+  - 'packages/domain/*'
+  - 'packages/ui/*'
+  - 'packages/features/*'
+  - 'packages/integrations/*'
+  - 'packages/tooling/*'

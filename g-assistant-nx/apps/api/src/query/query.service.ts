@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { QueryDto } from './dto/query.dto';
-import { AiCoreService } from '@g-assistant-nx/core-logic';
+import { AiCoreService } from '@azizsys/core/core-logic';
 
 @Injectable()
 export class QueryService {

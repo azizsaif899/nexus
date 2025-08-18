@@ -1,47 +1,15 @@
 # Dependencies
 node_modules/
-**/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-# Build artifacts
+# Build outputs
 dist/
 build/
-out/
 .next/
-.nuxt/
-.vuepress/dist/
-.serverless/
-.fusebox/
-.dynamodb/
-.tern-port
-
-# NX
-.nx/
-nx.log
-
-# Testing
-coverage/
-*.lcov
-.nyc_output
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# TypeScript cache
-*.tsbuildinfo
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
+out/
 
 # Environment variables
 .env
@@ -49,108 +17,46 @@ pids
 .env.development.local
 .env.test.local
 .env.production.local
-.env.*.local
 
-# parcel-bundler cache
-.cache
-.parcel-cache
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# NX
+.nx/cache/
+.nx/workspace-data/
 
 # Temporary folders
 tmp/
 temp/
 
-# Logs
-logs
-*.log
-
-# IDEs and editors
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Windows
-*.exe
-*.msi
-*.msm
-*.msp
-
-# Google Apps Script
-.clasp.json
-appsscript.json
-
 # Backup files
-*.backup
-*.bak
-*.tmp
+*.backup.*
 
 # Database
 *.db
 *.sqlite
-*.sqlite3
 
-# Certificates
-*.pem
-*.key
-*.crt
-*.p12
-
-# Archives
-*.zip
-*.tar.gz
-*.rar
-*.7z
-
-# Project specific
-SmartExecutor.log
-dashboard_data.json
-test-task.json
-test-file.js
-server.js.backup.*
-eventBus.test.js
-gemini-reviewer-status.js
-
-# Auto-generated files
-**/auto-generated/
-**/.generated/
-
-# Deployment
-.vercel
-.netlify
-
-# Sentry
-.sentryclirc
-
-# Terraform
-*.tfstate
-*.tfstate.*
-.terraform/
-
-# Docker
-.dockerignore
-Dockerfile.prod
-
-# Kubernetes
-*.yaml.bak
-
-# Monitoring
-*.monitoring
-
-# Cache directories
+# Cache
 .cache/
-.tmp/
-.temp/
-
-# Lock files (keep pnpm-lock.yaml, ignore others)
-package-lock.json
-yarn.lock
+.parcel-cache/

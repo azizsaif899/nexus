@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { WhatsAppCore, WhatsAppConfig, UserManager, SecurityManager } from '@g-assistant-nx/whatsapp-core';
+import { WhatsAppCore, WhatsAppConfig, UserManager, SecurityManager } from '@azizsys/integrations/whatsapp-core';
 
 @Injectable()
 export class WhatsAppService {

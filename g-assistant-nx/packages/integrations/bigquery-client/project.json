@@ -1,0 +1,19 @@
+{
+  "name": "bigquery-client",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "bigquery-client/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/bigquery-client",
+        "main": "bigquery-client/src/index.ts",
+        "tsConfig": "bigquery-client/tsconfig.lib.json",
+        "assets": ["bigquery-client/*.md"]
+      }
+    }
+  }
+}
