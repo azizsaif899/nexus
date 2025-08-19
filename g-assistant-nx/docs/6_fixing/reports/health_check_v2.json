@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-16T15:12:04.753Z",
+  "timestamp": "2025-08-19T10:29:42.852Z",
   "version": "2.0",
   "overall_status": "unhealthy",
   "services": [
@@ -10,7 +10,7 @@
       "url": "http://localhost:3333/api/v2/health",
       "status": "unhealthy",
       "error": "Command failed: curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3333/api/v2/health\n",
-      "lastCheck": "2025-08-16T15:11:57.806Z"
+      "lastCheck": "2025-08-19T10:29:33.637Z"
     },
     {
       "name": "Admin Dashboard",
@@ -19,7 +19,7 @@
       "url": "http://localhost:4200",
       "status": "unhealthy",
       "error": "Command failed: curl -s -o /dev/null -w \"%{http_code}\" http://localhost:4200\n",
-      "lastCheck": "2025-08-16T15:12:00.101Z"
+      "lastCheck": "2025-08-19T10:29:35.943Z"
     },
     {
       "name": "Web Chatbot",
@@ -28,7 +28,7 @@
       "url": "http://localhost:3000",
       "status": "unhealthy",
       "error": "Command failed: curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000\n",
-      "lastCheck": "2025-08-16T15:12:00.139Z"
+      "lastCheck": "2025-08-19T10:29:38.219Z"
     },
     {
       "name": "Gemini Backend",
@@ -37,77 +37,77 @@
       "url": "http://localhost:8000/health",
       "status": "unhealthy",
       "error": "Command failed: curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/health\n",
-      "lastCheck": "2025-08-16T15:12:02.440Z"
+      "lastCheck": "2025-08-19T10:29:40.496Z"
     }
   ],
   "agents": [
     {
       "name": "cfo",
       "status": "active",
-      "path": "packages/sidebar-agents/src/agents/CfoAgent.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/agents/CfoAgent.ts",
+      "lastCheck": "2025-08-19T10:29:40.496Z"
     },
     {
       "name": "developer",
       "status": "active",
-      "path": "packages/sidebar-agents/src/agents/DeveloperAgent.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/agents/DeveloperAgent.ts",
+      "lastCheck": "2025-08-19T10:29:40.496Z"
     },
     {
       "name": "database",
       "status": "active",
-      "path": "packages/sidebar-agents/src/agents/DatabaseAgent.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/agents/DatabaseAgent.ts",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     },
     {
       "name": "operations",
       "status": "active",
-      "path": "packages/sidebar-agents/src/agents/OperationsAgent.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/agents/OperationsAgent.ts",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     },
     {
       "name": "general",
       "status": "active",
-      "path": "packages/sidebar-agents/src/agents/GeneralAgent.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/agents/GeneralAgent.ts",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     },
     {
       "name": "smart_mode",
       "status": "active",
-      "path": "packages/sidebar-agents/src/modes/SmartMode.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/modes/SmartMode.ts",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     },
     {
       "name": "iterative_mode",
       "status": "active",
-      "path": "packages/sidebar-agents/src/modes/IterativeMode.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/modes/IterativeMode.ts",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     },
     {
       "name": "analysis_mode",
       "status": "active",
-      "path": "packages/sidebar-agents/src/modes/AnalysisMode.ts",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/ui/sidebar-agents/src/modes/AnalysisMode.ts",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     }
   ],
   "searchSystems": [
     {
       "name": "october-implementation",
       "status": "available",
-      "path": "packages/october-implementation",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/integrations/october-implementation",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     },
     {
       "name": "gemini-research-agent",
       "status": "available",
-      "path": "packages/gemini-research-agent",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "path": "packages/integrations/gemini-research-agent",
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     },
     {
       "name": "research-core",
       "status": "available",
       "path": "packages/research-core",
-      "lastCheck": "2025-08-16T15:12:02.441Z"
+      "lastCheck": "2025-08-19T10:29:40.497Z"
     }
   ],
   "pythonServices": [
@@ -115,27 +115,27 @@
       "name": "python_runtime",
       "status": "available",
       "version": "Python 3.13.5",
-      "lastCheck": "2025-08-16T15:12:02.472Z"
+      "lastCheck": "2025-08-19T10:29:40.534Z"
     },
     {
       "name": "gemini_backend",
       "status": "stopped",
       "error": "Command failed: curl -s http://localhost:8000/health\n",
-      "lastCheck": "2025-08-16T15:12:04.753Z"
+      "lastCheck": "2025-08-19T10:29:42.851Z"
     }
   ],
   "hybridIntegration": [
     {
       "name": "api_endpoints",
-      "status": "incomplete",
-      "research": false,
-      "sidebar": false,
-      "lastCheck": "2025-08-16T15:12:04.753Z"
+      "status": "configured",
+      "research": true,
+      "sidebar": true,
+      "lastCheck": "2025-08-19T10:29:42.852Z"
     },
     {
       "name": "cors_config",
-      "status": "missing",
-      "lastCheck": "2025-08-16T15:12:04.753Z"
+      "status": "configured",
+      "lastCheck": "2025-08-19T10:29:42.852Z"
     }
   ],
   "overall": "healthy",

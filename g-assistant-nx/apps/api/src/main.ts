@@ -14,7 +14,12 @@ const PORT = process.env.PORT || 3000;
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:4200'],
+  origin: process.env.ALLOWED_ORIGINS?.split(',') || [
+    'http://localhost:4200',
+    'http://localhost:3000', 
+    'http://localhost:5173',
+    'http://localhost:8000'
+  ],
   credentials: true
 }));
 
@@ -53,6 +58,8 @@ app.use('/api/customers', require('./routes/customer.routes').default);
 app.use('/api/commands', require('./routes/commands.routes').default);
 app.use('/api/pulse', require('./routes/pulse.routes').default);
 app.use('/api/agents', require('./routes/agents.routes').default);
+app.use('/api/research', require('./routes/research.routes').default);
+app.use('/api/sidebar', require('./routes/sidebar.routes').default);
 
 // Error handling middleware
 app.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
