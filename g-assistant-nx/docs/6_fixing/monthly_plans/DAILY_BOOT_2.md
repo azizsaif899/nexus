@@ -5,9 +5,9 @@
 ---
 
 ### 🟡 عالية الأولوية
-- [ ] **TASK-CORE-001**: إنشاء حزمة `packages/core-logic` وتطوير `GeminiClient` للتواصل مع Gemini API. (المصدر: `MONTHLY_PLAN.md` - المرحلة الأولى)
-- [ ] **TASK-CORE-002**: تطوير `SheetsClient` للتفاعل مع Google Sheets API داخل حزمة `core-logic`. (المصدر: `MONTHLY_PLAN.md` - المرحلة الأولى)
+- [x] **TASK-CORE-001**: إنشاء حزمة `packages/core-logic` وتطوير `GeminiClient` للتواصل مع Gemini API. ✅ **مكتمل**
+- [x] **TASK-CORE-002**: تطوير `SheetsClient` للتفاعل مع Google Sheets API داخل حزمة `core-logic`. ✅ **مكتمل**
 
 ### 🔵 متوسطة الأولوية
-- [ ] **TASK-TEST-001**: إعداد بيئة الاختبار (Vitest) في `packages/core-logic` وكتابة اختبارات وحدة أولية لـ `GeminiClient`. (المصدر: `IMPLEMENTATION_ROADMAP.md` - المرحلة الثانية)
-- [ ] **TASK-TYPES-001**: إنشاء ملف `types/index.ts` داخل `core-logic` لتعريف الواجهات (Interfaces) المشتركة مثل User, Plan, Task. (المصدر: أفضل الممارسات)
+- [x] **TASK-TEST-001**: إعداد بيئة الاختبار (Vitest) في `packages/core-logic` وكتابة اختبارات وحدة أولية لـ `GeminiClient`. ✅ **مكتمل**
+- [x] **TASK-TYPES-001**: إنشاء ملف `types/index.ts` داخل `core-logic` لتعريف الواجهات (Interfaces) المشتركة مثل User, Plan, Task. ✅ **مكتمل**

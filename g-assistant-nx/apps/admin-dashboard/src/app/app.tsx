@@ -8,6 +8,8 @@ import DashboardLayout from './components/DashboardLayout';
 // Pages
 import Dashboard from '../pages/dashboard';
 import CRMPage from '../pages/crm';
+import CRMAdvancedPage from '../pages/crm-advanced';
+import AdminPage from '../pages/admin';
 import AnalyticsPage from '../pages/analytics';
 import AIPage from '../pages/ai';
 
@@ -20,7 +22,9 @@ export function App() {
         <DashboardLayout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="/crm" element={<CRMPage />} />
+            <Route path="/crm-advanced" element={<CRMAdvancedPage />} />
             <Route path="/analytics" element={<AnalyticsPage />} />
             <Route path="/ai" element={<AIPage />} />
           </Routes>

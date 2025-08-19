@@ -78,7 +78,7 @@ class HealthCheckV2 {
     const results = [];
 
     for (const agent of this.agents) {
-      const agentPath = `packages/sidebar-agents/src/agents/${this.capitalize(agent)}Agent.ts`;
+      const agentPath = `packages/ui/sidebar-agents/src/agents/${this.capitalize(agent)}Agent.ts`;
       const exists = fs.existsSync(agentPath);
       
       results.push({
@@ -93,7 +93,7 @@ class HealthCheckV2 {
 
     // فحص الأوضاع
     for (const mode of this.modes) {
-      const modePath = `packages/sidebar-agents/src/modes/${this.capitalize(mode)}Mode.ts`;
+      const modePath = `packages/ui/sidebar-agents/src/modes/${this.capitalize(mode)}Mode.ts`;
       const exists = fs.existsSync(modePath);
       
       results.push({
@@ -113,8 +113,14 @@ class HealthCheckV2 {
     console.log('🔍 فحص أنظمة البحث...');
     const results = [];
 
+    const searchPaths = {
+      'october-implementation': 'packages/integrations/october-implementation',
+      'gemini-research-agent': 'packages/integrations/gemini-research-agent',
+      'research-core': 'packages/research-core'
+    };
+
     for (const system of this.searchSystems) {
-      const systemPath = `packages/${system}`;
+      const systemPath = searchPaths[system] || `packages/${system}`;
       const exists = fs.existsSync(systemPath);
       
       results.push({
@@ -185,7 +191,7 @@ class HealthCheckV2 {
     const results = [];
 
     // فحص API Gateway endpoints
-    const apiPath = 'apps/api/src/app.module.ts';
+    const apiPath = 'apps/api/src/main.ts';
     if (fs.existsSync(apiPath)) {
       const content = fs.readFileSync(apiPath, 'utf8');
       const hasResearchEndpoint = content.includes('research');
