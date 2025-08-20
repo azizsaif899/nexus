@@ -1,0 +1,17 @@
+{
+  "name": "@azizsys/crm-domain",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "axios": "^1.0.0",
+    "date-fns": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
