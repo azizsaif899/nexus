@@ -1,30 +1,26 @@
 @echo off
-echo 🤖 تشغيل النظام الأوتوماتيكي الكامل
-echo =====================================
-
-echo 📋 فحص المتطلبات...
-if not exist "node_modules" (
-    echo ❌ node_modules غير موجود
-    echo 🔧 تثبيت التبعيات...
-    npm install
-)
-
-echo ✅ بدء تشغيل النظام التلقائي...
-
-echo 🤖 تشغيل Amazon Q Auto-Executor...
-start "Amazon Q" cmd /k "npm run amazon-q:auto"
-
-echo 🧠 تشغيل Gemini AI Auto-Reviewer...  
-start "Gemini AI" cmd /k "npm run gemini:auto"
-
-echo 📊 تشغيل لوحة المراقبة...
-start "Monitor Dashboard" cmd /k "npm run dashboard:monitor"
-
-echo 🔔 تشغيل نظام الإشعارات...
-start "Notifications" cmd /k "npm run notifications:start"
-
-echo ✅ النظام الأوتوماتيكي يعمل الآن!
-echo 📊 لوحة المراقبة: http://localhost:3000/auto-monitor
-echo 🎯 دورك الآن: مراقبة فقط!
-
+echo 🔄 تم إعادة توجيه السكربت للنظام الموحد
+echo ==========================================
+echo ⚠️ هذا السكربت قديم - استخدم النظام الموحد الجديد
+echo ================================================
+echo.
+echo 🎯 استخدم بدلاً من ذلك:
+echo    docs/6_fixing/core/UNIFIED_LAUNCHER.bat
+echo.
+echo أو من npm:
+echo    npm run unified:launcher
+echo.
+echo 📊 للداشبورد مباشرة:
+echo    npm run dashboard
+echo.
+echo ✅ النظام الجديد أكثر تنظيماً وفعالية!
+echo.
 pause
+
+echo.
+echo 🚀 هل تريد تشغيل النظام الموحد الآن؟
+set /p choice="(y/n): "
+if /i "%choice%"=="y" (
+    cd /d "%~dp0\..\core"
+    call UNIFIED_LAUNCHER.bat
+)

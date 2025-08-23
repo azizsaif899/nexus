@@ -1,28 +1,17 @@
 @echo off
 chcp 65001 >nul
-echo Starting G-Assistant NX Daily System...
-echo ===================================
-
-cd /d "%~dp0\..\..\.."
-
-echo 1. System Check...
-npm run test:system
-
+echo ⚠️ هذا السكربت قديم - استخدم النظام الموحد
+echo ==========================================
 echo.
-echo 2. Starting Auto System...
-echo    Runs every 5 minutes automatically
-echo    Press Ctrl+C to stop
+echo 🎯 استخدم بدلاً:
+echo    docs/6_fixing/core/UNIFIED_LAUNCHER.bat
 echo.
-
-start "G-Assistant Dashboard" cmd /k "npm run dashboard"
-timeout /t 3 >nul 2>&1
-
-echo 3. Dashboard opened in separate window
-echo    URL: http://localhost:3000
+echo أو: npm run unified:launcher
 echo.
-
-npm run auto:full
-
-echo.
-echo Daily work completed
 pause
+
+set /p choice="هل تريد تشغيل النظام الموحد? (y/n): "
+if /i "%choice%"=="y" (
+    cd /d "%~dp0\..\core"
+    call UNIFIED_LAUNCHER.bat
+)
