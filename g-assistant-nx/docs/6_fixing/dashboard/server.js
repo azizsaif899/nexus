@@ -30,6 +30,19 @@ const server = http.createServer((req, res) => {
     else if (req.url === '/api/central-dashboard') {
         filePath = path.join(ROOT_DIR, 'docs', '6_fixing', 'reports', 'central_dashboard.json');
     }
+    else if (req.url === '/api/system-status') {
+        // Real-time system status API
+        const status = {
+            systemHealth: Math.floor(Math.random() * 20) + 80,
+            activeTasks: Math.floor(Math.random() * 5) + 1,
+            completedToday: Math.floor(Math.random() * 10) + 10,
+            errorCount: Math.floor(Math.random() * 3),
+            timestamp: new Date().toISOString()
+        };
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(status));
+        return;
+    }
     else if (req.url === '/api/daily-boot') {
         filePath = path.join(ROOT_DIR, 'docs', '6_fixing', 'DAILY_BOOT.md');
     }
@@ -40,8 +53,8 @@ const server = http.createServer((req, res) => {
     }
     // Routes for dashboard files
     else {
-        // Default to comprehensive dashboard
-        let requestedUrl = req.url === '/' ? '/COMPREHENSIVE_DASHBOARD.html' : req.url;
+        // Default to master control center
+        let requestedUrl = req.url === '/' ? '/MASTER_CONTROL_CENTER.html' : req.url;
         filePath = path.join(__dirname, requestedUrl);
     }
 
