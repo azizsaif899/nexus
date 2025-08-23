@@ -1,17 +1,17 @@
 {
-  "last_updated": "2025-08-02T16:38:31.709Z",
-  "total_tasks": 5,
-  "completed_tasks": 2,
+  "last_updated": "2025-01-08T20:30:00.000Z",
+  "total_tasks": 9,
+  "completed_tasks": 5,
   "in_progress_tasks": 1,
-  "pending_tasks": 2,
+  "pending_tasks": 3,
   "tasks": [
     {
       "id": 1,
       "title": "تطوير واجهة المستخدم الجديدة",
       "description": "",
-      "status": "in_progress",
+      "status": "completed",
       "created_date": "2025-08-02",
-      "completed_date": null
+      "completed_date": "2025-01-08"
     },
     {
       "id": 2,
@@ -25,9 +25,9 @@
       "id": 3,
       "title": "تحسين الأداء العام",
       "description": "",
-      "status": "pending",
+      "status": "completed",
       "created_date": "2025-08-02",
-      "completed_date": null
+      "completed_date": "2025-01-08"
     },
     {
       "id": 4,
@@ -41,37 +41,112 @@
       "id": 5,
       "title": "بناء حارس الجودة والحوكمة الآلي",
       "description": "",
-      "status": "pending",
+      "status": "completed",
       "created_date": "2025-08-02",
-      "completed_date": null
+      "completed_date": "2025-01-08"
+    },
+    {
+      "id": 6,
+      "title": "إصلاح الأمان الحرج للنشر العام",
+      "description": "حذف المفاتيح من Git history، إنشاء .env.example، نقل المفاتيح لمتغيرات البيئة",
+      "status": "in_progress",
+      "created_date": "2025-01-08",
+      "completed_date": null,
+      "priority": "critical",
+      "day": 8
+    },
+    {
+      "id": 7,
+      "title": "تحسين README وتعليمات التشغيل",
+      "description": "تعليمات تشغيل واضحة، متطلبات النظام، خطوات الإعداد المبسطة",
+      "status": "pending",
+      "created_date": "2025-01-08",
+      "completed_date": null,
+      "priority": "high",
+      "day": 9
+    },
+    {
+      "id": 8,
+      "title": "اختبار شامل للنشر",
+      "description": "Build في بيئة نظيفة، اختبار جميع التطبيقات، فحص الأمان",
+      "status": "pending",
+      "created_date": "2025-01-08",
+      "completed_date": null,
+      "priority": "high",
+      "day": 10
+    },
+    {
+      "id": 9,
+      "title": "إعداد الإنتاج النهائي",
+      "description": "Docker containers، Environment variables، CI/CD pipeline",
+      "status": "pending",
+      "created_date": "2025-01-08",
+      "completed_date": null,
+      "priority": "medium",
+      "day": 11
     }
   ],
   "monthly_goals": {
-    "target_completion_rate": 80,
-    "critical_milestones": [],
+    "target_completion_rate": 90,
+    "critical_milestones": [
+      "إصلاح الأمان الحرج (يوم 8)",
+      "تحسين التوثيق (يوم 9)",
+      "اختبار شامل (يوم 10)",
+      "جاهزية النشر العام (يوم 11)"
+    ],
     "focus_areas": [
-      "System Stability",
-      "Feature Development",
+      "Security Fixes",
       "Documentation",
-      "Testing & QA"
-    ]
+      "Production Readiness",
+      "Public Release"
+    ],
+    "current_day": 8,
+    "release_readiness": "60%"
   },
   "weekly_breakdown": {
     "week_1": {
-      "completed": 0,
-      "target": 0
+      "completed": 3,
+      "target": 2,
+      "days": "1-7"
     },
     "week_2": {
-      "completed": 0,
-      "target": 0
+      "completed": 2,
+      "target": 3,
+      "days": "8-14",
+      "current_focus": "Security & Documentation"
     },
     "week_3": {
       "completed": 0,
-      "target": 0
+      "target": 2,
+      "days": "15-21"
     },
     "week_4": {
       "completed": 0,
-      "target": 0
+      "target": 2,
+      "days": "22-31"
     }
+  },
+  "critical_issues_for_public_release": {
+    "security_issues": [
+      "ملف .env - يحتوي مفاتيح حقيقية مكشوفة",
+      "service-account-key.json - مفاتيح Google مكشوفة",
+      "Firebase API keys - ظاهرة في الكود"
+    ],
+    "documentation_issues": [
+      "README - عام جداً، ينقص تعليمات التشغيل",
+      "Setup instructions - غير واضحة للمستخدمين الجدد",
+      "Environment setup - معقد ومبعثر"
+    ],
+    "technical_issues": [
+      "Dependencies - بعضها deprecated",
+      "Build scripts - تحتاج اختبار شامل",
+      "Production config - غير مكتملة"
+    ]
+  },
+  "action_plan": {
+    "day_8": "إصلاح الأمان الحرج - حذف المفاتيح من Git history",
+    "day_9": "تحسين README وتعليمات التشغيل",
+    "day_10": "اختبار شامل في بيئة نظيفة",
+    "day_11": "إعداد Docker وCI/CD للإنتاج"
   }
 }
