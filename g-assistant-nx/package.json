@@ -16,6 +16,9 @@
     "dashboard": "node docs/6_fixing/dashboard/server.js",
     "dashboard:standalone": "start http://localhost:3000 && node docs/6_fixing/dashboard/server.js",
     "repair:run": "node docs/6_fixing/scripts/nx_auto_fix.js",
+    "auto-fix:start": "cd packages/tooling/auto-fix-system && npm start",
+    "auto-fix:cycle": "cd packages/tooling/auto-fix-system && npm run cycle",
+    "auto-fix:health": "cd packages/tooling/auto-fix-system && npm run health"
     "system:health": "node docs/6_fixing/scripts/test-system.bat",
     "unified:launcher": "docs/6_fixing/core/UNIFIED_LAUNCHER.bat"
   },

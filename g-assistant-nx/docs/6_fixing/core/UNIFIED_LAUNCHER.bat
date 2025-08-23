@@ -63,9 +63,43 @@ goto MENU
 cls
 echo.
 echo 🔧 تشغيل صيانة النظام...
+echo ================================================
+echo.
+echo اختر نوع الصيانة:
+echo [1] 🤖 Auto-Fix System
+echo [2] 🧹 Cleanup Scripts
+echo [3] 📊 System Health Check
+echo [4] 🔙 العودة للقائمة الرئيسية
+echo.
+set /p maintenance_choice="أدخل اختيارك (1-4): "
+
+if "%maintenance_choice%"=="1" goto AUTO_FIX
+if "%maintenance_choice%"=="2" goto CLEANUP
+if "%maintenance_choice%"=="3" goto HEALTH_CHECK
+if "%maintenance_choice%"=="4" goto MENU
+goto RUN_MAINTENANCE
+
+:AUTO_FIX
+echo.
+echo 🤖 تشغيل نظام الإصلاح التلقائي...
+cd /d "%~dp0\..\..\..\packages\tooling\auto-fix-system"
+npm run cycle
+pause
+goto MENU
+
+:CLEANUP
+echo.
+echo 🧹 تشغيل تنظيف النظام...
 cd /d "%~dp0\..\scripts"
 call cleanup-old-scripts.bat
-echo ✅ تمت الصيانة!
+pause
+goto MENU
+
+:HEALTH_CHECK
+echo.
+echo 📊 فحص صحة النظام...
+cd /d "%~dp0\..\..\..\packages\tooling\auto-fix-system"
+npm run health
 pause
 goto MENU
 
