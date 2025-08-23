@@ -1,5 +1,5 @@
 import { getDataConnect } from '../client';
-import { getGenerativeModel } from 'firebase/vertexai-preview';
+import { getGenerativeModel } from '@firebase/ai';
 import { getFirebaseApp } from '../../../core/core-logic/src/config/firebase-config';
 
 export class GeminiIntegration {
