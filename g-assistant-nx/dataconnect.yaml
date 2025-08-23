@@ -1,0 +1,11 @@
+specVersion: v1alpha
+serviceId: azizsys-data-connect
+location: us-central1
+schema:
+  source: ./schema
+  datasource:
+    postgresql:
+      database: azizsys-main
+      cloudSql:
+        instanceId: azizsys-db-instance
+connectorDirs: ["./connectors"]

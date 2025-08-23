@@ -12,6 +12,9 @@ import CRMAdvancedPage from '../pages/crm-advanced';
 import AdminPage from '../pages/admin';
 import AnalyticsPage from '../pages/analytics';
 import AIPage from '../pages/ai';
+import AutomationPage from '../pages/automation';
+import ReportsPage from '../pages/reports';
+import MonitoringPage from '../pages/monitoring';
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ export function App() {
             <Route path="/crm-advanced" element={<CRMAdvancedPage />} />
             <Route path="/analytics" element={<AnalyticsPage />} />
             <Route path="/ai" element={<AIPage />} />
+            <Route path="/automation" element={<AutomationPage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/monitoring" element={<MonitoringPage />} />
           </Routes>
         </DashboardLayout>
       </Router>

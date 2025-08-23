@@ -1,0 +1,32 @@
+{
+  "name": "@azizsys/data-connect-core",
+  "version": "1.0.0",
+  "description": "Firebase Data Connect integration for AzizSys AI Assistant",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "generate": "firebase dataconnect:sdk:generate --output-dir ./generated",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@firebase/data-connect": "^0.1.0",
+    "@firebase/app": "^0.10.0",
+    "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.0.0"
+  },
+  "keywords": [
+    "firebase",
+    "data-connect",
+    "graphql",
+    "azizsys",
+    "crm"
+  ],
+  "author": "AzizSys Team",
+  "license": "MIT"
+}

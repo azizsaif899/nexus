@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 لوحة المراقب الشاملة</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .status-green { color: #22c55e; }
+        .status-yellow { color: #f59e0b; }
+        .status-red { color: #ef4444; }
+        .progress-bar { width: 100%; height: 20px; background: #e5e7eb; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); transition: width 0.3s; }
+        .activity-item { padding: 10px; border-left: 3px solid #3b82f6; margin: 10px 0; background: #f8fafc; }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-success { background: #22c55e; color: white; }
+        .metric { text-align: center; padding: 15px; }
+        .metric-value { font-size: 2em; font-weight: bold; }
+        .metric-label { color: #6b7280; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 لوحة المراقب الشاملة</h1>
+            <p>مراقبة النظام الأوتوماتيكي - تحديث مباشر كل 30 ثانية</p>
+            <div style="margin-top: 10px;">
+                <span id="current-time"></span> | 
+                <span id="system-status" class="status-green">🟢 النظام يعمل</span>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- الحالة الحالية -->
+            <div class="card">
+                <h2>📊 الحالة الحالية</h2>
+                <div class="metric">
+                    <div class="metric-value" id="current-day">94</div>
+                    <div class="metric-label">اليوم الحالي</div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <strong>المهمة الحالية:</strong>
+                    <div id="current-task">TASK-AUTH-001: JWT Authentication</div>
+                </div>
+                <div>
+                    <strong>التقدم العام:</strong>
+                    <div class="progress-bar" style="margin: 10px 0;">
+                        <div class="progress-fill" id="overall-progress" style="width: 20%;"></div>
+                    </div>
+                    <span id="progress-text">3/15 مهمة مكتملة</span>
+                </div>
+            </div>
+
+            <!-- إحصائيات اليوم -->
+            <div class="card">
+                <h2>📈 إحصائيات اليوم</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="metric">
+                        <div class="metric-value status-green" id="completed-tasks">3</div>
+                        <div class="metric-label">✅ مكتملة</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value status-yellow" id="running-tasks">1</div>
+                        <div class="metric-label">🔄 جارية</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value" id="remaining-tasks">11</div>
+                        <div class="metric-label">⏳ متبقية</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value status-red" id="error-count">0</div>
+                        <div class="metric-label">❌ أخطاء</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- آخر الأنشطة -->
+            <div class="card">
+                <h2>🔄 آخر الأنشطة</h2>
+                <div id="activity-log" style="max-height: 300px; overflow-y: auto;">
+                    <div class="activity-item">
+                        <strong>08:45</strong> - ✅ TASK-AUTH-001 مكتمل بنجاح
+                    </div>
+                    <div class="activity-item">
+                        <strong>09:15</strong> - ✅ TASK-AUTH-002 مكتمل بنجاح
+                    </div>
+                    <div class="activity-item">
+                        <strong>09:30</strong> - 🔄 TASK-RATE-001 بدء التنفيذ
+                    </div>
+                </div>
+            </div>
+
+            <!-- التقارير -->
+            <div class="card">
+                <h2>📋 التقارير</h2>
+                <div style="margin: 15px 0;">
+                    <h3>📊 تقارير اليوم:</h3>
+                    <div style="margin: 10px 0;">
+                        <a href="../reports/daily_report_94.json" target="_blank">
+                            📄 تقرير التنفيذ - اليوم 94
+                        </a>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <a href="../reports/gemini_review_94.json" target="_blank">
+                            🧠 تقرير مراجعة Gemini - اليوم 94
+                        </a>
+                    </div>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <h3>📈 تقارير أسبوعية:</h3>
+                    <div style="margin: 10px 0;">
+                        <a href="../reports/weekly_summary.html" target="_blank">
+                            📊 ملخص الأسبوع
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أدوات التحكم -->
+            <div class="card">
+                <h2>🎛️ أدوات التحكم</h2>
+                <div style="margin: 15px 0;">
+                    <h3>⚡ تحكم سريع:</h3>
+                    <button class="btn btn-success" onclick="resumeSystem()">
+                        ▶️ استئناف النظام
+                    </button>
+                    <button class="btn btn-primary" onclick="pauseSystem()">
+                        ⏸️ إيقاف مؤقت
+                    </button>
+                    <button class="btn btn-danger" onclick="emergencyStop()">
+                        🛑 إيقاف طارئ
+                    </button>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <h3>📊 عرض مفصل:</h3>
+                    <button class="btn btn-primary" onclick="openDetailedView()">
+                        🔍 عرض تفصيلي
+                    </button>
+                    <button class="btn btn-primary" onclick="openLogViewer()">
+                        📜 عارض السجلات
+                    </button>
+                </div>
+            </div>
+
+            <!-- الأداء -->
+            <div class="card">
+                <h2>⚡ مؤشرات الأداء</h2>
+                <div style="margin: 15px 0;">
+                    <div>
+                        <strong>وقت الاستجابة:</strong>
+                        <span id="response-time" class="status-green">120ms</span>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <strong>استخدام المعالج:</strong>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="cpu-usage" style="width: 35%;"></div>
+                        </div>
+                        <span id="cpu-text">35%</span>
+                    </div>
+                    <div style="margin: 10px 0;">
+                        <strong>استخدام الذاكرة:</strong>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="memory-usage" style="width: 60%;"></div>
+                        </div>
+                        <span id="memory-text">60%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تحديث الوقت
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ar-SA');
+        }
+
+        // تحديث البيانات
+        async function updateDashboard() {
+            try {
+                const response = await fetch('/api/supervisor/status');
+                const data = await response.json();
+                
+                // تحديث الحالة العامة
+                document.getElementById('current-day').textContent = data.currentDay;
+                document.getElementById('current-task').textContent = data.currentTask;
+                document.getElementById('progress-text').textContent = 
+                    `${data.completed}/${data.total} مهمة مكتملة`;
+                document.getElementById('overall-progress').style.width = 
+                    `${(data.completed / data.total) * 100}%`;
+                
+                // تحديث الإحصائيات
+                document.getElementById('completed-tasks').textContent = data.completed;
+                document.getElementById('running-tasks').textContent = data.running;
+                document.getElementById('remaining-tasks').textContent = data.remaining;
+                document.getElementById('error-count').textContent = data.errors;
+                
+                // تحديث حالة النظام
+                const statusElement = document.getElementById('system-status');
+                if (data.errors > 0) {
+                    statusElement.textContent = '🔴 يوجد أخطاء';
+                    statusElement.className = 'status-red';
+                } else if (data.running > 0) {
+                    statusElement.textContent = '🟡 يعمل';
+                    statusElement.className = 'status-yellow';
+                } else {
+                    statusElement.textContent = '🟢 النظام يعمل';
+                    statusElement.className = 'status-green';
+                }
+                
+                // تحديث الأنشطة
+                updateActivityLog(data.recentActivities);
+                
+            } catch (error) {
+                console.error('خطأ في تحديث البيانات:', error);
+                document.getElementById('system-status').textContent = '🔴 خطأ في الاتصال';
+            }
+        }
+
+        // تحديث سجل الأنشطة
+        function updateActivityLog(activities) {
+            const logElement = document.getElementById('activity-log');
+            logElement.innerHTML = '';
+            
+            activities.forEach(activity => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                item.innerHTML = `<strong>${activity.time}</strong> - ${activity.message}`;
+                logElement.appendChild(item);
+            });
+        }
+
+        // أدوات التحكم
+        function pauseSystem() {
+            if (confirm('هل تريد إيقاف النظام مؤقتاً؟')) {
+                fetch('/api/supervisor/pause', { method: 'POST' });
+            }
+        }
+
+        function resumeSystem() {
+            fetch('/api/supervisor/resume', { method: 'POST' });
+        }
+
+        function emergencyStop() {
+            if (confirm('⚠️ إيقاف طارئ للنظام؟ هذا سيوقف جميع العمليات!')) {
+                fetch('/api/supervisor/emergency-stop', { method: 'POST' });
+            }
+        }
+
+        function openDetailedView() {
+            window.open('/detailed-view.html', '_blank');
+        }
+
+        function openLogViewer() {
+            window.open('/log-viewer.html', '_blank');
+        }
+
+        // تشغيل التحديثات
+        updateTime();
+        updateDashboard();
+        
+        setInterval(updateTime, 1000);
+        setInterval(updateDashboard, 30000);
+    </script>
+</body>
+</html>

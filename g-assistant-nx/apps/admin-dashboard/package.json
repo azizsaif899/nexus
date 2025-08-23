@@ -12,10 +12,7 @@
   "dependencies": {
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "^6.25.1",
-    "@azizsys/sidebar-agents": "workspace:*",
-    "@azizsys/shared-hooks": "workspace:*",
-    "@tanstack/react-query": "^5.17.0"
+    "react-router-dom": "^6.25.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",

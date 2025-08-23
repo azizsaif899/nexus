@@ -1,92 +1,76 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
+import { initializeBigQuery } from './database/bigquery-connection';
+import workflowRoutes from './routes/workflow.routes';
 
-// Routes
-import odooRoutes from './routes/odoo.routes';
-import metaRoutes from './routes/meta.routes';
-import webhookRoutes from './routes/webhook.routes';
+// تحميل متغيرات البيئة
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
-// Security middleware
+// Middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || [
-    'http://localhost:4200',
-    'http://localhost:3000', 
-    'http://localhost:5173',
-    'http://localhost:8000'
-  ],
-  credentials: true
-}));
-
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP'
-});
-app.use('/api', limiter);
-
-// Body parsing
+app.use(cors());
+app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
+// تهيئة BigQuery عند بدء التشغيل
+initializeBigQuery();
+
+// المسارات
+app.use('/api/workflows', workflowRoutes);
+
+// مسار الصحة
 app.get('/health', (req, res) => {
   res.json({
-    status: 'healthy',
+    status: 'OK',
     timestamp: new Date().toISOString(),
-    version: '2.0.0',
-    services: {
-      odoo: 'connected',
-      meta: 'connected',
-      webhooks: 'active'
+    service: 'AzizSys Workflow API',
+    version: '1.0.0'
+  });
+});
+
+// مسار الجذر
+app.get('/', (req, res) => {
+  res.json({
+    message: 'مرحباً بك في AzizSys Workflow API',
+    version: '1.0.0',
+    endpoints: {
+      workflows: '/api/workflows',
+      health: '/health'
     }
   });
 });
 
-// API Routes
-app.use('/api/odoo', odooRoutes);
-app.use('/api/meta', metaRoutes);
-app.use('/api/webhooks', webhookRoutes);
-app.use('/api/analytics', require('./routes/analytics.routes').default);
-app.use('/api/customers', require('./routes/customer.routes').default);
-app.use('/api/commands', require('./routes/commands.routes').default);
-app.use('/api/pulse', require('./routes/pulse.routes').default);
-app.use('/api/agents', require('./routes/agents.routes').default);
-app.use('/api/research', require('./routes/research.routes').default);
-app.use('/api/sidebar', require('./routes/sidebar.routes').default);
-
-// Error handling middleware
-app.use((error: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.error('API Error:', error);
-  
-  res.status(error.status || 500).json({
+// معالج الأخطاء
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('خطأ في الخادم:', err);
+  res.status(500).json({
     success: false,
-    message: error.message || 'Internal server error',
-    timestamp: new Date().toISOString()
+    message: 'خطأ داخلي في الخادم',
+    error: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
 });
 
-// 404 handler
+// معالج 404
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Endpoint not found',
+    message: 'المسار غير موجود',
     path: req.originalUrl
   });
 });
 
+// بدء الخادم
 app.listen(PORT, () => {
-  console.log(`🚀 G-Assistant API Server running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/health`);
-  console.log(`🔗 Odoo API: http://localhost:${PORT}/api/odoo`);
-  console.log(`📱 Meta API: http://localhost:${PORT}/api/meta`);
-  console.log(`🔔 Webhooks: http://localhost:${PORT}/api/webhooks`);
+  console.log(`🚀 خادم API يعمل على المنفذ ${PORT}`);
+  console.log(`🔗 الصحة: http://localhost:${PORT}/health`);
+  console.log(`📋 Workflows: http://localhost:${PORT}/api/workflows`);
 });
 
 export default app;

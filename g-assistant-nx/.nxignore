@@ -1,0 +1,9 @@
+# Nx ignore patterns
+node_modules
+dist
+.git
+.nx
+tmp
+.env
+.env.local
+*.log

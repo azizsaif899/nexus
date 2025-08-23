@@ -1,0 +1,198 @@
+{
+  "timestamp": "2025-08-21T10:08:16.327Z",
+  "project": "g-assistant-nx",
+  "apps": [
+    {
+      "name": "admin-dashboard",
+      "exists": true,
+      "lastModified": "2025-08-19T12:17:50.840Z"
+    },
+    {
+      "name": "api",
+      "exists": true,
+      "lastModified": "2025-08-20T11:52:40.360Z"
+    },
+    {
+      "name": "crm-system",
+      "exists": true,
+      "lastModified": "2025-08-21T08:23:16.057Z"
+    },
+    {
+      "name": "sheets-addon",
+      "exists": true,
+      "lastModified": "2025-08-19T07:52:34.791Z"
+    },
+    {
+      "name": "web-chatbot",
+      "exists": true,
+      "lastModified": "2025-08-19T11:36:51.601Z"
+    },
+    {
+      "name": "whatsapp-exec-bot",
+      "exists": true,
+      "lastModified": "2025-08-19T07:52:34.802Z"
+    },
+    {
+      "name": "whatsapp-query-bot",
+      "exists": true,
+      "lastModified": "2025-08-19T07:52:34.804Z"
+    }
+  ],
+  "packages": [
+    {
+      "name": "compliance-agent",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.254Z"
+    },
+    {
+      "name": "core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.269Z"
+    },
+    {
+      "name": "crm-core",
+      "exists": false,
+      "lastModified": "2025-08-20T13:54:21.407Z"
+    },
+    {
+      "name": "deployment-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.269Z"
+    },
+    {
+      "name": "deployment-system",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.271Z"
+    },
+    {
+      "name": "domain",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.286Z"
+    },
+    {
+      "name": "features",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.291Z"
+    },
+    {
+      "name": "integration-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.292Z"
+    },
+    {
+      "name": "integrations",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.321Z"
+    },
+    {
+      "name": "marketplace-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.326Z"
+    },
+    {
+      "name": "monitoring",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.328Z"
+    },
+    {
+      "name": "monitoring-core",
+      "exists": false,
+      "lastModified": "2025-08-20T07:49:18.692Z"
+    },
+    {
+      "name": "odoo-client",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.328Z"
+    },
+    {
+      "name": "operations-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.329Z"
+    },
+    {
+      "name": "packages_list.txt",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.329Z"
+    },
+    {
+      "name": "performance-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.329Z"
+    },
+    {
+      "name": "README.md",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.254Z"
+    },
+    {
+      "name": "REORGANIZATION_PLAN.md",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.254Z"
+    },
+    {
+      "name": "research-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.330Z"
+    },
+    {
+      "name": "scaling-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.330Z"
+    },
+    {
+      "name": "sdk-js",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.330Z"
+    },
+    {
+      "name": "security-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.332Z"
+    },
+    {
+      "name": "support-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.334Z"
+    },
+    {
+      "name": "telemetry-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.334Z"
+    },
+    {
+      "name": "tenant-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.334Z"
+    },
+    {
+      "name": "tooling",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.344Z"
+    },
+    {
+      "name": "ui",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.375Z"
+    },
+    {
+      "name": "UI_LIBRARIES.md",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.254Z"
+    },
+    {
+      "name": "workflow-core",
+      "exists": false,
+      "lastModified": "2025-08-19T07:52:35.380Z"
+    }
+  ],
+  "git": {
+    "hasChanges": false,
+    "changedFiles": 0,
+    "error": "spawnSync C:\\WINDOWS\\system32\\cmd.exe ENOBUFS"
+  },
+  "summary": {
+    "totalApps": 7,
+    "totalPackages": 29,
+    "healthScore": 19
+  }
+}

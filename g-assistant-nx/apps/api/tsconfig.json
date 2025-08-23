@@ -1,29 +1,21 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "ES2020",
     "module": "commonjs",
-    "target": "es2020",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
+    "lib": ["ES2020"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": false,
-    "outDir": "../../dist/apps/api",
-    "baseUrl": "../../",
-    "rootDir": "../../",
-    "jsx": "react-jsx",
-    "paths": {
-      "@azizsys/core/*": ["packages/core/*/src"],
-      "@azizsys/domain/*": ["packages/domain/*/src"],
-      "@azizsys/integrations/*": ["packages/integrations/*/src"],
-      "@g-assistant/*": ["packages/tooling/*/src"]
-    }
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "../../packages/ui/**/*"]
+  "exclude": ["node_modules", "dist"]
 }
