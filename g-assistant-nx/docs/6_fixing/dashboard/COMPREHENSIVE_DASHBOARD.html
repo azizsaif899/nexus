@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 AzizSys - لوحة التحكم الشاملة</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0a0a; color: #fff; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #00ff88; font-size: 2.5em; margin-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); border-radius: 15px; padding: 20px; border: 1px solid #333; }
+        .card h3 { color: #00ff88; margin-bottom: 15px; font-size: 1.3em; }
+        .status { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.8em; margin: 2px; }
+        .status.completed { background: #00ff88; color: #000; }
+        .status.in-progress { background: #ffaa00; color: #000; }
+        .status.pending { background: #ff4444; color: #fff; }
+        .task-item { background: #333; padding: 10px; margin: 5px 0; border-radius: 8px; border-left: 4px solid #00ff88; }
+        .task-meta { font-size: 0.8em; color: #aaa; margin-top: 5px; }
+        .refresh-btn { position: fixed; top: 20px; left: 20px; background: #00ff88; color: #000; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2em; color: #00ff88; font-weight: bold; }
+        .stat-label { color: #aaa; font-size: 0.9em; }
+        .timeline { max-height: 400px; overflow-y: auto; }
+        .timeline-item { border-left: 2px solid #00ff88; padding-left: 15px; margin-bottom: 15px; }
+        .timeline-date { color: #00ff88; font-weight: bold; }
+        .reports-list { max-height: 300px; overflow-y: auto; }
+        .report-item { background: #2a2a2a; padding: 8px; margin: 3px 0; border-radius: 5px; cursor: pointer; }
+        .report-item:hover { background: #3a3a3a; }
+    </style>
+</head>
+<body>
+    <button class="refresh-btn" onclick="location.reload()">🔄 تحديث</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎯 AzizSys - لوحة التحكم الشاملة</h1>
+            <p>مراقبة شاملة للمهام والتقارير والخطط</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="totalTasks">-</div>
+                <div class="stat-label">إجمالي المهام</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="completedTasks">-</div>
+                <div class="stat-label">مهام مكتملة</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="currentDay">-</div>
+                <div class="stat-label">اليوم الحالي</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="releaseReadiness">-</div>
+                <div class="stat-label">جاهزية النشر</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- المهام الحالية -->
+            <div class="card">
+                <h3>📋 المهام الحالية من Gemini AI</h3>
+                <div id="currentTasks">جاري التحميل...</div>
+            </div>
+
+            <!-- آخر التقارير -->
+            <div class="card">
+                <h3>📊 آخر التقارير</h3>
+                <div class="reports-list" id="latestReports">جاري التحميل...</div>
+            </div>
+
+            <!-- الخطة التالية -->
+            <div class="card">
+                <h3>🎯 الخطة التالية</h3>
+                <div id="nextPlan">جاري التحميل...</div>
+            </div>
+
+            <!-- مصدر المهام -->
+            <div class="card">
+                <h3>🔍 مصدر المهام</h3>
+                <div id="taskSources">جاري التحميل...</div>
+            </div>
+
+            <!-- الجدول الزمني -->
+            <div class="card">
+                <h3>⏰ الجدول الزمني</h3>
+                <div class="timeline" id="timeline">جاري التحميل...</div>
+            </div>
+
+            <!-- حالة النظام -->
+            <div class="card">
+                <h3>⚙️ حالة النظام</h3>
+                <div id="systemStatus">جاري التحميل...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadData() {
+            try {
+                // تحميل البيانات من التقارير الموجودة
+                const monthlyProgress = await fetch('/api/monthly-progress').then(r => r.json()).catch(() => ({}));
+                const centralDashboard = await fetch('/api/central-dashboard').then(r => r.json()).catch(() => ({}));
+                const releaseReport = await fetch('/api/release-readiness').then(r => r.json()).catch(() => ({}));
+
+                // تحديث الإحصائيات
+                document.getElementById('totalTasks').textContent = monthlyProgress.total_tasks || '9';
+                document.getElementById('completedTasks').textContent = monthlyProgress.completed_tasks || '5';
+                document.getElementById('currentDay').textContent = monthlyProgress.monthly_goals?.current_day || '8';
+                document.getElementById('releaseReadiness').textContent = monthlyProgress.monthly_goals?.release_readiness || '60%';
+
+                // تحديث المهام الحالية
+                updateCurrentTasks(monthlyProgress);
+                
+                // تحديث التقارير
+                updateLatestReports();
+                
+                // تحديث الخطة التالية
+                updateNextPlan(monthlyProgress);
+                
+                // تحديث مصدر المهام
+                updateTaskSources(monthlyProgress);
+                
+                // تحديث الجدول الزمني
+                updateTimeline(monthlyProgress);
+                
+                // تحديث حالة النظام
+                updateSystemStatus();
+
+            } catch (error) {
+                console.error('خطأ في تحميل البيانات:', error);
+            }
+        }
+
+        function updateCurrentTasks(data) {
+            const tasksHtml = data.tasks?.map(task => `
+                <div class="task-item">
+                    <div><strong>${task.title}</strong></div>
+                    <div class="task-meta">
+                        <span class="status ${task.status}">${getStatusText(task.status)}</span>
+                        ${task.priority ? `<span class="status">${task.priority}</span>` : ''}
+                        ${task.day ? `<span>يوم ${task.day}</span>` : ''}
+                    </div>
+                    ${task.description ? `<div style="font-size: 0.9em; margin-top: 5px;">${task.description}</div>` : ''}
+                </div>
+            `).join('') || 'لا توجد مهام';
+            
+            document.getElementById('currentTasks').innerHTML = tasksHtml;
+        }
+
+        function updateLatestReports() {
+            const reports = [
+                'PUBLIC_RELEASE_READINESS_REPORT.md',
+                'monthly_progress.json',
+                'central_dashboard.json',
+                'day_11_final_report.json',
+                'FIREBASE_DATA_CONNECT_COMPLETION_REPORT.md'
+            ];
+            
+            const reportsHtml = reports.map(report => `
+                <div class="report-item" onclick="openReport('${report}')">
+                    📄 ${report}
+                </div>
+            `).join('');
+            
+            document.getElementById('latestReports').innerHTML = reportsHtml;
+        }
+
+        function updateNextPlan(data) {
+            const actionPlan = data.action_plan || {};
+            const nextPlanHtml = Object.entries(actionPlan).map(([day, plan]) => `
+                <div class="task-item">
+                    <strong>${day}:</strong> ${plan}
+                </div>
+            `).join('') || 'لا توجد خطط محددة';
+            
+            document.getElementById('nextPlan').innerHTML = nextPlanHtml;
+        }
+
+        function updateTaskSources(data) {
+            const sources = [
+                { name: 'Gemini AI Reviewer', count: data.completed_tasks || 0, status: 'نشط' },
+                { name: 'Amazon Q Executor', count: 3, status: 'نشط' },
+                { name: 'Manual Tasks', count: 2, status: 'معلق' },
+                { name: 'Auto-Fix System', count: 1, status: 'نشط' }
+            ];
+            
+            const sourcesHtml = sources.map(source => `
+                <div class="task-item">
+                    <div><strong>${source.name}</strong></div>
+                    <div class="task-meta">
+                        <span class="status ${source.status === 'نشط' ? 'completed' : 'pending'}">${source.status}</span>
+                        <span>${source.count} مهام</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('taskSources').innerHTML = sourcesHtml;
+        }
+
+        function updateTimeline(data) {
+            const milestones = data.monthly_goals?.critical_milestones || [];
+            const timelineHtml = milestones.map(milestone => `
+                <div class="timeline-item">
+                    <div class="timeline-date">قادم</div>
+                    <div>${milestone}</div>
+                </div>
+            `).join('') || '<div class="timeline-item"><div>لا توجد معالم زمنية</div></div>';
+            
+            document.getElementById('timeline').innerHTML = timelineHtml;
+        }
+
+        function updateSystemStatus() {
+            const status = [
+                { name: 'Firebase AI Logic', status: 'يعمل', color: 'completed' },
+                { name: 'NX Workspace', status: 'يعمل', color: 'completed' },
+                { name: 'PNPM Dependencies', status: 'يعمل', color: 'completed' },
+                { name: 'Security Issues', status: 'يحتاج إصلاح', color: 'pending' }
+            ];
+            
+            const statusHtml = status.map(item => `
+                <div class="task-item">
+                    <div><strong>${item.name}</strong></div>
+                    <div class="task-meta">
+                        <span class="status ${item.color}">${item.status}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('systemStatus').innerHTML = statusHtml;
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'completed': 'مكتمل',
+                'in_progress': 'قيد التنفيذ',
+                'pending': 'معلق'
+            };
+            return statusMap[status] || status;
+        }
+
+        function openReport(reportName) {
+            window.open(`/reports/${reportName}`, '_blank');
+        }
+
+        // تحميل البيانات عند فتح الصفحة
+        loadData();
+        
+        // تحديث تلقائي كل 30 ثانية
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>

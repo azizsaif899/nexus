@@ -12,7 +12,12 @@
     "gemini:auto": "node docs/6_fixing/scripts/gemini-auto.js",
     "dashboard:monitor": "node docs/6_fixing/scripts/monitor-dashboard.js",
     "notifications:start": "node docs/6_fixing/scripts/notifications.js",
-    "activate:auto-system": "docs/6_fixing/scripts/AUTO_SYSTEM_LAUNCHER.bat"
+    "activate:auto-system": "docs/6_fixing/scripts/AUTO_SYSTEM_LAUNCHER.bat",
+    "dashboard": "node docs/6_fixing/dashboard/server.js",
+    "dashboard:standalone": "start http://localhost:3000 && node docs/6_fixing/dashboard/server.js",
+    "repair:run": "node docs/6_fixing/scripts/nx_auto_fix.js",
+    "system:health": "node docs/6_fixing/scripts/test-system.bat",
+    "unified:launcher": "docs/6_fixing/core/UNIFIED_LAUNCHER.bat"
   },
   "dependencies": {
     "@firebase/app": "^0.14.1",

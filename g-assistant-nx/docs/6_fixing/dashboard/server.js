@@ -23,8 +23,14 @@ const server = http.createServer((req, res) => {
 
     let filePath;
     
-    // Special route for the daily boot file
-    if (req.url === '/api/daily-boot') {
+    // API routes
+    if (req.url === '/api/monthly-progress') {
+        filePath = path.join(ROOT_DIR, 'docs', '6_fixing', 'reports', 'monthly_progress.json');
+    }
+    else if (req.url === '/api/central-dashboard') {
+        filePath = path.join(ROOT_DIR, 'docs', '6_fixing', 'reports', 'central_dashboard.json');
+    }
+    else if (req.url === '/api/daily-boot') {
         filePath = path.join(ROOT_DIR, 'docs', '6_fixing', 'DAILY_BOOT.md');
     }
     // Routes for reports
@@ -34,8 +40,8 @@ const server = http.createServer((req, res) => {
     }
     // Routes for dashboard files
     else {
-        // Serve static files from the dashboard directory
-        let requestedUrl = req.url === '/' ? '/index.html' : req.url;
+        // Default to comprehensive dashboard
+        let requestedUrl = req.url === '/' ? '/COMPREHENSIVE_DASHBOARD.html' : req.url;
         filePath = path.join(__dirname, requestedUrl);
     }
 
