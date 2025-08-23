@@ -1,4 +1,5 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { getGenerativeModel } from 'firebase/vertexai-preview';
+import { getFirebaseApp } from '../config/firebase-config';
 
 export interface GeminiConfig {
   apiKey: string;
@@ -23,13 +24,12 @@ export interface GeminiResponse {
 }
 
 export class GeminiClient {
-  private genAI: GoogleGenerativeAI;
+  private app = getFirebaseApp();
   private model: any;
 
   constructor(private config: GeminiConfig) {
-    this.genAI = new GoogleGenerativeAI(config.apiKey);
-    this.model = this.genAI.getGenerativeModel({ 
-      model: config.model || 'gemini-pro',
+    this.model = getGenerativeModel(this.app, {
+      model: config.model || 'gemini-1.5-flash',
       generationConfig: {
         temperature: config.temperature || 0.7,
         maxOutputTokens: config.maxTokens || 1000,

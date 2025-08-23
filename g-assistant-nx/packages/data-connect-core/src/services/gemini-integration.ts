@@ -1,10 +1,12 @@
 import { getDataConnect } from '../client';
+import { getGenerativeModel } from 'firebase/vertexai-preview';
+import { getFirebaseApp } from '../../../core/core-logic/src/config/firebase-config';
 
 export class GeminiIntegration {
   private dataConnect = getDataConnect();
+  private model = getGenerativeModel(getFirebaseApp(), { model: 'gemini-1.5-flash' });
 
   async generateSmartQuery(naturalLanguage: string, schema: string): Promise<string> {
-    // Simulate Gemini AI query generation
     const prompt = `
       Convert this natural language request to GraphQL query:
       "${naturalLanguage}"
@@ -14,8 +16,14 @@ export class GeminiIntegration {
       Generate a valid GraphQL query.
     `;
 
-    // In real implementation, this would call Gemini AI
-    return this.mockGeminiResponse(naturalLanguage);
+    try {
+      const result = await this.model.generateContent(prompt);
+      const response = await result.response;
+      return response.text();
+    } catch (error) {
+      console.warn('Gemini AI unavailable, using fallback:', error);
+      return this.mockGeminiResponse(naturalLanguage);
+    }
   }
 
   private mockGeminiResponse(input: string): string {

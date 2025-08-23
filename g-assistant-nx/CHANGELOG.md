@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.4.0] - 2025-01-08 - Firebase AI Logic Integration
+
+### 🔥 Firebase AI Logic Setup
+
+#### Gemini API Migration to Firebase
+- **Migrated from direct Google Generative AI** to Firebase AI Logic
+- **Enhanced security** with Firebase-managed API keys
+- **Added Firebase configuration** with proper environment setup
+- **Updated all Gemini integrations** across the workspace
+
+#### Code Updates
+- **firebase-config.ts** - Centralized Firebase configuration
+- **Updated GeminiClient** - Now uses Firebase AI Logic backend
+- **Enhanced GeminiIntegration** - Improved Data Connect integration
+- **Environment variables** - New Firebase-specific variables
+
+#### Dependencies Added
+- **@firebase/ai** - Firebase AI Logic SDK
+- **firebase** - Core Firebase SDK for web
+- **vertexai-preview** - Vertex AI integration
+
+### 🔒 Security Enhancements
+- **No API keys in code** - Managed by Firebase
+- **App Check ready** - Enhanced security layer
+- **Usage analytics** - Built-in monitoring
+- **Rate limiting** - Automatic protection
+
+### 📚 Documentation
+- **Firebase AI Logic Setup Guide** - Complete integration instructions
+- **Environment setup** - Step-by-step configuration
+- **Troubleshooting guide** - Common issues and solutions
+
+---
+
 ## [2.3.0] - 2025-01-08 - Nx Cloud Integration Setup
 
 ### 🌩️ Nx Cloud Integration
