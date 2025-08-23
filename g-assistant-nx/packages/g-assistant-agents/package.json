@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@azizsys/data-connect-core": "^1.0.0",
     "@firebase/data-connect": "^0.1.0",
     "graphql": "^16.8.1",
     "googleapis": "^128.0.0"
