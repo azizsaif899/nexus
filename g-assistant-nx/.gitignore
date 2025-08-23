@@ -31,6 +31,12 @@ Thumbs.db
 # Logs
 logs/
 *.log
+daemon.log
+
+# NX Complete
+.nx/
+.nx/cache/
+.nx/workspace-data/
 
 # Runtime data
 pids/
