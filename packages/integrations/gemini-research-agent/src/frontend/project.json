@@ -1,0 +1,8 @@
+{
+  "name": "gemini-research-frontend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/integrations/gemini-research-agent/src/frontend/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

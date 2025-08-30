@@ -1,52 +1,57 @@
-# # Example schema for simple movie review app
+# AzizSys AI Assistant Schema
 
-# # User table is keyed by Firebase Auth UID.
-# type User @table {
-#   # `@default(expr: "auth.uid")` sets it to Firebase Auth UID during insert and upsert.
-#   id: String! @default(expr: "auth.uid")
-#   username: String! @col(dataType: "varchar(50)")
-#   # The `user: User!` field in the Review table generates the following one-to-many query field.
-#   #  reviews_on_user: [Review!]!
-#   # The `Review` join table the following many-to-many query field.
-#   #  movies_via_Review: [Movie!]!
-# }
+# User table for authenticated users
+type User @table {
+  id: String! @default(expr: "auth.uid")
+  email: String! @col(dataType: "varchar(255)")
+  displayName: String @col(dataType: "varchar(100)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  lastActiveAt: Timestamp @default(expr: "request.time")
+}
 
-# # Movie is keyed by a randomly generated UUID.
-# type Movie @table {
-#   # If you do not pass a 'key' to `@table`, Data Connect automatically adds the following 'id' column.
-#   # Feel free to uncomment and customize it.
-#   #  id: UUID! @default(expr: "uuidV4()")
-#   title: String!
-#   imageUrl: String!
-#   genre: String
-# }
+# Chat sessions between users and AI agents
+type ChatSession @table {
+  id: UUID! @default(expr: "uuidV4()")
+  user: User!
+  agentType: String! @col(dataType: "varchar(50)") # CFO, Developer, Database, Operations, General
+  title: String @col(dataType: "varchar(200)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
+  isActive: Boolean! @default(value: true)
+}
 
-# # MovieMetadata is a metadata attached to a Movie.
-# # Movie <-> MovieMetadata is a one-to-one relationship
-# type MovieMetadata @table {
-#   # @unique ensures each Movie can only one MovieMetadata.
-#   movie: Movie! @unique
-#   # The movie field adds the following foreign key field. Feel free to uncomment and customize it.
-#   #  movieId: UUID!
-#   rating: Float
-#   releaseYear: Int
-#   description: String
-# }
+# Individual messages within chat sessions
+type Message @table {
+  id: UUID! @default(expr: "uuidV4()")
+  session: ChatSession!
+  role: String! @col(dataType: "varchar(20)") # user, assistant, system
+  content: String! @col(dataType: "text")
+  metadata: String @col(dataType: "jsonb") # JSON metadata for attachments, citations, etc.
+  createdAt: Timestamp! @default(expr: "request.time")
+}
 
-# # Reviews is a join table between User and Movie.
-# # It has a composite primary keys `userUid` and `movieId`.
-# # A user can leave reviews for many movies. A movie can have reviews from many users.
-# # User  <-> Review is a one-to-many relationship
-# # Movie <-> Review is a one-to-many relationship
-# # Movie <-> User is a many-to-many relationship
-# type Review @table(name: "Reviews", key: ["movie", "user"]) {
-#   user: User!
-#   # The user field adds the following foreign key field. Feel free to uncomment and customize it.
-#   #  userUid: String!
-#   movie: Movie!
-#   # The movie field adds the following foreign key field. Feel free to uncomment and customize it.
-#   #  movieId: UUID!
-#   rating: Int
-#   reviewText: String
-#   reviewDate: Date! @default(expr: "request.time")
-# }
+# System tasks and operations
+type Task @table {
+  id: UUID! @default(expr: "uuidV4()")
+  title: String! @col(dataType: "varchar(200)")
+  description: String @col(dataType: "text")
+  status: String! @col(dataType: "varchar(20)") @default(value: "pending") # pending, in_progress, completed, failed
+  priority: String! @col(dataType: "varchar(10)") @default(value: "medium") # low, medium, high, critical
+  assignedAgent: String @col(dataType: "varchar(50)")
+  createdBy: User
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
+  completedAt: Timestamp
+}
+
+# Knowledge base for AI responses
+type KnowledgeEntry @table {
+  id: UUID! @default(expr: "uuidV4()")
+  title: String! @col(dataType: "varchar(200)")
+  content: String! @col(dataType: "text")
+  category: String! @col(dataType: "varchar(50)")
+  tags: String @col(dataType: "text") # Comma-separated tags
+  source: String @col(dataType: "varchar(255)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
+}

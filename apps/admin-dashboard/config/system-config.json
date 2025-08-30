@@ -1,0 +1,152 @@
+{
+  "system": {
+    "name": "AzizSys Ultimate Dashboard",
+    "version": "2.0.0",
+    "environment": "production",
+    "debug": false,
+    "autoStart": true,
+    "monitoring": {
+      "enabled": true,
+      "interval": 5000,
+      "healthCheckInterval": 30000,
+      "metricsRetention": 86400000
+    }
+  },
+  "services": {
+    "gateway": {
+      "name": "Gateway Server",
+      "url": "http://localhost:3000",
+      "healthEndpoint": "/health",
+      "enabled": true,
+      "critical": true,
+      "timeout": 5000,
+      "retries": 3
+    },
+    "api": {
+      "name": "API Server", 
+      "url": "http://localhost:3333",
+      "healthEndpoint": "/health",
+      "enabled": true,
+      "critical": true,
+      "timeout": 5000,
+      "retries": 3
+    },
+    "gemini": {
+      "name": "Gemini Backend",
+      "url": "http://localhost:8000", 
+      "healthEndpoint": "/health",
+      "enabled": true,
+      "critical": false,
+      "timeout": 10000,
+      "retries": 2
+    },
+    "admin": {
+      "name": "Admin Dashboard",
+      "url": "http://localhost:4200",
+      "healthEndpoint": "/health", 
+      "enabled": true,
+      "critical": false,
+      "timeout": 5000,
+      "retries": 2
+    }
+  },
+  "agents": {
+    "cfo": {
+      "name": "CFO Agent",
+      "description": "Financial Analysis Agent",
+      "enabled": true,
+      "priority": "high",
+      "capabilities": ["financial_analysis", "budget_planning", "cost_optimization"]
+    },
+    "developer": {
+      "name": "Developer Agent", 
+      "description": "Code Review and Development Agent",
+      "enabled": true,
+      "priority": "high",
+      "capabilities": ["code_review", "bug_detection", "performance_optimization"]
+    },
+    "database": {
+      "name": "Database Manager",
+      "description": "Database Operations Agent",
+      "enabled": true,
+      "priority": "medium", 
+      "capabilities": ["query_optimization", "backup_management", "data_analysis"]
+    },
+    "operations": {
+      "name": "Operations Agent",
+      "description": "System Operations Agent",
+      "enabled": true,
+      "priority": "high",
+      "capabilities": ["system_monitoring", "deployment", "maintenance"]
+    },
+    "general": {
+      "name": "General Agent",
+      "description": "Multi-purpose Assistant Agent", 
+      "enabled": true,
+      "priority": "medium",
+      "capabilities": ["general_assistance", "documentation", "user_support"]
+    }
+  },
+  "eventbus": {
+    "enabled": true,
+    "maxEvents": 1000,
+    "retentionPeriod": 86400000,
+    "processingTimeout": 30000,
+    "retryAttempts": 3,
+    "batchSize": 10
+  },
+  "scripts": {
+    "cleanup": {
+      "name": "System Cleanup",
+      "path": "./scripts/cleanup.bat",
+      "enabled": true,
+      "timeout": 300000,
+      "description": "Clean temporary files and logs"
+    },
+    "update": {
+      "name": "System Update", 
+      "path": "./scripts/update.bat",
+      "enabled": true,
+      "timeout": 600000,
+      "description": "Update system dependencies"
+    },
+    "backup": {
+      "name": "System Backup",
+      "path": "./scripts/backup.bat",
+      "enabled": true,
+      "timeout": 900000,
+      "description": "Create system backup"
+    },
+    "maintenance": {
+      "name": "System Maintenance",
+      "path": "./scripts/maintenance.bat",
+      "enabled": true,
+      "timeout": 1200000,
+      "description": "Perform system maintenance"
+    }
+  },
+  "compliance": {
+    "enabled": true,
+    "agent": {
+      "name": "Compliance Agent",
+      "enabled": true,
+      "scanInterval": 3600000,
+      "policies": ["GDPR", "PDPL", "Google_Standards", "AWS_Security_Best_Practices", "OWASP_Top_10"]
+    }
+  },
+  "api": {
+    "enabled": true,
+    "rateLimit": {
+      "enabled": true,
+      "windowMs": 900000,
+      "max": 1000
+    }
+  },
+  "ui": {
+    "theme": "dark",
+    "language": "ar", 
+    "autoRefresh": true,
+    "refreshInterval": 5000,
+    "animations": true
+  }
+}

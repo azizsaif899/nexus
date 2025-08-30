@@ -1,6 +1,7 @@
 connectorId: example
 generate:
   javascriptSdk:
-    outputDir: ..\..\dataconnect-generated\js\example-connector
-    package: "@firebasegen/example-connector"
-    packageJsonDir: ..\..
+    outputDir: ..\..\g-assistant-nx\dataconnect-generated\js\example-connector
+    package: "@dataconnect/generated"
+    packageJsonDir: ..\..\g-assistant-nx
+    react: true

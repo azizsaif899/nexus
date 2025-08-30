@@ -1,0 +1,32 @@
+{
+  "name": "web-chatbot",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/web-chatbot/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "web-chatbot:build",
+        "port": 3000
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/web-chatbot",
+        "main": "apps/web-chatbot/src/main.tsx",
+        "tsConfig": "apps/web-chatbot/tsconfig.app.json"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p apps/web-chatbot/tsconfig.app.json",
+        "cwd": "."
+      }
+    }
+  },
+  "tags": []
+}

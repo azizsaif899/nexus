@@ -1,0 +1,8 @@
+{
+  "name": "october-frontend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/integrations/october-implementation/src/frontend/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

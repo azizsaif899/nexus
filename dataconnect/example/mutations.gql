@@ -1,33 +1,76 @@
-# # Example mutations for a simple movie app
+# Mutations for AzizSys AI Assistant
 
-# # Create a movie based on user input
-# mutation CreateMovie($title: String!, $genre: String!, $imageUrl: String!)
-# @auth(level: USER_EMAIL_VERIFIED, insecureReason: "Any email verified users can create a new movie.") {
-#   movie_insert(data: { title: $title, genre: $genre, imageUrl: $imageUrl })
-# }
+# Create or update user profile
+mutation UpsertUser($email: String!, $displayName: String) @auth(level: USER) {
+  user_upsert(data: {
+    id_expr: "auth.uid"
+    email: $email
+    displayName: $displayName
+    lastActiveAt_expr: "request.time"
+  })
+}
 
-# # Upsert (update or insert) a user's username based on their auth.uid
-# mutation UpsertUser($username: String!) @auth(level: USER) {
-#   # The "auth.uid" server value ensures that users can only register their own user.
-#   user_upsert(data: { id_expr: "auth.uid", username: $username })
-# }
+# Create new chat session
+mutation CreateChatSession($agentType: String!, $title: String) @auth(level: USER) {
+  chatSession_insert(data: {
+    userId_expr: "auth.uid"
+    agentType: $agentType
+    title: $title
+  })
+}
 
-# # Add a review for a movie
-# mutation AddReview($movieId: UUID!, $rating: Int!, $reviewText: String!)
-# @auth(level: USER) {
-#   review_upsert(
-#     data: {
-#       userId_expr: "auth.uid"
-#       movieId: $movieId
-#       rating: $rating
-#       reviewText: $reviewText
-#       # reviewDate defaults to today in the schema. No need to set it manually.
-#     }
-#   )
-# }
+# Add message to chat session
+mutation AddMessage($sessionId: UUID!, $role: String!, $content: String!, $metadata: String) @auth(level: USER) {
+  message_insert(data: {
+    sessionId: $sessionId
+    role: $role
+    content: $content
+    metadata: $metadata
+  })
+}
 
-# # Logged in user can delete their review for a movie
-# mutation DeleteReview($movieId: UUID!) @auth(level: USER) {
-#   # The "auth.uid" server value ensures that users can only delete their own reviews.
-#   review_delete(key: { userId_expr: "auth.uid", movieId: $movieId })
-# }
+# Update chat session
+mutation UpdateChatSession($sessionId: UUID!, $title: String, $isActive: Boolean) @auth(level: USER) {
+  chatSession_update(
+    id: $sessionId
+    data: {
+      title: $title
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+# Create system task
+mutation CreateTask($title: String!, $description: String, $priority: String!, $assignedAgent: String) @auth(level: USER) {
+  task_insert(data: {
+    title: $title
+    description: $description
+    priority: $priority
+    assignedAgent: $assignedAgent
+    createdById_expr: "auth.uid"
+  })
+}
+
+# Update task status
+mutation UpdateTaskStatus($taskId: UUID!, $status: String!, $completedAt: Timestamp) @auth(level: USER) {
+  task_update(
+    id: $taskId
+    data: {
+      status: $status
+      completedAt: $completedAt
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+# Add knowledge entry
+mutation AddKnowledgeEntry($title: String!, $content: String!, $category: String!, $tags: String, $source: String) @auth(level: USER) {
+  knowledgeEntry_insert(data: {
+    title: $title
+    content: $content
+    category: $category
+    tags: $tags
+    source: $source
+  })
+}

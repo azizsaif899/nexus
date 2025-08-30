@@ -1,0 +1,41 @@
+{
+  "name": "sheets-sidebar",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "sheets-sidebar/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "continuous": true,
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "sheets-sidebar:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "sheets-sidebar:build:development"
+        },
+        "production": {
+          "buildTarget": "sheets-sidebar:build:production"
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sheets-addon",
+        "main": "apps/sheets-addon/src/main.ts",
+        "tsConfig": "apps/sheets-addon/tsconfig.app.json"
+      }
+    },
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/api",
+        "main": "apps/api/src/main.ts",
+        "tsConfig": "apps/api/tsconfig.app.json",
+        "assets": ["apps/api/src/assets"],
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "production": {
+          "sourceMap": false,
+          "optimization": true,
+          "skipTypeCheck": false
+        },
+        "development": {
+          "sourceMap": true,
+          "skipTypeCheck": true
+        }
+      },
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "api:build:development",
+        "watch": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "api:build:production"
+        }
+      }
+    },
+
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node src/main.ts",
+        "cwd": "apps/api"
+      }
+    },
+
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node dist/main.js",
+        "cwd": "apps/api"
+      },
+      "dependsOn": ["build"]
+    },
+
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/api"],
+      "options": {
+        "jestConfig": "apps/api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "coverage": true
+        },
+        "watch": {
+          "watch": true
+        }
+      }
+    },
+
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/api/**/*.ts"]
+      }
+    },
+
+    "db:init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/init-db.js",
+        "cwd": "apps/api"
+      }
+    },
+
+    "db:migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/migrate.js",
+        "cwd": "apps/api"
+      },
+      "dependsOn": ["db:init"]
+    },
+
+    "db:seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/seed.js",
+        "cwd": "apps/api"
+      },
+      "dependsOn": ["db:migrate"]
+    },
+
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p apps/api/tsconfig.app.json",
+        "cwd": "."
+      }
+    },
+
+    "publish": {
+      "executor": "@nx/js:release-publish",
+      "dependsOn": ["build", "test", "lint"],
+      "options": {
+        "buildTarget": "api:build:production",
+        "packageRoot": "dist/apps/api"
+      },
+      "configurations": {
+        "production": {
+          "registry": "https://registry.npmjs.org/",
+          "tag": "latest"
+        },
+        "beta": {
+          "tag": "beta"
+        }
+      }
+    }
+  }
+}
