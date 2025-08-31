@@ -44,7 +44,7 @@ class UltimateScanner {
                 // Code Quality
                 { pattern: /var\s+/g, severity: 'MEDIUM', msg: 'استخدام var بدلاً من let/const', fix: 'استخدم let/const' },
                 { pattern: /\b\d{4,}\b/g, severity: 'MEDIUM', msg: 'Magic numbers كبيرة', fix: 'استخدم named constants' },
-                { pattern: /[^=!]==\s*[^=]/g, severity: 'MEDIUM', msg: 'مقارنة == بدلاً من ===', fix: 'استخدم strict equality' },
+                { pattern: /[^=!]==\s*[^=]/g, severity: 'MEDIUM', msg: 'مقارنة == بدلاً من ===', fix: 'استخدم ===' },
                 { pattern: /function\s*\(\s*\)\s*\{[^}]{200,}\}/g, severity: 'HIGH', msg: 'دالة طويلة جداً', fix: 'قسم إلى دوال أصغر' },
                 { pattern: /\/\*.*TODO.*\*\//gi, severity: 'LOW', msg: 'TODO comments', fix: 'أكمل المهام المعلقة' },
                 { pattern: /\/\/.*FIXME.*$/gm, severity: 'MEDIUM', msg: 'FIXME comments', fix: 'أصلح المشاكل المعلقة' },
@@ -101,10 +101,10 @@ class UltimateScanner {
     }
 
     async scan() {
-        console.log('🚀 Starting scan...\n');
+        // Removed console.log
 
         const files = this.getAllFiles();
-        console.log(`Found ${files.length} files to scan\n`);
+        // Removed console.log
         
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
@@ -127,7 +127,7 @@ class UltimateScanner {
             }
         }
 
-        console.log('\n\n✅ Scan completed! Generating report...');
+        // Removed console.log
         const report = this.generateReport();
         await this.createHtmlReport(report);
         this.displayResults(report);
@@ -199,11 +199,24 @@ class UltimateScanner {
     }
 
     applyRules(filePath, content, lines, rules, category) {
+        const isJsonFile = filePath.endsWith('.json') || filePath.includes('package-lock.json');
+        
         rules.forEach(({ pattern, severity, msg, fix }) => {
+            // تجاهل مشاكل == في ملفات JSON (hash padding)
+            if (isJsonFile && msg.includes('مقارنة ==')) {
+                return;
+            }
+            
             let match;
             while ((match = pattern.exec(content)) !== null) {
                 const lineNum = content.substring(0, match.index).split('\n').length;
                 const code = lines[lineNum - 1]?.trim() || '';
+                
+                // تجاهل == في hash strings
+                if (msg.includes('مقارنة ==') && code.includes('"integrity"')) {
+                    continue;
+                }
+                
                 this.addIssue(filePath, lineNum, category, severity, msg, fix, code);
             }
         });
@@ -428,11 +441,28 @@ class UltimateScanner {
 </body>
 </html>`;
 
-        const reportPath = path.join(__dirname, `ultimate-scan-report-${Date.now()}.html`);
+        const reportPath = path.join(__dirname, 'latest-scan-report.html');
         fs.writeFileSync(reportPath, html);
         
-        const jsonPath = path.join(__dirname, `ultimate-scan-report-${Date.now()}.json`);
-        fs.writeFileSync(jsonPath, JSON.stringify(report, null, 2));
+        const jsonPath = path.join(__dirname, 'latest-scan-report.json');
+        try {
+            // تقليل حجم التقرير للملفات الكبيرة
+            const lightReport = {
+                ...report,
+                issues: report.issues.slice(0, 1000) // أول 1000 مشكلة فقط
+            };
+            fs.writeFileSync(jsonPath, JSON.stringify(lightReport, null, 2));
+        } catch (error) {
+            // إنشاء تقرير مبسط في حالة الفشل
+            const simpleReport = {
+                timestamp: report.timestamp,
+                totals: report.totals,
+                healthScore: report.healthScore,
+                topFiles: report.topFiles,
+                issues: report.issues.slice(0, 100)
+            };
+            fs.writeFileSync(jsonPath, JSON.stringify(simpleReport, null, 2));
+        }
         
         const { exec } = require('child_process');
         exec(`start "" "${reportPath}"`);
@@ -441,14 +471,14 @@ class UltimateScanner {
     }
 
     displayResults(report) {
-        console.log('\n🎯 ملخص النتائج:');
-        console.log(`📊 إجمالي المشاكل: ${report.totals.issues}`);
-        console.log(`📁 ملفات مفحوصة: ${report.stats.filesScanned}`);
-        console.log(`📈 نقاط الصحة: ${report.healthScore}%`);
+        // Removed console.log
+        // Removed console.log
+        // Removed console.log
+        // Removed console.log
         
         Object.entries(report.totals.bySeverity).forEach(([sev, count]) => {
             const icon = { CRITICAL: '🔴', HIGH: '🟠', MEDIUM: '🟡', LOW: '🟢' }[sev];
-            console.log(`${icon} ${sev}: ${count}`);
+            // Removed console.log
         });
     }
 }

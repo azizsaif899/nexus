@@ -15,7 +15,7 @@
 - **Debug Code**: اكتشاف `debugger` statements متروكة
 - **Variable Declaration**: اكتشاف `var` بدلاً من `let/const`
 - **Magic Numbers**: اكتشاف الأرقام الثابتة الكبيرة
-- **Comparison Operators**: اكتشاف `==` بدلاً من `===`
+- **Comparison Operators**: اكتشاف `===` بدلاً من `===`
 
 ### ⚡ فحص الأداء المحسن
 - **Synchronous Operations**: اكتشاف عمليات FS متزامنة

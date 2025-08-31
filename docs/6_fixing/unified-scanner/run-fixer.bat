@@ -24,10 +24,19 @@ if "%1"=="--dry-run" (
     node pro-safe-fixer.js --no-git
 ) else if "%1"=="--custom-report" (
     set /p report_path="Enter report path: "
+    echo Cleaning old reports...
+    del "fix-report.json" 2>nul
+    del "fix-report.html" 2>nul
     node pro-safe-fixer.js --report "%report_path%"
 ) else (
     echo Starting safe fix process...
-    node pro-safe-fixer.js --report "ultimate-scan-report-1756646329709.json"
+    
+    echo Cleaning old reports...
+    del "fix-report.json" 2>nul
+    del "fix-report.html" 2>nul
+    
+    echo Using latest scan report: latest-scan-report.json
+    node pro-safe-fixer.js --report "latest-scan-report.json"
 )
 
 echo.
