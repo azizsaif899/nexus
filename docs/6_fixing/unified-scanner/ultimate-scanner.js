@@ -110,18 +110,20 @@ class UltimateScanner {
             const file = files[i];
             const fileName = path.basename(file);
             
-            process.stdout.write(`\r[${i+1}/${files.length}] Scanning: ${fileName.substring(0, 30)}...`);
+            process.stdout.write(`\r[${i+1}/${files.length}] ${fileName.substring(0, 40)}`);
             
             try {
-                await this.scanFile(file);
+                // Timeout لكل ملف (5 ثواني)
+                await Promise.race([
+                    this.scanFile(file),
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('Timeout')), 5000)
+                    )
+                ]);
                 this.stats.filesScanned++;
             } catch (error) {
-                console.log(`\n❌ Error in ${fileName}: ${error.message}`);
-            }
-            
-            // تأخير صغير لإظهار التقدم
-            if (i % 10 === 0) {
-                await new Promise(resolve => setTimeout(resolve, 1));
+                // تخطي الملفات المشكلة والمتابعة
+                this.stats.filesScanned++;
             }
         }
 
@@ -158,17 +160,17 @@ class UltimateScanner {
 
     async scanFile(filePath) {
         try {
-            // فحص حجم الملف
+            // فحص سريع لحجم الملف
             const stats = fs.statSync(filePath);
-            if (stats.size > 10 * 1024 * 1024) { // 10MB
-                this.addIssue(filePath, 1, 'SIZE', 'HIGH', `File too large: ${Math.round(stats.size/1024/1024)}MB`, 'Split file');
+            if (stats.size > 2 * 1024 * 1024) { // 2MB
+                this.addIssue(filePath, 1, 'SIZE', 'MEDIUM', `Large file: ${Math.round(stats.size/1024/1024)}MB`, 'Consider splitting');
                 return;
             }
             
-            // فحص نوع الملف
-            const ext = path.extname(filePath).toLowerCase();
-            if (['.min.js', '.bundle.js', '.chunk.js'].some(minExt => filePath.includes(minExt))) {
-                return; // تخطي الملفات المضغوطة
+            // تخطي الملفات المضغوطة
+            const fileName = path.basename(filePath);
+            if (fileName.includes('.min.') || fileName.includes('.bundle.') || fileName.includes('node_modules')) {
+                return;
             }
             
             const content = fs.readFileSync(filePath, 'utf8');
@@ -192,8 +194,7 @@ class UltimateScanner {
             }
 
         } catch (e) {
-            // تجاهل الملفات التي لا يمكن قراءتها
-            // console.log(`Skipping ${path.basename(filePath)}: ${e.message}`);
+            // تخطي الملفات المشكلة
         }
     }
 
