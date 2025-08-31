@@ -27,7 +27,7 @@ if "%1"=="--dry-run" (
     node pro-safe-fixer.js --report "%report_path%"
 ) else (
     echo Starting safe fix process...
-    node pro-safe-fixer.js
+    node pro-safe-fixer.js --report "ultimate-scan-report-1756646329709.json"
 )
 
 echo.
