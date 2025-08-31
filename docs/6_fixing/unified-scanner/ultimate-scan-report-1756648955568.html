@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Scanner Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { background: rgba(255,255,255,0.95); color: #2c3e50; padding: 40px; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 3rem; margin-bottom: 15px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 30px; }
+        .stat-card { background: rgba(255,255,255,0.95); padding: 30px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s; }
+        .stat-card:hover { transform: translateY(-10px); }
+        .stat-number { font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; }
+        .health-score { color: #e74c3c; }
+        .section { background: rgba(255,255,255,0.95); border-radius: 15px; padding: 30px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .section h2 { color: #2c3e50; margin-bottom: 25px; font-size: 1.8rem; border-bottom: 3px solid #ecf0f1; padding-bottom: 15px; }
+        .severity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+        .severity-card { padding: 20px; border-radius: 12px; text-align: center; font-weight: bold; transition: transform 0.3s; }
+        .severity-card:hover { transform: scale(1.05); }
+        .sev-CRITICAL { background: linear-gradient(135deg, #ff6b6b, #ee5a52); color: white; }
+        .sev-HIGH { background: linear-gradient(135deg, #ffa726, #ff9800); color: white; }
+        .sev-MEDIUM { background: linear-gradient(135deg, #ffee58, #fdd835); color: #333; }
+        .sev-LOW { background: linear-gradient(135deg, #66bb6a, #4caf50); color: white; }
+        .quality-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .quality-metric { text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px; }
+        .issues-table { width: 100%; border-collapse: collapse; margin-top: 25px; }
+        .issues-table th, .issues-table td { padding: 15px; text-align: right; border-bottom: 1px solid #ecf0f1; }
+        .issues-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .issues-table tr:hover { background: #e3f2fd; }
+        .file-path { font-family: 'Courier New', monospace; font-size: 0.9rem; color: #6c757d; }
+        .suggestion { background: #e8f5e8; color: #2e7d32; padding: 8px; border-radius: 6px; font-size: 0.9rem; margin-top: 5px; }
+        .top-files { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .file-item { background: #f8f9fa; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .file-count { background: #e74c3c; color: white; padding: 8px 15px; border-radius: 25px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Ultimate Scanner Report</h1>
+            <div>الفاحص الشامل النهائي | ٣١‏/٨‏/٢٠٢٥، ٥:٠٢:٣٥ م</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">927</div>
+                <div>ملف تم فحصه</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">96,849</div>
+                <div>سطر تم فحصه</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6019</div>
+                <div>مشكلة مكتشفة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number health-score">0%</div>
+                <div>نقاط الصحة</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 مقاييس الجودة</h2>
+            <div class="quality-metrics">
+                <div class="quality-metric">
+                    <div style="font-size: 2rem; color: #e74c3c;">0%</div>
+                    <div>نقاط الأمان</div>
+                </div>
+                <div class="quality-metric">
+                    <div style="font-size: 2rem; color: #f39c12;">0%</div>
+                    <div>نقاط الأداء</div>
+                </div>
+                <div class="quality-metric">
+                    <div style="font-size: 2rem; color: #3498db;">0%</div>
+                    <div>نقاط الجودة</div>
+                </div>
+                <div class="quality-metric">
+                    <div style="font-size: 2rem; color: #9b59b6;">0%</div>
+                    <div>قابلية الصيانة</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⚠️ توزيع المشاكل</h2>
+            <div class="severity-grid">
+                
+                    <div class="severity-card sev-LOW">
+                        <div style="font-size: 2rem;">2389</div>
+                        <div>LOW</div>
+                    </div>
+                
+                    <div class="severity-card sev-MEDIUM">
+                        <div style="font-size: 2rem;">3105</div>
+                        <div>MEDIUM</div>
+                    </div>
+                
+                    <div class="severity-card sev-HIGH">
+                        <div style="font-size: 2rem;">464</div>
+                        <div>HIGH</div>
+                    </div>
+                
+                    <div class="severity-card sev-CRITICAL">
+                        <div style="font-size: 2rem;">61</div>
+                        <div>CRITICAL</div>
+                    </div>
+                
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📁 أكثر الملفات مشاكل</h2>
+            <div class="top-files">
+                
+                    <div class="file-item">
+                        <div>docs_data.js</div>
+                        <div class="file-count">1414</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>index.ts</div>
+                        <div class="file-count">171</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>complete-crm-flow.js</div>
+                        <div class="file-count">128</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>auto-fix-v2.js</div>
+                        <div class="file-count">120</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>health-check-v2.js</div>
+                        <div class="file-count">92</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>ultimate-scanner.js</div>
+                        <div class="file-count">80</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>nx-welcome.tsx</div>
+                        <div class="file-count">72</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>demo-whatsapp-crm.js</div>
+                        <div class="file-count">70</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>real-crm-demo.js</div>
+                        <div class="file-count">64</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>test-reporter.ts</div>
+                        <div class="file-count">60</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>websocket-client.ts</div>
+                        <div class="file-count">56</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>amazon-executor.ts</div>
+                        <div class="file-count">54</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>index.tsx</div>
+                        <div class="file-count">52</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>test-whatsapp-crm.js</div>
+                        <div class="file-count">50</div>
+                    </div>
+                
+                    <div class="file-item">
+                        <div>generate_docs_data.js</div>
+                        <div class="file-count">48</div>
+                    </div>
+                
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 تفاصيل المشاكل</h2>
+            <table class="issues-table">
+                <thead>
+                    <tr><th>الملف</th><th>السطر</th><th>الفئة</th><th>الخطورة</th><th>الوصف والحل</th></tr>
+                </thead>
+                <tbody>
+                    
+                        <tr>
+                            <td class="file-path">app.module.ts</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">whatsapp-crm-bridge.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cfo-agent.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>5</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">SmartMode.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">AnalysisMode.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">IterativeMode.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>6</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">app.controller.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">app.service.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">app.config.ts</td>
+                            <td>8</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>6</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>7</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>11</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>10</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">database-monitor.ts</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">database-monitor.ts</td>
+                            <td>10</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">feedback.service.ts</td>
+                            <td>8</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">marketplace.service.ts</td>
+                            <td>7</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>10</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">DatabaseAgent.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">ai.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">ai.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">auth.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">auth.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">query.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">query.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">users.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">users.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">vite.config.ts</td>
+                            <td>14</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">security.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">security.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">whatsapp.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">whatsapp.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">monitoring.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">monitoring.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">simulation.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">simulation.service.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>10</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>10</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>22</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>15</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firestore.service.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firestore.service.ts</td>
+                            <td>14</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">vite.config.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">security-manager.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">build.js</td>
+                            <td>9</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">build.js</td>
+                            <td>15</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">build.js</td>
+                            <td>17</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">vite.config.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">QueryProvider.tsx</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">marketplace.controller.ts</td>
+                            <td>9</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>18</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>6</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">config.service.ts</td>
+                            <td>13</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>10</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>14</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>13</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>14</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>13</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>14</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">logger-worker.ts</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">logger-worker.ts</td>
+                            <td>14</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">logger-worker.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">base-worker.ts</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">base-worker.ts</td>
+                            <td>9</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">base-worker.ts</td>
+                            <td>12</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">base-worker.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">base-worker.ts</td>
+                            <td>5</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cache-manager.ts</td>
+                            <td>11</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cache-manager.ts</td>
+                            <td>13</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cache-manager.ts</td>
+                            <td>11</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">google-search.tool.ts</td>
+                            <td>6</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">config.ts</td>
+                            <td>20</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">config.ts</td>
+                            <td>24</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">QueryProvider.tsx</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firestore.service.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firestore.service.ts</td>
+                            <td>14</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firestore.service.ts</td>
+                            <td>22</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">live.gateway.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">live.gateway.ts</td>
+                            <td>10</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">live.gateway.ts</td>
+                            <td>15</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">live.gateway.ts</td>
+                            <td>19</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">live.gateway.ts</td>
+                            <td>4</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">live.gateway.ts</td>
+                            <td>9</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">live.gateway.ts</td>
+                            <td>18</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">rate-limiter.ts</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">rate-limiter.ts</td>
+                            <td>12</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">analytics-service.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">content.dto.ts</td>
+                            <td>1</td>
+                            <td>COMPLEXITY</td>
+                            <td><span class="severity-card sev-HIGH" style="padding: 6px 12px; font-size: 0.8rem;">HIGH</span></td>
+                            <td>
+                                <div>High complexity: 17</div>
+                                <div class="suggestion">💡 Simplify code</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">providers.tsx</td>
+                            <td>11</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">providers.tsx</td>
+                            <td>11</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>4</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>21</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>25</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>10</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>14</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>18</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>22</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>26</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>30</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>34</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">data-export.service.ts</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">data-export.service.ts</td>
+                            <td>8</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">data-export.service.ts</td>
+                            <td>13</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">data-export.service.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">data-export.service.ts</td>
+                            <td>7</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">data-export.service.ts</td>
+                            <td>12</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">erp-connector.ts</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">erp-connector.ts</td>
+                            <td>12</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">erp-connector.ts</td>
+                            <td>22</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">erp-connector.ts</td>
+                            <td>5</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">erp-connector.ts</td>
+                            <td>10</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">erp-connector.ts</td>
+                            <td>20</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>14</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>16</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>20</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">StripeCheckout.tsx</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">user-service.ts</td>
+                            <td>6</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">user-service.ts</td>
+                            <td>14</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">gdpr.service.ts</td>
+                            <td>15</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.tsx</td>
+                            <td>11</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.tsx</td>
+                            <td>12</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">jwt.strategy.ts</td>
+                            <td>16</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">auto-backup.ts</td>
+                            <td>8</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">ai-engine.ts</td>
+                            <td>20</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>25</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>4</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>18</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>16</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>17</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>18</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>19</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">main.ts</td>
+                            <td>11</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>4</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>6</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>8</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>24</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">cors.config.ts</td>
+                            <td>24</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">text-extractor.ts</td>
+                            <td>4</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">text-extractor.ts</td>
+                            <td>16</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>2</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>3</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>7</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>11</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>11</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>17</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>21</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">model-selection.strategy.ts</td>
+                            <td>21</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>27</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>21</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>4</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>16</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">vite.config.ts</td>
+                            <td>19</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">vite.config.ts</td>
+                            <td>19</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">eslint.config.js</td>
+                            <td>13</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">eslint.config.js</td>
+                            <td>13</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firebase-config.ts</td>
+                            <td>6</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firebase-config.ts</td>
+                            <td>7</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firebase-config.ts</td>
+                            <td>8</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firebase-config.ts</td>
+                            <td>9</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">firebase-config.ts</td>
+                            <td>10</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>Magic numbers كبيرة</div>
+                                <div class="suggestion">💡 استخدم constants</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">odoo-webhook.service.ts</td>
+                            <td>19</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">odoo-webhook.service.ts</td>
+                            <td>22</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">odoo-webhook.service.ts</td>
+                            <td>13</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">generate-comprehensive-report.js</td>
+                            <td>9</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">generate-comprehensive-report.js</td>
+                            <td>10</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">generate-comprehensive-report.js</td>
+                            <td>11</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>5</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>17</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>4</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>16</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">index.ts</td>
+                            <td>27</td>
+                            <td>TYPESCRIPT</td>
+                            <td><span class="severity-card sev-MEDIUM" style="padding: 6px 12px; font-size: 0.8rem;">MEDIUM</span></td>
+                            <td>
+                                <div>TypeScript: استخدام any يلغي type safety</div>
+                                <div class="suggestion">💡 حدد نوع دقيق</div>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="file-path">amazon-q-auto.js</td>
+                            <td>3</td>
+                            <td>QUALITY</td>
+                            <td><span class="severity-card sev-LOW" style="padding: 6px 12px; font-size: 0.8rem;">LOW</span></td>
+                            <td>
+                                <div>Console statements في الكود</div>
+                                <div class="suggestion">💡 استخدم logger</div>
+                            </td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: center; color: rgba(255,255,255,0.8); margin-top: 50px; padding: 30px;">
+            <p>⚡ تم إنشاء التقرير في 2 ثانية | Ultimate Scanner v4.0</p>
+        </div>
+    </div>
+</body>
+</html>

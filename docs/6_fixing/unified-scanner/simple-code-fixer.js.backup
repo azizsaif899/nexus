@@ -1,0 +1,221 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+
+class SimpleCodeFixer {
+  constructor() {
+    this.fixedCount = 0;
+    this.skippedCount = 0;
+    
+    // الأخطاء البسيطة القابلة للإصلاح الآمن
+    this.safeFixes = {
+      // إزالة console.log فقط (ليس console.error أو console.warn)
+      removeConsoleLog: /console\.log\([^)]*\);?\s*\n?/g,
+      
+      // إزالة المسافات الزائدة في نهاية الأسطر
+      removeTrailingSpaces: /[ \t]+$/gm,
+      
+      // إزالة الأسطر الفارغة المتتالية (أكثر من سطرين)
+      removeExtraEmptyLines: /\n{3,}/g,
+      
+      // إضافة فاصلة منقوطة مفقودة في نهاية السطر (حالات بسيطة فقط)
+      addMissingSemicolon: /([a-zA-Z0-9_\]})]\s*)(\n)/g,
+      
+      // إزالة المسافات الزائدة حول الأقواس
+      fixSpacesAroundBrackets: /\s+\)/g,
+      
+      // تنسيق المسافات حول العمليات البسيطة
+      fixSpacesAroundOperators: /([a-zA-Z0-9_])(=)([a-zA-Z0-9_])/g
+    };
+
+    // الملفات المستثناة من الإصلاح
+    this.excludeFiles = [
+      'package-lock.json',
+      'node_modules',
+      '.git',
+      'dist',
+      'build',
+      '.next',
+      'coverage'
+    ];
+
+    // أنواع الملفات المدعومة
+    this.supportedExtensions = ['.js', '.ts', '.jsx', '.tsx', '.css', '.scss'];
+  }
+
+  shouldSkipFile(filePath) {
+    return this.excludeFiles.some(exclude => filePath.includes(exclude));
+  }
+
+  isSupportedFile(filePath) {
+    const ext = path.extname(filePath);
+    return this.supportedExtensions.includes(ext);
+  }
+
+  applySafeFixes(content, filePath) {
+    let fixed = content;
+    let hasChanges = false;
+
+    // إزالة console.log فقط
+    const newContent = fixed.replace(this.safeFixes.removeConsoleLog, '');
+    if (newContent !== fixed) {
+      fixed = newContent;
+      hasChanges = true;
+      console.log(`  ✓ Removed console.log statements`);
+    }
+
+    // إزالة المسافات الزائدة
+    const trimmed = fixed.replace(this.safeFixes.removeTrailingSpaces, '');
+    if (trimmed !== fixed) {
+      fixed = trimmed;
+      hasChanges = true;
+      console.log(`  ✓ Removed trailing spaces`);
+    }
+
+    // إزالة الأسطر الفارغة الزائدة
+    const cleanLines = fixed.replace(this.safeFixes.removeExtraEmptyLines, '\n\n');
+    if (cleanLines !== fixed) {
+      fixed = cleanLines;
+      hasChanges = true;
+      console.log(`  ✓ Cleaned extra empty lines`);
+    }
+
+    // إصلاح المسافات حول الأقواس
+    const fixedBrackets = fixed.replace(/\s+\)/g, ')');
+    if (fixedBrackets !== fixed) {
+      fixed = fixedBrackets;
+      hasChanges = true;
+      console.log(`  ✓ Fixed spaces around brackets`);
+    }
+
+    return { content: fixed, hasChanges };
+  }
+
+  async fixFile(filePath) {
+    try {
+      if (this.shouldSkipFile(filePath) || !this.isSupportedFile(filePath)) {
+        this.skippedCount++;
+        return false;
+      }
+
+      const content = fs.readFileSync(filePath, 'utf8');
+      const { content: fixedContent, hasChanges } = this.applySafeFixes(content, filePath);
+
+      if (hasChanges) {
+        // إنشاء نسخة احتياطية
+        const backupPath = filePath + '.backup';
+        fs.writeFileSync(backupPath, content);
+        
+        // كتابة المحتوى المُصلح
+        fs.writeFileSync(filePath, fixedContent);
+        
+        console.log(`🔧 Fixed: ${path.relative(process.cwd(), filePath)}`);
+        this.fixedCount++;
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      console.error(`❌ Error fixing ${filePath}:`, error.message);
+      return false;
+    }
+  }
+
+  async scanDirectory(dirPath) {
+    const items = fs.readdirSync(dirPath);
+    
+    for (const item of items) {
+      const fullPath = path.join(dirPath, item);
+      const stat = fs.statSync(fullPath);
+      
+      if (stat.isDirectory()) {
+        if (!this.shouldSkipFile(fullPath)) {
+          await this.scanDirectory(fullPath);
+        }
+      } else if (stat.isFile()) {
+        await this.fixFile(fullPath);
+      }
+    }
+  }
+
+  async run(targetPath = '.') {
+    console.log('🚀 Starting Simple Code Fixer...\n');
+    
+    const startTime = Date.now();
+    
+    if (fs.statSync(targetPath).isFile()) {
+      await this.fixFile(targetPath);
+    } else {
+      await this.scanDirectory(targetPath);
+    }
+    
+    const duration = Date.now() - startTime;
+    
+    console.log('\n📊 Summary:');
+    console.log(`  ✅ Files fixed: ${this.fixedCount}`);
+    console.log(`  ⏭️  Files skipped: ${this.skippedCount}`);
+    console.log(`  ⏱️  Duration: ${duration}ms`);
+    
+    if (this.fixedCount > 0) {
+      console.log('\n💡 Backup files created with .backup extension');
+      console.log('💡 Review changes before committing');
+    }
+  }
+
+  // استعادة الملفات من النسخ الاحتياطية
+  async restoreBackups(targetPath = '.') {
+    console.log('🔄 Restoring from backups...');
+    
+    const restoreFile = (filePath) => {
+      const backupPath = filePath + '.backup';
+      if (fs.existsSync(backupPath)) {
+        fs.copyFileSync(backupPath, filePath);
+        fs.unlinkSync(backupPath);
+        console.log(`  ↩️  Restored: ${path.relative(process.cwd(), filePath)}`);
+        return true;
+      }
+      return false;
+    };
+
+    const scanForBackups = (dirPath) => {
+      const items = fs.readdirSync(dirPath);
+      let restoredCount = 0;
+      
+      for (const item of items) {
+        const fullPath = path.join(dirPath, item);
+        const stat = fs.statSync(fullPath);
+        
+        if (stat.isDirectory() && !this.shouldSkipFile(fullPath)) {
+          restoredCount += scanForBackups(fullPath);
+        } else if (item.endsWith('.backup')) {
+          const originalPath = fullPath.replace('.backup', '');
+          if (fs.existsSync(originalPath)) {
+            fs.copyFileSync(fullPath, originalPath);
+            fs.unlinkSync(fullPath);
+            console.log(`  ↩️  Restored: ${path.relative(process.cwd(), originalPath)}`);
+            restoredCount++;
+          }
+        }
+      }
+      return restoredCount;
+    };
+
+    const restoredCount = scanForBackups(targetPath);
+    console.log(`\n✅ Restored ${restoredCount} files from backups`);
+  }
+}
+
+// تشغيل السكريبت
+if (require.main === module) {
+  const fixer = new SimpleCodeFixer();
+  const args = process.argv.slice(2);
+  
+  if (args.includes('--restore')) {
+    fixer.restoreBackups(args[1] || '.');
+  } else {
+    fixer.run(args[0] || '.');
+  }
+}
+
+module.exports = SimpleCodeFixer;
