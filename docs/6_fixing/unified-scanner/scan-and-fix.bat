@@ -1,6 +1,6 @@
 @echo off
 chcp 65001 >nul
-echo Ultimate Scanner & Fixer - Unified Version
+echo Ultimate Scanner and Fixer - Unified Version
 echo ==========================================
 echo.
 
