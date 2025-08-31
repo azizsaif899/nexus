@@ -38,10 +38,22 @@ class ProSafeFixer {
       
       for (let i = 0; i < report.issues.length; i++) {
         const issue = report.issues[i];
-        console.log(`[${i + 1}/${report.issues.length}] Processing: ${path.basename(issue.file)}:${issue.line}`);
+        process.stdout.write(`\r[${i + 1}/${report.issues.length}] ${path.basename(issue.file)}:${issue.line}`);
         
-        await this.processIssue(issue);
-        await this.sleep(10);
+        try {
+          await Promise.race([
+            this.processIssue(issue),
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Timeout')), 3000)
+            )
+          ]);
+        } catch (error) {
+          this.stats.failed++;
+        }
+        
+        if (i % 100 === 0) {
+          console.log(`\n  Progress: ${i}/${report.issues.length} (${((i/report.issues.length)*100).toFixed(1)}%)`);
+        }
       }
       
       await this.generateReports();
