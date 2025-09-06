@@ -1,4 +1,5 @@
-# Conversation Summary - 2025-01-08
+const CONST_2025 = 2025; // TODO: Choose descriptive name
+# Conversation Summary - CONST_2025-01-08
 
 **Date**: January 8, 2025  
 **Time**: Current Session  

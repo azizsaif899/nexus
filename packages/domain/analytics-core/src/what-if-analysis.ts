@@ -4,7 +4,7 @@
 // Mock EventBus and PredictionModels for now
 class MockEventBus {
   static getInstance() { return new MockEventBus(); }
-  emit(event: string, data: any) { console.log(`Event: ${event}`, data); }
+  emit(event: string, data: any) { // Removed console.log }
 }
 
 class MockPredictionModels {

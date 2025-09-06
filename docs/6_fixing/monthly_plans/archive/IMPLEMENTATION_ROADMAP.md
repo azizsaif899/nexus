@@ -409,7 +409,7 @@ jobs:
     name: 🔍 Quality Gate
     runs-on: ${{ matrix.os }}
     needs: analysis
-    if: needs.analysis.outputs.should-deploy == 'true'
+    if: needs.analysis.outputs.should-deploy === 'true'
     strategy:
       matrix: ${{ fromJson(needs.analysis.outputs.test-matrix) }}
       fail-fast: false
@@ -460,7 +460,7 @@ jobs:
     name: 🧪 Advanced Testing
     runs-on: ubuntu-latest
     needs: [analysis, quality-gate]
-    if: needs.analysis.outputs.should-deploy == 'true'
+    if: needs.analysis.outputs.should-deploy === 'true'
     
     services:
       redis:
@@ -587,7 +587,7 @@ jobs:
     name: 🚀 Deploy Staging
     runs-on: ubuntu-latest
     needs: build-and-package
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref === 'refs/heads/develop'
     environment: staging
     
     steps:
@@ -609,7 +609,7 @@ jobs:
     name: 🌟 Deploy Production
     runs-on: ubuntu-latest
     needs: [build-and-package, deploy-staging]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref === 'refs/heads/main'
     environment: production
     
     steps:
@@ -702,7 +702,7 @@ class AutoRecoverySystem {
     this.startMonitoring();
     
     this.isActive = true;
-    console.log('🔄 Auto Recovery System initialized');
+    // Removed console.log
   }
   
   setupSystemMonitors() {
@@ -731,7 +731,7 @@ class AutoRecoverySystem {
   setupRecoveryStrategies() {
     // استراتيجية تعافي الذاكرة
     this.recoveryStrategies.set('memory', async () => {
-      console.log('🧹 Initiating memory recovery...');
+      // Removed console.log
       
       // تنظيف الكاش
       await this.clearCaches();
@@ -747,7 +747,7 @@ class AutoRecoverySystem {
     
     // استراتيجية تعافي CPU
     this.recoveryStrategies.set('cpu', async () => {
-      console.log('⚡ Initiating CPU recovery...');
+      // Removed console.log
       
       // تقليل عدد العمليات المتزامنة
       await this.throttleOperations();
@@ -758,7 +758,7 @@ class AutoRecoverySystem {
     
     // استراتيجية تعافي الأخطاء
     this.recoveryStrategies.set('errors', async () => {
-      console.log('🚨 Initiating error recovery...');
+      // Removed console.log
       
       // إعادة تشغيل الخدمات المعطلة
       await this.restartFailedServices();
@@ -789,7 +789,7 @@ class AutoRecoverySystem {
     
     if (strategy) {
       try {
-        console.log(`🔄 Triggering ${type} recovery (${currentValue})`);
+        // Removed console.log`);
         await strategy();
         
         // تسجيل نجاح التعافي

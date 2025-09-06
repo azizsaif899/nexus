@@ -306,10 +306,10 @@ async function processWhatsAppMessage(message) {
         source_id: await getWhatsAppSourceId()
       });
       
-      console.log(`✅ عميل جديد: ${leadId}`);
+      // Removed console.log
     } else {
       leadId = leads[0].id;
-      console.log(`📝 عميل موجود: ${leadId}`);
+      // Removed console.log
     }
 
     // 3. إضافة الرسالة كتعليق

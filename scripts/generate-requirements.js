@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('🐍 توليد ملف requirements.txt تلقائياً...\n');
+// Removed console.log
 
 // فحص ملفات Python للعثور على imports
 function scanPythonFiles(dir) {
@@ -59,7 +59,7 @@ const corePackages = {
 const projectDir = path.join(__dirname, '..');
 const foundImports = scanPythonFiles(projectDir);
 
-console.log('📦 المكتبات المكتشفة:', foundImports);
+// Removed console.log
 
 // إنشاء requirements.txt
 let requirements = '';
@@ -79,6 +79,6 @@ foundImports.forEach(pkg => {
 // كتابة الملف
 fs.writeFileSync(path.join(projectDir, 'requirements-auto.txt'), requirements);
 
-console.log('✅ تم إنشاء requirements-auto.txt بنجاح!');
-console.log('\n📋 المحتوى:');
-console.log(requirements);
+// Removed console.log
+// Removed console.log
+// Removed console.log

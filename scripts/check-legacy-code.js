@@ -84,7 +84,7 @@ function findLineNumber(content, searchString) {
 }
 
 function main() {
-  console.log('🔍 Checking for legacy code patterns...\n');
+  // Removed console.log
   
   const files = glob.sync('**/*.{ts,js,tsx,jsx}', {
     ignore: [
@@ -111,21 +111,21 @@ function main() {
   });
   
   if (totalViolations === 0) {
-    console.log('✅ No legacy code patterns found!');
+    // Removed console.log
     process.exit(0);
   }
   
-  console.log(`❌ Found ${totalViolations} legacy code violations:\n`);
+  // Removed console.log
   
   Object.entries(violationsByFile).forEach(([file, violations]) => {
-    console.log(`📄 ${file}:`);
+    // Removed console.log
     violations.forEach(violation => {
-      console.log(`  Line ${violation.line}: ${violation.match}`);
-      console.log(`  Pattern: ${violation.pattern}\n`);
+      // Removed console.log
+      // Removed console.log
     });
   });
   
-  console.log('💡 Please migrate these legacy patterns to the new architecture.');
+  // Removed console.log
   process.exit(1);
 }
 

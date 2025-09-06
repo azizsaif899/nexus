@@ -95,7 +95,7 @@ export const getCurrentUserRef: GetCurrentUserRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the getCurrentUserRef:
 ```typescript
 const name = getCurrentUserRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -130,12 +130,12 @@ const { data } = await getCurrentUser();
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await getCurrentUser(dataConnect);
 
-console.log(data.user);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 getCurrentUser().then((response) => {
   const data = response.data;
-  console.log(data.user);
+  // Removed console.log
 });
 ```
 
@@ -157,12 +157,12 @@ const ref = getCurrentUserRef(dataConnect);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeQuery(ref);
 
-console.log(data.user);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeQuery(ref).then((response) => {
   const data = response.data;
-  console.log(data.user);
+  // Removed console.log
 });
 ```
 
@@ -192,7 +192,7 @@ export const listUserChatSessionsRef: ListUserChatSessionsRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the listUserChatSessionsRef:
 ```typescript
 const name = listUserChatSessionsRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -230,12 +230,12 @@ const { data } = await listUserChatSessions();
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await listUserChatSessions(dataConnect);
 
-console.log(data.user);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 listUserChatSessions().then((response) => {
   const data = response.data;
-  console.log(data.user);
+  // Removed console.log
 });
 ```
 
@@ -257,12 +257,12 @@ const ref = listUserChatSessionsRef(dataConnect);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeQuery(ref);
 
-console.log(data.user);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeQuery(ref).then((response) => {
   const data = response.data;
-  console.log(data.user);
+  // Removed console.log
 });
 ```
 
@@ -292,7 +292,7 @@ export const getChatSessionRef: GetChatSessionRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the getChatSessionRef:
 ```typescript
 const name = getChatSessionRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -352,12 +352,12 @@ const { data } = await getChatSession({ sessionId: ..., });
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await getChatSession(dataConnect, getChatSessionVars);
 
-console.log(data.chatSession);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 getChatSession(getChatSessionVars).then((response) => {
   const data = response.data;
-  console.log(data.chatSession);
+  // Removed console.log
 });
 ```
 
@@ -385,12 +385,12 @@ const ref = getChatSessionRef(dataConnect, getChatSessionVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeQuery(ref);
 
-console.log(data.chatSession);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeQuery(ref).then((response) => {
   const data = response.data;
-  console.log(data.chatSession);
+  // Removed console.log
 });
 ```
 
@@ -420,7 +420,7 @@ export const listTasksRef: ListTasksRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the listTasksRef:
 ```typescript
 const name = listTasksRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -477,12 +477,12 @@ const { data } = await listTasks();
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await listTasks(dataConnect, listTasksVars);
 
-console.log(data.tasks);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 listTasks(listTasksVars).then((response) => {
   const data = response.data;
-  console.log(data.tasks);
+  // Removed console.log
 });
 ```
 
@@ -512,12 +512,12 @@ const ref = listTasksRef(dataConnect, listTasksVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeQuery(ref);
 
-console.log(data.tasks);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeQuery(ref).then((response) => {
   const data = response.data;
-  console.log(data.tasks);
+  // Removed console.log
 });
 ```
 
@@ -547,7 +547,7 @@ export const searchKnowledgeRef: SearchKnowledgeRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the searchKnowledgeRef:
 ```typescript
 const name = searchKnowledgeRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -599,12 +599,12 @@ const { data } = await searchKnowledge({ query: ..., category: ..., });
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await searchKnowledge(dataConnect, searchKnowledgeVars);
 
-console.log(data.knowledgeEntries);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 searchKnowledge(searchKnowledgeVars).then((response) => {
   const data = response.data;
-  console.log(data.knowledgeEntries);
+  // Removed console.log
 });
 ```
 
@@ -633,12 +633,12 @@ const ref = searchKnowledgeRef(dataConnect, searchKnowledgeVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeQuery(ref);
 
-console.log(data.knowledgeEntries);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeQuery(ref).then((response) => {
   const data = response.data;
-  console.log(data.knowledgeEntries);
+  // Removed console.log
 });
 ```
 
@@ -683,7 +683,7 @@ export const upsertUserRef: UpsertUserRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the upsertUserRef:
 ```typescript
 const name = upsertUserRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -726,12 +726,12 @@ const { data } = await upsertUser({ email: ..., displayName: ..., });
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await upsertUser(dataConnect, upsertUserVars);
 
-console.log(data.user_upsert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 upsertUser(upsertUserVars).then((response) => {
   const data = response.data;
-  console.log(data.user_upsert);
+  // Removed console.log
 });
 ```
 
@@ -760,12 +760,12 @@ const ref = upsertUserRef(dataConnect, upsertUserVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.user_upsert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.user_upsert);
+  // Removed console.log
 });
 ```
 
@@ -795,7 +795,7 @@ export const createChatSessionRef: CreateChatSessionRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the createChatSessionRef:
 ```typescript
 const name = createChatSessionRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -838,12 +838,12 @@ const { data } = await createChatSession({ agentType: ..., title: ..., });
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await createChatSession(dataConnect, createChatSessionVars);
 
-console.log(data.chatSession_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 createChatSession(createChatSessionVars).then((response) => {
   const data = response.data;
-  console.log(data.chatSession_insert);
+  // Removed console.log
 });
 ```
 
@@ -872,12 +872,12 @@ const ref = createChatSessionRef(dataConnect, createChatSessionVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.chatSession_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.chatSession_insert);
+  // Removed console.log
 });
 ```
 
@@ -907,7 +907,7 @@ export const addMessageRef: AddMessageRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the addMessageRef:
 ```typescript
 const name = addMessageRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -954,12 +954,12 @@ const { data } = await addMessage({ sessionId: ..., role: ..., content: ..., met
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await addMessage(dataConnect, addMessageVars);
 
-console.log(data.message_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 addMessage(addMessageVars).then((response) => {
   const data = response.data;
-  console.log(data.message_insert);
+  // Removed console.log
 });
 ```
 
@@ -990,12 +990,12 @@ const ref = addMessageRef(dataConnect, addMessageVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.message_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.message_insert);
+  // Removed console.log
 });
 ```
 
@@ -1025,7 +1025,7 @@ export const updateChatSessionRef: UpdateChatSessionRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the updateChatSessionRef:
 ```typescript
 const name = updateChatSessionRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -1070,12 +1070,12 @@ const { data } = await updateChatSession({ sessionId: ..., title: ..., isActive:
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await updateChatSession(dataConnect, updateChatSessionVars);
 
-console.log(data.chatSession_update);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 updateChatSession(updateChatSessionVars).then((response) => {
   const data = response.data;
-  console.log(data.chatSession_update);
+  // Removed console.log
 });
 ```
 
@@ -1105,12 +1105,12 @@ const ref = updateChatSessionRef(dataConnect, updateChatSessionVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.chatSession_update);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.chatSession_update);
+  // Removed console.log
 });
 ```
 
@@ -1140,7 +1140,7 @@ export const createTaskRef: CreateTaskRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the createTaskRef:
 ```typescript
 const name = createTaskRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -1187,12 +1187,12 @@ const { data } = await createTask({ title: ..., description: ..., priority: ...,
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await createTask(dataConnect, createTaskVars);
 
-console.log(data.task_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 createTask(createTaskVars).then((response) => {
   const data = response.data;
-  console.log(data.task_insert);
+  // Removed console.log
 });
 ```
 
@@ -1223,12 +1223,12 @@ const ref = createTaskRef(dataConnect, createTaskVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.task_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.task_insert);
+  // Removed console.log
 });
 ```
 
@@ -1258,7 +1258,7 @@ export const updateTaskStatusRef: UpdateTaskStatusRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the updateTaskStatusRef:
 ```typescript
 const name = updateTaskStatusRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -1303,12 +1303,12 @@ const { data } = await updateTaskStatus({ taskId: ..., status: ..., completedAt:
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await updateTaskStatus(dataConnect, updateTaskStatusVars);
 
-console.log(data.task_update);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 updateTaskStatus(updateTaskStatusVars).then((response) => {
   const data = response.data;
-  console.log(data.task_update);
+  // Removed console.log
 });
 ```
 
@@ -1338,12 +1338,12 @@ const ref = updateTaskStatusRef(dataConnect, updateTaskStatusVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.task_update);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.task_update);
+  // Removed console.log
 });
 ```
 
@@ -1373,7 +1373,7 @@ export const addKnowledgeEntryRef: AddKnowledgeEntryRef;
 If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the addKnowledgeEntryRef:
 ```typescript
 const name = addKnowledgeEntryRef.operationName;
-console.log(name);
+// Removed console.log
 ```
 
 ### Variables
@@ -1422,12 +1422,12 @@ const { data } = await addKnowledgeEntry({ title: ..., content: ..., category: .
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await addKnowledgeEntry(dataConnect, addKnowledgeEntryVars);
 
-console.log(data.knowledgeEntry_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 addKnowledgeEntry(addKnowledgeEntryVars).then((response) => {
   const data = response.data;
-  console.log(data.knowledgeEntry_insert);
+  // Removed console.log
 });
 ```
 
@@ -1459,12 +1459,12 @@ const ref = addKnowledgeEntryRef(dataConnect, addKnowledgeEntryVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.knowledgeEntry_insert);
+// Removed console.log
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.knowledgeEntry_insert);
+  // Removed console.log
 });
 ```
 

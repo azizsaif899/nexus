@@ -39,7 +39,7 @@ export class NeuralNetwork {
       }
       
       if (epoch % 100 === 0) {
-        console.log(`Epoch ${epoch}, Loss: ${totalLoss / trainingData.length}`);
+        // Removed console.log
       }
     }
   }
@@ -100,6 +100,6 @@ export class NeuralNetwork {
   private async backward(input: number[], target: number[], learningRate: number): Promise<void> {
     // Simplified backpropagation
     // In a real implementation, this would calculate gradients and update weights
-    console.log('Backpropagation step completed');
+    // Removed console.log
   }
 }

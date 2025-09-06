@@ -3,7 +3,7 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 // وكيل تأهيل العملاء المحتملين
 exports.leadQualificationAgent = async (req, res) => {
-  console.log('Lead Qualification Agent started');
+  // Removed console.log
 
   try {
     // إعداد العملاء
@@ -26,7 +26,7 @@ exports.leadQualificationAgent = async (req, res) => {
       ['type', '=', 'lead']
     ]);
 
-    console.log(`Found ${newLeads.length} new leads to qualify`);
+    // Removed console.log
 
     const qualificationResults = [];
 
@@ -104,11 +104,11 @@ exports.leadQualificationAgent = async (req, res) => {
           status: 'qualified'
         });
 
-        console.log(`Qualified lead ${lead.id}: ${analysis.temperature} (${analysis.score}/100)`);
+        // Removed console.log`);
 
         // إرسال تنبيه للعملاء الحارين
         if (analysis.temperature === 'Hot' && analysis.score >= 80) {
-          await sendHotLeadAlert(lead, analysis);
+          await sendHotLead// TODO: Replace alert with proper notification
         }
 
       } catch (error) {
@@ -144,7 +144,7 @@ exports.leadQualificationAgent = async (req, res) => {
   }
 };
 
-async function sendHotLeadAlert(lead, analysis) {
+async function sendHotLead// TODO: Replace alert with proper notification{
   const alertMessage = `
 🔥 عميل محتمل حار جديد!
 
@@ -158,5 +158,5 @@ ${analysis.reasons.map(reason => `• ${reason}`).join('\n')}
 الإجراء المقترح: ${analysis.next_action}
 `;
 
-  console.log('Hot lead alert:', alertMessage);
+  // Removed console.log
 }

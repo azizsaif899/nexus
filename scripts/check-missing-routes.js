@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('🔍 فحص المسارات الناقصة في API...\n');
+// Removed console.log
 
 // المسارات المطلوبة للنظام الهجين
 const requiredRoutes = [
@@ -22,7 +22,7 @@ function checkAPIServer() {
   const serverPath = path.join(__dirname, '..', 'apps', 'api', 'server.js');
   
   if (!fs.existsSync(serverPath)) {
-    console.log('❌ ملف API Server غير موجود');
+    // Removed console.log
     return [];
   }
   
@@ -35,9 +35,9 @@ function checkAPIServer() {
     
     if (regex.test(content)) {
       foundRoutes.push(route);
-      console.log(`✅ ${route} - موجود`);
+      // Removed console.log
     } else {
-      console.log(`❌ ${route} - مفقود`);
+      // Removed console.log
     }
   });
   
@@ -49,7 +49,7 @@ function checkGeminiBackend() {
   const backendPath = path.join(__dirname, '..', 'apps', 'gemini-research-agent', 'main.py');
   
   if (!fs.existsSync(backendPath)) {
-    console.log('❌ ملف Gemini Backend غير موجود');
+    // Removed console.log
     return [];
   }
   
@@ -60,9 +60,9 @@ function checkGeminiBackend() {
   pythonRoutes.forEach(route => {
     if (content.includes(`"${route}"`) || content.includes(`'${route}'`)) {
       foundRoutes.push(route);
-      console.log(`✅ Python ${route} - موجود`);
+      // Removed console.log
     } else {
-      console.log(`❌ Python ${route} - مفقود`);
+      // Removed console.log
     }
   });
   
@@ -70,18 +70,18 @@ function checkGeminiBackend() {
 }
 
 // تشغيل الفحص
-console.log('📡 فحص API Server:');
+// Removed console.log
 const apiRoutes = checkAPIServer();
 
-console.log('\n🐍 فحص Gemini Backend:');
+// Removed console.log
 const pythonRoutes = checkGeminiBackend();
 
-console.log('\n📊 النتائج:');
-console.log(`API Server: ${apiRoutes.length}/${requiredRoutes.length} مسارات موجودة`);
-console.log(`Gemini Backend: ${pythonRoutes.length}/4 مسارات موجودة`);
+// Removed console.log
+// Removed console.log
+// Removed console.log
 
 if (apiRoutes.length === requiredRoutes.length && pythonRoutes.length === 4) {
-  console.log('🎉 جميع المسارات موجودة!');
+  // Removed console.log
 } else {
-  console.log('⚠️ بعض المسارات مفقودة - تحتاج إضافة');
+  // Removed console.log
 }

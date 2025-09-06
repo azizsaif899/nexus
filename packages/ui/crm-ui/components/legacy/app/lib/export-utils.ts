@@ -58,12 +58,12 @@ export class ExportManager {
 
   private static async exportToExcel(data: any[], filename: string, includeHeaders: boolean): Promise<void> {
     // محاكاة تصدير Excel - يحتاج مكتبة خارجية في التطبيق الحقيقي
-    console.log('تصدير Excel:', { data, filename, includeHeaders });
+    // Removed console.log
   }
 
   private static async exportToPDF(data: any[], filename: string): Promise<void> {
     // محاكاة تصدير PDF - يحتاج مكتبة خارجية في التطبيق الحقيقي
-    console.log('تصدير PDF:', { data, filename });
+    // Removed console.log
   }
 
   private static downloadFile(content: string, filename: string, mimeType: string): void {

@@ -8,7 +8,7 @@ export class EmbeddingService {
   }
 
   async generateEmbedding(text: string, taskType: TaskType = 'SEMANTIC_SIMILARITY'): Promise<number[]> {
-    console.log(`🧠 Generating embedding for task: ${taskType}`);
+    // Removed console.log
     
     // Mock embedding - في الإنتاج سيتم استخدام Gemini Embedding API
     const mockEmbedding = new Array(768).fill(0).map(() => Math.random() - 0.5);
@@ -17,7 +17,7 @@ export class EmbeddingService {
   }
 
   async generateBatchEmbeddings(texts: string[], taskType: TaskType = 'SEMANTIC_SIMILARITY'): Promise<number[][]> {
-    console.log(`🧠 Generating ${texts.length} embeddings for task: ${taskType}`);
+    // Removed console.log
     
     const embeddings = [];
     for (const text of texts) {

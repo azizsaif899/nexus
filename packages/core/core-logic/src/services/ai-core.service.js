@@ -1,5 +1,5 @@
 "use strict";
-var AiCoreService_1;
+let AiCoreService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AiCoreService = void 0;
 const tslib_1 = require("tslib");

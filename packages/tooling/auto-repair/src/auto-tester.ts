@@ -20,7 +20,7 @@ export class AutoTester {
 
   // اختبار إصلاح واحد
   async testFix(fix: FixSuggestion, filePath: string): Promise<TestResult[]> {
-    console.log(`🧪 اختبار الإصلاح: ${fix.errorId}`);
+    // Removed console.log
     
     const results: TestResult[] = [];
     
@@ -158,7 +158,7 @@ export class AutoTester {
 
   // اختبار شامل للمشروع
   async testProject(): Promise<TestResult[]> {
-    console.log('🧪 اختبار شامل للمشروع...');
+    // Removed console.log
     
     const results: TestResult[] = [];
     const startTime = Date.now();
@@ -260,7 +260,7 @@ export class AutoTester {
 
   // توليد اختبار تلقائي باستخدام AI
   async generateTest(filePath: string, functionName: string): Promise<string | null> {
-    console.log(`🤖 توليد اختبار لـ: ${functionName} في ${filePath}`);
+    // Removed console.log
     
     try {
       const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -299,7 +299,7 @@ describe('${functionName}', () => {
     };
 
     fs.writeFileSync(outputPath, JSON.stringify(report, null, 2));
-    console.log(`📊 تم حفظ تقرير الاختبارات: ${outputPath}`);
+    // Removed console.log
   }
 
   // تجميع الاختبارات حسب النوع
@@ -323,10 +323,10 @@ describe('${functionName}', () => {
 if (require.main === module) {
   const tester = new AutoTester();
   tester.testProject().then(results => {
-    console.log(`📊 نتائج الاختبار: ${results.length} اختبار`);
+    // Removed console.log
     results.forEach(result => {
       const status = result.passed ? '✅' : '❌';
-      console.log(`${status} ${result.testType}: ${result.fixId}`);
+      // Removed console.log
     });
   });
 }

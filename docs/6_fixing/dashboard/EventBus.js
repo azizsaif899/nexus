@@ -10,7 +10,7 @@ class EventBus {
         this.maxHistory = 100;
         this.isActive = true;
         
-        console.log('🚀 EventBus initialized');
+        // Removed console.log
         this.setupDefaultHandlers();
     }
 
@@ -22,7 +22,7 @@ class EventBus {
             this.events[eventName] = [];
         }
         this.events[eventName].push(callback);
-        console.log(`📡 EventBus: Registered listener for '${eventName}'`);
+        // Removed console.log
     }
 
     /**
@@ -52,7 +52,7 @@ class EventBus {
             });
         }
 
-        console.log(`📤 EventBus: Emitted '${eventName}'`, data);
+        // Removed console.log
         return event;
     }
 
@@ -82,20 +82,20 @@ class EventBus {
     setupDefaultHandlers() {
         // معالج أحداث النظام
         this.on('system:start', (event) => {
-            console.log('🚀 System starting...', event.data);
+            // Removed console.log
         });
 
         this.on('system:stop', (event) => {
-            console.log('🛑 System stopping...', event.data);
+            // Removed console.log
         });
 
         // معالج أحداث المهام
         this.on('task:assigned', (event) => {
-            console.log('📋 Task assigned:', event.data.taskId);
+            // Removed console.log
         });
 
         this.on('task:completed', (event) => {
-            console.log('✅ Task completed:', event.data.taskId);
+            // Removed console.log
         });
 
         this.on('task:failed', (event) => {
@@ -104,11 +104,11 @@ class EventBus {
 
         // معالج أحداث الذكاء الاصطناعي
         this.on('ai:gemini:active', (event) => {
-            console.log('🧠 Gemini AI activated');
+            // Removed console.log
         });
 
         this.on('ai:amazonq:active', (event) => {
-            console.log('⚡ Amazon Q activated');
+            // Removed console.log
         });
 
         // معالج أحداث الأخطاء
@@ -162,7 +162,7 @@ class EventBus {
      */
     setActive(active) {
         this.isActive = active;
-        console.log(`📡 EventBus: ${active ? 'Activated' : 'Deactivated'}`);
+        // Removed console.log
     }
 
     /**
@@ -170,7 +170,7 @@ class EventBus {
      */
     clear() {
         this.events = {};
-        console.log('🧹 EventBus: All listeners cleared');
+        // Removed console.log
     }
 
     /**
@@ -178,7 +178,7 @@ class EventBus {
      */
     clearHistory() {
         this.history = [];
-        console.log('🧹 EventBus: History cleared');
+        // Removed console.log
     }
 }
 

@@ -53,8 +53,7 @@ commandRegistry.register({
   icon: '👤',
   keywords: ['عميل', 'محتمل', 'جديد', 'إضافة'],
   priority: 10,
-  action: () => console.log('Creating new lead...')
-});
+  action: () => // Removed console.log});
 
 commandRegistry.register({
   id: 'search-customers',
@@ -65,8 +64,7 @@ commandRegistry.register({
   icon: '🔍',
   keywords: ['بحث', 'عملاء', 'عثور'],
   priority: 9,
-  action: () => console.log('Searching customers...')
-});
+  action: () => // Removed console.log});
 
 commandRegistry.register({
   id: 'daily-report',
@@ -77,5 +75,4 @@ commandRegistry.register({
   icon: '📊',
   keywords: ['تقرير', 'يومي', 'أداء'],
   priority: 8,
-  action: () => console.log('Generating daily report...')
-});
+  action: () => // Removed console.log});

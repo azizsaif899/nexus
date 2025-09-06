@@ -35,7 +35,7 @@ setInterval(async () => {
   const dailyPlan = await readFile(`DAILY_BOOT_${today}.md`);
   
   if (dailyPlan) {
-    console.log(`🚀 بدء تنفيذ اليوم ${today} تلقائياً...`);
+    // Removed console.log
     await executeDailyTasks(dailyPlan);
     
     // إشعار Gemini للمراجعة
@@ -48,7 +48,7 @@ setInterval(async () => {
 ```javascript
 // Auto-review trigger
 async function autoReview(dayNumber) {
-  console.log(`🧠 بدء مراجعة اليوم ${dayNumber} تلقائياً...`);
+  // Removed console.log
   
   // 1. مراجعة شاملة
   const reviewReport = await conductFullReview(dayNumber);

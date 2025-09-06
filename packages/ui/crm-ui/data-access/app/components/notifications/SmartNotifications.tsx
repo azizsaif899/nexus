@@ -26,7 +26,7 @@ export function SmartNotifications() {
         type: 'success',
         timestamp: new Date(),
         actions: [
-          { label: 'عرض', action: () => console.log('View deal') }
+          { label: 'عرض', action: () => // Removed console.log}
         ]
       },
       {
@@ -36,7 +36,7 @@ export function SmartNotifications() {
         type: 'warning',
         timestamp: new Date(Date.now() - 300000),
         actions: [
-          { label: 'اتصال', action: () => console.log('Call customer') }
+          { label: 'اتصال', action: () => // Removed console.log}
         ]
       }
     ];

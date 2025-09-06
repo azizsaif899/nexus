@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { EnhancedOrchestrator } from '../../../packages/tooling/auto-fix-system/enhanced-orchestrator';
+/* NX_STRUCTURE: Consider using path mapping */ import { EnhancedOrchestrator } from '../../../;
 
 interface AutomationStatus {
   isRunning: boolean;

@@ -75,7 +75,7 @@ export const CoPilotBar: React.FC<CoPilotBarProps> = ({ isOpen, onClose }) => {
           data: { type: 'daily-summary' }
         });
         // عرض الملخص اليومي
-        alert('جاري إنشاء الملخص اليومي...');
+        // TODO: Replace alert with proper notification
       }
     },
     {
@@ -91,7 +91,7 @@ export const CoPilotBar: React.FC<CoPilotBarProps> = ({ isOpen, onClose }) => {
           data: { action: 'compose-message' }
         });
         // فتح نافذة إرسال رسالة
-        alert('فتح نافذة إرسال رسالة WhatsApp...');
+        // TODO: Replace alert with proper notification
       }
     },
     {
@@ -121,7 +121,7 @@ export const CoPilotBar: React.FC<CoPilotBarProps> = ({ isOpen, onClose }) => {
           source: 'copilot-bar',
           data: { action: 'schedule-meeting' }
         });
-        alert('فتح تقويم الاجتماعات...');
+        // TODO: Replace alert with proper notification
       }
     }
   ];
@@ -195,12 +195,12 @@ export const CoPilotBar: React.FC<CoPilotBarProps> = ({ isOpen, onClose }) => {
   // أصوات مؤقتة (سيتم تحسينها في TASK-014)
   const playSuccessSound = () => {
     // مؤقت - سيتم استبداله بأصوات حقيقية
-    console.log('🔊 Success sound');
+    // Removed console.log
   };
 
   const playErrorSound = () => {
     // مؤقت - سيتم استبداله بأصوات حقيقية
-    console.log('🔊 Error sound');
+    // Removed console.log
   };
 
   if (!isOpen) return null;

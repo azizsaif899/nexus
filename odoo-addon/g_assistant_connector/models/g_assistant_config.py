@@ -79,7 +79,7 @@ class GAssistantConfig(models.Model):
                 timeout=10
             )
             
-            if response.status_code == 200:
+            if response.status_code === 200:
                 self.last_sync = fields.Datetime.now()
                 _logger.info(f'Webhook sent successfully for {model_name}:{record_id}')
                 return True

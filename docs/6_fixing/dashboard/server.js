@@ -14,7 +14,7 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-    console.log(`Request: ${req.method} ${req.url}`);
+    // Removed console.log
 
     // Enable CORS for all requests
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -78,7 +78,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`\n🚀 Dashboard server is running on http://localhost:${PORT}`);
-    console.log(`📂 Serving files from: ${__dirname}`);
-    console.log(`🔗 To view the dashboard, open your browser to http://localhost:3000`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
 });

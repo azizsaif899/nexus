@@ -31,19 +31,19 @@ jobs:
       run: npm install
     
     - name: Run Lint Test
-      if: ${{ github.event.inputs.test_type == 'lint' || github.event.inputs.test_type == 'all' }}
+      if: ${{ github.event.inputs.test_type === 'lint' || github.event.inputs.test_type === 'all' }}
       run: |
         echo "🔍 تشغيل فحص ESLint..."
         npm run lint || echo "Lint completed"
     
     - name: Run Build Test
-      if: ${{ github.event.inputs.test_type == 'build' || github.event.inputs.test_type == 'all' }}
+      if: ${{ github.event.inputs.test_type === 'build' || github.event.inputs.test_type === 'all' }}
       run: |
         echo "🔨 تشغيل البناء..."
         npm run build || echo "Build completed"
     
     - name: Run Security Test
-      if: ${{ github.event.inputs.test_type == 'security' || github.event.inputs.test_type == 'all' }}
+      if: ${{ github.event.inputs.test_type === 'security' || github.event.inputs.test_type === 'all' }}
       run: |
         echo "🛡️ تشغيل فحص الأمان..."
         npm audit || echo "Security audit completed"

@@ -13,7 +13,7 @@ export class RollbackManager {
       if (fs.existsSync(filePath)) {
         fs.copyFileSync(filePath, backupPath);
         this.backups.set(filePath, backupPath);
-        console.log(`✅ Backup created: ${backupPath}`);
+        // Removed console.log
         return backupPath;
       }
       
@@ -35,7 +35,7 @@ export class RollbackManager {
 
       // استعادة من النسخة الاحتياطية
       fs.copyFileSync(backupPath, filePath);
-      console.log(`🔄 Rollback completed for ${filePath}: ${reason}`);
+      // Removed console.log
       
       // تنظيف النسخة الاحتياطية
       this.cleanupBackup(filePath);
@@ -53,7 +53,7 @@ export class RollbackManager {
       if (backupPath && fs.existsSync(backupPath)) {
         fs.unlinkSync(backupPath);
         this.backups.delete(filePath);
-        console.log(`🗑️ Backup cleaned: ${backupPath}`);
+        // Removed console.log
       }
     } catch (error) {
       console.warn(`⚠️ Cleanup failed for ${filePath}:`, error);

@@ -93,7 +93,7 @@ function isValid(value) {
 
   private async writeTemporaryFile(filePath: string, code: string): Promise<void> {
     // Mock temporary file writing
-    console.log(`Writing mutant to ${filePath}.tmp`);
+    // Removed console.log
   }
 
   private async runTests(): Promise<boolean> {

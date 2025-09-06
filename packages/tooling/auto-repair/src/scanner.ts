@@ -21,7 +21,7 @@ export class CodeScanner {
 
   // مسح ملفات الكود
   async scanCodeFiles(): Promise<CodeFile[]> {
-    console.log('🔍 مسح ملفات الكود...');
+    // Removed console.log
     
     const files: CodeFile[] = [];
     
@@ -50,7 +50,7 @@ export class CodeScanner {
       }
     }
 
-    console.log(`✅ تم مسح ${files.length} ملف`);
+    // Removed console.log
     return files;
   }
 
@@ -73,7 +73,7 @@ export class CodeScanner {
 
   // مسح مجلدات محددة
   async scanSpecificPaths(paths: string[]): Promise<CodeFile[]> {
-    console.log(`🎯 مسح مجلدات محددة: ${paths.join(', ')}`);
+    // Removed console.log}`);
     
     const files: CodeFile[] = [];
     
@@ -111,7 +111,7 @@ export class CodeScanner {
       }
     }
 
-    console.log(`✅ تم مسح ${files.length} ملف من المجلدات المحددة`);
+    // Removed console.log
     return files;
   }
 
@@ -131,7 +131,7 @@ export class CodeScanner {
     };
 
     fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
-    console.log(`💾 تم حفظ نتائج المسح في: ${outputPath}`);
+    // Removed console.log
   }
 
   // تجميع الملفات حسب النوع

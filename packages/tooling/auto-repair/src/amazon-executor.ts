@@ -36,14 +36,14 @@ export class AmazonExecutor {
 
   // قراءة مهام اليوم من Gemini AI
   async readDailyTasks(): Promise<TaskRequest[]> {
-    console.log('📋 قراءة المهام اليومية...');
+    // Removed console.log
     
     const today = new Date().toISOString().split('T')[0];
     const tasksFile = path.join(this.reportsDir, `daily_tasks_${today}.md`);
     const reviewFile = path.join(this.reportsDir, `gemini_review_${today}.json`);
     
     if (!fs.existsSync(reviewFile)) {
-      console.log('❌ لا يوجد تقرير Gemini AI لليوم');
+      // Removed console.log
       return [];
     }
     
@@ -68,20 +68,20 @@ export class AmazonExecutor {
 
   // تنفيذ مهمة واحدة
   async executeTask(task: TaskRequest): Promise<boolean> {
-    console.log(`🔧 تنفيذ المهمة: ${task.taskId}`);
-    console.log(`📍 الموقع: ${task.location}`);
-    console.log(`⚡ الأولوية: ${task.priority}`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
     
     // التحقق من وضوح المهمة
     if (!this.isTaskClear(task)) {
-      console.log('❓ المهمة غير واضحة، أحتاج تفاصيل أكثر');
+      // Removed console.log
       this.requestClarification(task);
       return false;
     }
     
     if (this.isDryRun) {
-      console.log(`[DRY RUN] 📝 كان سيتم تنفيذ المهمة: ${task.taskId} - ${task.details}`);
-      console.log(`[DRY RUN] ➡️  الإجراء: ${task.action} على ${task.location}`);
+      // Removed console.log
+      // Removed console.log
       return true; // محاكاة النجاح
     }
 
@@ -97,7 +97,7 @@ export class AmazonExecutor {
         case 'DELETE':
           return await this.deleteFile(task);
         default:
-          console.log(`❌ نوع مهمة غير مدعوم: ${task.action}`);
+          // Removed console.log
           return false;
       }
     } catch (error) {
@@ -115,13 +115,13 @@ export class AmazonExecutor {
     // فحص وجود الملف
     const fullPath = path.join(this.projectRoot, task.location);
     if (!fs.existsSync(fullPath)) {
-      console.log(`❌ الملف غير موجود: ${task.location}`);
+      // Removed console.log
       return false;
     }
     
     // فحص وضوح التفاصيل
     if (task.details.length < 20) {
-      console.log('❌ التفاصيل قصيرة جداً');
+      // Removed console.log
       return false;
     }
     
@@ -151,14 +151,14 @@ export class AmazonExecutor {
       JSON.stringify(clarificationRequest, null, 2)
     );
     
-    console.log(`📝 تم حفظ طلب التوضيح: ${clarificationPath}`);
+    // Removed console.log
   }
 
   // إنشاء نسخة احتياطية
   private async createBackup(filePath: string): Promise<string> {
     const fullPath = path.join(this.projectRoot, filePath);
     if (this.isDryRun) {
-      console.log(`[DRY RUN] 💾 كان سيتم إنشاء نسخة احتياطية لـ: ${filePath}`);
+      // Removed console.log
       return `${filePath}.backup.dryrun`;
     }
 
@@ -168,7 +168,7 @@ export class AmazonExecutor {
     
     fs.copyFileSync(fullPath, backupPath);
     
-    console.log(`💾 تم إنشاء نسخة احتياطية: ${backupName}`);
+    // Removed console.log
     return backupPath;
   }
 
@@ -176,7 +176,7 @@ export class AmazonExecutor {
   private async updateFile(task: TaskRequest): Promise<boolean> {
     const fullPath = path.join(this.projectRoot, task.location);
     
-    console.log(`✏️ محاولة تحديث/إصلاح الملف: ${task.location} (الإجراء: ${task.action})`);
+    // Removed console.log`);
 
     let modificationApplied = false;
 
@@ -201,7 +201,7 @@ export class AmazonExecutor {
         if (fixSuggestion && fixSuggestion.confidence > 0.7) {
           modificationApplied = await aiFixer.applyFix(fixSuggestion, fullPath);
         } else {
-          console.log('🤔 لم يتم العثور على إصلاح بمستوى ثقة كافٍ.');
+          // Removed console.log
         }
       } catch (error) {
         console.error('❌ حدث خطأ أثناء محاولة الإصلاح التلقائي:', error);
@@ -235,15 +235,15 @@ export class AmazonExecutor {
           modificationApplied = false;
       }
     } else {
-      console.log(`[INFO] الإجراء '${task.action}' لم يتم تنفيذ منطق تعديل الكود له بعد.`);
+      // Removed console.log
     }
 
     // اختبار التغييرات فقط إذا تم تطبيق تعديل
     if (modificationApplied) {
-      console.log('✅ تم تطبيق التعديل، بدء الاختبارات...');
+      // Removed console.log
       return await this.testChanges(task);
     } else {
-      console.log('⚠️ لم يتم تطبيق أي تعديل، تخطي الاختبارات.');
+      // Removed console.log
       return false;
     }
   }
@@ -252,7 +252,7 @@ export class AmazonExecutor {
   private async deleteFile(task: TaskRequest): Promise<boolean> {
     const fullPath = path.join(this.projectRoot, task.location);
     
-    console.log(`🗑️ حذف الملف: ${task.location}`);
+    // Removed console.log
     
     // توثيق سبب الحذف
     const deleteLog = {
@@ -270,16 +270,16 @@ export class AmazonExecutor {
     const logPath = path.join(this.reportsDir, `delete_log_${task.taskId}.json`);
     fs.writeFileSync(logPath, JSON.stringify(deleteLog, null, 2));
     
-    console.log(`✅ تم حذف الملف مع التوثيق`);
+    // Removed console.log
     return true;
   }
 
   // اختبار التغييرات
   private async testChanges(task: TaskRequest): Promise<boolean> {
-    console.log('🧪 اختبار التغييرات...');
+    // Removed console.log
 
     if (this.isDryRun) {
-      console.log(`[DRY RUN] 🧪 كان سيتم اختبار التغييرات للمهمة: ${task.taskId}`);
+      // Removed console.log
       return true;
     }
     
@@ -300,10 +300,10 @@ export class AmazonExecutor {
         });
       }
       
-      console.log('✅ نجحت جميع الاختبارات');
+      // Removed console.log
       return true;
     } catch (error) {
-      console.log('❌ فشلت الاختبارات');
+      // Removed console.log
       return false;
     }
   }
@@ -321,7 +321,7 @@ export class AmazonExecutor {
 
   // استعادة النسخة الاحتياطية
   private async restoreBackup(filePath: string): Promise<void> {
-    console.log(`🔄 استعادة النسخة الاحتياطية لـ: ${filePath}`);
+    // Removed console.log
     
     // البحث عن أحدث نسخة احتياطية
     const fileName = path.basename(filePath);
@@ -335,7 +335,7 @@ export class AmazonExecutor {
       const fullPath = path.join(this.projectRoot, filePath);
       
       fs.copyFileSync(latestBackup, fullPath);
-      console.log('✅ تم استعادة النسخة الاحتياطية');
+      // Removed console.log
     }
   }
 
@@ -367,21 +367,21 @@ export class AmazonExecutor {
     report += `- التأكد من عدم كسر أي وظائف موجودة\n\n`;
     
     fs.writeFileSync(reportPath, report);
-    console.log(`📊 تم إنشاء تقرير GitHub: ${reportPath}`);
+    // Removed console.log
   }
 
   // تشغيل المنفذ
   async run(): Promise<void> {
-    console.log('🚀 بدء Amazon Executor v2.0');
+    // Removed console.log
     
     const tasks = await this.readDailyTasks();
     
     if (tasks.length === 0) {
-      console.log('📭 لا توجد مهام لليوم');
+      // Removed console.log
       return;
     }
     
-    console.log(`📋 تم العثور على ${tasks.length} مهمة`);
+    // Removed console.log
     
     const results: boolean[] = [];
     
@@ -392,7 +392,7 @@ export class AmazonExecutor {
     
     await this.generateGitHubReport(tasks, results);
     
-    console.log('🎉 تم إكمال جميع المهام');
+    // Removed console.log
   }
 }
 

@@ -26,7 +26,7 @@ class MacroRecorder {
     this.isRecording = true;
     this.currentMacro = [];
     this.startTime = Date.now();
-    console.log(`بدء تسجيل الماكرو: ${name}`);
+    // Removed console.log
   }
 
   stopRecording(): Macro | null {
@@ -46,7 +46,7 @@ class MacroRecorder {
     this.macros.set(macro.id, macro);
     this.currentMacro = [];
     
-    console.log(`تم حفظ الماكرو: ${macro.name} (${macro.actions.length} إجراء)`);
+    // Removed console.log`);
     return macro;
   }
 
@@ -67,7 +67,7 @@ class MacroRecorder {
       throw new Error('الماكرو غير موجود');
     }
 
-    console.log(`تشغيل الماكرو: ${macro.name}`);
+    // Removed console.log
     
     for (const action of macro.actions) {
       await this.executeAction(action);
@@ -82,29 +82,29 @@ class MacroRecorder {
     macro.lastUsed = new Date();
     macro.usageCount++;
     
-    console.log(`تم تشغيل الماكرو بنجاح: ${macro.name}`);
+    // Removed console.log
   }
 
   private async executeAction(action: MacroAction): Promise<void> {
     switch (action.type) {
       case 'click':
         // محاكاة النقر
-        console.log(`نقر على: ${action.target}`);
+        // Removed console.log
         break;
         
       case 'input':
         // محاكاة الإدخال
-        console.log(`إدخال: ${action.value} في ${action.target}`);
+        // Removed console.log
         break;
         
       case 'navigate':
         // محاكاة التنقل
-        console.log(`التنقل إلى: ${action.value}`);
+        // Removed console.log
         break;
         
       case 'api_call':
         // تنفيذ استدعاء API
-        console.log(`استدعاء API: ${action.target}`);
+        // Removed console.log
         break;
         
       case 'wait':

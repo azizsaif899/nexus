@@ -102,7 +102,7 @@ export class VectorDatabase {
 
   private simpleHash(str: string): number {
     let hash = 0;
-    for (let i = 0; i < str.length; i++) {
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash; // Convert to 32-bit integer
@@ -119,7 +119,7 @@ export class VectorDatabase {
     let magnitudeA = 0;
     let magnitudeB = 0;
 
-    for (let i = 0; i < vectorA.length; i++) {
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < vectorA.length; i++) {
       dotProduct += vectorA[i] * vectorB[i];
       magnitudeA += vectorA[i] * vectorA[i];
       magnitudeB += vectorB[i] * vectorB[i];

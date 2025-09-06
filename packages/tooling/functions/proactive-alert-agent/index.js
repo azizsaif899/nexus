@@ -3,7 +3,7 @@ const { BigQuery } = require('@google-cloud/bigquery');
 
 // وكيل التنبيهات الاستباقية
 exports.proactiveAlertAgent = async (req, res) => {
-  console.log('Proactive Alert Agent started');
+  // Removed console.log
 
   try {
     // إعداد العملاء
@@ -26,7 +26,7 @@ exports.proactiveAlertAgent = async (req, res) => {
       ['write_date', '<', sevenDaysAgo.toISOString()]
     ]);
 
-    console.log(`Found ${staleOpportunities.length} stale opportunities`);
+    // Removed console.log
 
     const alerts = [];
 
@@ -91,7 +91,7 @@ ${alert.urgency_emoji} فرصة بيع خاملة - ${alert.priority}
 
         // إرسال التنبيه حسب الأولوية
         if (priority === 'Critical' || priority === 'High') {
-          await sendUrgentAlert(alert);
+          await sendUrgent// TODO: Replace alert with proper notification
         }
 
         // تسجيل التنبيه في BigQuery للتحليلات
@@ -139,9 +139,9 @@ ${alert.urgency_emoji} فرصة بيع خاملة - ${alert.priority}
 };
 
 // إرسال تنبيه عاجل
-async function sendUrgentAlert(alert) {
+async function sendUrgent// TODO: Replace alert with proper notification{
   try {
-    console.log(`Sending urgent alert for opportunity ${alert.opportunity_id}`);
+    // Removed console.log
     
     // يمكن إرسال التنبيه عبر:
     // 1. WhatsApp للمسؤول عن الفرصة
@@ -150,10 +150,10 @@ async function sendUrgentAlert(alert) {
     // 4. إشعار في النظام
 
     // مثال: إرسال عبر WhatsApp (يتطلب تكامل WhatsApp API)
-    // await sendWhatsAppAlert(alert.assigned_user_phone, alert.message);
+    // await sendWhatsApp// TODO: Replace alert with proper notification
     
     // مثال: إرسال عبر Slack (يتطلب تكامل Slack API)
-    // await sendSlackAlert('#sales-alerts', alert.message);
+    // await sendSlack// TODO: Replace alert with proper notification
 
   } catch (error) {
     console.error('Error sending urgent alert:', error);
@@ -182,7 +182,7 @@ async function logAlertToBigQuery(alert) {
     };
 
     await table.insert([row]);
-    console.log(`Alert logged to BigQuery: ${row.alert_id}`);
+    // Removed console.log
 
   } catch (error) {
     console.error('Error logging alert to BigQuery:', error);
@@ -224,7 +224,7 @@ ${alerts
 • تفعيل حملات إعادة التفاعل للعملاء الخاملين
 `;
 
-    console.log('Daily alert summary:', summaryMessage);
+    // Removed console.log
     
     // إرسال التقرير للإدارة
     // await sendManagementReport(summaryMessage);

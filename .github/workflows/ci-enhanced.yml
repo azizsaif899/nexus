@@ -119,7 +119,7 @@ jobs:
     name: 🚀 Deploy to Staging
     runs-on: ubuntu-latest
     needs: [quality_gate, integration_tests, security_scan]
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref === 'refs/heads/develop'
     environment: staging
     
     steps:
@@ -150,7 +150,7 @@ jobs:
     name: 🌟 Deploy to Production
     runs-on: ubuntu-latest
     needs: [quality_gate, integration_tests, security_scan]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref === 'refs/heads/main'
     environment: production
     
     steps:

@@ -31,11 +31,11 @@ export class KnowledgeBase {
         const raw = fs.readFileSync(filePath, 'utf8');
         const parsed = yaml.parse(raw) as PolicyDoc;
         
-        console.log(`Loaded policy: ${parsed.name} with ${parsed.rules?.length || 0} rules`);
+        // Removed console.log
         return parsed;
       });
 
-      console.log(`Successfully loaded ${this.policies.length} policy documents`);
+      // Removed console.log
     } catch (error) {
       console.error('Error loading policies:', error);
       this.policies = [];

@@ -1,0 +1,96 @@
+import { Injectable } from '@nestjs/common';
+import { firestoreService } from '@azizsys/core/services/firestore.service';
+
+@Injectable()
+export class AgentsService {
+  private readonly collection = 'agents';
+  private readonly memoryCollection = 'agents_memory';
+  private readonly conversationsCollection = 'agents_conversations';
+
+  async saveAgentMemory(agentId: string, memory: any) {
+    const memoryData = {
+      agentId,
+      context: memory.context || '',
+      lastInteraction: memory.lastInteraction || new Date(),
+      preferences: memory.preferences || {},
+      conversationHistory: memory.conversationHistory || []
+    };
+    
+    const memoryId = await firestoreService.create(this.memoryCollection, memoryData);
+    // Removed console.log
+    return { id: memoryId, ...memoryData };
+  }
+
+  async getAgentMemory(agentId: string) {
+    if (!agentId) {
+      throw new Error('Agent ID is required');
+    }
+
+    const memoryDocs = await firestoreService.queryDocs(this.memoryCollection, 'agentId', '===', agentId);
+    return memoryDocs.length > 0 ? memoryDocs[0] : null;
+  }
+
+  async updateAgentMemory(agentId: string, memoryData: any) {
+    if (!agentId) {
+      throw new Error('Agent ID is required');
+    }
+
+    // البحث عن الذاكرة الحالية
+    const existingMemory = await this.getAgentMemory(agentId);
+    
+    const updatedMemory = {
+      agentId,
+      ...memoryData,
+      updatedAt: new Date()
+    };
+
+    if (existingMemory && existingMemory.id) {
+      // تحديث الذاكرة الموجودة
+      await firestoreService.updateDoc(this.memoryCollection, existingMemory.id, updatedMemory);
+      return { id: existingMemory.id, ...updatedMemory };
+    } else {
+      // إنشاء ذاكرة جديدة
+      const newMemoryId = await firestoreService.addDoc(this.memoryCollection, {
+        ...updatedMemory,
+        createdAt: new Date()
+      });
+      return { id: newMemoryId, ...updatedMemory };
+    }
+  }
+
+  async saveConversation(agentId: string, conversation: any) {
+    const conversationData = {
+      agentId,
+      userId: conversation.userId || 'anonymous',
+      messages: conversation.messages || [],
+      startTime: conversation.startTime || new Date(),
+      endTime: conversation.endTime,
+      status: conversation.status || 'active'
+    };
+    
+    const conversationId = await firestoreService.create(this.conversationsCollection, conversationData);
+    // Removed console.log
+    return { id: conversationId, ...conversationData };
+  }
+
+  async getConversations(agentId: string) {
+    return await firestoreService.queryWhere(this.conversationsCollection, 'agentId', '===', agentId);
+  }
+
+  async updateAgentStatus(agentId: string, status: string) {
+    const agentData = {
+      id: agentId,
+      status,
+      lastActive: new Date(),
+      isOnline: status === 'active'
+    };
+    
+    const agentDocId = await firestoreService.create(this.collection, agentData);
+    // Removed console.log
+    return { id: agentDocId, ...agentData };
+  }
+
+  async getAgentStatus(agentId: string) {
+    return await firestoreService.queryWhere(this.collection, 'id', '===', agentId);
+  }
+}

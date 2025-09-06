@@ -37,9 +37,9 @@
     "dev:api": "nx serve api",
     "dev:all": "nx run-many -t serve --parallel=5",
     "clean": "nx reset && rm -rf node_modules",
-    "check:env": "node -e \"console.log('Environment check - implement validation')\"",
-    "test:firebase": "node -e \"console.log('Firebase test - implement connection test')\"",
-    "test:gemini": "node -e \"console.log('Gemini test - implement API test')\""
+    "check:env": "node -e \"// Removed console.log\"",
+    "test:firebase": "node -e \"// Removed console.log\"",
+    "test:gemini": "node -e \"// Removed console.log\""
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",

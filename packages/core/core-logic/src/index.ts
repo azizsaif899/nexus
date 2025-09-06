@@ -33,3 +33,18 @@ export class HealthChecker {
     return true;
   }
 }
+export interface Scenario {
+  id: string;
+  name: string;
+  variables: ScenarioVariable[];
+}
+
+export interface ScenarioVariable {
+  name: string;
+  value: any;
+}
+
+export interface ScenarioOutcome {
+  scenario: string;
+  result: any;
+}

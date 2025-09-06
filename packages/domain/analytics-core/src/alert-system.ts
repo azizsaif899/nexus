@@ -23,7 +23,7 @@ export class AlertSystem {
         
         newAlerts.push(alert);
         this.alerts.push(alert);
-        this.sendAlert(alert);
+        this.send// TODO: Replace alert with proper notification
       }
     });
 
@@ -49,8 +49,8 @@ export class AlertSystem {
     return metricPath.split('.').reduce((obj, key) => obj?.[key], metrics) || 0;
   }
 
-  private sendAlert(alert: Alert): void {
-    console.log(`🚨 ALERT: ${alert.message}`);
+  private send// TODO: Replace alert with proper notification: void {
+    // Removed console.log
     // في التطبيق الحقيقي، سيتم إرسال التنبيه عبر email/slack/etc
   }
 
@@ -62,7 +62,7 @@ export class AlertSystem {
     return this.alerts.filter(alert => alert.status === 'active');
   }
 
-  resolveAlert(alertId: string): void {
+  resolve// TODO: Replace alert with proper notification: void {
     const alert = this.alerts.find(a => a.id === alertId);
     if (alert) {
       alert.status = 'resolved';

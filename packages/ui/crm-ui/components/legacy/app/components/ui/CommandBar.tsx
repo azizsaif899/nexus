@@ -21,28 +21,28 @@ export function CommandBar() {
       id: 'new-lead',
       title: 'إضافة عميل محتمل جديد',
       description: 'إنشاء فرصة بيع جديدة',
-      action: () => console.log('New lead'),
+      action: () => // Removed console.log,
       shortcut: 'N'
     },
     {
       id: 'view-pipeline',
       title: 'عرض خط الأنابيب',
       description: 'فتح لوحة كانبان للمبيعات',
-      action: () => console.log('View pipeline'),
+      action: () => // Removed console.log,
       shortcut: 'P'
     },
     {
       id: 'daily-report',
       title: 'التقرير اليومي',
       description: 'عرض ملخص أداء اليوم',
-      action: () => console.log('Daily report'),
+      action: () => // Removed console.log,
       shortcut: 'R'
     },
     {
       id: 'search-customer',
       title: 'البحث عن عميل',
       description: 'البحث في قاعدة بيانات العملاء',
-      action: () => console.log('Search customer'),
+      action: () => // Removed console.log,
       shortcut: 'S'
     }
   ];

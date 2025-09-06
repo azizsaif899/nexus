@@ -45,7 +45,7 @@ setInterval(async () => {
   const dailyPlan = await readFile(`DAILY_BOOT_${today}.md`);
   
   if (dailyPlan) {
-    console.log(`🚀 بدء تنفيذ اليوم ${today} تلقائياً...`);
+    // Removed console.log
     await executeDailyTasks(dailyPlan);
     await notifyGeminiForReview(today);
   }
@@ -66,7 +66,7 @@ setInterval(async () => {
 // الساعة 8:00 ص - بداية تلقائية
 cron.schedule('0 8 * * *', async () => {
   const today = getCurrentDay();
-  console.log(`🚀 بدء اليوم ${today} تلقائياً`);
+  // Removed console.log
   await amazonQ.executeDailyPlan(today);
 });
 
@@ -82,7 +82,7 @@ cron.schedule('0 * * * *', async () => {
 // الساعة 6:00 م - مراجعة يومية
 cron.schedule('0 18 * * *', async () => {
   const today = getCurrentDay();
-  console.log(`🧠 بدء مراجعة اليوم ${today}`);
+  // Removed console.log
   
   await geminiAI.reviewDailyWork(today);
   await geminiAI.generateReport(today);

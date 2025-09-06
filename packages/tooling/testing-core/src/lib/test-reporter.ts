@@ -219,52 +219,52 @@ export class TestReporter {
   }
 
   private outputConsoleReport(report: TestReport): void {
-    console.log('\n🧪 Test Report Summary');
-    console.log('======================');
-    console.log(`Total Tests: ${report.summary.total}`);
-    console.log(`✅ Passed: ${report.summary.passed}`);
-    console.log(`❌ Failed: ${report.summary.failed}`);
-    console.log(`⏭️ Skipped: ${report.summary.skipped}`);
-    console.log(`📊 Success Rate: ${report.summary.successRate}%`);
-    console.log(`⏱️ Duration: ${report.duration}ms`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
 
-    console.log('\n📈 Coverage Summary');
-    console.log('==================');
-    console.log(`Statements: ${report.coverage.statements}%`);
-    console.log(`Branches: ${report.coverage.branches}%`);
-    console.log(`Functions: ${report.coverage.functions}%`);
-    console.log(`Lines: ${report.coverage.lines}%`);
-    console.log(`Threshold: ${report.coverage.passed ? '✅ PASSED' : '❌ FAILED'}`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
 
     if (report.summary.failed > 0) {
-      console.log('\n❌ Failed Tests');
-      console.log('===============');
+      // Removed console.log
+      // Removed console.log
       report.suites.forEach(suite => {
         suite.tests.filter(test => test.status === 'failed').forEach(test => {
-          console.log(`- ${suite.name} > ${test.name}`);
+          // Removed console.log
           if (test.error) {
-            console.log(`  Error: ${test.error.message}`);
+            // Removed console.log
           }
         });
       });
     }
 
-    console.log('\n⚡ Performance');
-    console.log('==============');
-    console.log(`Average Test Duration: ${report.performance.averageTestDuration}ms`);
-    console.log(`Memory Usage: ${report.performance.memoryUsage}MB`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
     
     if (report.performance.slowestTests.length > 0) {
-      console.log('\nSlowest Tests:');
+      // Removed console.log
       report.performance.slowestTests.forEach((test, index) => {
-        console.log(`${index + 1}. ${test.name}: ${test.duration}ms`);
+        // Removed console.log
       });
     }
   }
 
   private async outputHTMLReport(report: TestReport): Promise<void> {
     const html = this.generateHTMLReport(report);
-    console.log('📄 HTML report generated (simulated)');
+    // Removed console.log');
     // In real implementation: fs.writeFileSync(path.join(this.config.outputDir, 'report.html'), html);
   }
 
@@ -359,13 +359,13 @@ export class TestReporter {
 
   private async outputJSONReport(report: TestReport): Promise<void> {
     const json = JSON.stringify(report, null, 2);
-    console.log('📄 JSON report generated (simulated)');
+    // Removed console.log');
     // In real implementation: fs.writeFileSync(path.join(this.config.outputDir, 'report.json'), json);
   }
 
   private async outputXMLReport(report: TestReport): Promise<void> {
     const xml = this.generateJUnitXML(report);
-    console.log('📄 XML report generated (simulated)');
+    // Removed console.log');
     // In real implementation: fs.writeFileSync(path.join(this.config.outputDir, 'junit.xml'), xml);
   }
 
@@ -385,7 +385,7 @@ ${suite.tests.map(test => `
 
   private async outputMarkdownReport(report: TestReport): Promise<void> {
     const markdown = this.generateMarkdownReport(report);
-    console.log('📄 Markdown report generated (simulated)');
+    // Removed console.log');
     // In real implementation: fs.writeFileSync(path.join(this.config.outputDir, 'report.md'), markdown);
   }
 

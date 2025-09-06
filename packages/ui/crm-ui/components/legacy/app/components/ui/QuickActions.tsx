@@ -17,7 +17,7 @@ const quickActions: QuickAction[] = [
     id: 'new-lead',
     label: 'عميل جديد',
     icon: <Plus className="w-4 h-4" />,
-    action: () => console.log('Creating new lead'),
+    action: () => // Removed console.log,
     shortcut: 'Ctrl+N',
     color: 'bg-blue-500 hover:bg-blue-600'
   },
@@ -25,7 +25,7 @@ const quickActions: QuickAction[] = [
     id: 'search',
     label: 'بحث سريع',
     icon: <Search className="w-4 h-4" />,
-    action: () => console.log('Quick search'),
+    action: () => // Removed console.log,
     shortcut: 'Ctrl+F',
     color: 'bg-green-500 hover:bg-green-600'
   },
@@ -33,7 +33,7 @@ const quickActions: QuickAction[] = [
     id: 'send-email',
     label: 'إرسال بريد',
     icon: <Mail className="w-4 h-4" />,
-    action: () => console.log('Send email'),
+    action: () => // Removed console.log,
     shortcut: 'Ctrl+E',
     color: 'bg-purple-500 hover:bg-purple-600'
   },
@@ -41,7 +41,7 @@ const quickActions: QuickAction[] = [
     id: 'make-call',
     label: 'مكالمة',
     icon: <Phone className="w-4 h-4" />,
-    action: () => console.log('Make call'),
+    action: () => // Removed console.log,
     shortcut: 'Ctrl+P',
     color: 'bg-orange-500 hover:bg-orange-600'
   },
@@ -49,7 +49,7 @@ const quickActions: QuickAction[] = [
     id: 'new-note',
     label: 'ملاحظة',
     icon: <FileText className="w-4 h-4" />,
-    action: () => console.log('New note'),
+    action: () => // Removed console.log,
     shortcut: 'Ctrl+T',
     color: 'bg-gray-500 hover:bg-gray-600'
   },
@@ -57,7 +57,7 @@ const quickActions: QuickAction[] = [
     id: 'schedule',
     label: 'جدولة',
     icon: <Calendar className="w-4 h-4" />,
-    action: () => console.log('Schedule meeting'),
+    action: () => // Removed console.log,
     shortcut: 'Ctrl+M',
     color: 'bg-red-500 hover:bg-red-600'
   }

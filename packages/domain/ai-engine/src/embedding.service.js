@@ -6,13 +6,13 @@ class EmbeddingService {
         this.apiKey = apiKey;
     }
     async generateEmbedding(text, taskType = 'SEMANTIC_SIMILARITY') {
-        console.log(`🧠 Generating embedding for task: ${taskType}`);
+        // Removed console.log
         // Mock embedding - في الإنتاج سيتم استخدام Gemini Embedding API
         const mockEmbedding = new Array(768).fill(0).map(() => Math.random() - 0.5);
         return mockEmbedding;
     }
     async generateBatchEmbeddings(texts, taskType = 'SEMANTIC_SIMILARITY') {
-        console.log(`🧠 Generating ${texts.length} embeddings for task: ${taskType}`);
+        // Removed console.log
         const embeddings = [];
         for (const text of texts) {
             embeddings.push(await this.generateEmbedding(text, taskType));

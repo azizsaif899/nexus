@@ -15,7 +15,7 @@ export class LongContextService {
 
   private chunkDocument(content: string): string[] {
     const chunks = [];
-    for (let i = 0; i < content.length; i += this.maxChunkSize) {
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < content.length; i += this.maxChunkSize) {
       chunks.push(content.slice(i, i + this.maxChunkSize));
     }
     return chunks;

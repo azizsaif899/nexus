@@ -30,15 +30,15 @@ class AutoRepairOrchestrator {
   // تشغيل العملية الكاملة
   async run(): Promise<void> {
     if (this.isDryRun) {
-      console.log('🤖 بدء تشغيل AutoRepairSuite في وضع المحاكاة (Dry Run)...');
+      // Removed console.log...');
     } else {
-      console.log('🤖 بدء تشغيل AutoRepairSuite...');
+      // Removed console.log
     }
-    console.log('=====================================');
+    // Removed console.log
 
     try {
       // المرحلة 1: مسح الكود
-      console.log('\n📡 المرحلة 1: مسح ملفات الكود');
+      // Removed console.log
       const scanner = new CodeScanner(this.projectRoot);
       const codeFiles = await scanner.scanSpecificPaths(['apps', 'packages']);
       
@@ -46,7 +46,7 @@ class AutoRepairOrchestrator {
       await scanner.saveResults(codeFiles, scanResultsPath);
 
       // المرحلة 2: اكتشاف الأخطاء
-      console.log('\n🔍 المرحلة 2: اكتشاف الأخطاء');
+      // Removed console.log
       const detector = new ErrorDetector(this.projectRoot);
       const errors = await detector.detectAllErrors();
       
@@ -54,30 +54,30 @@ class AutoRepairOrchestrator {
       await detector.saveErrors(errors, errorsPath);
 
       // المرحلة 3: مراجعة المشروع بواسطة AI
-      console.log('\n🧠 المرحلة 3: مراجعة المشروع بواسطة AI');
+      // Removed console.log
       const reviewer = new GeminiReviewer(this.isDryRun);
       const review = await reviewer.reviewProject();
       await reviewer.saveReviewReport(review);
       const tasks = review.priorities || [];
 
       // المرحلة 4: تحديث اللوحة المركزية
-      console.log('\n📊 المرحلة 4: تحديث اللوحة المركزية');
+      // Removed console.log
       await this.updateCentralDashboard(codeFiles.length, errors.length, review);
 
       // المرحلة 5: تنفيذ المهام الموجهة من المراجع
       if (tasks.length > 0) {
-        console.log(`\n🚀 المرحلة 5: تنفيذ ${tasks.length} مهمة ذات أولوية`);
+        // Removed console.log
         await this.executeReviewerTasks(tasks);
       } else {
-        console.log('\n✅ لا توجد مهام ذات أولوية من المراجع.');
+        // Removed console.log
       }
 
       // المرحلة 6: توليد التقرير النهائي
-      console.log('\n📋 المرحلة 6: توليد التقرير النهائي');
+      // Removed console.log
       await this.generateFinalReport(codeFiles, errors, tasks);
 
-      console.log('\n🎉 تم إكمال AutoRepairSuite بنجاح!');
-      console.log(`📁 التقارير محفوظة في: ${this.reportsDir}`);
+      // Removed console.log
+      // Removed console.log
 
     } catch (error) {
       console.error('❌ خطأ في تشغيل AutoRepairSuite:', error);
@@ -126,7 +126,7 @@ class AutoRepairOrchestrator {
     };
 
     fs.writeFileSync(dashboardPath, JSON.stringify(dashboard, null, 2));
-    console.log('✅ تم تحديث اللوحة المركزية');
+    // Removed console.log
   }
 
   // تنفيذ المهام الموجهة من المراجع
@@ -157,7 +157,7 @@ class AutoRepairOrchestrator {
     if (backupFiles.length > 0) {
       const latestBackup = path.join(path.dirname(filePath), backupFiles[0]);
       require('fs').copyFileSync(latestBackup, filePath);
-      console.log(`💾 تم استعادة ${filePath} من النسخة الاحتياطية`);
+      // Removed console.log
     }
   }
 
@@ -191,7 +191,7 @@ class AutoRepairOrchestrator {
     };
 
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-    console.log(`✅ تم توليد التقرير النهائي: ${reportPath}`);
+    // Removed console.log
   }
 
   // تجميع الملفات حسب النوع

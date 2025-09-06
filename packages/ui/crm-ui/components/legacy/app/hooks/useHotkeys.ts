@@ -61,61 +61,61 @@ export const systemHotkeys: Hotkey[] = [
   {
     key: 'k',
     ctrlKey: true,
-    action: () => console.log('Open command bar'),
+    action: () => // Removed console.log,
     description: 'فتح شريط الأوامر',
     category: 'navigation'
   },
   {
     key: 'n',
     ctrlKey: true,
-    action: () => console.log('Create new item'),
+    action: () => // Removed console.log,
     description: 'إنشاء عنصر جديد',
     category: 'create'
   },
   {
     key: 'f',
     ctrlKey: true,
-    action: () => console.log('Search'),
+    action: () => // Removed console.log,
     description: 'البحث',
     category: 'navigation'
   },
   {
     key: 's',
     ctrlKey: true,
-    action: () => console.log('Save'),
+    action: () => // Removed console.log,
     description: 'حفظ',
     category: 'actions'
   },
   {
     key: 'z',
     ctrlKey: true,
-    action: () => console.log('Undo'),
+    action: () => // Removed console.log,
     description: 'تراجع',
     category: 'actions'
   },
   {
     key: 'y',
     ctrlKey: true,
-    action: () => console.log('Redo'),
+    action: () => // Removed console.log,
     description: 'إعادة',
     category: 'actions'
   },
   {
     key: 'a',
     ctrlKey: true,
-    action: () => console.log('Select all'),
+    action: () => // Removed console.log,
     description: 'تحديد الكل',
     category: 'selection'
   },
   {
     key: 'Escape',
-    action: () => console.log('Cancel/Close'),
+    action: () => // Removed console.log,
     description: 'إلغاء/إغلاق',
     category: 'navigation'
   },
   {
     key: '?',
-    action: () => console.log('Show help'),
+    action: () => // Removed console.log,
     description: 'عرض المساعدة',
     category: 'help'
   }

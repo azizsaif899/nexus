@@ -17,7 +17,7 @@
 #### **المعالجة الكاملة:**
 ```typescript
 async function handleWhatsAppMessage(message: WhatsAppMessage) {
-  console.log(`📱 رسالة جديدة من ${message.profile.name}`);
+  // Removed console.log
 
   // 1. البحث عن عميل موجود
   const existingLeads = await odoo.searchRead('crm.lead', [
@@ -40,10 +40,10 @@ async function handleWhatsAppMessage(message: WhatsAppMessage) {
     });
 
     isNewCustomer = true;
-    console.log(`✅ عميل جديد تم إنشاؤه: ${leadId}`);
+    // Removed console.log
   } else {
     leadId = existingLeads[0].id;
-    console.log(`📝 عميل موجود: ${leadId}`);
+    // Removed console.log
   }
 
   // 3. إضافة الرسالة كسجل
@@ -101,7 +101,7 @@ async function handleWhatsAppMessage(message: WhatsAppMessage) {
 #### **العميل يقرر الشراء:**
 ```typescript
 async function convertLeadToOpportunity(leadId: number, dealValue: number) {
-  console.log(`💰 تحويل العميل ${leadId} إلى صفقة بقيمة ${dealValue} ريال`);
+  // Removed console.log
 
   // 1. تحديث مرحلة العميل
   await odoo.write('crm.lead', [leadId], {
@@ -149,7 +149,7 @@ async function convertLeadToOpportunity(leadId: number, dealValue: number) {
   // 6. إشعار الإدارة
   await notifyManagement(`تم تحويل عميل إلى صفقة بقيمة ${dealValue} ريال`);
 
-  console.log(`✅ تم إنشاء عرض سعر رقم ${quoteId}`);
+  // Removed console.log
   return { quoteId, leadId };
 }
 ```
@@ -161,7 +161,7 @@ async function convertLeadToOpportunity(leadId: number, dealValue: number) {
 #### **تقرير تلقائي كل صباح:**
 ```typescript
 async function generateDailyReport() {
-  console.log('📊 إنشاء تقرير الأداء اليومي...');
+  // Removed console.log
 
   // 1. إحصائيات العملاء الجدد
   const newLeadsToday = await odoo.searchRead('crm.lead', [
@@ -226,7 +226,7 @@ async function generateDailyReport() {
   await sendDailyReportEmail(report);
   await postToSlack(formatReportForSlack(report));
 
-  console.log('✅ تم إرسال التقرير اليومي');
+  // Removed console.log
   return report;
 }
 ```
@@ -257,7 +257,7 @@ async function generateDailyReport() {
 #### **نظام المتابعة الذكي:**
 ```typescript
 async function runAutomaticFollowUp() {
-  console.log('🔄 تشغيل نظام المتابعة التلقائية...');
+  // Removed console.log
 
   // 1. العملاء بدون رد لأكثر من 3 أيام
   const staleLeads = await odoo.searchRead('crm.lead', [
@@ -278,7 +278,7 @@ async function runAutomaticFollowUp() {
       user_id: lead.user_id[0]
     });
 
-    console.log(`📞 مهمة متابعة للعميل ${lead.name}`);
+    // Removed console.log
   }
 
   // 2. العروض المعلقة لأكثر من أسبوع
@@ -296,7 +296,7 @@ async function runAutomaticFollowUp() {
       probability: Math.max(lead.probability - 10, 10) // تقليل الاحتمالية
     });
 
-    console.log(`📱 تذكير WhatsApp للعميل ${lead.name}`);
+    // Removed console.log
   }
 
   // 3. العملاء الفائزين - طلب مراجعة
@@ -308,10 +308,10 @@ async function runAutomaticFollowUp() {
 
   for (const lead of recentWins) {
     await sendReviewRequest(lead.phone, lead.name);
-    console.log(`⭐ طلب مراجعة من العميل ${lead.name}`);
+    // Removed console.log
   }
 
-  console.log(`✅ تمت معالجة ${staleLeads.length + staleQuotes.length + recentWins.length} عميل`);
+  // Removed console.log
 }
 ```
 
@@ -322,7 +322,7 @@ async function runAutomaticFollowUp() {
 #### **تقرير شامل للإدارة:**
 ```typescript
 async function generateMonthlyAnalysis() {
-  console.log('📈 إنشاء تحليل الأداء الشهري...');
+  // Removed console.log
 
   const monthStart = getMonthStart();
   const monthEnd = getMonthEnd();
@@ -399,7 +399,7 @@ async function generateMonthlyAnalysis() {
   await saveMonthlyReport(analysis);
   await sendExecutiveReport(analysis);
 
-  console.log('✅ تم إنشاء وإرسال التحليل الشهري');
+  // Removed console.log
   return analysis;
 }
 ```

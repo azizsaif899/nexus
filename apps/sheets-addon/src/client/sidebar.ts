@@ -86,7 +86,7 @@ class SidebarClient {
     if (typeof google !== 'undefined' && google.script && google.script.run) {
       google.script.run
         .withSuccessHandler((result: AnalysisResult) => {
-          console.log('✅ Server response:', result);
+          // Removed console.log
           this.hideLoading();
           this.showResult(result);
         })
@@ -101,7 +101,7 @@ class SidebarClient {
         .runAnalysis(); // This calls the server-side function
     } else {
       // Fallback for testing outside Google Apps Script environment
-      console.log('🧪 Running in test mode');
+      // Removed console.log
       setTimeout(() => {
         this.hideLoading();
         this.showResult({

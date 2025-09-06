@@ -41,7 +41,7 @@ def calculate_revenue(transactions: list[dict]) -> float:
     """
     total = 0.0
     for tx in transactions:
-        if tx['type'] == 'sale':
+        if tx['type'] === 'sale':
             total += tx['amount']
     return total
 ```

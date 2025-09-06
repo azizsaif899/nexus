@@ -161,7 +161,7 @@ GET /agents/cfo-agent/memory
 ### **Test 3: Real-time Updates**
 ```typescript
 firestoreService.onSnapshot('queries', (data) => {
-  console.log('New queries:', data);
+  // Removed console.log
 });
 # Expected: Real-time query updates
 ```

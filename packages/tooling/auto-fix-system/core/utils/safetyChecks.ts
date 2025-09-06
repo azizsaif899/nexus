@@ -7,11 +7,11 @@ export class SafetyChecks {
   // فحص ما قبل التنفيذ
   static async preExecutionCheck(filePath: string): Promise<boolean> {
     try {
-      if (!fs.existsSync(filePath)) {
+      if (!/* PERFORMANCE: Consider using async version */ fs.existsSync(filePath)) {
         return false;
       }
 
-      const content = fs.readFileSync(filePath, 'utf-8');
+      const content = /* PERFORMANCE: Consider using async version */ fs.readFileSync(filePath, 'utf-8');
       const currentHash = crypto.createHash('md5').update(content).digest('hex');
       const storedHash = this.fileHashes.get(filePath);
 
@@ -32,8 +32,8 @@ export class SafetyChecks {
   // تحديث hash الملف بعد التحليل
   static updateFileHash(filePath: string): void {
     try {
-      if (fs.existsSync(filePath)) {
-        const content = fs.readFileSync(filePath, 'utf-8');
+      if (/* PERFORMANCE: Consider using async version */ fs.existsSync(filePath)) {
+        const content = /* PERFORMANCE: Consider using async version */ fs.readFileSync(filePath, 'utf-8');
         const hash = crypto.createHash('md5').update(content).digest('hex');
         this.fileHashes.set(filePath, hash);
       }

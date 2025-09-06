@@ -15,19 +15,19 @@ export class SmartExecutor {
     if (this.isListening) return;
     
     this.isListening = true;
-    console.log('🎯 [Executor] بدء الاستماع للمهام...');
+    // Removed console.log
     
     // الاستماع للمهام المسندة
     eventBus.on('task:assigned', async (task: TaskRequest) => {
       if (task.assignedTo === 'executor') {
-        console.log(`🔧 [Executor] استلام مهمة: ${task.id}`);
+        // Removed console.log
         await this.executeTask(task);
       }
     });
   }
 
   private async executeTask(task: TaskRequest): Promise<void> {
-    console.log(`⚡ [Executor] بدء تنفيذ المهمة: ${task.id}`);
+    // Removed console.log
     
     try {
       // فحص الأمان قبل التنفيذ
@@ -38,7 +38,7 @@ export class SmartExecutor {
 
       // إنشاء نسخة احتياطية
       const backupPath = await RollbackManager.createBackup(task.file);
-      console.log(`💾 [Executor] نسخة احتياطية: ${backupPath}`);
+      // Removed console.log
 
       // تنفيذ الإصلاح الفعلي
       await this.performFix(task);
@@ -74,7 +74,7 @@ export class SmartExecutor {
       // تنظيف النسخة الاحتياطية عند النجاح
       RollbackManager.cleanupBackup(task.file);
       
-      console.log(`✅ [Executor] اكتملت المهمة: ${task.id} (ثقة: ${confidenceScore}%)`);
+      // Removed console.log`);
 
     } catch (error) {
       // التراجع التلقائي عند الفشل
@@ -111,7 +111,7 @@ export class SmartExecutor {
       if (lines[lineIndex]?.includes('console.log')) {
         lines[lineIndex] = lines[lineIndex].replace('console.log', '// TODO: Remove console.log');
         fs.writeFileSync(task.file, lines.join('\n'));
-        console.log(`🔧 [Executor] تم إصلاح console.log في السطر ${task.metadata.error.line}`);
+        // Removed console.log
       }
     }
     

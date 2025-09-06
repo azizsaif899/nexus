@@ -2,7 +2,7 @@
  * مثال حقيقي - كيف يعمل CRM مع رسالة WhatsApp
  */
 
-console.log('📱 مثال حقيقي: معالجة رسالة WhatsApp في CRM\n');
+// Removed console.log
 
 // 1. رسالة WhatsApp حقيقية (محاكاة)
 const incomingMessage = {
@@ -12,12 +12,12 @@ const incomingMessage = {
   timestamp: new Date().toISOString()
 };
 
-console.log('📨 رسالة واردة:');
-console.log(`   من: ${incomingMessage.name} (${incomingMessage.from})`);
-console.log(`   النص: "${incomingMessage.message}"`);
-console.log(`   الوقت: ${incomingMessage.timestamp}`);
+// Removed console.log
+// Removed console.log`);
+// Removed console.log
+// Removed console.log
 
-console.log('\n🔄 معالجة الرسالة في CRM:');
+// Removed console.log
 
 // 2. الخطوات الحقيقية التي تحدث
 const crmSteps = [
@@ -48,21 +48,21 @@ const crmSteps = [
 ];
 
 crmSteps.forEach(step => {
-  console.log(`\n${step.step}. ${step.action}:`);
-  console.log(`   SQL: ${step.query.substring(0, 50)}...`);
-  console.log(`   ✅ ${step.result}`);
+  // Removed console.log
+  // Removed console.log}...`);
+  // Removed console.log
 });
 
 // 3. النتيجة النهائية
-console.log('\n📊 النتيجة في CRM:');
-console.log('   👤 عميل جديد: أحمد محمد (ID: 156)');
-console.log('   📞 الهاتف: +966501234567');
-console.log('   📝 الرسالة: محفوظة في السجل');
-console.log('   📋 المهمة: مجدولة للمندوب');
-console.log('   🔔 الإشعار: تم إرساله للفريق');
+// Removed console.log
+// Removed console.log');
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log
 
 // 4. الرد التلقائي
-console.log('\n📤 الرد التلقائي المرسل:');
+// Removed console.log
 const autoReply = `مرحباً أحمد محمد! 👋
 
 شكراً لتواصلك معنا. تم استلام رسالتك وإضافتك إلى نظام إدارة العملاء.
@@ -72,20 +72,20 @@ const autoReply = `مرحباً أحمد محمد! 👋
 
 مع تحيات فريق AzizSys 🚀`;
 
-console.log(autoReply);
+// Removed console.log
 
 // 5. تتبع GTM
-console.log('\n📊 تتبع GTM:');
-console.log('   Event: whatsapp_message_received');
-console.log('   Customer ID: 156');
-console.log('   Source: WhatsApp');
-console.log('   Container: GTM-58RWKC76');
-console.log('   ✅ تم إرسال البيانات لـ Google Analytics');
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log
 
-console.log('\n🎯 الخلاصة:');
-console.log('   - رسالة WhatsApp → عميل في CRM');
-console.log('   - بيانات حقيقية في قاعدة البيانات');
-console.log('   - مهمة للمندوب');
-console.log('   - رد تلقائي للعميل');
-console.log('   - تتبع في Google Analytics');
-console.log('\n✅ هذا هو CRM الحقيقي!');
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log
+// Removed console.log

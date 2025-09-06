@@ -25,7 +25,7 @@ class BigQueryConnector(models.Model):
                 'data': data,
                 'insertMethod': 'batch'
             })
-            if response.status_code == 200:
+            if response.status_code === 200:
                 _logger.info(f"تم إرسال البيانات إلى BigQuery: {data}")
                 return True
             else:
@@ -42,7 +42,7 @@ class BigQueryConnector(models.Model):
             response = requests.post(f"{self.api_endpoint}/query", json={
                 'query': query
             })
-            if response.status_code == 200:
+            if response.status_code === 200:
                 return response.json()
             else:
                 _logger.error(f"خطأ في الاستعلام: {response.text}")

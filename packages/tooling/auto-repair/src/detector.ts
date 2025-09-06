@@ -24,7 +24,7 @@ export class ErrorDetector {
 
   // اكتشاف جميع الأخطاء
   async detectAllErrors(): Promise<DetectedError[]> {
-    console.log('🔍 اكتشاف الأخطاء...');
+    // Removed console.log
     
     const errors: DetectedError[] = [];
     
@@ -40,13 +40,13 @@ export class ErrorDetector {
     const buildErrors = await this.detectBuildErrors();
     errors.push(...buildErrors);
 
-    console.log(`🎯 تم اكتشاف ${errors.length} خطأ`);
+    // Removed console.log
     return errors;
   }
 
   // اكتشاف أخطاء ESLint
   private async detectESLintErrors(): Promise<DetectedError[]> {
-    console.log('🔧 فحص أخطاء ESLint...');
+    // Removed console.log
     
     try {
       const output = execSync('npx eslint . --format=json', {
@@ -73,17 +73,17 @@ export class ErrorDetector {
         }
       }
       
-      console.log(`   📊 ESLint: ${errors.length} مشكلة`);
+      // Removed console.log
       return errors;
     } catch (error) {
-      console.log('   ⚠️ تعذر تشغيل ESLint');
+      // Removed console.log
       return [];
     }
   }
 
   // اكتشاف أخطاء TypeScript
   private async detectTypeScriptErrors(): Promise<DetectedError[]> {
-    console.log('📝 فحص أخطاء TypeScript...');
+    // Removed console.log
     
     try {
       execSync('npx tsc --noEmit', {
@@ -91,20 +91,20 @@ export class ErrorDetector {
         stdio: 'pipe'
       });
       
-      console.log('   ✅ لا توجد أخطاء TypeScript');
+      // Removed console.log
       return [];
     } catch (error: any) {
       const output = error.stdout?.toString() || error.stderr?.toString() || '';
       const errors = this.parseTSOutput(output);
       
-      console.log(`   📊 TypeScript: ${errors.length} خطأ`);
+      // Removed console.log
       return errors;
     }
   }
 
   // اكتشاف أخطاء البناء
   private async detectBuildErrors(): Promise<DetectedError[]> {
-    console.log('🏗️ فحص أخطاء البناء...');
+    // Removed console.log
     
     try {
       execSync('nx run-many --target=build --all', {
@@ -112,13 +112,13 @@ export class ErrorDetector {
         stdio: 'pipe'
       });
       
-      console.log('   ✅ البناء ناجح');
+      // Removed console.log
       return [];
     } catch (error: any) {
       const output = error.stdout?.toString() || error.stderr?.toString() || '';
       const errors = this.parseBuildOutput(output);
       
-      console.log(`   📊 البناء: ${errors.length} خطأ`);
+      // Removed console.log
       return errors;
     }
   }
@@ -197,7 +197,7 @@ export class ErrorDetector {
     };
 
     fs.writeFileSync(outputPath, JSON.stringify(report, null, 2));
-    console.log(`💾 تم حفظ تقرير الأخطاء في: ${outputPath}`);
+    // Removed console.log
   }
 
   // تجميع حسب الخطورة

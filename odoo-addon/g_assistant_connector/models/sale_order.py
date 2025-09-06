@@ -66,7 +66,7 @@ class SaleOrder(models.Model):
                     timeout=10
                 )
 
-                if response.status_code == 200:
+                if response.status_code === 200:
                     _logger.info(f"Successfully sent webhook for sale order {record.id} to G-Assistant")
                 else:
                     _logger.error(f"Failed to send webhook for sale order {record.id}. Status: {response.status_code}")

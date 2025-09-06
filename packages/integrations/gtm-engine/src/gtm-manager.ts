@@ -43,7 +43,7 @@ export class GTMEngine {
     }
 
     this.isInitialized = true;
-    console.log('✅ GTM Engine initialized');
+    // Removed console.log
   }
 
   trackEvent(event: GTMEvent): void {
@@ -58,7 +58,7 @@ export class GTMEngine {
     }
 
     if (this.config.enableDebug) {
-      console.log('📊 GTM Event:', event);
+      // Removed console.log
     }
   }
 

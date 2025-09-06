@@ -13,7 +13,7 @@ async function initDatabase() {
 
   try {
     await client.connect();
-    console.log('✅ متصل بـ PostgreSQL');
+    // Removed console.log
 
     const sqlPath = path.join(__dirname, '../src/database/init.sql');
     const sqlContent = fs.readFileSync(sqlPath, 'utf8');
@@ -27,10 +27,10 @@ async function initDatabase() {
       if (command.includes('CREATE DATABASE')) {
         try {
           await client.query(command);
-          console.log('✅ تم إنشاء قاعدة البيانات');
+          // Removed console.log
         } catch (err) {
           if (err.code === '42P04') {
-            console.log('ℹ️ قاعدة البيانات موجودة مسبقاً');
+            // Removed console.log
           } else {
             throw err;
           }
@@ -49,16 +49,16 @@ async function initDatabase() {
     });
 
     await workflowClient.connect();
-    console.log('✅ متصل بقاعدة بيانات workflows_db');
+    // Removed console.log
 
     for (const command of commands) {
       if (!command.includes('CREATE DATABASE') && command.length > 0) {
         try {
           await workflowClient.query(command);
-          console.log(`✅ تم تنفيذ: ${command.substring(0, 50)}...`);
+          // Removed console.log}...`);
         } catch (err) {
           if (err.code === '42P07') {
-            console.log(`ℹ️ الجدول موجود مسبقاً: ${command.substring(0, 30)}...`);
+            // Removed console.log}...`);
           } else {
             console.error(`❌ خطأ في: ${command.substring(0, 30)}...`);
             console.error(err.message);
@@ -68,7 +68,7 @@ async function initDatabase() {
     }
 
     await workflowClient.end();
-    console.log('🎉 تم إعداد قاعدة البيانات بنجاح!');
+    // Removed console.log
 
   } catch (error) {
     console.error('❌ خطأ في إعداد قاعدة البيانات:', error.message);

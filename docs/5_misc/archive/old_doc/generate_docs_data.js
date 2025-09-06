@@ -176,11 +176,11 @@ function readFilesRecursively(dir, baseDir = dir) {
 
 // توليد ملف البيانات
 function generateDocsData() {
-  console.log('🔍 جاري فحص الملفات في:', DOCS_DIR);
+  // Removed console.log
   
   const docs = readFilesRecursively(DOCS_DIR);
   
-  console.log(`📄 تم العثور على ${docs.length} ملف`);
+  // Removed console.log
   
   // ترتيب حسب التاريخ (الأحدث أولاً)
   docs.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -211,8 +211,8 @@ if (typeof module !== 'undefined' && module.exports) {
   // كتابة الملف
   fs.writeFileSync(OUTPUT_FILE, jsContent, 'utf8');
   
-  console.log('✅ تم إنشاء ملف البيانات:', OUTPUT_FILE);
-  console.log('📊 الإحصائيات:');
+  // Removed console.log
+  // Removed console.log
   
   // عرض إحصائيات التصنيف
   const categories = docs.reduce((acc, doc) => {
@@ -221,7 +221,7 @@ if (typeof module !== 'undefined' && module.exports) {
   }, {});
   
   Object.entries(categories).forEach(([category, count]) => {
-    console.log(`   ${category}: ${count} ملف`);
+    // Removed console.log
   });
 }
 

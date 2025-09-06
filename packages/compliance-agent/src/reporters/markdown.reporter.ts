@@ -18,7 +18,7 @@ export function writeMarkdown(report: AuditReport, outDir = 'reports'): string {
   // كتابة التقرير
   fs.writeFileSync(filepath, content, 'utf8');
   
-  console.log(`📄 Compliance report saved: ${filepath}`);
+  // Removed console.log
   return filepath;
 }
 

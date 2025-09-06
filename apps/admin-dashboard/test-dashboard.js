@@ -25,7 +25,7 @@ const colors = {
 
 // دالة طباعة ملونة
 function log(message, color = 'reset') {
-    console.log(`${colors[color]}${message}${colors.reset}`);
+    // Removed console.log
 }
 
 // دالة فحص HTTP

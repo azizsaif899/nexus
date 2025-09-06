@@ -128,7 +128,7 @@ export class SyncManager {
 
   private applyRemoteChange(event: SyncEvent): void {
     // تطبيق التغيير على البيانات المحلية
-    console.log('Applying remote change:', event);
+    // Removed console.log
     
     // هنا سيتم تطبيق التغيير على الحالة المحلية
     // مثل تحديث React Query cache أو Redux store

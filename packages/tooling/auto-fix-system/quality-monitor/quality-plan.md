@@ -760,7 +760,7 @@ export class RemediationAgent {
     const cmd = `gcloud projects add-iam-policy-binding ${resourceId} --member=${member} --role=${role}`;
     
     if (dryRun) {
-      console.log(`[DRY RUN] Would execute: ${cmd}`);
+      // Removed console.log
       return { success: true, command: cmd, executed: false };
     }
     
@@ -771,7 +771,7 @@ export class RemediationAgent {
     const cmd = `gcloud compute instances delete ${resourceId} --quiet`;
     
     if (dryRun) {
-      console.log(`[DRY RUN] Would execute: ${cmd}`);
+      // Removed console.log
       return { success: true, command: cmd, executed: false };
     }
     

@@ -88,7 +88,7 @@ const client = new WhatsAppClient({
 
 // اختبار الإرسال
 const result = await client.sendMessage('+966501234567', 'test');
-console.log('Send result:', result);
+// Removed console.log
 ```
 
 #### Problem: Auto-reply not working
@@ -134,7 +134,7 @@ const client = new JsonRpcClient({
 // اختبار الاتصال
 try {
   const uid = await client.authenticate();
-  console.log('Authentication successful, UID:', uid);
+  // Removed console.log
 } catch (error) {
   console.error('Authentication failed:', error);
 }
@@ -171,7 +171,7 @@ await cache.connect();
 // اختبار الحفظ والاسترجاع
 await cache.set('test', 'value', 60);
 const result = await cache.get('test');
-console.log('Cache test:', result);
+// Removed console.log
 ```
 
 #### Problem: Cache invalidation not working

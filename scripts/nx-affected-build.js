@@ -15,7 +15,7 @@ class NxAffectedBuilder {
 
   // فحص المشاريع المتأثرة
   getAffectedProjects() {
-    console.log('🔍 فحص المشاريع المتأثرة...');
+    // Removed console.log
     
     try {
       const output = execSync(`nx show projects --affected --base=${this.base} --head=${this.head}`, {
@@ -23,72 +23,72 @@ class NxAffectedBuilder {
       });
       
       const projects = output.trim().split('\n').filter(p => p.length > 0);
-      console.log(`📊 المشاريع المتأثرة: ${projects.length}`);
-      projects.forEach(p => console.log(`   - ${p}`));
+      // Removed console.log
+      projects.forEach(p => // Removed console.log);
       
       return projects;
     } catch (error) {
-      console.log('⚠️ لا توجد مشاريع متأثرة أو خطأ في Git');
+      // Removed console.log
       return [];
     }
   }
 
   // بناء المشاريع المتأثرة
   buildAffected() {
-    console.log('🏗️ بناء المشاريع المتأثرة...');
+    // Removed console.log
     
     try {
       execSync(`nx affected --target=build --base=${this.base} --head=${this.head}`, {
         stdio: 'inherit'
       });
-      console.log('✅ تم بناء المشاريع المتأثرة بنجاح');
+      // Removed console.log
       return true;
     } catch (error) {
-      console.log('❌ فشل في بناء المشاريع المتأثرة');
+      // Removed console.log
       return false;
     }
   }
 
   // اختبار المشاريع المتأثرة
   testAffected() {
-    console.log('🧪 اختبار المشاريع المتأثرة...');
+    // Removed console.log
     
     try {
       execSync(`nx affected --target=test --base=${this.base} --head=${this.head}`, {
         stdio: 'inherit'
       });
-      console.log('✅ نجحت جميع الاختبارات');
+      // Removed console.log
       return true;
     } catch (error) {
-      console.log('❌ فشلت بعض الاختبارات');
+      // Removed console.log
       return false;
     }
   }
 
   // فحص الكود للمشاريع المتأثرة
   lintAffected() {
-    console.log('🔧 فحص كود المشاريع المتأثرة...');
+    // Removed console.log
     
     try {
       execSync(`nx affected --target=lint --base=${this.base} --head=${this.head}`, {
         stdio: 'inherit'
       });
-      console.log('✅ الكود يتبع المعايير');
+      // Removed console.log
       return true;
     } catch (error) {
-      console.log('❌ يوجد مشاكل في معايير الكود');
+      // Removed console.log
       return false;
     }
   }
 
   // تشغيل العملية الكاملة
   run() {
-    console.log('🚀 بدء البناء الذكي باستخدام nx affected...');
+    // Removed console.log
     
     const affected = this.getAffectedProjects();
     
     if (affected.length === 0) {
-      console.log('✨ لا توجد تغييرات تتطلب بناء');
+      // Removed console.log
       return true;
     }
 
@@ -100,15 +100,15 @@ class NxAffectedBuilder {
 
     const success = Object.values(results).every(r => r);
     
-    console.log('\n📊 ملخص النتائج:');
-    console.log(`   فحص الكود: ${results.lint ? '✅' : '❌'}`);
-    console.log(`   البناء: ${results.build ? '✅' : '❌'}`);
-    console.log(`   الاختبارات: ${results.test ? '✅' : '❌'}`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
     
     if (success) {
-      console.log('🎉 تم إكمال جميع العمليات بنجاح!');
+      // Removed console.log
     } else {
-      console.log('⚠️ بعض العمليات فشلت - راجع الأخطاء أعلاه');
+      // Removed console.log
       process.exit(1);
     }
 

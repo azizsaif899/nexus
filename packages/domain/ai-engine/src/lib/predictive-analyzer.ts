@@ -126,7 +126,7 @@ export class PredictiveAnalyzer {
       numerator += (values[i] - mean) * (values[i + lag] - mean);
     }
     
-    for (let i = 0; i < values.length; i++) {
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < values.length; i++) {
       denominator += Math.pow(values[i] - mean, 2);
     }
     

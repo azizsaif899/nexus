@@ -17,7 +17,7 @@ export class AgentsService {
     };
     
     const memoryId = await firestoreService.create(this.memoryCollection, memoryData);
-    console.log(`Agent memory saved for ${agentId}: ${memoryId}`);
+    // Removed console.log
     return { id: memoryId, ...memoryData };
   }
 
@@ -69,7 +69,7 @@ export class AgentsService {
     };
     
     const conversationId = await firestoreService.create(this.conversationsCollection, conversationData);
-    console.log(`Conversation saved for ${agentId}: ${conversationId}`);
+    // Removed console.log
     return { id: conversationId, ...conversationData };
   }
 
@@ -86,7 +86,7 @@ export class AgentsService {
     };
     
     const agentDocId = await firestoreService.create(this.collection, agentData);
-    console.log(`Agent status updated for ${agentId}: ${status}`);
+    // Removed console.log
     return { id: agentDocId, ...agentData };
   }
 

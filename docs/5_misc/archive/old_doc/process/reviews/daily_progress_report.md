@@ -310,7 +310,7 @@ class EnhancedSecureLogger {
       context: contextStr
     };
     
-    console.log(JSON.stringify(logEntry));
+    // Removed console.log);
     
     // إرسال للمراقبة المتقدمة إذا كان متاحاً
     if (typeof CloudLogging !== 'undefined') {

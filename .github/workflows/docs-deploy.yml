@@ -24,7 +24,7 @@ jobs:
           echo "✅ Documentation ready"
           
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/master'
+        if: github.ref === 'refs/heads/master'
         run: |
           echo "📖 Documentation deployment completed"
           echo "✅ Available at: https://azizsaif899.github.io/g-assistant/"

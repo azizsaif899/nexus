@@ -17,7 +17,7 @@ class MyPlugin extends BasePlugin {
   }
   
   init() {
-    console.log('Plugin initialized');
+    // Removed console.log
   }
   
   execute(params) {

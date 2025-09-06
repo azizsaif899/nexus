@@ -6,6 +6,6 @@
 // 3. Consolidate and analyze the data to generate a comprehensive compliance report.
 // 4. Output the report to the al-dhabit reports folder.
 
-console.log('Running generate-comprehensive-report.js for Al-Dhabit agent...');
-console.log('This script would typically gather data from various sources and generate a consolidated compliance report.');
-console.log('Report generated successfully (placeholder).');
+// Removed console.log
+// Removed console.log
+// Removed console.log.');

@@ -950,7 +950,7 @@
         // تحميل بيانات التقدم الشهري
         async function loadProgressData() {
             try {
-                console.log('🔄 بدء تحميل بيانات التقدم...');
+                // Removed console.log
                 
                 // استخدام البيانات المحلية المتاحة أولاً
                 let dashboardData = null;
@@ -959,9 +959,9 @@
                 // محاولة تحميل dashboard_data.js (متغير عام)
                 if (typeof DASHBOARD_DATA !== 'undefined') {
                     dashboardData = DASHBOARD_DATA;
-                    console.log('✅ تم تحميل DASHBOARD_DATA من المتغير العام');
+                    // Removed console.log
                 } else {
-                    console.log('⚠️ DASHBOARD_DATA غير متاح كمتغير عام');
+                    // Removed console.log
                 }
                 
                 // محاولة تحميل البيانات من ملفات JSON
@@ -969,10 +969,10 @@
                     const progressResponse = await fetch('monthly_progress.json');
                     if (progressResponse.ok) {
                         progressData = await progressResponse.json();
-                        console.log('✅ تم تحميل monthly_progress.json');
+                        // Removed console.log
                     }
                 } catch (fetchError) {
-                    console.log('⚠️ فشل تحميل monthly_progress.json:', fetchError.message);
+                    // Removed console.log
                 }
                 
                 // إذا لم نحصل على البيانات، استخدم البيانات الافتراضية المحدثة
@@ -990,7 +990,7 @@
                             on_track: true
                         }
                     };
-                    console.log('📊 استخدام بيانات افتراضية محدثة للداشبورد');
+                    // Removed console.log
                 }
                 
                 if (!progressData) {
@@ -1056,11 +1056,11 @@
                             ]
                         }
                     };
-                    console.log('📋 استخدام بيانات افتراضية محدثة للمهام');
+                    // Removed console.log
                 }
                 
                 updateProgressDisplay(dashboardData, progressData);
-                console.log('✅ تم تحديث عرض التقدم بنجاح');
+                // Removed console.log
                 
             } catch (error) {
                 console.error('❌ خطأ في تحميل بيانات التقدم:', error);
@@ -1069,7 +1069,7 @@
         }
         
         function showDefaultData() {
-            console.log('📊 عرض البيانات الافتراضية المحدثة...');
+            // Removed console.log
             
             // إخفاء مؤشر التحميل
             document.getElementById('loadingIndicator').style.display = 'none';
@@ -1177,7 +1177,7 @@
                 // تحديث قوائم المهام مع تفاصيل أكثر
                 updateTasksListsEnhanced(progressData.tasks || [], progressData.monthly_goals || {});
                 
-                console.log('✅ تم تحديث بيانات التقدم بنجاح مع التفاصيل الكاملة');
+                // Removed console.log
             } catch (error) {
                 console.error('خطأ في تحديث عرض التقدم:', error);
                 showDefaultData();

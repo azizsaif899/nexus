@@ -31,10 +31,10 @@ export class AICodeFixer {
 
   // إصلاح خطأ واحد
   async fixError(error: DetectedError, fileContent: string): Promise<FixSuggestion | null> {
-    console.log(`🤖 إصلاح خطأ: ${error.message}`);
+    // Removed console.log
 
     if (this.isDryRun) {
-      console.log('[DRY RUN] محاكاة استدعاء Gemini API');
+      // Removed console.log
       return {
         errorId: error.id,
         confidence: 0.95,
@@ -60,7 +60,7 @@ export class AICodeFixer {
 
   // إصلاح متعدد للأخطاء
   async fixMultipleErrors(errors: DetectedError[]): Promise<FixSuggestion[]> {
-    console.log(`🔧 إصلاح ${errors.length} خطأ...`);
+    // Removed console.log
     
     const fixes: FixSuggestion[] = [];
     
@@ -90,14 +90,14 @@ export class AICodeFixer {
 
   // تطبيق الإصلاح على الملف
   async applyFix(fix: FixSuggestion, filePath: string): Promise<boolean> {
-    console.log(`✏️ تطبيق إصلاح على: ${filePath}`);
+    // Removed console.log
     
     if (this.isDryRun) {
-      console.log('[DRY RUN] كان سيتم تطبيق التغييرات التالية:');
-      console.log('--- Original ---');
-      console.log(fix.originalCode);
-      console.log('--- Fixed ---');
-      console.log(fix.fixedCode);
+      // Removed console.log
+      // Removed console.log
+      // Removed console.log
+      // Removed console.log
+      // Removed console.log
       return true;
     }
 
@@ -127,8 +127,8 @@ export class AICodeFixer {
       // تطبيق الإصلاح
       fs.writeFileSync(filePath, newContent);
       
-      console.log(`✅ تم تطبيق الإصلاح على ${filePath}`);
-      console.log(`💾 نسخة احتياطية: ${backupPath}`);
+      // Removed console.log
+      // Removed console.log
       
       return true;
     } catch (error) {
@@ -266,12 +266,12 @@ ${contextLines}
     };
 
     fs.writeFileSync(outputPath, JSON.stringify(report, null, 2));
-    console.log(`📊 تم حفظ تقرير الإصلاحات: ${outputPath}`);
+    // Removed console.log
   }
 }
 
 // تشغيل مباشر للاختبار
 if (require.main === module) {
-  console.log('🤖 اختبار نظام الإصلاح الذكي...');
-  console.log('💡 تأكد من تعيين GEMINI_API_KEY في متغيرات البيئة');
+  // Removed console.log
+  // Removed console.log
 }

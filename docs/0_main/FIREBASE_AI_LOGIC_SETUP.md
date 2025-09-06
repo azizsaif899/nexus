@@ -92,7 +92,7 @@ import { getFirebaseApp } from './packages/core/core-logic/src/config/firebase-c
 
 // Test Firebase initialization
 const app = getFirebaseApp();
-console.log('Firebase App:', app.name);
+// Removed console.log
 ```
 
 ### اختبار Gemini AI:
@@ -105,7 +105,7 @@ const client = new GeminiClient({
 });
 
 const response = await client.generateResponse('Hello, how are you?');
-console.log(response.text);
+// Removed console.log
 ```
 
 ## 🎯 الفوائد المحققة

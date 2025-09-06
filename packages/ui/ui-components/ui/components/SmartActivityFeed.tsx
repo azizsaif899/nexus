@@ -45,8 +45,7 @@ export const SmartActivityFeed: React.FC = () => {
       user: 'سارة أحمد',
       actionable: {
         label: 'إرسال تهنئة',
-        action: () => console.log('Sending congratulations...')
-      },
+        action: () => // Removed console.log},
       priority: 'high'
     },
     {
@@ -59,8 +58,7 @@ export const SmartActivityFeed: React.FC = () => {
       user: 'النظام',
       actionable: {
         label: 'عرض الرسائل',
-        action: () => console.log('Opening emails...')
-      },
+        action: () => // Removed console.log},
       priority: 'medium'
     },
     {
@@ -73,8 +71,7 @@ export const SmartActivityFeed: React.FC = () => {
       user: 'أحمد محمد',
       actionable: {
         label: 'عرض الملخص',
-        action: () => console.log('Showing call summary...')
-      },
+        action: () => // Removed console.log},
       priority: 'medium'
     },
     {

@@ -60,7 +60,7 @@ export class GeminiResearchAgent {
    * محول من graph.py workflow
    */
   async research(query: string): Promise<ResearchResult> {
-    console.log(`🚀 بدء البحث المتقدم: ${query}`);
+    // Removed console.log
     
     // تهيئة الحالة
     this.state.messages = [{
@@ -81,7 +81,7 @@ export class GeminiResearchAgent {
         const reflection = await this.reflection();
         
         if (reflection.isSufficient) {
-          console.log('✅ البحث كافي، الانتقال للمرحلة النهائية');
+          // Removed console.log
           break;
         }
         
@@ -93,7 +93,7 @@ export class GeminiResearchAgent {
       // المرحلة 4: تجميع الإجابة النهائية
       const finalAnswer = await this.finalizeAnswer();
       
-      console.log('✅ اكتمل البحث المتقدم');
+      // Removed console.log
       return finalAnswer;
       
     } catch (error) {
@@ -107,7 +107,7 @@ export class GeminiResearchAgent {
    * محول من generate_query في graph.py
    */
   private async generateQuery(): Promise<QueryGenerationState> {
-    console.log('🔍 توليد استعلامات البحث...');
+    // Removed console.log
     
     const researchTopic = getResearchTopic(this.state.messages);
     const currentDate = getCurrentDate();
@@ -129,7 +129,7 @@ export class GeminiResearchAgent {
     ];
     
     this.state.searchQuery = queries;
-    console.log(`✅ تم توليد ${queries.length} استعلامات`);
+    // Removed console.log
     
     return { searchQuery: queries };
   }
@@ -139,7 +139,7 @@ export class GeminiResearchAgent {
    * محول من web_research في graph.py
    */
   private async performInitialWebResearch(): Promise<void> {
-    console.log('🌐 تنفيذ البحث الأولي...');
+    // Removed console.log
     
     for (let i = 0; i < this.state.searchQuery.length; i++) {
       const query = this.state.searchQuery[i];
@@ -149,7 +149,7 @@ export class GeminiResearchAgent {
       });
     }
     
-    console.log(`✅ اكتمل البحث الأولي - ${this.state.webResearchResult.length} نتائج`);
+    // Removed console.log
   }
 
   /**
@@ -157,7 +157,7 @@ export class GeminiResearchAgent {
    * محول من web_research في graph.py
    */
   private async webResearch(state: WebSearchState): Promise<void> {
-    console.log(`🔎 البحث عن: ${state.searchQuery}`);
+    // Removed console.log
     
     // محاكاة البحث (في الواقع سيستخدم Google Search API)
     const mockSources: Source[] = [
@@ -181,7 +181,7 @@ export class GeminiResearchAgent {
    * محول من reflection في graph.py
    */
   private async reflection(): Promise<Reflection> {
-    console.log('🤔 تقييم كفاية البحث...');
+    // Removed console.log
     
     const researchTopic = getResearchTopic(this.state.messages);
     const summaries = this.state.webResearchResult.join('\n\n---\n\n');
@@ -199,7 +199,7 @@ export class GeminiResearchAgent {
       ]
     };
     
-    console.log(`✅ التقييم: ${isSufficient ? 'كافي' : 'يحتاج مزيد من البحث'}`);
+    // Removed console.log
     return reflection;
   }
 
@@ -207,7 +207,7 @@ export class GeminiResearchAgent {
    * البحث التكميلي
    */
   private async performFollowUpResearch(followUpQueries: string[]): Promise<void> {
-    console.log(`🔄 البحث التكميلي - ${followUpQueries.length} استعلامات`);
+    // Removed console.log
     
     for (let i = 0; i < followUpQueries.length; i++) {
       await this.webResearch({
@@ -222,7 +222,7 @@ export class GeminiResearchAgent {
    * محول من finalize_answer في graph.py
    */
   private async finalizeAnswer(): Promise<ResearchResult> {
-    console.log('📝 تجميع الإجابة النهائية...');
+    // Removed console.log
     
     const researchTopic = getResearchTopic(this.state.messages);
     const summaries = this.state.webResearchResult.join('\n---\n\n');
@@ -254,7 +254,7 @@ ${uniqueSources.map((source, idx) =>
       citations: [] // سيتم ملؤها لاحقاً
     };
     
-    console.log('✅ تم تجميع الإجابة النهائية');
+    // Removed console.log
     return result;
   }
 

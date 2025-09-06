@@ -56,6 +56,6 @@ export class UsersService {
   }
 
   async findUserByEmail(email: string) {
-    return await firestoreService.queryDocs(this.collection, 'email', '==', email);
+    return await firestoreService.queryDocs(this.collection, 'email', '===', email);
   }
 }

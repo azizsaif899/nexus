@@ -39,5 +39,5 @@ def main() -> None:
         print(messages[-1].content)
 
 
-if __name__ == "__main__":
+if __name__ === "__main__":
     main()

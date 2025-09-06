@@ -190,7 +190,7 @@ export default function GetCurrentUserComponent() {
 
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
-    console.log(query.data.user);
+    // Removed console.log
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -268,7 +268,7 @@ export default function ListUserChatSessionsComponent() {
 
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
-    console.log(query.data.user);
+    // Removed console.log
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -369,7 +369,7 @@ export default function GetChatSessionComponent() {
 
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
-    console.log(query.data.chatSession);
+    // Removed console.log
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -471,7 +471,7 @@ export default function ListTasksComponent() {
 
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
-    console.log(query.data.tasks);
+    // Removed console.log
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -564,7 +564,7 @@ export default function SearchKnowledgeComponent() {
 
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
-    console.log(query.data.knowledgeEntries);
+    // Removed console.log
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -647,14 +647,14 @@ export default function UpsertUserComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useUpsertUser(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useUpsertUser(dataConnect, options);
 
@@ -670,7 +670,7 @@ export default function UpsertUserComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   mutation.mutate(upsertUserVars, options);
 
@@ -685,7 +685,7 @@ export default function UpsertUserComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.user_upsert);
+    // Removed console.log
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -743,14 +743,14 @@ export default function CreateChatSessionComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useCreateChatSession(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useCreateChatSession(dataConnect, options);
 
@@ -766,7 +766,7 @@ export default function CreateChatSessionComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   mutation.mutate(createChatSessionVars, options);
 
@@ -781,7 +781,7 @@ export default function CreateChatSessionComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.chatSession_insert);
+    // Removed console.log
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -841,14 +841,14 @@ export default function AddMessageComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useAddMessage(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useAddMessage(dataConnect, options);
 
@@ -866,7 +866,7 @@ export default function AddMessageComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   mutation.mutate(addMessageVars, options);
 
@@ -881,7 +881,7 @@ export default function AddMessageComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.message_insert);
+    // Removed console.log
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -940,14 +940,14 @@ export default function UpdateChatSessionComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useUpdateChatSession(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useUpdateChatSession(dataConnect, options);
 
@@ -964,7 +964,7 @@ export default function UpdateChatSessionComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   mutation.mutate(updateChatSessionVars, options);
 
@@ -979,7 +979,7 @@ export default function UpdateChatSessionComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.chatSession_update);
+    // Removed console.log
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -1039,14 +1039,14 @@ export default function CreateTaskComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useCreateTask(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useCreateTask(dataConnect, options);
 
@@ -1064,7 +1064,7 @@ export default function CreateTaskComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   mutation.mutate(createTaskVars, options);
 
@@ -1079,7 +1079,7 @@ export default function CreateTaskComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.task_insert);
+    // Removed console.log
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -1138,14 +1138,14 @@ export default function UpdateTaskStatusComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useUpdateTaskStatus(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useUpdateTaskStatus(dataConnect, options);
 
@@ -1162,7 +1162,7 @@ export default function UpdateTaskStatusComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   mutation.mutate(updateTaskStatusVars, options);
 
@@ -1177,7 +1177,7 @@ export default function UpdateTaskStatusComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.task_update);
+    // Removed console.log
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -1238,14 +1238,14 @@ export default function AddKnowledgeEntryComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useAddKnowledgeEntry(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   const mutation = useAddKnowledgeEntry(dataConnect, options);
 
@@ -1264,7 +1264,7 @@ export default function AddKnowledgeEntryComponent() {
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
-    onSuccess: () => { console.log('Mutation succeeded!'); }
+    onSuccess: () => { // Removed console.log }
   };
   mutation.mutate(addKnowledgeEntryVars, options);
 
@@ -1279,7 +1279,7 @@ export default function AddKnowledgeEntryComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.knowledgeEntry_insert);
+    // Removed console.log
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }

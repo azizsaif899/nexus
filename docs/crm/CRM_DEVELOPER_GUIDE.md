@@ -174,7 +174,7 @@ export class WhatsAppWebhook {
         source_id: await this.getWhatsAppSourceId()
       });
 
-      console.log(`✅ تم إنشاء عميل ${leadId} من WhatsApp`);
+      // Removed console.log
     }
 
     res.status(200).json({ success: true });

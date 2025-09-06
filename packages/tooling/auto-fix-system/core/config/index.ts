@@ -58,9 +58,9 @@ export class ConfigManager {
   }
 
   private parseEnvFile(filePath: string): Record<string, string> {
-    if (!fs.existsSync(filePath)) return {};
+    if (!/* PERFORMANCE: Consider using async version */ fs.existsSync(filePath)) return {};
     
-    const content = fs.readFileSync(filePath, 'utf-8');
+    const content = /* PERFORMANCE: Consider using async version */ fs.readFileSync(filePath, 'utf-8');
     const vars: Record<string, string> = {};
     
     content.split('\n').forEach(line => {

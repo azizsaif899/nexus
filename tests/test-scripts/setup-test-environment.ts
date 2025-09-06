@@ -12,7 +12,7 @@ class TestEnvironmentSetup {
   private readonly redisTestUrl = 'redis://localhost:6379/1';
 
   async setupEnvironment(): Promise<void> {
-    console.log('🔧 إعداد بيئة الاختبار...\n');
+    // Removed console.log
 
     try {
       await this.createTestDatabase();
@@ -21,7 +21,7 @@ class TestEnvironmentSetup {
       await this.seedTestData();
       await this.startTestServices();
       
-      console.log('✅ تم إعداد بيئة الاختبار بنجاح');
+      // Removed console.log
     } catch (error) {
       console.error('❌ فشل في إعداد بيئة الاختبار:', error);
       throw error;
@@ -29,37 +29,37 @@ class TestEnvironmentSetup {
   }
 
   private async createTestDatabase(): Promise<void> {
-    console.log('📊 إنشاء قاعدة بيانات الاختبار...');
+    // Removed console.log
     
     try {
       execSync('createdb azizsys_test', { stdio: 'ignore' });
-      console.log('✅ تم إنشاء قاعدة بيانات الاختبار');
+      // Removed console.log
     } catch (error) {
-      console.log('ℹ️  قاعدة بيانات الاختبار موجودة مسبقاً');
+      // Removed console.log
     }
 
     // تشغيل migrations (إذا كان متاحاً)
     try {
       execSync('npm run db:migrate:test', { stdio: 'inherit' });
     } catch (error) {
-      console.log('⚠️  تحذير: بعض خدمات الاختبار غير متاحة، سيتم استخدام mocks');
+      // Removed console.log
     }
   }
 
   private async setupTestRedis(): Promise<void> {
-    console.log('🔴 إعداد Redis للاختبار...');
+    // Removed console.log
     
     try {
       execSync('redis-cli ping', { stdio: 'ignore' });
       execSync('redis-cli -n 1 flushdb', { stdio: 'ignore' });
-      console.log('✅ تم إعداد Redis للاختبار');
+      // Removed console.log
     } catch (error) {
-      console.log('⚠️  Redis غير متاح - سيتم استخدام mock');
+      // Removed console.log
     }
   }
 
   private async createTestEnvFile(): Promise<void> {
-    console.log('📝 إنشاء ملف متغيرات البيئة للاختبار...');
+    // Removed console.log
     
     const testEnvContent = `
 # Test Environment Variables
@@ -77,11 +77,11 @@ RATE_LIMIT_MAX=1000
 
     const envPath = path.join(process.cwd(), '.env.test');
     fs.writeFileSync(envPath, testEnvContent.trim());
-    console.log('✅ تم إنشاء ملف .env.test');
+    // Removed console.log
   }
 
   private async seedTestData(): Promise<void> {
-    console.log('🌱 إدراج بيانات الاختبار...');
+    // Removed console.log
     
     const seedData = {
       users: [
@@ -122,18 +122,18 @@ RATE_LIMIT_MAX=1000
     }
     
     fs.writeFileSync(seedPath, JSON.stringify(seedData, null, 2));
-    console.log('✅ تم إدراج بيانات الاختبار');
+    // Removed console.log
   }
 
   private async startTestServices(): Promise<void> {
-    console.log('🚀 بدء خدمات الاختبار...');
+    // Removed console.log
     
     // بدء API server للاختبار (اختياري)
     try {
       // تجاهل بدء الخدمات للاختبارات السريعة
-      console.log('⚠️  فشل في بدء بعض الخدمات - سيتم استخدام mocks');
+      // Removed console.log
     } catch (error) {
-      console.log('⚠️  فشل في بدء بعض الخدمات - سيتم استخدام mocks');
+      // Removed console.log
     }
   }
 
@@ -155,7 +155,7 @@ RATE_LIMIT_MAX=1000
   }
 
   async cleanupEnvironment(): Promise<void> {
-    console.log('🧹 تنظيف بيئة الاختبار...');
+    // Removed console.log
     
     try {
       // إيقاف الخدمات
@@ -167,9 +167,9 @@ RATE_LIMIT_MAX=1000
       // تنظيف Redis
       execSync('redis-cli -n 1 flushdb', { stdio: 'ignore' });
       
-      console.log('✅ تم تنظيف بيئة الاختبار');
+      // Removed console.log
     } catch (error) {
-      console.log('⚠️  بعض موارد الاختبار قد تحتاج تنظيف يدوي');
+      // Removed console.log
     }
   }
 }

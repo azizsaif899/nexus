@@ -32,7 +32,7 @@ export class AnomalyDetector {
   async detectTimeSeriesAnomalies(data: number[], windowSize = 10): Promise<any[]> {
     const anomalies = [];
     
-    for (let i = windowSize; i < data.length; i++) {
+    /* PERFORMANCE: Cache array length */ for (let i = windowSize; i < data.length; i++) {
       const window = data.slice(i - windowSize, i);
       const predicted = this.predictNext(window);
       const actual = data[i];
@@ -109,7 +109,7 @@ export class AnomalyDetector {
   private calculateMahalanobisDistance(point: number[], model: any): number {
     // Simplified Mahalanobis distance calculation
     let distance = 0;
-    for (let i = 0; i < point.length; i++) {
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < point.length; i++) {
       const normalized = (point[i] - model.mean[i]) / model.std[i];
       distance += normalized * normalized;
     }

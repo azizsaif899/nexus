@@ -163,7 +163,7 @@ const query = await geminiIntegration.generateSmartQuery(
 
 // تحديثات فورية
 realtimeSubscriptions.subscribeToCustomerUpdates((customer) => {
-  console.log('عميل محدث:', customer.name);
+  // Removed console.log
 });
 ```
 

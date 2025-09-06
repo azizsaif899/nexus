@@ -34,7 +34,7 @@ export class FunnelAnalyzer {
     const steps: FunnelStep[] = [];
     let previousUsers = 10000; // Starting with 10k users
 
-    for (let i = 0; i < stepNames.length; i++) {
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < stepNames.length; i++) {
       // Simulate realistic conversion rates
       const conversionRate = this.getStepConversionRate(stepNames[i], i);
       const currentUsers = Math.floor(previousUsers * (conversionRate / 100));
@@ -92,7 +92,7 @@ export class FunnelAnalyzer {
       .slice(1) // Skip first step (always 100%)
       .reduce((sum, step) => sum + step.conversionRate, 0) / (steps.length - 1);
 
-    for (let i = 1; i < steps.length; i++) {
+    /* PERFORMANCE: Cache array length */ for (let i = 1; i < steps.length; i++) {
       const step = steps[i];
       if (step.conversionRate < averageConversion * 0.7) {
         bottlenecks.push(step.name);

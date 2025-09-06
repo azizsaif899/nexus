@@ -34,7 +34,7 @@ export class DataWarehouse {
   }
 
   async extract(source: string, timeRange: TimeRange): Promise<any[]> {
-    console.log(`Extracting data from ${source} for period ${timeRange.start} to ${timeRange.end}`);
+    // Removed console.log
     
     // Mock extraction - in real implementation, this would connect to various data sources
     const mockData = this.generateMockData(source, timeRange);
@@ -68,7 +68,7 @@ export class DataWarehouse {
   }
 
   async load(data: any[], destination: string): Promise<void> {
-    console.log(`Loading ${data.length} records to ${destination}`);
+    // Removed console.log
     
     // Batch processing for large datasets
     const batches = this.createBatches(data, this.config.batchSize);
@@ -85,7 +85,7 @@ export class DataWarehouse {
     }
 
     try {
-      console.log(`Starting ETL job: ${job.name}`);
+      // Removed console.log
       
       // Extract
       const timeRange = this.getJobTimeRange(job);
@@ -102,7 +102,7 @@ export class DataWarehouse {
       job.nextRun = this.calculateNextRun(job.schedule);
       job.status = 'active';
       
-      console.log(`ETL job ${job.name} completed successfully`);
+      // Removed console.log
       
     } catch (error) {
       job.status = 'failed';
@@ -348,7 +348,7 @@ export class DataWarehouse {
 
   private async loadBatch(batch: any[], destination: string): Promise<void> {
     // In a real implementation, this would insert data into the warehouse
-    console.log(`Loading batch of ${batch.length} records to ${destination}`);
+    // Removed console.log
     
     // Simulate async operation
     await new Promise(resolve => setTimeout(resolve, 100));

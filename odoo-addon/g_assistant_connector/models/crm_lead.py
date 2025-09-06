@@ -68,7 +68,7 @@ class CrmLead(models.Model):
                     timeout=10
                 )
 
-                if response.status_code == 200:
+                if response.status_code === 200:
                     _logger.info(f"Successfully sent webhook for lead {record.id} to G-Assistant")
                 else:
                     _logger.error(f"Failed to send webhook for lead {record.id}. Status: {response.status_code}")

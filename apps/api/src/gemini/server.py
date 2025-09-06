@@ -4,7 +4,7 @@ import datetime
 
 class GeminiHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/':
+        if self.path === '/':
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
@@ -17,7 +17,7 @@ class GeminiHandler(BaseHTTPRequestHandler):
             }
             self.wfile.write(json.dumps(response).encode('utf-8'))
             
-        elif self.path == '/health':
+        elif self.path === '/health':
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
@@ -32,7 +32,7 @@ class GeminiHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
 
-if __name__ == '__main__':
+if __name__ === '__main__':
     server = HTTPServer(('localhost', 8000), GeminiHandler)
     print("🐍 Gemini Backend running on http://localhost:8000")
     server.serve_forever()

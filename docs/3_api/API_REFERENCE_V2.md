@@ -164,7 +164,7 @@ interface ErrorResponse {
 const ws = new WebSocket('wss://api.azizsys.com/v2/research/stream');
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
-  console.log('Received:', data);
+  // Removed console.log
 };
 ```
 

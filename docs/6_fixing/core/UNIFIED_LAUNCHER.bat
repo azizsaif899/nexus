@@ -82,8 +82,8 @@ goto RUN_MAINTENANCE
 :AUTO_FIX
 echo.
 echo 🤖 تشغيل نظام الإصلاح التلقائي...
-cd /d "%~dp0\..\..\..\packages\tooling\auto-fix-system"
-npm run cycle
+cd /d "%~dp0\..\scripts"
+node auto-fix-v2.js
 pause
 goto MENU
 
@@ -98,8 +98,8 @@ goto MENU
 :HEALTH_CHECK
 echo.
 echo 📊 فحص صحة النظام...
-cd /d "%~dp0\..\..\..\packages\tooling\auto-fix-system"
-npm run health
+cd /d "%~dp0\..\scripts"
+node health-check-v2.js
 pause
 goto MENU
 

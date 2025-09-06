@@ -601,7 +601,7 @@ GET  /                  - Main chatbot interface</pre>
                     return `<strong>🤖 Gemini AI (حقيقي)</strong><br><br>${realResponse.data?.message || realResponse.message}`;
                 }
             } catch (error) {
-                console.log('استخدام ردود محلية:', error.message);
+                // Removed console.log
             }
             
             // ردود محلية في حالة عدم توفر الخدمة
@@ -704,7 +704,7 @@ GET  /                  - Main chatbot interface</pre>
         }
         
         function openProjectFolder() {
-            alert('📂 فتح مجلد المشروع: E:/azizsys5/g-assistant-nx');
+            // TODO: Replace alert with proper notification
         }
         
         function analyzeProjectFiles() {
@@ -776,29 +776,29 @@ GET  /                  - Main chatbot interface</pre>
             const logContainer = document.getElementById('logContainer');
             if (logContainer) {
                 logContainer.innerHTML = '<div class="log-entry log-info">[' + new Date().toLocaleString() + '] INFO: Logs cleared by admin</div>';
-                console.log('✅ تم مسح السجلات');
+                // Removed console.log
             }
-            alert('🗑️ تم مسح السجلات بنجاح');
+            // TODO: Replace alert with proper notification
         }
 
         function restartServices() {
-            console.log('🔄 بدء إعادة تشغيل الخدمات');
+            // Removed console.log
             
             fetch('http://localhost:3333/api/system/restart', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {
-                        alert('✅ تم بدء إعادة تشغيل الخدمات');
+                        // TODO: Replace alert with proper notification
                     } else {
                         throw new Error('فشل في الاتصال');
                     }
                 })
                 .catch(error => {
-                    alert('🔄 جارٍ إعادة تشغيل جميع الخدمات...\n(محاولة محلية)');
+                    // TODO: Replace alert with proper notification');
                 });
         }
 
         function runTests() {
-            console.log('🧪 بدء تشغيل الاختبارات');
+            // Removed console.log
             
             fetch('http://localhost:3333/api/system/test', { method: 'POST' })
                 .then(response => {
@@ -809,15 +809,15 @@ GET  /                  - Main chatbot interface</pre>
                     }
                 })
                 .then(data => {
-                    alert('✅ نتائج الاختبارات:\n' + JSON.stringify(data, null, 2));
+                    // TODO: Replace alert with proper notification);
                 })
                 .catch(error => {
-                    alert('🧪 جارٍ تشغيل مجموعة الاختبارات...\n(محاولة محلية)');
+                    // TODO: Replace alert with proper notification');
                 });
         }
 
         function deploySystem() {
-            console.log('🚀 بدء نشر النظام');
+            // Removed console.log
             
             const confirmed = confirm('⚠️ هل أنت متأكد من نشر النظام؟');
             if (!confirmed) return;
@@ -825,13 +825,13 @@ GET  /                  - Main chatbot interface</pre>
             fetch('http://localhost:3333/api/system/deploy', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {
-                        alert('✅ تم بدء عملية النشر');
+                        // TODO: Replace alert with proper notification
                     } else {
                         throw new Error('فشل في الاتصال');
                     }
                 })
                 .catch(error => {
-                    alert('🚀 جارٍ نشر النظام...\n(محاولة محلية)');
+                    // TODO: Replace alert with proper notification');
                 });
         }
 
@@ -1075,7 +1075,7 @@ GET  /                  - Main chatbot interface</pre>
                         item.style.background = 'rgba(102, 102, 102, 0.1)';
                     }
                 });
-                console.log('📈 Client selected:', selectedClient);
+                // Removed console.log
             } else {
                 const dots = servicesDiv.querySelectorAll('.service-dot');
                 dots.forEach(dot => {
@@ -1099,7 +1099,7 @@ GET  /                  - Main chatbot interface</pre>
                 element.style.background = 'rgba(76, 175, 80, 0.1)';
             }
             
-            console.log('🔄 Service toggled:', serviceId, !isActive ? 'enabled' : 'disabled');
+            // Removed console.log
         }
         
         function toggleAgent(element, agentId) {
@@ -1117,7 +1117,7 @@ GET  /                  - Main chatbot interface</pre>
                 element.style.background = 'rgba(76, 175, 80, 0.1)';
             }
             
-            console.log('🤖 Agent toggled:', agentId, !isActive ? 'enabled' : 'disabled');
+            // Removed console.log
         }
         
         function openClientInterface() {
@@ -1131,7 +1131,7 @@ GET  /                  - Main chatbot interface</pre>
                     }
                 })
                 .catch(error => {
-                    alert('⚠️ واجهة العميل غير متاحة\nتأكد من تشغيل: npm run dev:web-chatbot');
+                    // TODO: Replace alert with proper notification
                 });
         }
         
@@ -1145,12 +1145,12 @@ GET  /                  - Main chatbot interface</pre>
                     message += `${icon} ${service.name}: ${service.status}\n`;
                 });
                 
-                alert(message);
+                // TODO: Replace alert with proper notification
                 
                 // تحديث الواجهة
                 updateServiceStatus(results);
             } catch (error) {
-                alert('⚠️ فشل في فحص الصحة: ' + error.message);
+                // TODO: Replace alert with proper notification
             }
         }
         
@@ -1164,7 +1164,7 @@ GET  /                  - Main chatbot interface</pre>
                     }
                 })
                 .catch(error => {
-                    alert('⚠️ API Server غير متاح\nتأكد من تشغيل: npm run dev:api');
+                    // TODO: Replace alert with proper notification
                 });
         }
         
@@ -1228,7 +1228,7 @@ GET  /                  - Main chatbot interface</pre>
                         statValues[3].textContent = '5'; // عدد الأخطاء
                     }
                     
-                    console.log('✅ تم تحديث بيانات اللوحة من النظام');
+                    // Removed console.log
                 } else {
                     throw new Error('فشل في تحميل البيانات');
                 }
@@ -1249,7 +1249,7 @@ GET  /                  - Main chatbot interface</pre>
                     statValues[3].textContent = stats.errors;
                 }
                 
-                console.log('⚠️ تم استخدام بيانات افتراضية:', error.message);
+                // Removed console.log
             }
         }
         
@@ -1371,11 +1371,11 @@ GET  /                  - Main chatbot interface</pre>
             document.getElementById('high-issues').textContent = agent.high_issues;
             document.getElementById('compliance-agent-status').textContent = agent.status;
             
-            console.log('✅ تم تحديث بيانات وكيل الرقيب');
+            // Removed console.log
         }
 
-        console.log('🎨 G-Assistant-NX Developer Dashboard loaded successfully!');
-        console.log('🛡️ Compliance Agent integration added!');
+        // Removed console.log
+        // Removed console.log
         
         // تحديث بيانات وكيل الرقيب عند التحميل
         setTimeout(refreshComplianceData, 1000);
@@ -1415,7 +1415,7 @@ GET  /                  - Main chatbot interface</pre>
                     }
                 }
             } catch (error) {
-                console.log('استخدام بيانات افتراضية:', error.message);
+                // Removed console.log
             }
         }
         
@@ -1432,7 +1432,7 @@ GET  /                  - Main chatbot interface</pre>
                         dot.style.background = '#4CAF50';
                         text.style.color = '#4CAF50';
                         element.style.background = 'rgba(76, 175, 80, 0.1)';
-                        console.log('✅ تم تفعيل الوكيل:', agentId);
+                        // Removed console.log
                     }
                 } else {
                     dot.style.background = '#666';
@@ -1444,8 +1444,8 @@ GET  /                  - Main chatbot interface</pre>
             }
         }
         
-        console.log('🎨 G-Assistant-NX Developer Dashboard loaded successfully!');
-        console.log('🔗 Real System Integration Active!');
+        // Removed console.log
+        // Removed console.log
         
         // تحميل البيانات الحقيقية عند التحميل
         setTimeout(loadRealSystemData, 1000);

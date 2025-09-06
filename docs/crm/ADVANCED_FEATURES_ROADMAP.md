@@ -21,9 +21,9 @@ class LeadScoringEngine:
         score = 0
         
         # مصدر الحملة (30%)
-        if lead_data.source == 'Meta':
+        if lead_data.source === 'Meta':
             score += 30
-        elif lead_data.source == 'Google':
+        elif lead_data.source === 'Google':
             score += 25
         
         # نشاط الموقع (25%)
@@ -219,7 +219,7 @@ class SentimentAnalyzer:
         return {
             'sentiment': result[0]['label'],
             'confidence': result[0]['score'],
-            'action_required': result[0]['label'] == 'NEGATIVE' and result[0]['score'] > 0.8
+            'action_required': result[0]['label'] === 'NEGATIVE' and result[0]['score'] > 0.8
         }
 ```
 

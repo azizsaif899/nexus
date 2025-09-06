@@ -1,0 +1,763 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+declare global {
+    interface Window {
+      SpeechRecognition: any;
+      webkitSpeechRecognition: any;
+    }
+    interface SpeechRecognitionEvent extends Event {
+        results: any;
+    }
+    interface SpeechRecognitionErrorEvent extends Event {
+        error: string;
+    }
+}
+
+// Enhanced Chat Application with improved error handling and features
+class NexusChatPro {
+    private ai: GoogleGenerativeAI | null = null;
+    private chat: any = null;
+    private recognition: any = null;
+    private isRecording = false;
+    private messageCount = 0;
+    private sessionStartTime = Date.now();
+    private sessionTimer: number | null = null;
+    private chatHistory: Array<{role: string, content: string, timestamp: number}> = [];
+
+    // UI Elements
+    private messageList: HTMLElement;
+    private chatForm: HTMLFormElement;
+    private messageInput: HTMLInputElement;
+    private sendButton: HTMLButtonElement;
+    private recordButton: HTMLButtonElement;
+    private attachButton: HTMLButtonElement;
+    private chatHeader: HTMLElement;
+    private connectionIndicator: HTMLElement;
+    private messageCountEl: HTMLElement;
+    private sessionTimeEl: HTMLElement;
+
+    // Settings
+    private settings = {
+        apiKey: '',
+        fontSize: 16,
+        soundEffects: false,
+        autoSave: true,
+        theme: 'matrix'
+    };
+
+    // System Instructions for personas
+    private systemInstructions: Record<string, string> = {
+        'btn-developer': 'أنت مطور برامج أول خبير في جميع لغات البرمجة والتقنيات الحديثة. قدم إجابات تقنية مفصلة وحلولاً للمشكلات البرمجية مع أمثلة عملية.',
+        'btn-hr': 'أنت خبير في الموارد البشرية مع خبرة واسعة في إدارة المواهب والتوظيف. أجب على جميع الأسئلة من منظور متخصص في سياسات الشركة وعلاقات الموظفين.',
+        'btn-finance': 'أنت محلل مالي دقيق مع خبرة في الأسواق المالية والاستثمار. قدم تحليلات مالية واضحة ومبنية على البيانات مع توصيات استثمارية مدروسة.',
+        'btn-marketing': 'أنت استراتيجي تسويق مبدع مع خبرة في التسويق الرقمي والعلامات التجارية. قدم استراتيجيات تسويقية مبتكرة وحلول إبداعية لنمو الأعمال.',
+        'btn-ceo': 'أنت رئيس تنفيذي (CEO) صاحب رؤية استراتيجية واسعة. قدم إجابات قيادية رفيعة المستوى تركز على النمو والابتكار والتطوير المؤسسي.'
+    };
+
+    private initialMessages: Record<string, string> = {
+        'btn-developer': 'مرحباً! أنا مطور خبير جاهز لمساعدتك في أي تحدي برمجي. ما المشروع الذي تعمل عليه؟',
+        'btn-hr': 'أهلاً بك! أنا خبير الموارد البشرية. كيف يمكنني مساعدتك في أمور التوظيف أو إدارة الفريق؟',
+        'btn-finance': 'مرحباً! أنا محللك المالي. ما هي البيانات أو الاستثمارات التي تود تحليلها اليوم؟',
+        'btn-marketing': 'أهلاً وسهلاً! أنا استراتيجي التسويق. كيف يمكننا تطوير علامتك التجارية وزيادة وصولها؟',
+        'btn-ceo': 'مرحباً! أنا هنا كمستشار تنفيذي. ما هي التحديات الاستراتيجية التي تواجه مؤسستك؟'
+    };
+
+    constructor() {
+        this.initializeElements();
+        this.loadSettings();
+        this.initializeTheme();
+        this.initializeEffects();
+        this.initializeSpeechRecognition();
+        this.setupEventListeners();
+        this.startSessionTimer();
+        this.tryInitializeAI();
+    }
+
+    private initializeElements() {
+        this.messageList = document.getElementById('message-list')!;
+        this.chatForm = document.getElementById('chat-form') as HTMLFormElement;
+        this.messageInput = document.getElementById('message-input') as HTMLInputElement;
+        this.sendButton = document.getElementById('send-button') as HTMLButtonElement;
+        this.recordButton = document.getElementById('record-button') as HTMLButtonElement;
+        this.attachButton = document.getElementById('attach-button') as HTMLButtonElement;
+        this.chatHeader = document.getElementById('chat-header-title')!;
+        this.connectionIndicator = document.getElementById('connection-indicator')!;
+        this.messageCountEl = document.getElementById('messageCount')!;
+        this.sessionTimeEl = document.getElementById('sessionTime')!;
+    }
+
+    private loadSettings() {
+        const saved = localStorage.getItem('nexusChatProSettings');
+        if (saved) {
+            this.settings = { ...this.settings, ...JSON.parse(saved) };
+        }
+        this.applySettings();
+    }
+
+    private saveSettings() {
+        localStorage.setItem('nexusChatProSettings', JSON.stringify(this.settings));
+    }
+
+    private applySettings() {
+        document.documentElement.style.fontSize = `${this.settings.fontSize}px`;
+        if (this.settings.theme) {
+            document.body.setAttribute('data-theme', this.settings.theme);
+        }
+    }
+
+    private tryInitializeAI() {
+        // Use a working API key directly
+        const apiKey = 'AIzaSyAbrRDX0aR-47XhhJ1P-dadPKfCa-nL12E';
+        
+        try {
+            this.ai = new GoogleGenerativeAI(apiKey);
+            this.updateConnectionStatus(true);
+            this.switchPersona('btn-developer');
+        } catch (error) {
+            console.error('AI initialization failed:', error);
+            this.updateConnectionStatus(false);
+            this.addMessage('فشل في الاتصال بـ Gemini AI. يرجى المحاولة لاحقاً.', 'ai');
+        }
+    }
+
+    private updateConnectionStatus(connected: boolean) {
+        const statusText = this.connectionIndicator.querySelector('.status-text')!;
+        if (connected) {
+            this.connectionIndicator.className = 'status-indicator online';
+            statusText.textContent = 'متصل';
+        } else {
+            this.connectionIndicator.className = 'status-indicator offline';
+            statusText.textContent = 'غير متصل';
+        }
+    }
+
+    private showApiKeyModal() {
+        const modal = document.getElementById('settingsModal')!;
+        modal.style.display = 'flex';
+        const apiKeyInput = document.getElementById('apiKeyInput') as HTMLInputElement;
+        apiKeyInput.focus();
+    }
+
+    private initializeTheme() {
+        const themeMenuBtn = document.getElementById('themeMenuBtn')!;
+        const themeMenu = document.getElementById('themeMenu')!;
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const personaOptions = document.querySelectorAll('.persona-option');
+
+        themeMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            themeMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!themeMenu.contains(e.target as Node) && !themeMenuBtn.contains(e.target as Node)) {
+                themeMenu.classList.remove('active');
+            }
+        });
+
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const selectedTheme = option.getAttribute('data-theme')!;
+                this.applyTheme(selectedTheme);
+                this.settings.theme = selectedTheme;
+                this.saveSettings();
+                themeMenu.classList.remove('active');
+            });
+        });
+
+        personaOptions.forEach(button => {
+            button.addEventListener('click', () => {
+                this.switchPersona(button.id);
+                themeMenu.classList.remove('active');
+            });
+        });
+
+        // Load saved theme
+        this.applyTheme(this.settings.theme);
+    }
+
+    private applyTheme(theme: string) {
+        document.body.setAttribute('data-theme', theme);
+        const themeOptions = document.querySelectorAll('.theme-option');
+        themeOptions.forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+        });
+        
+        // Regenerate effects for new theme
+        if (theme === 'matrix') {
+            setTimeout(() => {
+                this.generateMatrixRain();
+                this.generateParticles();
+                this.generateDataStreams();
+            }, 100);
+        }
+    }
+
+    private initializeEffects() {
+        this.generateParticles();
+        this.generateMatrixRain();
+        this.generateDataStreams();
+        this.createCursorGlow();
+        
+        // Spawn cyber text periodically
+        setInterval(() => this.spawnCyberText(), 5000);
+        
+        // Handle window resize
+        let resizeTimer: number;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                this.generateMatrixRain();
+                this.generateParticles();
+                this.generateDataStreams();
+            }, 250);
+        });
+
+        // Mouse movement effects
+        document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    }
+
+    private generateMatrixRain() {
+        if (document.body.getAttribute('data-theme') !== 'matrix') return;
+        const matrixRain = document.getElementById('matrix-rain-container');
+        if (!matrixRain) return;
+        
+        matrixRain.textContent = ''; /* XSS protection: innerHTML replaced */
+        const characters = '0123456789ABCDEFabcdefghijklmnopqrstuvwxyzアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const columns = Math.floor(window.innerWidth / 20);
+        
+        for (let i = 0; i < columns; i++) {
+            const column = document.createElement('div');
+            column.className = 'matrix-column';
+            column.style.left = `${i * 20}px`;
+            column.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            column.style.animationDelay = `${Math.random() * 10}s`;
+            
+            let text = '';
+            const charCount = Math.floor(Math.random() * 40 + 30);
+            for (let j = 0; j < charCount; j++) {
+                text += characters[Math.floor(Math.random() * characters.length)];
+            }
+            column.textContent = text;
+            matrixRain.appendChild(column);
+        }
+    }
+
+    private generateParticles() {
+        if (document.body.getAttribute('data-theme') !== 'matrix') return;
+        const particlesContainer = document.getElementById('particles-container');
+        if (!particlesContainer) return;
+        
+        particlesContainer.textContent = ''; /* XSS protection: innerHTML replaced */
+        const particleCount = 50;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 20}s`;
+            particle.style.animationDuration = `${Math.random() * 10 + 20}s`;
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    private generateDataStreams() {
+        if (document.body.getAttribute('data-theme') !== 'matrix') return;
+        const dataStreams = document.getElementById('data-streams-container');
+        if (!dataStreams) return;
+        
+        dataStreams.textContent = ''; /* XSS protection: innerHTML replaced */
+        const streamCount = 10;
+        
+        for (let i = 0; i < streamCount; i++) {
+            const stream = document.createElement('div');
+            stream.className = 'data-stream';
+            stream.style.top = `${Math.random() * 100}%`;
+            stream.style.left = `-300px`;
+            stream.style.animationDelay = `${Math.random() * 5}s`;
+            dataStreams.appendChild(stream);
+        }
+    }
+
+    private createCursorGlow() {
+        if (window.innerWidth <= 768 || document.body.getAttribute('data-theme') !== 'matrix') return;
+        
+        const cursorGlow = document.createElement('div');
+        cursorGlow.style.cssText = `
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            left: 0;
+            top: 0;
+        `;
+        document.body.appendChild(cursorGlow);
+
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+            cursorGlow.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            cursorGlow.style.opacity = '0';
+        });
+    }
+
+    private spawnCyberText() {
+        if (document.body.getAttribute('data-theme') !== 'matrix') return;
+        const cyberTexts = ['CONNECTING...', 'NEURAL LINK ESTABLISHED', 'QUANTUM SYNC ACTIVE', 'REALITY MATRIX LOADED', 'INITIATING GHOST PROTOCOL'];
+        const randomText = cyberTexts[Math.floor(Math.random() * cyberTexts.length)];
+        const tempElement = document.createElement('div');
+        tempElement.textContent = randomText;
+        tempElement.style.cssText = `
+            position: fixed;
+            top: ${Math.random() * 100}vh;
+            left: ${Math.random() * 100}vw;
+            color: var(--theme-primary-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 1000;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: fadeOut 3s ease-out forwards;
+            text-shadow: 0 0 10px var(--theme-primary-accent);
+        `;
+        document.body.appendChild(tempElement);
+        
+        setTimeout(() => {
+            if (document.body.contains(tempElement)) {
+                document.body.removeChild(tempElement);
+            }
+        }, 3000);
+    }
+
+    private handleMouseMove(e: MouseEvent) {
+        if (document.body.getAttribute('data-theme') !== 'matrix') return;
+        
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        const orbs = document.querySelectorAll('.orb');
+        orbs.forEach((orb, index) => {
+            const speed = (index + 1) * 0.02;
+            const x = (mouseX - window.innerWidth / 2) * speed;
+            const y = (mouseY - window.innerHeight / 2) * speed;
+            (orb as HTMLElement).style.transform = `translate(${x}px, ${y}px)`;
+        });
+    }
+
+    private initializeSpeechRecognition() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        if (SpeechRecognition) {
+            this.recognition = new SpeechRecognition();
+            this.recognition.continuous = true;
+            this.recognition.interimResults = true;
+            this.recognition.lang = 'ar-SA';
+
+            this.recognition.addEventListener('start', () => {
+                this.isRecording = true;
+                this.recordButton.classList.add('recording');
+                this.recordButton.setAttribute('aria-label', 'إيقاف التسجيل');
+                this.messageInput.placeholder = '...جاري الاستماع';
+                this.updateSendButtonState();
+            });
+
+            this.recognition.addEventListener('end', () => {
+                this.isRecording = false;
+                this.recordButton.classList.remove('recording');
+                this.recordButton.setAttribute('aria-label', 'سجل رسالة صوتية');
+                this.messageInput.placeholder = 'اكتب رسالتك هنا...';
+                this.updateSendButtonState();
+                this.messageInput.focus();
+            });
+
+            this.recognition.addEventListener('result', (event: SpeechRecognitionEvent) => {
+                const transcript = Array.from(event.results)
+                    .map((result: any) => result[0])
+                    .map((result) => result.transcript)
+                    .join('');
+                
+                this.messageInput.value = transcript;
+                this.updateSendButtonState();
+            });
+
+            this.recognition.addEventListener('error', (event: SpeechRecognitionErrorEvent) => {
+                console.error('Speech recognition error', event.error);
+                if (event.error && event.error !== 'no-speech') {
+                    this.addMessage(`خطأ في التعرف على الصوت: ${event.error}`, 'ai');
+                }
+            });
+        } else {
+            this.recordButton.style.display = 'none';
+        }
+    }
+
+    private setupEventListeners() {
+        // Chat form submission
+        this.chatForm.addEventListener('submit', (e) => this.handleSubmit(e));
+        
+        // Input changes
+        this.messageInput.addEventListener('input', () => this.updateSendButtonState());
+        
+        // Record button
+        this.recordButton.addEventListener('click', () => this.toggleRecording());
+        
+        // Attach button
+        this.attachButton.addEventListener('click', () => this.handleAttachment());
+        
+        // Settings modal
+        this.setupSettingsModal();
+        
+        // Chat actions
+        this.setupChatActions();
+    }
+
+    private setupSettingsModal() {
+        const settingsBtn = document.getElementById('settingsBtn')!;
+        const modal = document.getElementById('settingsModal')!;
+        const closeBtn = modal.querySelector('.modal-close')!;
+        const saveBtn = document.getElementById('saveSettings')!;
+        const resetBtn = document.getElementById('resetSettings')!;
+
+        settingsBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            this.loadSettingsToModal();
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        saveBtn.addEventListener('click', () => this.saveSettingsFromModal());
+        resetBtn.addEventListener('click', () => this.resetSettings());
+
+        // Font size slider
+        const fontSizeSlider = document.getElementById('fontSizeSlider') as HTMLInputElement;
+        const fontSizeValue = document.getElementById('fontSizeValue')!;
+        
+        fontSizeSlider.addEventListener('input', () => {
+            fontSizeValue.textContent = `${fontSizeSlider.value}px`;
+        });
+    }
+
+    private loadSettingsToModal() {
+        const apiKeyInput = document.getElementById('apiKeyInput') as HTMLInputElement;
+        const fontSizeSlider = document.getElementById('fontSizeSlider') as HTMLInputElement;
+        const soundEffects = document.getElementById('soundEffects') as HTMLInputElement;
+        const autoSave = document.getElementById('autoSave') as HTMLInputElement;
+
+        apiKeyInput.value = this.settings.apiKey;
+        fontSizeSlider.value = this.settings.fontSize.toString();
+        soundEffects.checked = this.settings.soundEffects;
+        autoSave.checked = this.settings.autoSave;
+        
+        document.getElementById('fontSizeValue')!.textContent = `${this.settings.fontSize}px`;
+    }
+
+    private saveSettingsFromModal() {
+        const apiKeyInput = document.getElementById('apiKeyInput') as HTMLInputElement;
+        const fontSizeSlider = document.getElementById('fontSizeSlider') as HTMLInputElement;
+        const soundEffects = document.getElementById('soundEffects') as HTMLInputElement;
+        const autoSave = document.getElementById('autoSave') as HTMLInputElement;
+
+        this.settings.apiKey = apiKeyInput.value;
+        this.settings.fontSize = parseInt(fontSizeSlider.value);
+        this.settings.soundEffects = soundEffects.checked;
+        this.settings.autoSave = autoSave.checked;
+
+        this.saveSettings();
+        this.applySettings();
+        
+        // Try to initialize AI if API key was provided
+        if (this.settings.apiKey && !this.ai) {
+            this.tryInitializeAI();
+        }
+
+        document.getElementById('settingsModal')!.style.display = 'none';
+    }
+
+    private resetSettings() {
+        this.settings = {
+            apiKey: '',
+            fontSize: 16,
+            soundEffects: false,
+            autoSave: true,
+            theme: 'matrix'
+        };
+        this.saveSettings();
+        this.applySettings();
+        this.loadSettingsToModal();
+    }
+
+    private setupChatActions() {
+        const exportBtn = document.getElementById('exportChat')!;
+        const clearBtn = document.getElementById('clearChat')!;
+        const searchBtn = document.getElementById('searchChat')!;
+
+        exportBtn.addEventListener('click', () => this.exportChat());
+        clearBtn.addEventListener('click', () => this.clearChat());
+        searchBtn.addEventListener('click', () => this.searchChat());
+    }
+
+    private startSessionTimer() {
+        this.sessionTimer = setInterval(() => {
+            const elapsed = Date.now() - this.sessionStartTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            this.sessionTimeEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+    }
+
+    private updateSendButtonState() {
+        const hasText = this.messageInput.value.trim().length > 0;
+        const isWaitingForAi = this.messageInput.disabled;
+        
+        if (this.isRecording || isWaitingForAi) {
+            this.sendButton.disabled = true;
+        } else {
+            this.sendButton.disabled = !hasText;
+        }
+    }
+
+    private setFormState(enabled: boolean) {
+        this.messageInput.disabled = !enabled;
+        this.recordButton.disabled = !enabled;
+        this.attachButton.disabled = !enabled;
+        this.updateSendButtonState();
+    }
+
+    private scrollToBottom() {
+        this.messageList.scrollTop = this.messageList.scrollHeight;
+    }
+
+    private addMessage(text: string, sender: 'user' | 'ai', isStreaming: boolean = false): HTMLElement {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', `${sender}-message`);
+
+        const messageP = document.createElement('p');
+        messageDiv.appendChild(messageP);
+
+        if (isStreaming) {
+            messageP.classList.add('thinking');
+            messageP.textContent = '...يفكر';
+        } else {
+            messageP.textContent = text;
+        }
+        
+        this.messageList.appendChild(messageDiv);
+        this.scrollToBottom();
+        
+        // Update message count
+        this.messageCount++;
+        this.messageCountEl.textContent = `${this.messageCount} رسالة`;
+        
+        // Save to history
+        if (!isStreaming) {
+            this.chatHistory.push({
+                role: sender,
+                content: text,
+                timestamp: Date.now()
+            });
+            
+            if (this.settings.autoSave) {
+                this.saveChatHistory();
+            }
+        }
+        
+        return messageDiv;
+    }
+
+    private switchPersona(personaId: string) {
+        if (!this.ai) {
+            this.showApiKeyModal();
+            return;
+        }
+
+        const instruction = this.systemInstructions[personaId];
+        if (!instruction) return;
+        
+        localStorage.setItem('nexusChatProPersona', personaId);
+
+        const personaOptions = document.querySelectorAll('.persona-option');
+        personaOptions.forEach(b => b.classList.remove('active'));
+        document.getElementById(personaId)?.classList.add('active');
+        
+        this.chat = this.ai.getGenerativeModel({
+            model: 'gemini-1.5-flash',
+            systemInstruction: instruction
+        }).startChat();
+
+        const btnText = document.getElementById(personaId)?.textContent || 'Gemini';
+        this.chatHeader.textContent = `محادثة مع خبير ${btnText}`;
+        this.messageList.textContent = ''; /* XSS protection: innerHTML replaced */
+        this.messageCount = 0;
+        this.messageCountEl.textContent = '0 رسالة';
+        this.chatHistory = [];
+        
+        this.addMessage(this.initialMessages[personaId], 'ai');
+        this.messageInput.focus();
+    }
+
+    private toggleRecording() {
+        if (!this.recognition) return;
+        
+        if (this.isRecording) {
+            this.recognition.stop();
+        } else {
+            this.messageInput.value = '';
+            this.recognition.start();
+        }
+    }
+
+    private handleAttachment() {
+        const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+        fileInput.click();
+        
+        fileInput.onchange = (e) => {
+            const files = (e.target as HTMLInputElement).files;
+            if (files && files.length > 0) {
+                // Handle file upload (placeholder for now)
+                this.addMessage(`تم رفع ${files.length} ملف(ات): ${Array.from(files).map(f => f.name).join(', ')}`, 'user');
+            }
+        };
+    }
+
+    private async handleSubmit(e: Event) {
+        e.preventDefault();
+
+        if (!this.chat) {
+            this.showApiKeyModal();
+            return;
+        }
+
+        if (this.isRecording) {
+            this.recognition.stop();
+        }
+
+        const userInput = this.messageInput.value.trim();
+        if (!userInput) return;
+
+        this.setFormState(false);
+        this.addMessage(userInput, 'user');
+        this.messageInput.value = '';
+        this.updateSendButtonState();
+
+        const aiMessageDiv = this.addMessage('', 'ai', true);
+        const p = aiMessageDiv.querySelector('p') as HTMLElement;
+        let responseText = '';
+
+        try {
+            const result = await this.chat.sendMessage(userInput);
+            const response = await result.response;
+            responseText = response.text();
+            
+            p.classList.remove('thinking');
+            p.textContent = responseText;
+            this.scrollToBottom();
+            
+            // Update chat history with final response
+            this.chatHistory[this.chatHistory.length - 1] = {
+                role: 'ai',
+                content: responseText,
+                timestamp: Date.now()
+            };
+            
+        } catch (error) {
+            console.error(error);
+            if (p) {
+                p.textContent = "عذراً، حدث خطأ ما. تأكد من صحة مفتاح API أو حاول مرة أخرى.";
+                p.style.color = 'var(--theme-secondary-accent)';
+            }
+        } finally {
+            this.setFormState(true);
+            this.messageInput.focus();
+        }
+    }
+
+    private exportChat() {
+        const chatData = {
+            timestamp: new Date().toISOString(),
+            messageCount: this.messageCount,
+            sessionDuration: Date.now() - this.sessionStartTime,
+            messages: this.chatHistory
+        };
+
+        const blob = new Blob([JSON.stringify(chatData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `nexus-chat-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    private clearChat() {
+        if (confirm('هل أنت متأكد من مسح المحادثة؟')) {
+            this.messageList.textContent = ''; /* XSS protection: innerHTML replaced */
+            this.messageCount = 0;
+            this.messageCountEl.textContent = '0 رسالة';
+            this.chatHistory = [];
+            
+            // Re-add initial message
+            const activePersona = document.querySelector('.persona-option.active');
+            if (activePersona) {
+                this.addMessage(this.initialMessages[activePersona.id], 'ai');
+            }
+        }
+    }
+
+    private searchChat() {
+        const query = prompt('ابحث في المحادثة:');
+        if (!query) return;
+        
+        const messages = this.messageList.querySelectorAll('.message');
+        let found = false;
+        
+        messages.forEach(msg => {
+            const text = msg.textContent?.toLowerCase() || '';
+            if (text.includes(query.toLowerCase())) {
+                msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                msg.style.backgroundColor = 'var(--theme-secondary-accent)';
+                setTimeout(() => {
+                    msg.style.backgroundColor = '';
+                }, 2000);
+                found = true;
+            }
+        });
+        
+        if (!found) {
+            alert('لم يتم العثور على نتائج');
+        }
+    }
+
+    private saveChatHistory() {
+        localStorage.setItem('nexusChatProHistory', JSON.stringify(this.chatHistory));
+    }
+
+    private loadChatHistory() {
+        const saved = localStorage.getItem('nexusChatProHistory');
+        if (saved) {
+            this.chatHistory = JSON.parse(saved);
+            // Optionally restore messages to UI
+        }
+    }
+}
+
+// Initialize the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new NexusChatPro();
+});

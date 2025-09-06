@@ -336,7 +336,7 @@ jobs:
     name: 🚀 Deploy to Staging
     runs-on: ubuntu-latest
     needs: build-and-test
-    if: github.ref == 'refs/heads/main'
+    if: github.ref === 'refs/heads/main'
     environment: staging
     steps:
       - uses: actions/checkout@v4
@@ -374,7 +374,7 @@ jobs:
     name: 🌟 Deploy to Production
     runs-on: ubuntu-latest
     needs: deploy-staging
-    if: github.ref == 'refs/heads/main'
+    if: github.ref === 'refs/heads/main'
     environment: production
     steps:
       - uses: actions/checkout@v4

@@ -13,7 +13,7 @@ const bulkActions: BulkAction[] = [
     requiresConfirmation: true,
     confirmationMessage: 'هل أنت متأكد من حذف العناصر المحددة؟ لا يمكن التراجع عن هذا الإجراء.',
     execute: async (ids) => {
-      console.log('Deleting items:', ids);
+      // Removed console.log
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
   },
@@ -23,7 +23,7 @@ const bulkActions: BulkAction[] = [
     icon: '📧',
     description: 'إرسال بريد إلكتروني للعناصر المحددة',
     execute: async (ids) => {
-      console.log('Sending email to:', ids);
+      // Removed console.log
       await new Promise(resolve => setTimeout(resolve, 1500));
     }
   },
@@ -33,7 +33,7 @@ const bulkActions: BulkAction[] = [
     icon: '🏷️',
     description: 'إضافة علامة للعناصر المحددة',
     execute: async (ids) => {
-      console.log('Adding tag to:', ids);
+      // Removed console.log
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
   },
@@ -43,7 +43,7 @@ const bulkActions: BulkAction[] = [
     icon: '📤',
     description: 'تصدير العناصر المحددة',
     execute: async (ids) => {
-      console.log('Exporting items:', ids);
+      // Removed console.log
       await new Promise(resolve => setTimeout(resolve, 2000));
     }
   }

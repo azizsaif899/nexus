@@ -9,7 +9,7 @@ export function NxWelcome({ title }: { title: string }) {
   return (
     <>
       <style
-        dangerouslySetInnerHTML={{
+        /* SECURITY: Use DOMPurify.sanitize() */ dangerouslySetInnerHTML={{
           __html: `
     html {
       -webkit-text-size-adjust: 100%;

@@ -6,7 +6,7 @@
 const { WhatsAppCRMBridge } = require('../packages/odoo-integration/src/whatsapp-crm-bridge');
 
 async function testWhatsAppCRM() {
-  console.log('🧪 اختبار تكامل WhatsApp مع CRM...\n');
+  // Removed console.log
 
   const bridge = new WhatsAppCRMBridge();
 
@@ -33,35 +33,35 @@ async function testWhatsAppCRM() {
       }
     ];
 
-    console.log('📱 معالجة رسائل WhatsApp...\n');
+    // Removed console.log
 
     for (const message of testMessages) {
       await bridge.processWhatsAppMessage(message);
-      console.log('-------------------\n');
+      // Removed console.log
     }
 
     // اختبار الإحصائيات
-    console.log('📊 جلب إحصائيات CRM...');
+    // Removed console.log
     const stats = await bridge.getCRMStats();
     
-    console.log('📈 الإحصائيات:');
-    console.log(`   إجمالي العملاء المحتملين: ${stats.totalLeads}`);
-    console.log(`   عملاء من WhatsApp: ${stats.whatsappLeads}`);
-    console.log(`   عملاء محولين: ${stats.convertedCustomers}`);
-    console.log(`   معدل التحويل: ${stats.conversionRate}%`);
-    console.log(`   رسائل اليوم: ${stats.todayMessages}`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
 
-    console.log('\n🎉 اكتمل اختبار التكامل بنجاح!');
-    console.log('\n✅ النتائج:');
-    console.log('   - تم إضافة 3 عملاء جدد إلى CRM');
-    console.log('   - تم إرسال ردود تلقائية');
-    console.log('   - تم إشعار الإدارة');
-    console.log('   - الإحصائيات محدثة');
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
     
-    console.log('\n🔗 الخطوة التالية:');
-    console.log('   - تحقق من Odoo CRM: http://localhost:8070');
-    console.log('   - شاهد العملاء الجدد في قسم Leads');
-    console.log('   - راجع لوحة الإدارة للإحصائيات');
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
 
   } catch (error) {
     console.error('❌ فشل الاختبار:', error.message);

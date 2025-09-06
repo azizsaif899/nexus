@@ -115,7 +115,7 @@ jobs:
   deploy-sidebar:
     name: 📱 Deploy Sidebar
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref === 'refs/heads/main'
     
     steps:
     - name: Checkout code
@@ -147,7 +147,7 @@ jobs:
   deploy-web:
     name: 🌐 Deploy Web App
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
+    if: github.event_name === 'release'
     
     steps:
     - name: Checkout code
@@ -280,7 +280,7 @@ echo "✅ Pre-commit checks passed."
 deploy-staging:
   name: 🧪 Deploy to Staging
   runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/develop'
+  if: github.ref === 'refs/heads/develop'
   
   environment:
     name: staging
@@ -295,7 +295,7 @@ deploy-staging:
 deploy-production:
   name: 🏭 Deploy to Production
   runs-on: ubuntu-latest
-  if: github.event_name == 'release'
+  if: github.event_name === 'release'
   
   environment:
     name: production

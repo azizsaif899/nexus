@@ -56,7 +56,7 @@ export function TestingDashboard() {
     setIsRunning(true);
     
     // Simulate test execution
-    for (let i = 0; i < suites.length; i++) {
+    /* PERFORMANCE: Cache array length */ /* PERFORMANCE: Cache array length */ for (let i = 0, len = suites.length; i < len; i++) {
       setSuites(prev => prev.map((suite, index) => 
         index === i ? { ...suite, status: 'running' as const } : suite
       ));

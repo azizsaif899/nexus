@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+/**
+ * cli.js
+ *
+ * واجهة تفاعلية لاختيار:
+ * 1. عرض الملخص
+ * 2. إصلاح مشاكل الجودة
+ * 3. إصلاح مشاكل الأمان
+ * 4. إصلاح مشاكل هيكلة NX
+ * 5. إصلاح مشاكل الأداء
+ * 6. خروج
+ *
+ * يعيد القوائم حتى تختار "خروج"
+ */
+
+const path    = require('path');
+const fs      = require('fs-extra');
+const execa   = require('execa');
+const inquirer= require('inquirer');
+const chalk   = require('chalk');
+
+const projectRoot = path.resolve(__dirname, '..');
+const reportsDir  = path.join(projectRoot, 'docs/6_fixing/reports/deepseek-plans');
+const summaryPath = path.join(reportsDir, 'summary.md');
+
+// خريطة الأوامر
+const tasks = {
+  'عرض الملخص': async () => {
+    if (!await fs.pathExists(summaryPath)) {
+      return // Removed console.log);
+    }
+    const content = await fs.readFile(summaryPath, 'utf8');
+    // Removed console.log + '\n');
+  },
+
+  'إصلاح مشاكل الجودة': () => runScript('fix-quality.js'),
+  'إصلاح مشاكل الأمان': () => runScript('fix-security.js'),
+  'إصلاح مشاكل هيكلة NX': () => runScript('fix-nx.js'),
+  'إصلاح مشاكل الأداء': () => runScript('fix-performance.js'),
+};
+
+// دالة لتشغيل سكربت الإصلاح المناسب
+async function runScript(scriptName) {
+  const scriptPath = path.join(projectRoot, 'docs/6_fixing/scripts/ديب سيك', scriptName);
+  if (!await fs.pathExists(scriptPath)) {
+    return // Removed console.log);
+  }
+  // Removed console.log);
+  try {
+    // يرُسل stdout/stderr إلى التيرمنال مباشرة
+    await execa('node', [scriptPath], { cwd: projectRoot, stdio: 'inherit' });
+    // Removed console.log);
+  } catch (err) {
+    // Removed console.log);
+  }
+}
+
+async function mainMenu() {
+  while (true) {
+    const { choice } = await inquirer.prompt([
+      {
+        name: 'choice',
+        type: 'list',
+        message: 'اختر الإجراء الذي تريده:',
+        choices: [
+          'عرض الملخص',
+          'إصلاح مشاكل الجودة',
+          'إصلاح مشاكل الأمان',
+          'إصلاح مشاكل هيكلة NX',
+          'إصلاح مشاكل الأداء',
+          new inquirer.Separator(),
+          'خروج',
+        ]
+      }
+    ]);
+
+    if (choice === 'خروج') {
+      // Removed console.log);
+      process.exit(0);
+    }
+
+    await tasks[choice]();
+  }
+}
+
+// بدء الواجهة
+mainMenu().catch(err => {
+  console.error(chalk.red('خطأ غير متوقع في CLI:'), err);
+  process.exit(1);
+});

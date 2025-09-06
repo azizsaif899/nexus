@@ -337,9 +337,9 @@ class TestReportGenerator {
       summary: this.calculateTotalMetrics()
     }, null, 2));
 
-    console.log(`📊 تم حفظ التقرير في:`);
-    console.log(`   HTML: ${htmlPath}`);
-    console.log(`   JSON: ${jsonPath}`);
+    // Removed console.log
+    // Removed console.log
+    // Removed console.log
   }
 }
 

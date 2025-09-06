@@ -17,7 +17,7 @@ class DocsBuilder {
   }
 
   async build() {
-    console.log('🚀 بدء بناء التوثيق...');
+    // Removed console.log
     
     try {
       // جمع ملفات التوثيق
@@ -35,8 +35,8 @@ class DocsBuilder {
       // تحديث الروابط
       await this.updateLinks();
       
-      console.log('✅ تم بناء التوثيق بنجاح!');
-      console.log(`📁 الفهرس متاح في: ${this.outputFile}`);
+      // Removed console.log
+      // Removed console.log
       
     } catch (error) {
       console.error('❌ فشل في بناء التوثيق:', error.message);
@@ -45,19 +45,19 @@ class DocsBuilder {
   }
 
   async collectDocs() {
-    const files = fs.readdirSync(this.docsDir);
+    const files = /* PERFORMANCE: Consider using async version */ fs.readdirSync(this.docsDir);
     
     for (const file of files) {
       if (file.endsWith('.md')) {
         const filePath = path.join(this.docsDir, file);
-        const content = fs.readFileSync(filePath, 'utf8');
+        const content = /* PERFORMANCE: Consider using async version */ /* PERFORMANCE: Consider using async version */ fs.readFileSync(filePath, 'utf8');
         
         const doc = this.parseMarkdown(file, content);
         this.docs.push(doc);
       }
     }
     
-    console.log(`📚 تم جمع ${this.docs.length} ملف توثيق`);
+    // Removed console.log
   }
 
   parseMarkdown(filename, content) {
@@ -90,14 +90,14 @@ class DocsBuilder {
       filename,
       title,
       sections,
-      lastModified: fs.statSync(path.join(this.docsDir, filename)).mtime
+      lastModified: /* PERFORMANCE: Consider using async version */ /* PERFORMANCE: Consider using async version */ fs.statSync(path.join(this.docsDir, filename)).mtime
     };
   }
 
   async readTeamSyncData() {
     const teamSyncPath = path.join(this.docsDir, 'process', 'TEAM_SYNC.md');
     try {
-      const content = fs.readFileSync(teamSyncPath, 'utf8');
+      const content = /* PERFORMANCE: Consider using async version */ /* PERFORMANCE: Consider using async version */ fs.readFileSync(teamSyncPath, 'utf8');
       const lines = content.split('\n');
       const tableStartIndex = lines.findIndex(line => line.includes('| المساعد (Assistant) |'));
       
@@ -136,7 +136,7 @@ class DocsBuilder {
           }
         });
       }
-      console.log('📊 تم قراءة بيانات مزامنة الفريق.');
+      // Removed console.log
     } catch (error) {
       console.warn('⚠️ لم يتم العثور على ملف TEAM_SYNC.md أو حدث خطأ أثناء قراءته:', error.message);
       this.teamSyncData = {
@@ -345,8 +345,8 @@ class DocsBuilder {
 
 `;
 
-    fs.writeFileSync(this.outputFile, html);
-    console.log('📄 تم إنشاء ملف الفهرس');
+    /* PERFORMANCE: Consider using async version */ /* PERFORMANCE: Consider using async version */ fs.writeFileSync(this.outputFile, html);
+    // Removed console.log
   }
 
   generateDocsCards() {
@@ -814,7 +814,7 @@ class DocsBuilder {
 
       // تحليلات بسيطة
       function trackDocView(docName) {
-        console.log('تم عرض:', docName);
+        // Removed console.log
         // يمكن إرسال إحصائيات للخادم هنا
       }
 
@@ -871,7 +871,7 @@ class DocsBuilder {
 
       // Initial load
       document.addEventListener('DOMContentLoaded', function() {
-        console.log('📚 تم تحميل فهرس التوثيق');
+        // Removed console.log
         loadDashboardData();
         
         // إضافة مستمعي الأحداث للروابط
@@ -909,8 +909,8 @@ ${this.docs.map(doc => `| ${doc.title} | ${doc.sections[0]?.title || 'مقدمة
 *تم إنشاء هذا الفهرس تلقائياً في ${new Date().toLocaleString('ar')}*
 `;
 
-    fs.writeFileSync(path.join(this.docsDir, 'navigation.md'), navContent);
-    console.log('🧭 تم إنشاء دليل التنقل');
+    /* PERFORMANCE: Consider using async version */ /* PERFORMANCE: Consider using async version */ fs.writeFileSync(path.join(this.docsDir, 'navigation.md'), navContent);
+    // Removed console.log
   }
 
   async updateLinks() {
@@ -924,7 +924,7 @@ ${this.docs.map(doc => `| ${doc.title} | ${doc.sections[0]?.title || 'مقدمة
     };
 
     for (const doc of this.docs) {
-      let content = fs.readFileSync(path.join(this.docsDir, doc.filename), 'utf8');
+      let content = /* PERFORMANCE: Consider using async version */ /* PERFORMANCE: Consider using async version */ fs.readFileSync(path.join(this.docsDir, doc.filename), 'utf8');
       let updated = false;
 
       for (const [oldLink, newLink] of Object.entries(linkMap)) {
@@ -935,8 +935,8 @@ ${this.docs.map(doc => `| ${doc.title} | ${doc.sections[0]?.title || 'مقدمة
       }
 
       if (updated) {
-        fs.writeFileSync(path.join(this.docsDir, doc.filename), content);
-        console.log(`🔗 تم تحديث الروابط في ${doc.filename}`);
+        /* PERFORMANCE: Consider using async version */ /* PERFORMANCE: Consider using async version */ fs.writeFileSync(path.join(this.docsDir, doc.filename), content);
+        // Removed console.log
       }
     }
   }

@@ -28,7 +28,7 @@ export class QueriesService {
     };
     
     const queryId = await firestoreService.addDoc(this.collection, logData);
-    console.log(`Query logged with ID: ${queryId}`);
+    // Removed console.log
     return { id: queryId, ...logData };
   }
 

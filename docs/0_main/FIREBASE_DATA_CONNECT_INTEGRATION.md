@@ -97,7 +97,7 @@ const query = await geminiIntegration.generateSmartQuery(
 import { realtimeSubscriptions } from '@azizsys/data-connect-core';
 
 realtimeSubscriptions.subscribeToCustomerUpdates((customer) => {
-  console.log('عميل محدث:', customer.name);
+  // Removed console.log
 });
 ```
 

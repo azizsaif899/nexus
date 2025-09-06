@@ -22,7 +22,7 @@ export class TerraformState {
       const state = JSON.parse(stateContent);
       
       const resources = state?.resources ?? [];
-      console.log(`Loaded ${resources.length} resources from Terraform state`);
+      // Removed console.log
       
       return resources;
     } catch (error) {
@@ -75,7 +75,7 @@ export class TerraformState {
       }
     ];
 
-    console.log(`Using ${mockResources.length} mock Terraform resources`);
+    // Removed console.log
     return mockResources;
   }
 
@@ -87,7 +87,7 @@ export class TerraformState {
     const resources = this.loadResources();
     const types = [...new Set(resources.map(r => r.type))];
     
-    console.log(`Found resource types: ${types.join(', ')}`);
+    // Removed console.log}`);
     return types;
   }
 
@@ -99,7 +99,7 @@ export class TerraformState {
     const resources = this.loadResources();
     const filtered = resources.filter(r => r.type === type);
     
-    console.log(`Found ${filtered.length} resources of type: ${type}`);
+    // Removed console.log
     return filtered;
   }
 
@@ -111,7 +111,7 @@ export class TerraformState {
     const resources = this.loadResources();
     const exists = resources.some(r => r.type === type && r.name === name);
     
-    console.log(`Resource ${type}.${name} exists: ${exists}`);
+    // Removed console.log
     return exists;
   }
 

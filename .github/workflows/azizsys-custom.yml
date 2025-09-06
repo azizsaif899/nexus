@@ -38,7 +38,7 @@ jobs:
         npm ci
     
     - name: 🧪 Run Tests
-      if: ${{ github.event.inputs.run_tests == 'true' }}
+      if: ${{ github.event.inputs.run_tests === 'true' }}
       run: |
         echo "🧪 Running tests..."
         npm test || echo "Tests completed"

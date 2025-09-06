@@ -26,9 +26,9 @@ echo.
 node -e "
 try {
   require('./src/orchestrator.ts');
-  console.log('✅ النظام جاهز للعمل');
+  // Removed console.log
 } catch (error) {
-  console.log('❌ خطأ في النظام:', error.message);
+  // Removed console.log
 }
 "
 

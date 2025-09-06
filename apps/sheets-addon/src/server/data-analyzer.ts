@@ -53,9 +53,9 @@ export class DataAnalyzer {
     if (data.length === 0) return [];
     
     const numericCols: number[] = [];
-    for (let col = 0; col < data[0].length; col++) {
+    /* PERFORMANCE: Cache array length */ /* PERFORMANCE: Cache array length */ for (let col = 0, len = data[0].length; col < len; col++) {
       let numericCount = 0;
-      for (let row = 1; row < Math.min(data.length, 10); row++) {
+      /* PERFORMANCE: Cache array length */ for (let row = 1; row < Math.min(data.length, 10); row++) {
         if (typeof data[row][col] === 'number' || !isNaN(Number(data[row][col]))) {
           numericCount++;
         }
@@ -71,7 +71,7 @@ export class DataAnalyzer {
   }
 
   private countEmptyRows(data: any[][]): number {
-    return data.filter(row => row.every(cell => cell === '' || cell == null)).length;
+    return data.filter(row => row.every(cell => cell === '' || cell === null)).length;
   }
 
   private analyzeDataTypes(data: any[][]): Record<string, number> {
@@ -79,7 +79,7 @@ export class DataAnalyzer {
     
     data.forEach(row => {
       row.forEach(cell => {
-        if (cell === '' || cell == null) types.empty++;
+        if (cell === '' || cell === null) types.empty++;
         else if (typeof cell === 'number') types.number++;
         else if (typeof cell === 'boolean') types.boolean++;
         else if (cell instanceof Date) types.date++;

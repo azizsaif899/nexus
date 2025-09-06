@@ -7,7 +7,7 @@
 // Auto-start trigger
 cron.schedule('0 8 * * *', async () => {
   const today = getCurrentDay();
-  console.log(`🚀 بدء اليوم ${today} تلقائياً`);
+  // Removed console.log
   
   await amazonQ.executeDailyPlan(today);
 });
@@ -27,7 +27,7 @@ cron.schedule('0 * * * *', async () => {
 ```javascript
 cron.schedule('0 18 * * *', async () => {
   const today = getCurrentDay();
-  console.log(`🧠 بدء مراجعة اليوم ${today}`);
+  // Removed console.log
   
   await geminiAI.reviewDailyWork(today);
   await geminiAI.generateReport(today);
