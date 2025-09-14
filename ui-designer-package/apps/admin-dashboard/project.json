@@ -1,5 +1,5 @@
 {
-  "name": "admin-dashboard",
+  "name": "admin-dashboard-designer",
   "sourceRoot": "apps/admin-dashboard/src",
   "projectType": "application",
   "targets": {
@@ -7,7 +7,8 @@
       "executor": "@nx/vite:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/admin-dashboard"
+        "outputPath": "dist/apps/admin-dashboard-designer",
+        "configFile": "ui-designer-package/apps/admin-dashboard/vite.config.ts"
       }
     },
     "serve": {

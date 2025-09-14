@@ -10,12 +10,17 @@ import re
 import json
 import time
 import hashlib
-import requests
 import subprocess
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Tuple
 import logging
+
+try:
+    import requests
+except ImportError:
+    print("تحذير: مكتبة requests غير متوفرة. سيتم تعطيل ميزات DeepSeek المحلي.")
+    requests = None
 
 class LocalDeepSeekIntegration:
     def __init__(self, deepseek_path: str = None):
@@ -23,6 +28,8 @@ class LocalDeepSeekIntegration:
         self.api_url = "http://localhost:5000/api/v1/analyze"
         
     def is_server_running(self):
+        if requests is None:
+            return False
         try:
             response = requests.get("http://localhost:5000/health", timeout=2)
             return response.status_code == 200
@@ -30,6 +37,8 @@ class LocalDeepSeekIntegration:
             return False
     
     def analyze_code(self, code: str, language: str = "python") -> Dict[str, Any]:
+        if requests is None:
+            return None
         try:
             payload = {"code": code, "language": language, "analysis_type": "security_and_quality"}
             response = requests.post(self.api_url, json=payload, timeout=30)
@@ -39,6 +48,8 @@ class LocalDeepSeekIntegration:
             return None
     
     def get_code_suggestions(self, code: str, issue_type: str) -> str:
+        if requests is None:
+            return ""
         prompt = f"قم بإصلاح مشكلة {issue_type} في الكود التالي:\n{code}\n\nقدم الكود المصحح مع شرح موجز بالعربية."
         payload = {"prompt": prompt, "max_tokens": 500, "temperature": 0.1}
         try:

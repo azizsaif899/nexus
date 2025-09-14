@@ -37,11 +37,16 @@ export interface Scenario {
   id: string;
   name: string;
   variables: ScenarioVariable[];
+  impact?: 'low' | 'medium' | 'high' | 'critical';
+  probability?: number;
 }
 
 export interface ScenarioVariable {
   name: string;
   value: any;
+  suggestedRange?: [number, number];
+  currentValue?: number;
+  impact?: number;
 }
 
 export interface ScenarioOutcome {

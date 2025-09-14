@@ -73,7 +73,7 @@ class SimpleTestAnalyzer:
         if directory is None:
             directory = self.project_root
             
-        print(f"🔍 يفحص: {directory}")
+        print(f"يفحص: {directory}")
         
         all_issues = []
         scanned_files = 0
@@ -91,7 +91,7 @@ class SimpleTestAnalyzer:
                     scanned_files += 1
                     
                     if scanned_files % 5 == 0:
-                        print(f"📁 تم فحص {scanned_files} ملف...")
+                        print(f"تم فحص {scanned_files} ملف...")
         
         return {
             'scanned_files': scanned_files,
@@ -101,7 +101,7 @@ class SimpleTestAnalyzer:
 
     def run_scan(self):
         """تشغيل الفحص"""
-        print("🚀 بدء الفحص البسيط...")
+        print("بدء الفحص البسيط...")
         report = self.scan_directory()
         
         # حفظ النتائج
@@ -111,8 +111,8 @@ class SimpleTestAnalyzer:
         with open(report_file, 'w', encoding='utf-8') as f:
             json.dump(report, f, ensure_ascii=False, indent=2)
         
-        print(f"✅ تم الفحص! الملفات: {report['scanned_files']}, المشاكل: {report['total_issues']}")
-        print(f"📊 التقرير: {report_file}")
+        print(f"تم الفحص! الملفات: {report['scanned_files']}, المشاكل: {report['total_issues']}")
+        print(f"التقرير: {report_file}")
         
         return report_file
 

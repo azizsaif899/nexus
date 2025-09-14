@@ -3,6 +3,23 @@
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/integrations/october-implementation/src/frontend/src",
   "projectType": "application",
-  "targets": {},
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/integrations/october-implementation/src/frontend",
+        "configFile": "packages/integrations/october-implementation/src/frontend/vite.config.ts",
+        "main": "packages/integrations/october-implementation/src/frontend/index.html"
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "october-frontend:build",
+        "port": 4400
+      }
+    }
+  },
   "tags": []
 }
