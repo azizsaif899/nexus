@@ -1,0 +1,81 @@
+name: 📋 مهمة جديدة
+description: إنشاء مهمة تطوير جديدة
+title: "[TASK] "
+labels: ["task", "pending"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: عنوان المهمة
+      description: وصف مختصر للمهمة
+      placeholder: مثال: تطوير واجهة المستخدم الجديدة
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: الأولوية
+      description: ما هي أولوية هذه المهمة؟
+      options:
+        - منخفضة
+        - متوسطة
+        - عالية
+        - حرجة
+      default: 1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: assignee
+    attributes:
+      label: المسؤول
+      description: من سيقوم بتنفيذ هذه المهمة؟
+      options:
+        - Amazon AI
+        - Gemini AI
+        - غير محدد
+      default: 2
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: وصف المهمة
+      description: وصف تفصيلي للمهمة والمتطلبات
+      placeholder: اشرح ما يجب القيام به...
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: معايير القبول
+      description: ما هي الشروط التي يجب تحقيقها لاعتبار المهمة مكتملة؟
+      placeholder: |
+        - [ ] المعيار الأول
+        - [ ] المعيار الثاني
+        - [ ] المعيار الثالث
+    validations:
+      required: true
+
+  - type: input
+    id: files_to_modify
+    attributes:
+      label: الملفات المطلوب تعديلها
+      description: قائمة بالملفات التي ستحتاج للتعديل (مفصولة بفواصل)
+      placeholder: src/components/Header.tsx, docs/api.md
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: مصدر المهمة
+      description: من أين جاءت هذه المهمة؟
+      options:
+        - MONTHLY_PLAN.md
+        - DAILY_BOOT.md
+        - User Request
+        - Bug Report
+        - Enhancement
+      default: 0

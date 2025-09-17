@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "default": "gen-lang-client-0147492600"
+  },
+  "targets": {
+    "gen-lang-client-0147492600": {
+      "hosting": {
+        "web-chatbot": [
+          "g-assistant-web-chatbot"
+        ],
+        "admin-dashboard": [
+          "g-assistant-admin-dashboard"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

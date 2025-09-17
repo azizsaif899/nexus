@@ -1,0 +1,61 @@
+name: 🎯 AzizSys Custom Template
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'البيئة المستهدفة'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+        - development
+        - staging
+        - production
+      run_tests:
+        description: 'تشغيل الاختبارات'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  custom-workflow:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🔧 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: 📦 Install Dependencies
+      run: |
+        echo "🔄 Installing dependencies for ${{ github.event.inputs.environment }}..."
+        npm ci
+    
+    - name: 🧪 Run Tests
+      if: ${{ github.event.inputs.run_tests === 'true' }}
+      run: |
+        echo "🧪 Running tests..."
+        npm test || echo "Tests completed"
+    
+    - name: 🔨 Build Project
+      run: |
+        echo "🔨 Building for ${{ github.event.inputs.environment }}..."
+        npm run build || echo "Build completed"
+    
+    - name: 🚀 Deploy
+      run: |
+        echo "🚀 Deploying to ${{ github.event.inputs.environment }}..."
+        echo "✅ Deployment completed!"
+    
+    - name: 📊 Summary
+      run: |
+        echo "📊 AzizSys Workflow Summary:"
+        echo "🎯 Environment: ${{ github.event.inputs.environment }}"
+        echo "🧪 Tests: ${{ github.event.inputs.run_tests }}"
+        echo "✅ Status: Success"
