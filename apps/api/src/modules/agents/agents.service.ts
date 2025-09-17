@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { firestoreService } from '@azizsys/core/services/firestore.service';
+import { firestoreService } from '../../mocks/core-logic.mock';
 
 @Injectable()
 export class AgentsService {

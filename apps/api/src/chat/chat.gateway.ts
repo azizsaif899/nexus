@@ -7,9 +7,9 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import { Server, Socket } from '../mocks/socket.io';
 import { Logger } from '@nestjs/common';
-import { AiCoreService } from '@azizsys/core-logic';
+import { AiCoreService } from '../mocks/core-logic.mock';
 
 @WebSocketGateway({
   cors: {

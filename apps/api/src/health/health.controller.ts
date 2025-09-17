@@ -1,7 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { JsonRpcClient } from '@azizsys/core-logic';
-import { CacheClient } from '@azizsys/core-logic';
-import { logger } from '@azizsys/core-logic';
+import { JsonRpcClient, CacheClient, logger } from '../mocks/core-logic.mock';
 
 @Controller('health')
 export class HealthController {

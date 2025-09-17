@@ -5,12 +5,23 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Environment variables
+# Environment variables (SECURITY: Never commit these!)
 .env
+.env.*
+!.env.example
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Security files
+service-account*.json
+*.key
+*.pem
+*.p12
+secrets/
+config/security/*.json
+!config/security/*.json.example
 
 # Build outputs
 dist/
@@ -67,3 +78,22 @@ temp/
 # Backup files
 *.backup.*
 *.bak
+
+# Development artifacts
+.nx/workspace-data/
+.nx/cache/
+test-reports/
+
+# Platform specific
+# Windows
+*.lnk
+ehthumbs.db
+desktop.ini
+
+# macOS
+.AppleDouble
+.LSOverride
+Icon
+
+# Linux
+*~
