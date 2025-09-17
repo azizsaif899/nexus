@@ -1,0 +1,572 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `ChatSession` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  chatSession_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ChatSession_Data!
+  ): ChatSession_KeyOutput! @fdc_generated(from: "ChatSession", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `KnowledgeEntry` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  knowledgeEntry_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: KnowledgeEntry_Data!
+  ): KnowledgeEntry_KeyOutput! @fdc_generated(from: "KnowledgeEntry", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Message` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  message_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Message_Data!
+  ): Message_KeyOutput! @fdc_generated(from: "Message", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Task` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  task_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Task_Data!
+  ): Task_KeyOutput! @fdc_generated(from: "Task", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `ChatSession` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  chatSession_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ChatSession_Data!]!
+  ): [ChatSession_KeyOutput!]! @fdc_generated(from: "ChatSession", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `KnowledgeEntry` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  knowledgeEntry_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [KnowledgeEntry_Data!]!
+  ): [KnowledgeEntry_KeyOutput!]! @fdc_generated(from: "KnowledgeEntry", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Message` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  message_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Message_Data!]!
+  ): [Message_KeyOutput!]! @fdc_generated(from: "Message", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Task` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  task_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Task_Data!]!
+  ): [Task_KeyOutput!]! @fdc_generated(from: "Task", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `ChatSession` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ChatSession`.
+  """
+  chatSession_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ChatSession_Data!
+  ): ChatSession_KeyOutput! @fdc_generated(from: "ChatSession", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `KnowledgeEntry` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `KnowledgeEntry`.
+  """
+  knowledgeEntry_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: KnowledgeEntry_Data!
+  ): KnowledgeEntry_KeyOutput! @fdc_generated(from: "KnowledgeEntry", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Message` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Message`.
+  """
+  message_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Message_Data!
+  ): Message_KeyOutput! @fdc_generated(from: "Message", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Task` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Task`.
+  """
+  task_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Task_Data!
+  ): Task_KeyOutput! @fdc_generated(from: "Task", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `ChatSession` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ChatSession`.
+  """
+  chatSession_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ChatSession_Data!]!
+  ): [ChatSession_KeyOutput!]! @fdc_generated(from: "ChatSession", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `KnowledgeEntry` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `KnowledgeEntry`.
+  """
+  knowledgeEntry_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [KnowledgeEntry_Data!]!
+  ): [KnowledgeEntry_KeyOutput!]! @fdc_generated(from: "KnowledgeEntry", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Message` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Message`.
+  """
+  message_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Message_Data!]!
+  ): [Message_KeyOutput!]! @fdc_generated(from: "Message", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Task` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Task`.
+  """
+  task_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Task_Data!]!
+  ): [Task_KeyOutput!]! @fdc_generated(from: "Task", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `ChatSession` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ChatSession` or `null` if not found.
+  """
+  chatSession_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ChatSession_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ChatSession_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ChatSession_Data!
+  ): ChatSession_KeyOutput @fdc_generated(from: "ChatSession", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `KnowledgeEntry` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `KnowledgeEntry` or `null` if not found.
+  """
+  knowledgeEntry_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: KnowledgeEntry_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: KnowledgeEntry_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: KnowledgeEntry_Data!
+  ): KnowledgeEntry_KeyOutput @fdc_generated(from: "KnowledgeEntry", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Message` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Message` or `null` if not found.
+  """
+  message_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Message_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Message_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Message_Data!
+  ): Message_KeyOutput @fdc_generated(from: "Message", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Task` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Task` or `null` if not found.
+  """
+  task_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Task_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Task_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Task_Data!
+  ): Task_KeyOutput @fdc_generated(from: "Task", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: String
+
+    """
+    ✨ `_expr` server value variant of `id` (The unique ID of the object.)
+    """
+    id_expr: String_Expr
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `ChatSession` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  chatSession_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ChatSession_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ChatSession_Data!
+  ): Int! @fdc_generated(from: "ChatSession", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `KnowledgeEntry` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  knowledgeEntry_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: KnowledgeEntry_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: KnowledgeEntry_Data!
+  ): Int! @fdc_generated(from: "KnowledgeEntry", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Message` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  message_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Message_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Message_Data!
+  ): Int! @fdc_generated(from: "Message", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Task` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  task_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Task_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Task_Data!
+  ): Int! @fdc_generated(from: "Task", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `ChatSession` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  chatSession_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ChatSession_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ChatSession_FirstRow
+  ): ChatSession_KeyOutput @fdc_generated(from: "ChatSession", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `KnowledgeEntry` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  knowledgeEntry_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: KnowledgeEntry_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: KnowledgeEntry_FirstRow
+  ): KnowledgeEntry_KeyOutput @fdc_generated(from: "KnowledgeEntry", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Message` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  message_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Message_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Message_FirstRow
+  ): Message_KeyOutput @fdc_generated(from: "Message", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Task` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  task_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Task_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Task_FirstRow
+  ): Task_KeyOutput @fdc_generated(from: "Task", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: String
+
+    """
+    ✨ `_expr` server value variant of `id` (The unique ID of the object.)
+    """
+    id_expr: String_Expr
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `ChatSession` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  chatSession_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ChatSession_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `KnowledgeEntry` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  knowledgeEntry_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: KnowledgeEntry_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Message` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  message_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Message_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Message", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Task` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  task_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Task_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Task", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+}

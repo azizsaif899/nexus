@@ -1,0 +1,6 @@
+{
+  "name": "@g-assistant/compliance-core",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "description": "Enterprise compliance services for GDPR, SOX, PCI-DSS"
+}

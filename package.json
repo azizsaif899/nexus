@@ -1,7 +1,6 @@
 {
-  "name": "nexus",
-  "version": "1.0.0",
-  "description": "Nexus AI Assistant - Development Version",
+  "name": "g-assistant-nx",
+  "version": "2.4.0",
   "license": "MIT",
   "scripts": {
     "build": "nx run-many -t build",
@@ -22,14 +21,8 @@
     "auto-fix:health": "cd packages/tooling/auto-fix-system && npm run health",
     "system:health": "node docs/6_fixing/scripts/test-system.bat",
     "unified:launcher": "docs/6_fixing/core/UNIFIED_LAUNCHER.bat",
-    "firebase:emulators": "firebase emulators:start",
+    "firebase:emulators": "firebase emulators:start --only dataconnect",
     "firebase:deploy": "firebase deploy",
-    "firebase:studio": "firebase dataconnect:sql:shell",
-    "build:all": "nx run-many --target=build --all",
-    "deploy:web": "nx build web-chatbot && firebase deploy --only hosting:web-chatbot",
-    "deploy:admin": "nx build admin-dashboard && firebase deploy --only hosting:admin-dashboard",
-    "deploy:api": "nx build api && firebase deploy --only functions",
-    "deploy:all": "npm run build:all && firebase deploy",
     "firebase:test": "firebase emulators:exec --only dataconnect \"npm test\"",
     "dataconnect:generate": "firebase dataconnect:sdk:generate --language=javascript",
     "dataconnect:migrate": "firebase dataconnect:sql:migrate",
@@ -47,12 +40,7 @@
     "security:audit": "npm audit && pnpm dlx @snyk/cli test",
     "security:check": "node -e \"console.log('🔒 Security check: OK')\"",
     "env:check": "node -e \"if(!require('fs').existsSync('.env')){console.error('❌ .env file missing! Copy from .env.example');process.exit(1)}else{console.log('✅ .env file found')}\"",
-    "setup:dev": "npm run env:check && pnpm install && npm run test:quick",
-    "idx:setup": "bash scripts/setup-idx.sh",
-    "idx:dev": "firebase emulators:start --only dataconnect & npm run dev",
-    "sync:auto": "bash scripts/auto-sync.sh",
-    "sync:pull": "git pull origin main",
-    "sync:push": "git add . && git commit -m 'Quick sync' && git push origin main"
+    "setup:dev": "npm run env:check && pnpm install && npm run test:quick"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
@@ -81,8 +69,6 @@
     "class-validator": "^0.14.1",
     "cors": "^2.8.5",
     "firebase": "^11.3.0",
-    "react-router-dom": "^6.28.0",
-    "lucide-react": "^0.460.0",
     "framer-motion": "^11.11.17",
     "multer": "^1.4.5-lts.1",
     "passport-jwt": "^4.0.1",

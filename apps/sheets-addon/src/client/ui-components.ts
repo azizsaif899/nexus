@@ -1,0 +1,212 @@
+/**
+ * UI Components for Google Sheets Add-on
+ */
+
+export class UIComponents {
+  createMainInterface(): void {
+    const container = document.getElementById('app');
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="addon-container">
+        <header class="addon-header">
+          <h2>🤖 AzizSys AI Assistant</h2>
+          <p>مساعدك الذكي لتحليل البيانات</p>
+        </header>
+
+        <div class="query-section">
+          <label for="queryInput">اكتب استعلامك:</label>
+          <textarea id="queryInput" placeholder="مثال: حلل البيانات في العمود A" rows="3"></textarea>
+          <button id="submitButton" class="primary-btn">إرسال الاستعلام</button>
+        </div>
+
+        <div class="actions-section">
+          <h3>إجراءات سريعة:</h3>
+          <button id="analyzeButton" class="action-btn">📊 تحليل الورقة الحالية</button>
+          <button id="healthButton" class="action-btn">🔍 فحص حالة النظام</button>
+          <button id="helpButton" class="action-btn">❓ المساعدة</button>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+          جاري المعالجة...
+        </div>
+
+        <div id="result" class="result-container" style="display: none;">
+          <!-- Results will be displayed here -->
+        </div>
+      </div>
+    `;
+
+    this.addStyles();
+  }
+
+  private addStyles(): void {
+    const style = document.createElement('style');
+    style.textContent = `
+      .addon-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 16px;
+        max-width: 100%;
+        direction: rtl;
+      }
+
+      .addon-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #e0e0e0;
+      }
+
+      .addon-header h2 {
+        color: #1976d2;
+        margin: 0 0 8px 0;
+        font-size: 18px;
+      }
+
+      .addon-header p {
+        color: #666;
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .query-section {
+        margin-bottom: 20px;
+      }
+
+      .query-section label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      #queryInput {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        resize: vertical;
+        box-sizing: border-box;
+      }
+
+      .primary-btn {
+        background: #1976d2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      .primary-btn:hover {
+        background: #1565c0;
+      }
+
+      .primary-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+
+      .actions-section {
+        margin-bottom: 20px;
+      }
+
+      .actions-section h3 {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .action-btn {
+        display: block;
+        width: 100%;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: right;
+        font-size: 14px;
+      }
+
+      .action-btn:hover {
+        background: #e8e8e8;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 20px;
+        color: #1976d2;
+        font-weight: bold;
+      }
+
+      .result-container {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #f9f9f9;
+      }
+
+      .success-result {
+        color: #2e7d32;
+      }
+
+      .error-result {
+        color: #d32f2f;
+      }
+
+      .success-result h3,
+      .error-result h3 {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+      }
+
+      .response,
+      .error {
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+
+      .data {
+        background: #fff;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 12px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+      }
+    `;
+    
+    document.head.appendChild(style);
+  }
+
+  showNotification(message: string, type: 'success' | 'error' = 'success'): void {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px 15px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      z-index: 1000;
+      background: ${type === 'success' ? '#4caf50' : '#f44336'};
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+}

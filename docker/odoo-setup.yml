@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for Odoo
+  postgres:
+    image: postgres:15
+    container_name: azizsys_postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    command: >
+      postgres -c listen_addresses='*'
+               -c max_connections=200
+               -c shared_buffers=256MB
+
+  # Odoo Community Edition (Free)
+  odoo:
+    image: odoo:17.0
+    container_name: azizsys_odoo
+    depends_on:
+      - postgres
+    environment:
+      HOST: postgres
+      USER: odoo
+      PASSWORD: odoo123
+      POSTGRES_DB: postgres
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - odoo_config:/etc/odoo
+    ports:
+      - "8070:8069"
+    restart: unless-stopped
+    user: "0:0"
+    command: >
+      bash -c "chown -R odoo:odoo /var/lib/odoo &&
+               su odoo -c '/usr/bin/odoo --database=postgres --db_host=postgres --db_user=odoo --db_password=odoo123 --addons-path=/usr/lib/python3/dist-packages/odoo/addons'"
+
+volumes:
+  postgres_data:
+  odoo_data:
+  odoo_config:

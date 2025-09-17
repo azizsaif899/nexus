@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "test@azizsys.com",
+      "password": "hashed_password",
+      "role": "admin"
+    }
+  ],
+  "leads": [
+    {
+      "id": 1,
+      "name": "عميل اختبار",
+      "email": "lead@test.com",
+      "phone": "+966501234567",
+      "city": "الرياض",
+      "stage": "New"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": 1,
+      "name": "فرصة اختبار",
+      "value": 50000,
+      "stage": "Proposal",
+      "probability": 75
+    }
+  ]
+}

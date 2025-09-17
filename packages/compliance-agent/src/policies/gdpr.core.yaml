@@ -1,0 +1,44 @@
+policyName: "GDPR Core Requirements"
+description: "متطلبات اللائحة العامة لحماية البيانات الأوروبية"
+version: "1.0"
+lastUpdated: "2025-01-11"
+jurisdiction: "European Union"
+
+requirements:
+  lawful_basis:
+    description: "وجود أساس قانوني واضح لكل معالجة"
+    legal_basis: "Article 6 - Lawfulness of processing"
+    compliance_level: "mandatory"
+  
+  data_subject_rights:
+    description: "ضمان حقوق صاحب البيانات"
+    legal_basis: "Chapter III - Rights of the data subject"
+    compliance_level: "mandatory"
+
+controls:
+  - id: "GDPR-01"
+    title: "فحص الأساس القانوني"
+    description: "التحقق من توثيق الأساس القانوني لكل معالجة"
+    severity: "high"
+    check_logic:
+      type: "code_documentation_scan"
+      search_patterns:
+        - "@legal_basis"
+        - "lawful_basis:"
+        - "gdpr_basis:"
+    remediation_steps:
+      - "أضف تعليقات توضح الأساس القانوني"
+      - "راجع جميع نقاط معالجة البيانات"
+
+  - id: "GDPR-02"
+    title: "فحص حق النسيان"
+    description: "التحقق من إمكانية حذف بيانات المستخدم بالكامل"
+    severity: "high"
+    check_logic:
+      type: "data_deletion_test"
+      test_scenarios:
+        - "user_account_deletion"
+        - "gdpr_erasure_request"
+    remediation_steps:
+      - "طوّر آلية حذف شاملة"
+      - "راجع سياسات النسخ الاحتياطي"

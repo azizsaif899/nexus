@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AzizSys Advanced AI Assistant</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+    
+    .header {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    
+    .logo i { margin-right: 8px; color: #4CAF50; }
+    
+    .agent-selector select {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9em;
+    }
+    
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .message {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      word-wrap: break-word;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .message.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+    }
+    
+    .message.assistant {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .message.system {
+      align-self: center;
+      background: rgba(255, 193, 7, 0.2);
+      border: 1px solid rgba(255, 193, 7, 0.4);
+      font-size: 0.9em;
+      text-align: center;
+    }
+    
+    .input-area {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .input-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    
+    .input-container textarea {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 12px;
+      border-radius: 12px;
+      resize: none;
+      font-family: inherit;
+      font-size: 14px;
+    }
+    
+    .input-container textarea::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .send-btn {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      border: none;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .send-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    }
+    
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .quick-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85em;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+    
+    .status-bar {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 15px;
+      font-size: 0.8em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    
+    .status-online { background: #4CAF50; }
+    .status-hybrid { background: #FF9800; }
+    .status-offline { background: #f44336; }
+    
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      gap: 10px;
+    }
+    
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .advanced-controls {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      display: none;
+    }
+    
+    .advanced-controls.show { display: block; }
+    
+    .control-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    
+    .control-group label {
+      font-size: 0.85em;
+      min-width: 80px;
+    }
+    
+    .control-group select,
+    .control-group input {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="header">
+      <div class="logo">
+        <i class="fas fa-robot"></i>
+        AzizSys AI
+      </div>
+      <div class="agent-selector">
+        <select id="agentSelect">
+          <option value="auto">🤖 تلقائي</option>
+          <option value="CFO">💰 المحلل المالي</option>
+          <option value="Developer">👨‍💻 المطور</option>
+          <option value="DatabaseManager">🗄️ مدير البيانات</option>
+          <option value="Operations">⚙️ العمليات</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="chat-area">
+      <div id="chatMessages" class="chat-messages">
+        <div class="message system">
+          مرحباً! أنا مساعدك الذكي المتقدم. كيف يمكنني مساعدتك اليوم؟
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="advanced-controls" id="advancedControls">
+        <div class="control-group">
+          <label>النطاق:</label>
+          <input type="text" id="rangeInput" placeholder="A1:Z100" value="A1:Z100">
+          <label>النوع:</label>
+          <select id="modeSelect">
+            <option value="smart">ذكي</option>
+            <option value="iterative">تكراري</option>
+            <option value="analysis">تحليلي</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="input-container">
+        <textarea id="messageInput" placeholder="اكتب رسالتك هنا..." rows="2"></textarea>
+        <button id="sendButton" class="send-btn">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+      
+      <div class="quick-actions">
+        <button class="quick-btn" onclick="toggleAdvanced()">
+          <i class="fas fa-cog"></i> متقدم
+        </button>
+        <button class="quick-btn" onclick="quickAction('monthly-report')">
+          📊 تقرير شهري
+        </button>
+        <button class="quick-btn" onclick="quickAction('code-review')">
+          🔍 مراجعة كود
+        </button>
+        <button class="quick-btn" onclick="quickAction('data-analysis')">
+          📈 تحليل بيانات
+        </button>
+        <button class="quick-btn" onclick="quickAction('smart-search')">
+          🧠 بحث ذكي
+        </button>
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <div id="statusText">
+        <span class="status-indicator status-hybrid"></span>
+        نظام هجين متقدم - جاهز
+      </div>
+      <div id="connectionStatus">
+        <i class="fas fa-wifi"></i> متصل
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isProcessing = false;
+    let messageHistory = [];
+
+    function addMessage(content, type = 'user') {
+      const messagesContainer = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.innerHTML = content;
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      messageHistory.push({ content, type, timestamp: new Date() });
+    }
+
+    function showLoading() {
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'message system';
+      loadingDiv.id = 'loadingMessage';
+      loadingDiv.innerHTML = '<div class="loading"><div class="spinner"></div>جاري المعالجة...</div>';
+      document.getElementById('chatMessages').appendChild(loadingDiv);
+      document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+      isProcessing = true;
+    }
+
+    function hideLoading() {
+      const loadingMsg = document.getElementById('loadingMessage');
+      if (loadingMsg) loadingMsg.remove();
+      isProcessing = false;
+    }
+
+    async function sendMessage() {
+      if (isProcessing) return;
+      
+      const input = document.getElementById('messageInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      const agent = document.getElementById('agentSelect').value;
+      const mode = document.getElementById('modeSelect').value;
+      const range = document.getElementById('rangeInput').value;
+
+      addMessage(message, 'user');
+      input.value = '';
+      showLoading();
+
+      try {
+        const response = await google.script.run
+          .withSuccessHandler(handleResponse)
+          .withFailureHandler(handleError)
+          .processAdvancedQuery({
+            message,
+            agent,
+            mode,
+            range,
+            history: messageHistory.slice(-5)
+          });
+      } catch (error) {
+        handleError(error);
+      }
+    }
+
+    function handleResponse(response) {
+      hideLoading();
+      if (response && response.text) {
+        addMessage(response.text, 'assistant');
+        updateStatus(response.status || 'completed');
+      }
+    }
+
+    function handleError(error) {
+      hideLoading();
+      addMessage(`خطأ: ${error.message || 'حدث خطأ غير متوقع'}`, 'system');
+      updateStatus('error');
+    }
+
+    function updateStatus(status) {
+      const statusText = document.getElementById('statusText');
+      const indicator = statusText.querySelector('.status-indicator');
+      
+      switch (status) {
+        case 'completed':
+          indicator.className = 'status-indicator status-online';
+          statusText.innerHTML = '<span class="status-indicator status-online"></span>مكتمل';
+          break;
+        case 'processing':
+          indicator.className = 'status-indicator status-hybrid';
+          statusText.innerHTML = '<span class="status-indicator status-hybrid"></span>جاري المعالجة';
+          break;
+        case 'error':
+          indicator.className = 'status-indicator status-offline';
+          statusText.innerHTML = '<span class="status-indicator status-offline"></span>خطأ';
+          break;
+        default:
+          indicator.className = 'status-indicator status-hybrid';
+          statusText.innerHTML = '<span class="status-indicator status-hybrid"></span>جاهز';
+      }
+    }
+
+    function toggleAdvanced() {
+      const controls = document.getElementById('advancedControls');
+      controls.classList.toggle('show');
+    }
+
+    function quickAction(action) {
+      const input = document.getElementById('messageInput');
+      const templates = {
+        'monthly-report': 'أنشئ تقرير شهري شامل للبيانات الحالية مع التحليلات والتوصيات',
+        'code-review': 'راجع الكود الحالي وقدم اقتراحات للتحسين',
+        'data-analysis': 'حلل البيانات في النطاق المحدد وأعطني رؤى مفيدة',
+        'smart-search': 'ابحث بذكاء في البيانات عن الأنماط والاتجاهات المهمة'
+      };
+      
+      input.value = templates[action] || '';
+      input.focus();
+    }
+
+    // Event listeners
+    document.getElementById('sendButton').addEventListener('click', sendMessage);
+    document.getElementById('messageInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateStatus('ready');
+      document.getElementById('messageInput').focus();
+    });
+  </script>
+</body>
+</html>

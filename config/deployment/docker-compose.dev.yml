@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # PostgreSQL for Odoo
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: azizsys_crm
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: AzizSys2025!
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Odoo CRM
+  odoo:
+    image: odoo:17.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8070:8069"
+    environment:
+      - HOST=postgres
+      - USER=odoo
+      - PASSWORD=AzizSys2025!
+    volumes:
+      - odoo_data:/var/lib/odoo
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8069/web/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # API Server
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      - redis
+      - odoo
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - ODOO_URL=http://odoo:8069
+      - ODOO_DB=azizsys_crm
+      - ODOO_USER=admin
+      - ODOO_PASSWORD=AzizSys2025!
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ./apps/api:/app
+      - /app/node_modules
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  redis_data:
+  postgres_data:
+  odoo_data:

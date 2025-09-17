@@ -1,0 +1,27 @@
+{
+  "name": "@azizsys/g-assistant-agents",
+  "version": "1.0.0",
+  "description": "Smart Agents for G-Assistant with Firebase Data Connect",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@firebase/data-connect": "^0.1.0",
+    "graphql": "^16.8.1",
+    "googleapis": "^128.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0"
+  },
+  "keywords": [
+    "g-assistant",
+    "smart-agents",
+    "firebase",
+    "google-sheets"
+  ]
+}

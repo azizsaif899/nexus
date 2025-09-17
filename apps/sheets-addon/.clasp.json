@@ -1,0 +1,8 @@
+{
+  "scriptId": "your-google-apps-script-id",
+  "rootDir": "./dist",
+  "filePushOrder": [
+    "server.js",
+    "sidebar.html"
+  ]
+}

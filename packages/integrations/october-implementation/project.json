@@ -1,0 +1,40 @@
+{
+  "name": "october-implementation",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/october-implementation/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/october-implementation",
+        "main": "packages/october-implementation/src/index.ts",
+        "tsConfig": "packages/october-implementation/tsconfig.lib.json",
+        "assets": ["packages/october-implementation/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/october-implementation/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "coverageReporters": ["text"]
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/october-implementation/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:packages", "type:library", "feature:research", "feature:ai"]
+}

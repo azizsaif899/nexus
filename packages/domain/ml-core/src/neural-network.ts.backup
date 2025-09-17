@@ -1,0 +1,105 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class NeuralNetwork {
+  private layers: any[] = [];
+  private weights: number[][][] = [];
+
+  async createNetwork(architecture: number[]): Promise<void> {
+    // Create neural network with specified architecture
+    this.layers = architecture.map((neurons, index) => ({
+      neurons,
+      activation: index === architecture.length - 1 ? 'softmax' : 'relu'
+    }));
+    
+    this.initializeWeights();
+  }
+
+  async forward(input: number[]): Promise<number[]> {
+    let output = input;
+    
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < this.layers.length - 1; i++) {
+      output = this.layerForward(output, this.weights[i], this.layers[i + 1].activation);
+    }
+    
+    return output;
+  }
+
+  async train(trainingData: any[], epochs: number, learningRate: number): Promise<void> {
+    for (let epoch = 0; epoch < epochs; epoch++) {
+      let totalLoss = 0;
+      
+      for (const sample of trainingData) {
+        const prediction = await this.forward(sample.input);
+        const loss = this.calculateLoss(prediction, sample.target);
+        totalLoss += loss;
+        
+        // Backpropagation
+        await this.backward(sample.input, sample.target, learningRate);
+      }
+      
+      if (epoch % 100 === 0) {
+        // Removed console.log
+      }
+    }
+  }
+
+  private initializeWeights(): void {
+    // Initialize weights randomly
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < this.layers.length - 1; i++) {
+      const layerWeights = [];
+      for (let j = 0; j < this.layers[i].neurons; j++) {
+        const neuronWeights = [];
+        for (let k = 0; k < this.layers[i + 1].neurons; k++) {
+          neuronWeights.push(Math.random() * 2 - 1); // Random between -1 and 1
+        }
+        layerWeights.push(neuronWeights);
+      }
+      this.weights.push(layerWeights);
+    }
+  }
+
+  private layerForward(input: number[], weights: number[][], activation: string): number[] {
+    const output = new Array(weights[0].length).fill(0);
+    
+    // Matrix multiplication
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < output.length; i++) {
+      /* PERFORMANCE: Cache array length */ for (let j = 0; j < input.length; j++) {
+        output[i] += input[j] * weights[j][i];
+      }
+    }
+    
+    // Apply activation function
+    return this.applyActivation(output, activation);
+  }
+
+  private applyActivation(values: number[], activation: string): number[] {
+    switch (activation) {
+      case 'relu':
+        return values.map(v => Math.max(0, v));
+      case 'sigmoid':
+        return values.map(v => 1 / (1 + Math.exp(-v)));
+      case 'softmax':
+        const exp = values.map(v => Math.exp(v));
+        const sum = exp.reduce((a, b) => a + b, 0);
+        return exp.map(v => v / sum);
+      default:
+        return values;
+    }
+  }
+
+  private calculateLoss(prediction: number[], target: number[]): number {
+    // Mean squared error
+    let loss = 0;
+    /* PERFORMANCE: Cache array length */ for (let i = 0; i < prediction.length; i++) {
+      loss += Math.pow(prediction[i] - target[i], 2);
+    }
+    return loss / prediction.length;
+  }
+
+  private async backward(input: number[], target: number[], learningRate: number): Promise<void> {
+    // Simplified backpropagation
+    // In a real implementation, this would calculate gradients and update weights
+    // Removed console.log
+  }
+}

@@ -1,0 +1,44 @@
+policyName: "Saudi PDPL Requirements"
+description: "سياسات الامتثال لنظام حماية البيانات الشخصية السعودي"
+version: "1.0"
+lastUpdated: "2025-01-11"
+jurisdiction: "Saudi Arabia"
+
+requirements:
+  data_localization:
+    description: "توطين البيانات الشخصية للمقيمين في السعودية"
+    legal_basis: "المادة 25 - معالجة البيانات خارج المملكة"
+    compliance_level: "mandatory"
+  
+  explicit_consent:
+    description: "الحصول على موافقة صريحة قبل جمع البيانات"
+    legal_basis: "المادة 6 - شروط مشروعية المعالجة"
+    compliance_level: "mandatory"
+
+controls:
+  - id: "PDPL-01"
+    title: "فحص توطين البيانات"
+    description: "التحقق من تخزين البيانات الشخصية داخل المناطق المعتمدة"
+    severity: "high"
+    check_logic:
+      type: "data_location_audit"
+      approved_regions:
+        - "me-central1"
+        - "me-central2"
+    remediation_steps:
+      - "انقل البيانات إلى منطقة me-central1"
+      - "حدّث إعدادات التطبيق لاستخدام المنطقة المحلية"
+
+  - id: "PDPL-02"
+    title: "فحص سجلات الموافقة"
+    description: "التحقق من وجود سجلات موافقة صريحة للمستخدمين"
+    severity: "high"
+    check_logic:
+      type: "consent_audit"
+      required_fields:
+        - "user_id"
+        - "consent_timestamp"
+        - "consent_type"
+    remediation_steps:
+      - "أنشئ نظام تسجيل الموافقات"
+      - "أضف واجهة موافقة واضحة في التطبيق"

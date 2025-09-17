@@ -1,0 +1,55 @@
+type User @table {
+  displayName: String!
+  email: String!
+  createdAt: Timestamp!
+  photoUrl: String
+  phone: String
+}
+
+type Service @table {
+  name: String!
+  description: String!
+  department: String!
+  createdAt: Timestamp!
+  price: Float
+  isSubscription: Boolean
+}
+
+type SubscriptionType @table {
+  name: String!
+  price: Float!
+  durationInDays: Int!
+  createdAt: Timestamp!
+  description: String
+  featuresIncluded: [String]
+}
+
+type UserSubscription @table {
+  user: User!
+  subscriptionType: SubscriptionType!
+  startDate: Timestamp!
+  endDate: Timestamp!
+  status: String!
+  createdAt: Timestamp!
+}
+
+type Request @table {
+  user: User!
+  service: Service!
+  requestType: String!
+  status: String!
+  createdAt: Timestamp!
+  details: String
+  aiSuggestions: String
+  response: String
+}
+
+type AIInteraction @table {
+  user: User!
+  service: Service!
+  interactionType: String!
+  message: String!
+  createdAt: Timestamp!
+  aiResponse: String
+  relatedRequestId: UUID
+}

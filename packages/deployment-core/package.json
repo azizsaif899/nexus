@@ -1,0 +1,16 @@
+{
+  "name": "@azizsys/deployment-core",
+  "version": "1.0.0",
+  "description": "Advanced deployment and environment management system",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "typescript": "^5.0.0",
+    "dockerode": "^3.3.0",
+    "kubernetes-client": "^9.0.0"
+  }
+}

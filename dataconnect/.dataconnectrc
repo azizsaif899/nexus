@@ -1,0 +1,10 @@
+{
+  "dataConnectEmulatorConfig": {
+    "postgres": {
+      "localConnectionString": "postgresql://postgres:password@localhost:5432/fdcdb"
+    }
+  },
+  "generate": {
+    "connectorOutputDir": "../g-assistant-nx/dataconnect-generated"
+  }
+}

@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # API Server (NestJS)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: azizsys_api
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: nx serve api --host 0.0.0.0
+
+  # Admin Dashboard (React)
+  admin-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: azizsys_admin_dashboard
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: nx serve admin-dashboard --host 0.0.0.0
+    depends_on:
+      - api
+
+  # Web Chatbot (React + Vite)
+  web-chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: azizsys_web_chatbot
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: nx serve web-chatbot --host 0.0.0.0
+    depends_on:
+      - api

@@ -1,0 +1,8 @@
+{
+  "name": "web-chatbot-nexus",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/web-chatbot/nexus/src",
+  "projectType": "application",
+  "targets": {},
+  "tags": []
+}

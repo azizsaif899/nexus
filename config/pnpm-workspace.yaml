@@ -1,0 +1,25 @@
+packages:
+  - apps/*
+  - packages/*
+  - packages/core/*
+  - packages/domain/*
+  - packages/ui/*
+  - packages/features/*
+  - packages/integrations/*
+  - packages/tooling/*
+  - dataconnect-generated/*
+
+overrides:
+  esbuild@<=0.24.2: '>=0.25.0'
+  example-connector: link:C:/Users/dmm-dgn2/AppData/Local/pnpm/global/5/node_modules/dataconnect-generated/js/example-connector
+  form-data@<2.5.4: '>=2.5.4'
+  got@<11.8.5: '>=11.8.5'
+  jose@<2.0.7: '>=2.0.7'
+  jsonpath-plus@<10.2.0: '>=10.2.0'
+  jsonpath-plus@<10.3.0: '>=10.3.0'
+  koa@<2.16.1: '>=2.16.1'
+  koa@>=2.0.0 <2.15.4: '>=2.15.4'
+  koa@>=2.0.0 <2.16.2: '>=2.16.2'
+  tar-fs@>=2.0.0 <2.1.2: '>=2.1.2'
+  tar-fs@>=2.0.0 <2.1.3: '>=2.1.3'
+  tough-cookie@<4.1.3: '>=4.1.3'

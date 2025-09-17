@@ -1,0 +1,38 @@
+{
+  "lastUpdate": "2025-08-21T10:08:15.949Z",
+  "project": "g-assistant-nx",
+  "status": "ACTIVE",
+  "tasks": {
+    "pending": [],
+    "inProgress": [],
+    "completed": [
+      {
+        "id": "HEALTH_CHECK",
+        "title": "فحص صحة النظام",
+        "priority": "HIGH",
+        "assignedTo": "NxAutoFixer",
+        "createdAt": "2025-08-21T10:08:15.950Z",
+        "startedAt": "2025-08-21T10:08:15.951Z",
+        "completedAt": "2025-08-21T10:08:16.325Z",
+        "status": "SUCCESS"
+      },
+      {
+        "id": "MONITOR_APPS",
+        "title": "مراقبة التطبيقات",
+        "priority": "MEDIUM",
+        "assignedTo": "NxProjectMonitor",
+        "createdAt": "2025-08-21T10:08:15.950Z",
+        "startedAt": "2025-08-21T10:08:16.326Z",
+        "completedAt": "2025-08-21T10:08:17.235Z",
+        "status": "SUCCESS"
+      }
+    ],
+    "failed": []
+  },
+  "metrics": {
+    "totalTasks": 2,
+    "completionRate": 0,
+    "lastHealthCheck": null,
+    "systemHealth": "UNKNOWN"
+  }
+}

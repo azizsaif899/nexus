@@ -1,0 +1,18 @@
+extend type ChatSession {
+  """
+  ✨ Implicit foreign key field based on `ChatSession`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: String! @fdc_generated(from: "ChatSession.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Message {
+  """
+  ✨ Implicit foreign key field based on `Message`.`session`. It must match the value of `ChatSession`.`id`. See `@ref` for how to customize it.
+  """
+  sessionId: UUID! @fdc_generated(from: "Message.session", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Task {
+  """
+  ✨ Implicit foreign key field based on `Task`.`createdBy`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  createdById: String @fdc_generated(from: "Task.createdBy", purpose: IMPLICIT_REF_FIELD)
+}

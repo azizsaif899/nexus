@@ -1,0 +1,1864 @@
+{
+  "meta": {
+    "project_name": "g-assistant-nx",
+    "scan_date": "2025-09-02T19:38:36.660662",
+    "total_files": 1674,
+    "scanned_files": 1674
+  },
+  "issues": [
+    {
+      "file": "tests\\setup.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "tests\\integration\\comprehensive-test-suite.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "tests\\integration\\day-1-integration.test.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "tests\\test-scripts\\demo-test-report.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "tests\\test-scripts\\generate-test-report.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "tests\\test-scripts\\run-all-tests.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "tests\\test-scripts\\setup-test-environment.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\monitoring\\database-monitor.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\workflow-core\\src\\workflow-engine.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\workflow\\camunda-client\\src\\base-worker.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\workflow\\camunda-client\\src\\logger-worker.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\notifications\\notification.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\sidebar-agents\\src\\agents\\CFOAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\sidebar-agents\\src\\agents\\DatabaseAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\sidebar-agents\\src\\agents\\DatabaseManagerAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\sidebar-agents\\src\\agents\\DeveloperAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\sidebar-agents\\src\\agents\\GeneralAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\sidebar-agents\\src\\agents\\OperationsAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\shared-ui\\hooks\\useDynamicWorkspace.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\hooks\\useHotkeys.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\lib\\command-registry.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\lib\\export-utils.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\lib\\macro-recorder.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\lib\\print-utils.ts",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\lib\\sync-manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\lib\\websocket-client.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\hooks\\useHotkeys.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\command-registry.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\export-utils.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\macro-recorder.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\print-utils.ts",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\sync-manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\websocket-client.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-fix-system\\executor.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-fix-system\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\export\\data-export.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\tools-core\\src\\tools-service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\testing-suite\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\testing-core\\src\\coverage-monitor.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\testing-core\\src\\mutation-tester.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\testing-core\\src\\test-reporter.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\testing-core\\src\\visual-tester.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\testing-core\\src\\lib\\test-reporter.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\testing-core\\src\\lib\\test-runner.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\stress-testing\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\load-testing\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-repair\\src\\ai-fixer.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-repair\\src\\amazon-executor.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-repair\\src\\auto-tester.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-repair\\src\\detector.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-repair\\src\\gemini-reviewer.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-repair\\src\\orchestrator.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-repair\\src\\scanner.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-fix-system\\core\\events\\eventBus.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\auto-fix-system\\core\\utils\\rollbackManager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tenant-core\\src\\tenant-manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\support-core\\src\\support-system.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\sdk-js\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\scaling-core\\src\\auto-scaler.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\research-core\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\odoo-client\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\odoo-client\\src\\odoo.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\whatsapp-core\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\whatsapp-core\\src\\lib\\logging-service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\odoo-integration\\src\\multi-tenant-manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\odoo-integration\\src\\odoo-connector.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\october-implementation\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\october-implementation\\src\\research-agent\\ResearchAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\gtm-engine\\src\\gtm-manager.ts",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "packages\\integrations\\gtm-engine\\src\\gtm-manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\gemini-research-agent\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\gemini-research-agent\\src\\services\\PythonBackendService.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\gemini-research-agent\\src\\typescript-agent\\GeminiResearchAgent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\bigquery-client\\src\\odoo-pipeline.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integration-core\\src\\erp-connector.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integration-core\\src\\odoo-webhook.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integration-core\\legacy\\unified-system\\system-orchestrator.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\performance-optimization\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\performance-optimization\\legacy\\performance\\performance-optimizer.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\live-sessions\\src\\live.gateway.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\live-sessions\\src\\session.manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\live-sessions\\src\\tools\\chart-generator.tool.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\content-management\\src\\content-manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\advanced-security\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\features\\advanced-features\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ml-core\\src\\ml-engine.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ml-core\\src\\neural-network.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ml-core\\src\\text-to-speech.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\memory-core\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\crm\\src\\crm.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\billing-core\\src\\billing.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\alert-system.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\analytics-service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\data-collector.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\data-pipeline.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\data-warehouse.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\enhanced-report-generator.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\feedback-analyzer.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\analytics-core\\src\\what-if-analysis.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\embedding.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\model-optimizer.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\tool-use.orchestrator.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\tools\\google-search.tool.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\tools\\odoo-crm.tool.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\deployment-system\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\deployment-core\\src\\deployment-monitor.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\deployment-core\\src\\lib\\environment-controller.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\deployment-core\\src\\lib\\rollback-service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\data-connect-core\\src\\services\\bigquery-integration.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\data-connect-core\\src\\services\\crm-api-adapter.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\data-connect-core\\src\\testing\\integration-tests.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\event-bus\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\event-bus\\src\\pub-sub-client.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\data-pipeline.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\event-bus.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\feedback.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\optimistic-updates.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\websocket-client.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\clients\\bigquery-client.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\services\\ai-core.service.test.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\core-logic\\src\\services\\lead-processing.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\config-core\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\config-core\\src\\model-selection.strategy.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\auth\\src\\auth.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\core\\audit-core\\src\\audit-logger.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\agents\\compliance.agent.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\audits\\audit.data-residency.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\audits\\audit.iac-usage.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\knowledge\\knowledge-base.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\reporters\\markdown.reporter.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\scanners\\gcp-scanner.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\scanners\\github-scanner.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\compliance-agent\\src\\scanners\\terraform-state.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "infrastructure\\scaling\\auto-scaler.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\run_cody_review.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\whatsapp-query-bot\\src\\main.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\whatsapp-exec-bot\\src\\crm-webhook.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\whatsapp-exec-bot\\src\\gtm-tracking.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\whatsapp-exec-bot\\src\\main.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\whatsapp-exec-bot\\src\\odoo-integration.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\web-chatbot\\src\\services\\live-session.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\web-chatbot\\src\\services\\smart-actions.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\sheets-addon\\src\\main.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\sheets-addon\\src\\client\\index.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\sheets-addon\\src\\client\\sidebar-manager.ts",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "apps\\sheets-addon\\src\\client\\sidebar.ts",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "apps\\sheets-addon\\src\\client\\sidebar.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\sheets-addon\\src\\client\\ui-components.ts",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "apps\\api\\src\\main-simple.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\main.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\ai\\response-cache.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\app\\app.module.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\controllers\\crm.controller.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\controllers\\meta-tracking.controller.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\database\\bigquery-connection.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\database\\connection.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\gateway\\main.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\hybrid\\hybrid.controller.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\live\\live.gateway.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\live\\odoo-websocket.gateway.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\odoo\\odoo.controller.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\privacy\\gdpr.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\routes\\agents.routes.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\routes\\meta.routes.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\routes\\webhook.routes.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\services\\camunda-worker-manager.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\services\\meta-ads-api.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\services\\meta-integration.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\modules\\agents\\agents.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\modules\\queries\\queries.service.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\src\\database\\seeds\\user.seed.ts",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\ui-components\\ui\\components\\CoPilotBar.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\ui-components\\ui\\components\\EnhancedPulseCard.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\ui-components\\ui\\components\\InteractiveKanban.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\ui-components\\ui\\components\\SmartActivityFeed.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\ui-components\\ui\\components\\SmartNotification.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\crm-dashboard-app.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\components\\bulk\\BulkActionPanel.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\components\\notifications\\SmartNotifications.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\components\\ui\\CommandBar.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\data-access\\app\\components\\ui\\QuickActions.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\components\\bulk\\BulkActionPanel.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\components\\notifications\\SmartNotifications.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\components\\ui\\CommandBar.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\ui\\crm-ui\\components\\legacy\\app\\components\\ui\\QuickActions.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\web-chatbot\\index.tsx",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "apps\\web-chatbot\\nexus\\index.tsx",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "apps\\web-chatbot\\src\\features\\billing\\StripeCheckout.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\crm-system\\src\\pages\\Leads.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\admin-dashboard\\src\\app\\components\\campaign-tracker.tsx",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "package.json",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\reports\\scan_report_1756826390069.json",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\reports\\scan_report_1756826390069.json",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\reports\\scan_report_1756826390069.json",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\package.json",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\ai-analyzer.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\ai-analyzer.py",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\ai-analyzer.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_python_20250902_5beb78.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_python_20250902_5beb78.py",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_python_20250902_5beb78.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\run_deepseek.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\run_deepseek.py",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\run_deepseek.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\simple-scan.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\simple-scan.py",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\simple-scan.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\typing_extensions.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\packaging\\_parser.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\rich\\console.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\rich\\live.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\rich\\markup.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\rich\\progress.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\rich\\status.py",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\__init__.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\packaging\\licenses\\__init__.py",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "DEEP_FIX.js",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "DEEP_FIX.js",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "DEEP_FIX.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "DEEP_SCAN.js",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "DEEP_SCAN.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\activate-gtm.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\auto-fix-v2.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\check-legacy-code.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\check-missing-routes.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\cli.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\complete-crm-flow.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\critical-fix.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\demo-whatsapp-crm.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\deploy.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\generate-requirements.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\gtm-readiness-check.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\health-check-v2.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\real-crm-demo.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\run-compliance-agent.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\run-priority-tests.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\setup-bigquery.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\setup-gtm.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\simple-odoo-test.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\test-gtm-live.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\test-odoo-bigquery.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\test-odoo-integration.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\test-whatsapp-crm.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "scripts\\update-dashboard-links.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\functions\\lead-event-handler\\index.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\functions\\lead-qualification-agent\\index.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\tooling\\functions\\proactive-alert-agent\\index.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\security-core\\src\\AuthMiddleware.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\security-core\\src\\SecureKeyManager.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\security-core\\src\\SecureLogger.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\security-core\\src\\SecurePathManager.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\integrations\\whatsapp-core\\src\\lib\\logging-service.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\embedding.service.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\index.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\model-optimizer.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "packages\\domain\\ai-engine\\src\\tool-use.orchestrator.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\8_legacy\\legacy-apps\\web-interface\\test-server.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\8_legacy\\legacy-apps\\web-interface\\backend\\server.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\8_legacy\\legacy-apps\\web-interface\\backend\\simple-server.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\dashboard\\dashboard.js",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "docs\\6_fixing\\dashboard\\dashboard.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\dashboard\\EventBus.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\dashboard\\server.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\amazon-q-auto.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\auto-fix-v2.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\auto-system-manager.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\auto_update_docs.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\CREATE_GEMINI_BACKEND.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\docs_data.js",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\docs_data.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\enhanced-reporter.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\FIX_MISSING_ENDPOINTS.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\gemini-auto.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\generate_docs_data.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\health-check-v2.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\monitor-dashboard.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\notifications.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\nx_auto_fix.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\nx_detailed_analyzer.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\nx_project_monitor.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\nx_task_orchestrator.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\run-compliance-agent.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\setup-bigquery.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\update_sprint_status.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\watch_mode.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\al-dhabit\\generate-comprehensive-report.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\auto-fix.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deep-scan.js",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deep-scan.js",
+      "type": "security",
+      "severity": "medium",
+      "message": "innerHTML usage - potential XSS risk"
+    },
+    {
+      "file": "docs\\6_fixing\\scripts\\ديب سيك\\deep-scan.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\docs_data.js",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\docs_data.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\generate_docs_data.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\serve.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\tech\\scripts\\auto_update_docs.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\tech\\scripts\\docs_data.js",
+      "type": "security",
+      "severity": "high",
+      "message": "Use of eval() detected - security risk"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\tech\\scripts\\docs_data.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "docs\\5_misc\\archive\\old_doc\\tech\\scripts\\generate_docs_data.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\admin-dashboard\\EventBus.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\admin-dashboard\\test-dashboard.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\server.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\crm-system\\scripts\\complete-crm-flow.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\crm-system\\scripts\\demo-whatsapp-crm.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\crm-system\\scripts\\real-crm-demo.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\crm-system\\scripts\\test-whatsapp-crm.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\api\\scripts\\init-db.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    },
+    {
+      "file": "apps\\admin-dashboard\\src\\integration\\api-bridge.js",
+      "type": "quality",
+      "severity": "low",
+      "message": "console.log in production code"
+    }
+  ]
+}

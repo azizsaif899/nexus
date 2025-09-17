@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير الاختبارات - AzizSys v2.0</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .passed { color: #28a745; }
+        .failed { color: #dc3545; }
+        .skipped { color: #ffc107; }
+        .duration { color: #17a2b8; }
+        .coverage { color: #6f42c1; }
+        .success-rate {
+            font-size: 3em;
+            color: #28a745;
+        }
+        .test-suites {
+            padding: 30px;
+        }
+        .suite {
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .suite-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .suite-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .suite-metrics {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .suite-metric {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .test-details {
+            padding: 20px;
+        }
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        .test-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-passed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-skipped {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .coverage-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .coverage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.5s ease;
+        }
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .summary {
+                grid-template-columns: 1fr;
+            }
+            .suite-metrics {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 تقرير الاختبارات الشامل</h1>
+            <p>AzizSys AI Assistant v2.0</p>
+            <p>تاريخ التشغيل: ١٣‏/٨‏/٢٠٢٥</p>
+        </div>
+
+        <div class="summary">
+            <div class="metric-card">
+                <div class="metric-value success-rate">93.3%</div>
+                <div class="metric-label">معدل النجاح</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">120</div>
+                <div class="metric-label">إجمالي الاختبارات</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value passed">112</div>
+                <div class="metric-label">نجح</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value failed">5</div>
+                <div class="metric-label">فشل</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value skipped">3</div>
+                <div class="metric-label">تم تخطيه</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value duration">44.50s</div>
+                <div class="metric-label">الوقت الإجمالي</div>
+            </div>
+        </div>
+
+        <div class="test-suites">
+            <h2>📋 تفاصيل مجموعات الاختبارات</h2>
+            
+        <div class="suite">
+            <div class="suite-header">
+                <div class="suite-name">🧪 اختبارات الوحدة (Unit Tests)</div>
+                <div class="suite-metrics">
+                    <span class="suite-metric status-passed">42 نجح</span>
+                    <span class="suite-metric status-failed">2 فشل</span>
+                    <span class="suite-metric status-skipped">1 تخطي</span>
+                    <span class="suite-metric">2.50s</span>
+                </div>
+                <div class="coverage-bar">
+                    <div class="coverage-fill" style="width: 93.33333333333333%"></div>
+                </div>
+                <small>معدل النجاح: 93.3%</small>
+            </div>
+            <div class="test-details">
+                
+                    <div class="test-item">
+                        <span>AI Engine - معالجة الاستعلامات</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">120ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>Security Core - تشفير البيانات</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">95ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>CFO Agent - التحليل المالي</span>
+                        <div>
+                            <span class="test-status status-failed">فشل</span>
+                            <small style="margin-right: 10px;">180ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>Developer Agent - مراجعة الكود</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">150ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>Database Manager - تحسين الاستعلامات</span>
+                        <div>
+                            <span class="test-status status-skipped">تخطي</span>
+                            <small style="margin-right: 10px;">0ms</small>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="suite">
+            <div class="suite-header">
+                <div class="suite-name">🧪 اختبارات التكامل (Integration Tests)</div>
+                <div class="suite-metrics">
+                    <span class="suite-metric status-passed">26 نجح</span>
+                    <span class="suite-metric status-failed">1 فشل</span>
+                    <span class="suite-metric status-skipped">1 تخطي</span>
+                    <span class="suite-metric">8.50s</span>
+                </div>
+                <div class="coverage-bar">
+                    <div class="coverage-fill" style="width: 92.85714285714286%"></div>
+                </div>
+                <small>معدل النجاح: 92.9%</small>
+            </div>
+            <div class="test-details">
+                
+                    <div class="test-item">
+                        <span>API - تسجيل الدخول</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">450ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>API - إدارة العملاء المحتملين</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">380ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>API - البحث الذكي</span>
+                        <div>
+                            <span class="test-status status-failed">فشل</span>
+                            <small style="margin-right: 10px;">1200ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>WhatsApp - إرسال الرسائل</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">650ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>Odoo - مزامنة البيانات</span>
+                        <div>
+                            <span class="test-status status-skipped">تخطي</span>
+                            <small style="margin-right: 10px;">0ms</small>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="suite">
+            <div class="suite-header">
+                <div class="suite-name">🧪 اختبارات E2E (End-to-End Tests)</div>
+                <div class="suite-metrics">
+                    <span class="suite-metric status-passed">14 نجح</span>
+                    <span class="suite-metric status-failed">0 فشل</span>
+                    <span class="suite-metric status-skipped">1 تخطي</span>
+                    <span class="suite-metric">12.00s</span>
+                </div>
+                <div class="coverage-bar">
+                    <div class="coverage-fill" style="width: 93.33333333333333%"></div>
+                </div>
+                <small>معدل النجاح: 93.3%</small>
+            </div>
+            <div class="test-details">
+                
+                    <div class="test-item">
+                        <span>رحلة المستخدم - تسجيل الدخول</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">2500ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>لوحة التحكم - عرض البيانات</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">1800ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>السايد بار - الوكلاء الذكيين</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">3200ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>البحث الذكي - النتائج</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">2100ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>الجوال - الاستجابة</span>
+                        <div>
+                            <span class="test-status status-skipped">تخطي</span>
+                            <small style="margin-right: 10px;">0ms</small>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="suite">
+            <div class="suite-header">
+                <div class="suite-name">🧪 اختبارات الأداء (Performance Tests)</div>
+                <div class="suite-metrics">
+                    <span class="suite-metric status-passed">10 نجح</span>
+                    <span class="suite-metric status-failed">2 فشل</span>
+                    <span class="suite-metric status-skipped">0 تخطي</span>
+                    <span class="suite-metric">15.00s</span>
+                </div>
+                <div class="coverage-bar">
+                    <div class="coverage-fill" style="width: 83.33333333333334%"></div>
+                </div>
+                <small>معدل النجاح: 83.3%</small>
+            </div>
+            <div class="test-details">
+                
+                    <div class="test-item">
+                        <span>سرعة الاستجابة - API</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">450ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>الحمولة المتزامنة - 50 طلب</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">2800ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>استهلاك الذاكرة</span>
+                        <div>
+                            <span class="test-status status-failed">فشل</span>
+                            <small style="margin-right: 10px;">5000ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>قاعدة البيانات - الاستعلامات الكبيرة</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">1200ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>اختبار الضغط</span>
+                        <div>
+                            <span class="test-status status-failed">فشل</span>
+                            <small style="margin-right: 10px;">8000ms</small>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="suite">
+            <div class="suite-header">
+                <div class="suite-name">🧪 اختبارات الأمان (Security Tests)</div>
+                <div class="suite-metrics">
+                    <span class="suite-metric status-passed">20 نجح</span>
+                    <span class="suite-metric status-failed">0 فشل</span>
+                    <span class="suite-metric status-skipped">0 تخطي</span>
+                    <span class="suite-metric">6.50s</span>
+                </div>
+                <div class="coverage-bar">
+                    <div class="coverage-fill" style="width: 100%"></div>
+                </div>
+                <small>معدل النجاح: 100.0%</small>
+            </div>
+            <div class="test-details">
+                
+                    <div class="test-item">
+                        <span>المصادقة - JWT Tokens</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">180ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>منع هجمات SQL Injection</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">220ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>منع هجمات XSS</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">150ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>تشفير البيانات الحساسة</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">300ms</small>
+                        </div>
+                    </div>
+                
+                    <div class="test-item">
+                        <span>حدود المعدل (Rate Limiting)</span>
+                        <div>
+                            <span class="test-status status-passed">نجح</span>
+                            <small style="margin-right: 10px;">400ms</small>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        </div>
+
+        <div class="footer">
+            <p>تم إنشاء هذا التقرير تلقائياً بواسطة AzizSys Test Runner</p>
+            <p>© 2024 AzizSys - جميع الحقوق محفوظة</p>
+        </div>
+    </div>
+</body>
+</html>

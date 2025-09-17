@@ -1,0 +1,29 @@
+/* CRM Color Variables */
+:root {
+  --crm-primary: #2563eb;
+  --crm-success: #10b981;
+  --crm-warning: #f59e0b;
+  --crm-danger: #ef4444;
+  --crm-info: #06b6d4;
+  --crm-bg-primary: #f8fafc;
+  --crm-border: #e2e8f0;
+  --crm-text-primary: #1e293b;
+  --crm-text-secondary: #64748b;
+}
+
+.status-active { background-color: var(--crm-success); color: white; }
+.status-inactive { background-color: var(--crm-text-secondary); color: white; }
+.status-prospect { background-color: var(--crm-info); color: white; }
+
+.stage-proposal { background-color: var(--crm-warning); color: white; }
+.stage-negotiation { background-color: var(--crm-primary); color: white; }
+.stage-closed { background-color: var(--crm-success); color: white; }
+.stage-lost { background-color: var(--crm-danger); color: white; }
+
+.crm-card {
+  background: white;
+  border: 1px solid var(--crm-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

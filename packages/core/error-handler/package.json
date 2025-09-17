@@ -1,0 +1,13 @@
+{
+  "name": "@azizsys/error-handler",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "pino": "^8.16.0",
+    "pino-pretty": "^10.2.0",
+    "@azizsys/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

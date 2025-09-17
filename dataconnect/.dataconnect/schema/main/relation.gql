@@ -1,0 +1,556 @@
+extend type ChatSession {
+  """
+  ✨ List `Message` objects in a one-to-many relationship (where `Message`.`session` is this object).
+  """
+  messages_on_session(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Message_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Message_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Message_Having
+  ): [Message!]! @fdc_generated(from: "Message.session", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "ChatSession", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `ChatSession` table.
+  """
+  _count: Int! @fdc_generated(from: "ChatSession.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `ChatSession` table where the `agentType` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  agentType_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession.agentType", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `ChatSession` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `ChatSession` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `ChatSession` table where the `isActive` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  isActive_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession.isActive", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `ChatSession` table where the `title` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  title_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession.title", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `ChatSession` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `ChatSession` table where the `userId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  userId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "ChatSession.userId", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `ChatSession` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "ChatSession.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `ChatSession` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "ChatSession.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `ChatSession` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "ChatSession.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `ChatSession` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "ChatSession.updatedAt", purpose: QUERY_MAX)
+}
+extend type KnowledgeEntry {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "KnowledgeEntry", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table.
+  """
+  _count: Int! @fdc_generated(from: "KnowledgeEntry.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `category` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  category_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.category", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `content` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  content_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.content", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `source` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  source_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.source", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `tags` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  tags_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.tags", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `title` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  title_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.title", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `KnowledgeEntry` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "KnowledgeEntry.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `KnowledgeEntry` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "KnowledgeEntry.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `KnowledgeEntry` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "KnowledgeEntry.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `KnowledgeEntry` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "KnowledgeEntry.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `KnowledgeEntry` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "KnowledgeEntry.updatedAt", purpose: QUERY_MAX)
+}
+extend type Message {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Message", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Message` table.
+  """
+  _count: Int! @fdc_generated(from: "Message.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Message` table where the `content` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  content_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Message.content", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Message` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Message.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Message` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Message.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Message` table where the `metadata` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  metadata_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Message.metadata", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Message` table where the `role` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  role_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Message.role", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Message` table where the `sessionId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  sessionId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Message.sessionId", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `Message` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "Message.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `Message` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "Message.createdAt", purpose: QUERY_MAX)
+}
+extend type Task {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Task", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Task` table.
+  """
+  _count: Int! @fdc_generated(from: "Task.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `assignedAgent` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  assignedAgent_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.assignedAgent", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `completedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  completedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.completedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `createdById` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdById_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.createdById", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `description` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  description_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.description", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `priority` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  priority_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.priority", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `status` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  status_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.status", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `title` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  title_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.title", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Task` table where the `updatedAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  updatedAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Task.updatedAt", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `completedAt` field in the `Task` table.
+  """
+  completedAt_min: Timestamp @fdc_generated(from: "Task.completedAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `createdAt` field in the `Task` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "Task.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `updatedAt` field in the `Task` table.
+  """
+  updatedAt_min: Timestamp @fdc_generated(from: "Task.updatedAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `completedAt` field in the `Task` table.
+  """
+  completedAt_max: Timestamp @fdc_generated(from: "Task.completedAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `createdAt` field in the `Task` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "Task.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `updatedAt` field in the `Task` table.
+  """
+  updatedAt_max: Timestamp @fdc_generated(from: "Task.updatedAt", purpose: QUERY_MAX)
+}
+extend type User {
+  """
+  ✨ List `ChatSession` objects in a one-to-many relationship (where `ChatSession`.`user` is this object).
+  """
+  chatSessions_on_user(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ChatSession_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ChatSession_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ChatSession_Having
+  ): [ChatSession!]! @fdc_generated(from: "ChatSession.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Task` objects in a one-to-many relationship (where `Task`.`createdBy` is this object).
+  """
+  tasks_on_createdBy(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Task_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Task_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Task_Having
+  ): [Task!]! @fdc_generated(from: "Task.createdBy", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "User", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `User` table.
+  """
+  _count: Int! @fdc_generated(from: "User.", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `createdAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  createdAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.createdAt", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `displayName` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  displayName_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.displayName", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `email` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  email_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.email", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `User` table where the `lastActiveAt` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  lastActiveAt_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "User.lastActiveAt", purpose: QUERY_COUNT)
+  """
+  ✨ Minimum of the `createdAt` field in the `User` table.
+  """
+  createdAt_min: Timestamp @fdc_generated(from: "User.createdAt", purpose: QUERY_MIN)
+  """
+  ✨ Minimum of the `lastActiveAt` field in the `User` table.
+  """
+  lastActiveAt_min: Timestamp @fdc_generated(from: "User.lastActiveAt", purpose: QUERY_MIN)
+  """
+  ✨ Maximum of the `createdAt` field in the `User` table.
+  """
+  createdAt_max: Timestamp @fdc_generated(from: "User.createdAt", purpose: QUERY_MAX)
+  """
+  ✨ Maximum of the `lastActiveAt` field in the `User` table.
+  """
+  lastActiveAt_max: Timestamp @fdc_generated(from: "User.lastActiveAt", purpose: QUERY_MAX)
+}

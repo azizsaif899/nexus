@@ -1,40 +1,10 @@
 {
-  "hosting": [
-    {
-      "target": "web-chatbot",
-      "public": "dist/apps/web-chatbot",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [{"source": "**", "destination": "/index.html"}]
-    },
-    {
-      "target": "admin-dashboard",
-      "public": "dist/apps/admin-dashboard",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [{"source": "**", "destination": "/index.html"}]
+  "emulators": {
+    "dataconnect": {
+      "dataDir": "dataconnect/.dataconnect/pgliteData"
     }
-  ],
-  "functions": {
-    "source": "dist/apps/api",
-    "runtime": "nodejs18"
   },
   "dataconnect": {
-    "source": "dataconnect",
-    "serviceId": "g-assistant-dataconnect",
-    "location": "us-central1"
-  },
-  "emulators": {
-    "functions": {
-      "port": 5001
-    },
-    "hosting": {
-      "port": 5000
-    },
-    "dataconnect": {
-      "port": 9399
-    },
-    "ui": {
-      "enabled": true,
-      "port": 4000
-    }
+    "source": "dataconnect"
   }
 }

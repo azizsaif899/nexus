@@ -1,0 +1,24 @@
+{
+  "firestore": {
+    "rules": "config/firebase/firestore.rules",
+    "indexes": "config/firebase/firestore.indexes.json"
+  },
+  "dataconnect": {
+    "source": "../dataconnect"
+  },
+  "emulators": {
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8080
+    },
+    "dataconnect": {
+      "host": "127.0.0.1",
+      "port": 9399
+    },
+    "ui": {
+      "enabled": true,
+      "host": "127.0.0.1",
+      "port": 4000
+    }
+  }
+}

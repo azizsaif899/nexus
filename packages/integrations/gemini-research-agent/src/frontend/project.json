@@ -1,0 +1,25 @@
+{
+  "name": "gemini-research-frontend",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/integrations/gemini-research-agent/src/frontend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/integrations/gemini-research-agent/src/frontend",
+        "configFile": "packages/integrations/gemini-research-agent/src/frontend/vite.config.ts",
+        "main": "packages/integrations/gemini-research-agent/src/frontend/index.html"
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "options": {
+        "buildTarget": "gemini-research-frontend:build",
+        "port": 4300
+      }
+    }
+  },
+  "tags": []
+}

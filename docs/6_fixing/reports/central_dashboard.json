@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-08-19T11:45:00Z",
+  "overall_progress": {
+    "percentage": 85,
+    "completed_tasks": 51,
+    "total_tasks": 60,
+    "pending_tasks": 9
+  },
+  "compliance_agent": {
+    "status": "active",
+    "compliance_score": 78,
+    "critical_issues": 2,
+    "high_issues": 5,
+    "medium_issues": 12,
+    "low_issues": 8,
+    "last_check": "2025-08-19T11:30:00Z",
+    "policies_loaded": [
+      "GDPR - اللائحة العامة لحماية البيانات",
+      "PDPL - قانون حماية البيانات السعودي", 
+      "Google Standards - معايير جوجل التقنية"
+    ],
+    "scanners_active": [
+      "GCP Scanner - فحص Google Cloud",
+      "GitHub Scanner - فحص المستودعات",
+      "Terraform State - فحص البنية التحتية"
+    ],
+    "top_risks": [
+      "Hardcoded API keys detected",
+      "Missing encryption for sensitive data",
+      "Insufficient access controls"
+    ]
+  },
+  "services": {
+    "api_server": {
+      "status": "offline",
+      "port": 3333,
+      "last_seen": "2025-08-19T10:15:00Z"
+    },
+    "web_chatbot": {
+      "status": "offline", 
+      "port": 3000,
+      "last_seen": "2025-08-19T10:15:00Z"
+    },
+    "gemini_backend": {
+      "status": "offline",
+      "port": 8000,
+      "last_seen": "2025-08-19T09:30:00Z"
+    }
+  }
+}
