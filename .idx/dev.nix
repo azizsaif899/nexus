@@ -5,7 +5,7 @@
     pkgs.nodePackages.npm
     pkgs.nodePackages.pnpm
     pkgs.git
-    pkgs.firebase-tools
+    (pkgs.firebase-tools.override { version = "latest"; })
   ];
   
   env = {
@@ -25,6 +25,7 @@
         install = "npm install";
       };
       onStart = {
+        install-firebase = "npm install -g firebase-tools@latest";
         dev-server = "npm run dev";
       };
     };
