@@ -59,8 +59,8 @@ FlowCanvasAI هي منصة متكاملة تجمع بين:
 ### **للمبرمجين الجدد:**
 ```bash
 # 1. حمل المشروع
-git clone https://github.com/azizsaif899/nexux.git
-cd nexux
+git clone https://github.com/azizsaif899/nexus.git
+cd nexus
 
 # 2. ثبت التبعيات
 npm install
@@ -90,7 +90,7 @@ npm run firebase:deploy
 ## 📁 **بنية المشروع**
 
 ```
-nexux/
+nexus/
 ├── src/                    # 🎨 الواجهة
 │   ├── app/               # صفحات Next.js
 │   ├── components/        # مكونات React

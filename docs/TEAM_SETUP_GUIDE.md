@@ -49,20 +49,24 @@ git config --global user.email "your.email@example.com"
 cd Desktop
 
 # 3. حمل المشروع
-git clone https://github.com/azizsaif899/nexux.git
-cd nexux
+git clone https://github.com/azizsaif899/nexus.git
+cd nexus
 
 # 4. ثبت التبعيات
-pnpm install
+npm install
+
+# 5. تسجيل دخول Firebase (مرة واحدة فقط)
+firebase login
 ```
 
 ### **النتيجة:**
 ```
 Desktop/
-└── nexux/              # مجلد المشروع
+└── nexus/              # مجلد المشروع
     ├── src/            # كود الواجهة
     ├── functions/      # كود الخلفية
     ├── packages/       # مكتبات مشتركة
+    ├── dataconnect/    # قاعدة البيانات
     └── docs/           # التوثيق
 ```
 
@@ -70,19 +74,20 @@ Desktop/
 
 ## 🎮 **الخطوة 2: تشغيل المشروع**
 
-### **تشغيل الواجهة:**
+### **تشغيل المشروع:**
 ```bash
-# في Terminal
+# الطريقة السهلة (كل شيء معاً)
+npm run dev:all
+
+# أو تشغيل منفصل:
+# Terminal 1 - الواجهة
 npm run dev
+
+# Terminal 2 - Firebase
+firebase emulators:start
 
 # ثم افتح المتصفح على:
 http://localhost:9002
-```
-
-### **تشغيل Firebase Emulators:**
-```bash
-# في Terminal جديد
-firebase emulators:start
 ```
 
 ### **النتيجة:**
@@ -104,7 +109,10 @@ git commit -m "حفظ العمل الحالي"
 git pull origin main
 
 # 3. حدث التبعيات (إذا تغيرت)
-pnpm install
+npm install
+
+# 4. تأكد من تسجيل دخول Firebase
+firebase login --reauth
 ```
 
 ### **ماذا يحدث؟**
@@ -145,7 +153,7 @@ git commit -m "📝 تحديث التوثيق"
 
 ### **المجلدات المهمة:**
 ```
-nexux/
+nexus/
 ├── src/                    # 🎨 الواجهة (Frontend)
 │   ├── app/               # صفحات Next.js
 │   ├── components/        # مكونات React
@@ -156,6 +164,7 @@ nexux/
 │   ├── ai-engine/         # محرك الذكاء الاصطناعي
 │   └── security-core/     # نظام الأمان
 ├── dataconnect/           # 🗄️ قاعدة البيانات
+├── config/                # ⚙️ إعدادات Firebase
 └── docs/                  # 📚 التوثيق
 ```
 
@@ -197,10 +206,11 @@ pnpm install           # ثبت التبعيات
 
 ### **🌅 الصباح (10 دقائق):**
 ```bash
-cd nexux
+cd nexus
 git pull origin main
-pnpm install
-npm run dev
+npm install
+firebase login --reauth
+npm run dev:all
 ```
 
 ### **💼 أثناء العمل:**
