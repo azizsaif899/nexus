@@ -8,8 +8,6 @@
     "start": "next start",
     "genkit:dev": "genkit start -- tsx src/ai/dev.ts",
     "genkit:watch": "genkit start -- tsx --watch src/ai/dev.ts",
-    "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "check-imports": "grep -r 'from.*packages/ui' src/ && echo '❌ خطأ: استيراد خاطئ من packages/ui' || echo '✅ المسارات صحيحة'",
@@ -20,7 +18,6 @@
     "setup": "npm install && npm run check-imports && echo '✅ المشروع جاهز للعمل!'"
   },
   "dependencies": {
-    "next": "14.0.0",
     "@genkit-ai/googleai": "^1.14.1",
     "@genkit-ai/next": "^1.14.1",
     "@hookform/resolvers": "^4.1.3",
@@ -54,8 +51,6 @@
     "embla-carousel-react": "^8.6.0",
     "firebase": "^11.9.1",
     "genkit": "^1.14.1",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
     "lucide-react": "^0.475.0",
     "next": "15.3.3",
     "patch-package": "^8.0.0",
@@ -69,8 +64,8 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
     "concurrently": "^8.2.2",
     "genkit-cli": "^1.14.1",
     "postcss": "^8",
