@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusChat Pro - Test</title>
+  <style>
+    body { font-family: Arial; background: #1a1a1a; color: white; padding: 20px; }
+    .chat { max-width: 600px; margin: 0 auto; }
+    input { width: 70%; padding: 10px; margin: 10px 0; }
+    button { padding: 10px 20px; }
+    .message { margin: 10px 0; padding: 10px; border-radius: 5px; }
+    .user { background: #333; text-align: right; }
+    .ai { background: #444; text-align: left; }
+  </style>
+</head>
+<body>
+  <div class="chat">
+    <h1>NexusChat Pro - اختبار</h1>
+    <div id="messages"></div>
+    <input type="text" id="input" placeholder="اكتب رسالتك...">
+    <button onclick="sendMessage()">إرسال</button>
+  </div>
+
+  <script type="module">
+    import { GoogleGenerativeAI } from 'https://esm.sh/@google/generative-ai@0.21.0';
+    
+    const API_KEY = 'AIzaSyAbrRDX0aR-47XhhJ1P-dadPKfCa-nL12E';
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    
+    window.sendMessage = async function() {
+      const input = document.getElementById('input');
+      const messages = document.getElementById('messages');
+      const userMessage = input.value.trim();
+      
+      if (!userMessage) return;
+      
+      // Add user message
+      messages.innerHTML += `<div class="message user">أنت: ${userMessage}</div>`;
+      input.value = '';
+      
+      try {
+        const result = await model.generateContent(userMessage);
+        const response = await result.response;
+        const text = response.text();
+        
+        messages.innerHTML += `<div class="message ai">Gemini: ${text}</div>`;
+      } catch (error) {
+        console.error('Error:', error);
+        messages.innerHTML += `<div class="message ai">خطأ: ${error.message}</div>`;
+      }
+      
+      messages.scrollTop = messages.scrollHeight;
+    }
+    
+    document.getElementById('input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+</html>

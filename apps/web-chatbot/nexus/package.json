@@ -1,0 +1,32 @@
+{
+  "name": "nexus-chat-pro",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Advanced AI Chat Interface with Gemini Integration - AzizSys AI Assistant",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port 5173"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  },
+  "keywords": [
+    "ai",
+    "chat",
+    "gemini",
+    "typescript",
+    "cyberpunk",
+    "matrix",
+    "arabic"
+  ],
+  "author": "AzizSys Team",
+  "license": "MIT"
+}
