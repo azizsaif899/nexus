@@ -1,0 +1,272 @@
+extend type Query {
+  """
+  ✨ Look up a single `ChatSession` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  chatSession(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ChatSession_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ChatSession_FirstRow
+  ): ChatSession @fdc_generated(from: "ChatSession", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `KnowledgeEntry` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  knowledgeEntry(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: KnowledgeEntry_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: KnowledgeEntry_FirstRow
+  ): KnowledgeEntry @fdc_generated(from: "KnowledgeEntry", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Message` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  message(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Message_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Message_FirstRow
+  ): Message @fdc_generated(from: "Message", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Task` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  task(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Task_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Task_FirstRow
+  ): Task @fdc_generated(from: "Task", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `User` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The unique ID of the object.
+    """
+    id: String
+
+    """
+    ✨ `_expr` server value variant of `id` (The unique ID of the object.)
+    """
+    id_expr: String_Expr
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User @fdc_generated(from: "User", purpose: QUERY_SINGLE)
+  """
+  ✨ List `ChatSession` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  chatSessions(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ChatSession_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ChatSession_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ChatSession_Having
+  ): [ChatSession!]! @fdc_generated(from: "ChatSession", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `KnowledgeEntry` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  knowledgeEntries(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: KnowledgeEntry_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [KnowledgeEntry_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: KnowledgeEntry_Having
+  ): [KnowledgeEntry!]! @fdc_generated(from: "KnowledgeEntry", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Message` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  messages(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Message_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Message_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Message_Having
+  ): [Message!]! @fdc_generated(from: "Message", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Task` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  tasks(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Task_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Task_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Task_Having
+  ): [Task!]! @fdc_generated(from: "Task", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `User` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: User_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [User_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: User_Having
+  ): [User!]! @fdc_generated(from: "User", purpose: QUERY_MULTIPLE)
+}

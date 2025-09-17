@@ -1,0 +1,76 @@
+# Mutations for AzizSys AI Assistant
+
+# Create or update user profile
+mutation UpsertUser($email: String!, $displayName: String) @auth(level: USER) {
+  user_upsert(data: {
+    id_expr: "auth.uid"
+    email: $email
+    displayName: $displayName
+    lastActiveAt_expr: "request.time"
+  })
+}
+
+# Create new chat session
+mutation CreateChatSession($agentType: String!, $title: String) @auth(level: USER) {
+  chatSession_insert(data: {
+    userId_expr: "auth.uid"
+    agentType: $agentType
+    title: $title
+  })
+}
+
+# Add message to chat session
+mutation AddMessage($sessionId: UUID!, $role: String!, $content: String!, $metadata: String) @auth(level: USER) {
+  message_insert(data: {
+    sessionId: $sessionId
+    role: $role
+    content: $content
+    metadata: $metadata
+  })
+}
+
+# Update chat session
+mutation UpdateChatSession($sessionId: UUID!, $title: String, $isActive: Boolean) @auth(level: USER) {
+  chatSession_update(
+    id: $sessionId
+    data: {
+      title: $title
+      isActive: $isActive
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+# Create system task
+mutation CreateTask($title: String!, $description: String, $priority: String!, $assignedAgent: String) @auth(level: USER) {
+  task_insert(data: {
+    title: $title
+    description: $description
+    priority: $priority
+    assignedAgent: $assignedAgent
+    createdById_expr: "auth.uid"
+  })
+}
+
+# Update task status
+mutation UpdateTaskStatus($taskId: UUID!, $status: String!, $completedAt: Timestamp) @auth(level: USER) {
+  task_update(
+    id: $taskId
+    data: {
+      status: $status
+      completedAt: $completedAt
+      updatedAt_expr: "request.time"
+    }
+  )
+}
+
+# Add knowledge entry
+mutation AddKnowledgeEntry($title: String!, $content: String!, $category: String!, $tags: String, $source: String) @auth(level: USER) {
+  knowledgeEntry_insert(data: {
+    title: $title
+    content: $content
+    category: $category
+    tags: $tags
+    source: $source
+  })
+}

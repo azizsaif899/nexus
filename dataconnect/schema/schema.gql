@@ -1,0 +1,57 @@
+# AzizSys AI Assistant Schema
+
+# User table for authenticated users
+type User @table {
+  id: String! @default(expr: "auth.uid")
+  email: String! @col(dataType: "varchar(255)")
+  displayName: String @col(dataType: "varchar(100)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  lastActiveAt: Timestamp @default(expr: "request.time")
+}
+
+# Chat sessions between users and AI agents
+type ChatSession @table {
+  id: UUID! @default(expr: "uuidV4()")
+  user: User!
+  agentType: String! @col(dataType: "varchar(50)") # CFO, Developer, Database, Operations, General
+  title: String @col(dataType: "varchar(200)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
+  isActive: Boolean! @default(value: true)
+}
+
+# Individual messages within chat sessions
+type Message @table {
+  id: UUID! @default(expr: "uuidV4()")
+  session: ChatSession!
+  role: String! @col(dataType: "varchar(20)") # user, assistant, system
+  content: String! @col(dataType: "text")
+  metadata: String @col(dataType: "jsonb") # JSON metadata for attachments, citations, etc.
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+# System tasks and operations
+type Task @table {
+  id: UUID! @default(expr: "uuidV4()")
+  title: String! @col(dataType: "varchar(200)")
+  description: String @col(dataType: "text")
+  status: String! @col(dataType: "varchar(20)") @default(value: "pending") # pending, in_progress, completed, failed
+  priority: String! @col(dataType: "varchar(10)") @default(value: "medium") # low, medium, high, critical
+  assignedAgent: String @col(dataType: "varchar(50)")
+  createdBy: User
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
+  completedAt: Timestamp
+}
+
+# Knowledge base for AI responses
+type KnowledgeEntry @table {
+  id: UUID! @default(expr: "uuidV4()")
+  title: String! @col(dataType: "varchar(200)")
+  content: String! @col(dataType: "text")
+  category: String! @col(dataType: "varchar(50)")
+  tags: String @col(dataType: "text") # Comma-separated tags
+  source: String @col(dataType: "varchar(255)")
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp @default(expr: "request.time")
+}

@@ -1,0 +1,94 @@
+# Queries for AzizSys AI Assistant
+
+# Get current user profile
+query GetCurrentUser @auth(level: USER) {
+  user(key: { id_expr: "auth.uid" }) {
+    id
+    email
+    displayName
+    createdAt
+    lastActiveAt
+  }
+}
+
+# List user's chat sessions
+query ListUserChatSessions @auth(level: USER) {
+  user(key: { id_expr: "auth.uid" }) {
+    chatSessions: chatSessions_on_user(orderBy: { updatedAt: DESC }) {
+      id
+      agentType
+      title
+      createdAt
+      updatedAt
+      isActive
+    }
+  }
+}
+
+# Get chat session with messages
+query GetChatSession($sessionId: UUID!) @auth(level: USER) {
+  chatSession(id: $sessionId) {
+    id
+    agentType
+    title
+    createdAt
+    updatedAt
+    isActive
+    user {
+      id
+      email
+      displayName
+    }
+    messages: messages_on_session(orderBy: { createdAt: ASC }) {
+      id
+      role
+      content
+      metadata
+      createdAt
+    }
+  }
+}
+
+# List system tasks
+query ListTasks($status: String) @auth(level: USER) {
+  tasks(
+    where: { status: { eq: $status } }
+    orderBy: { createdAt: DESC }
+  ) {
+    id
+    title
+    description
+    status
+    priority
+    assignedAgent
+    createdAt
+    updatedAt
+    completedAt
+    createdBy {
+      id
+      displayName
+    }
+  }
+}
+
+# Search knowledge base
+query SearchKnowledge($query: String!, $category: String) @auth(level: USER) {
+  knowledgeEntries(
+    where: {
+      _and: [
+        { content: { contains: $query } }
+        { category: { eq: $category } }
+      ]
+    }
+    orderBy: { updatedAt: DESC }
+  ) {
+    id
+    title
+    content
+    category
+    tags
+    source
+    createdAt
+    updatedAt
+  }
+}

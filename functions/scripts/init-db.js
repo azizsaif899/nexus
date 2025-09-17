@@ -1,0 +1,79 @@
+const { Client } = require('pg');
+const fs = require('fs');
+const path = require('path');
+
+async function initDatabase() {
+  const client = new Client({
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 5432,
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+    database: 'postgres'
+  });
+
+  try {
+    await client.connect();
+    // Removed console.log
+
+    const sqlPath = path.join(__dirname, '../src/database/init.sql');
+    const sqlContent = fs.readFileSync(sqlPath, 'utf8');
+
+    const commands = sqlContent
+      .split(';')
+      .map(cmd => cmd.trim())
+      .filter(cmd => cmd && !cmd.startsWith('--') && !cmd.startsWith('\\c'));
+
+    for (const command of commands) {
+      if (command.includes('CREATE DATABASE')) {
+        try {
+          await client.query(command);
+          // Removed console.log
+        } catch (err) {
+          if (err.code === '42P04') {
+            // Removed console.log
+          } else {
+            throw err;
+          }
+        }
+      }
+    }
+
+    await client.end();
+
+    const workflowClient = new Client({
+      host: process.env.DB_HOST || 'localhost',
+      port: process.env.DB_PORT || 5432,
+      user: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASSWORD || 'postgres',
+      database: 'workflows_db'
+    });
+
+    await workflowClient.connect();
+    // Removed console.log
+
+    for (const command of commands) {
+      if (!command.includes('CREATE DATABASE') && command.length > 0) {
+        try {
+          await workflowClient.query(command);
+          // Removed console.log}...`);
+        } catch (err) {
+          if (err.code === '42P07') {
+            // Removed console.log}...`);
+          } else {
+            console.error(`❌ خطأ في: ${command.substring(0, 30)}...`);
+            console.error(err.message);
+          }
+        }
+      }
+    }
+
+    await workflowClient.end();
+    // Removed console.log
+
+  } catch (error) {
+    console.error('❌ خطأ في إعداد قاعدة البيانات:', error.message);
+    process.exit(1);
+  }
+}
+
+initDatabase();
