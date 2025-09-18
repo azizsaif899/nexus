@@ -34,7 +34,7 @@ const HeroSection = () => {
       <div className="mt-16 md:mt-24 w-full flex justify-center">
         <div className="relative w-full max-w-5xl aspect-[16/9] rounded-xl overflow-hidden border border-cyan-500/20 shadow-2xl shadow-cyan-500/10">
             <Image 
-                src="https://picsum.photos/seed/ai-robot/1200/675"
+                src="https://picsum.photos/seed/ai-typing/1200/675"
                 alt="AI Robot working on a laptop"
                 fill
                 className="object-cover"

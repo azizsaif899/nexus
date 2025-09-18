@@ -112,8 +112,9 @@ nexus/
 
 ### **📚 اقرأ أولاً:**
 - [دليل إعداد الفريق](docs/TEAM_SETUP_GUIDE.md) - للمبرمجين المبتدئين
-- [إرشادات التطوير](docs/development/DEVELOPER_GUIDELINES.md)
-- [قواعد الأمان](docs/ai-management/AI_RULES_AND_PROTOCOLS.md)
+- [دليل المساعد الذكي](docs/AI_ASSISTANT_GUIDELINES.md) - قواعد استخدام AI
+- [معايير التطوير](docs/DEVELOPMENT_STANDARDS.md) - أفضل الممارسات
+- [قواعد وبروتوكولات AI](docs/AI_RULES_AND_PROTOCOLS.md) - الأمان والجودة
 
 ### **🔄 الروتين اليومي:**
 ```bash

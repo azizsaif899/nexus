@@ -38,7 +38,7 @@ const BuiltToThinkSection = () => {
           <div className="order-1 md:order-2 w-full flex justify-center">
             <div className="relative w-full max-w-md aspect-square">
                 <Image 
-                    src="https://picsum.photos/seed/desk-robot/600/600"
+                    src="https://picsum.photos/seed/robot-desk/600/600"
                     alt="AI Robot sitting at a desk" 
                     fill
                     className="object-contain rounded-xl"
