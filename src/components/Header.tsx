@@ -19,7 +19,7 @@ const Header = () => {
           <span className="font-bold text-xl text-foreground">NEXUS</span>
         </Link>
         
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-x-8 text-sm font-medium">
           <Link href="#features" className="text-muted-foreground transition-colors hover:text-foreground">Features</Link>
           <Link href="#pricing" className="text-muted-foreground transition-colors hover:text-foreground">Pricing</Link>
           <Link href="#faq" className="text-muted-foreground transition-colors hover:text-foreground">FAQ</Link>
