@@ -1,0 +1,360 @@
+/* FlowCanvasAI Theme - نسخة محسنة من لوحة الأتمتة */
+
+:root {
+  /* الألوان الأساسية */
+  --flow-bg-primary: #1a1a1a;
+  --flow-bg-secondary: #2a2a2a;
+  --flow-text-primary: #ffffff;
+  --flow-text-secondary: #a0a0a0;
+  --flow-accent: #00d4aa;
+  --flow-accent-hover: #00b894;
+  --flow-border: #404040;
+  --flow-success: #00b894;
+  --flow-warning: #fdcb6e;
+  --flow-error: #e17055;
+}
+
+/* تخطيط الصفحة */
+.flow-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--flow-bg-primary) 0%, #0f1419 100%);
+  color: var(--flow-text-primary);
+  padding: 2rem;
+}
+
+.flow-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.flow-title {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--flow-accent) 0%, #74b9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.flow-subtitle {
+  font-size: 1.2rem;
+  color: var(--flow-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* شبكة المكونات */
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* البطاقات */
+.flow-card {
+  background: var(--flow-bg-secondary);
+  border: 1px solid var(--flow-border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.flow-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 212, 170, 0.2);
+  border-color: var(--flow-accent);
+}
+
+.flow-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.flow-card-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--flow-accent);
+}
+
+.flow-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--flow-text-primary);
+}
+
+.flow-card-description {
+  color: var(--flow-text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* النماذج */
+.flow-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.flow-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flow-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.flow-label {
+  font-weight: 500;
+  color: var(--flow-text-primary);
+  font-size: 0.9rem;
+}
+
+.flow-input,
+.flow-textarea {
+  background: var(--flow-bg-primary);
+  border: 1px solid var(--flow-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: var(--flow-text-primary);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.flow-input:focus,
+.flow-textarea:focus {
+  outline: none;
+  border-color: var(--flow-accent);
+  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+}
+
+.flow-textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: 'Courier New', monospace;
+}
+
+/* الأزرار */
+.flow-button {
+  background: var(--flow-accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.flow-button:hover {
+  background: var(--flow-accent-hover);
+  transform: translateY(-2px);
+}
+
+.flow-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.flow-button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.flow-button-outline {
+  background: transparent;
+  border: 1px solid var(--flow-border);
+  color: var(--flow-text-primary);
+}
+
+.flow-button-outline:hover {
+  background: var(--flow-bg-primary);
+  border-color: var(--flow-accent);
+}
+
+/* كتل الكود */
+.flow-code-block {
+  background: var(--flow-bg-primary);
+  border: 1px solid var(--flow-border);
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.flow-code-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  color: var(--flow-text-primary);
+}
+
+/* التنبيهات */
+.flow-alert {
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid;
+}
+
+.flow-alert-success {
+  background: rgba(0, 184, 148, 0.1);
+  border-color: var(--flow-success);
+  color: var(--flow-success);
+}
+
+.flow-alert-warning {
+  background: rgba(253, 203, 110, 0.1);
+  border-color: var(--flow-warning);
+  color: var(--flow-warning);
+}
+
+.flow-alert-error {
+  background: rgba(225, 112, 85, 0.1);
+  border-color: var(--flow-error);
+  color: var(--flow-error);
+}
+
+/* الأكورديون */
+.flow-accordion {
+  border: 1px solid var(--flow-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.flow-accordion-item {
+  border-bottom: 1px solid var(--flow-border);
+}
+
+.flow-accordion-item:last-child {
+  border-bottom: none;
+}
+
+.flow-accordion-trigger {
+  width: 100%;
+  padding: 1rem;
+  background: var(--flow-bg-secondary);
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--flow-text-primary);
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.flow-accordion-trigger:hover {
+  background: var(--flow-bg-primary);
+}
+
+.flow-accordion-content {
+  padding: 1rem;
+  background: var(--flow-bg-primary);
+}
+
+/* الشارات */
+.flow-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.flow-badge-primary {
+  background: var(--flow-accent);
+  color: white;
+}
+
+.flow-badge-secondary {
+  background: var(--flow-bg-primary);
+  color: var(--flow-text-secondary);
+  border: 1px solid var(--flow-border);
+}
+
+/* حالات التحميل */
+.flow-skeleton {
+  background: linear-gradient(90deg, var(--flow-bg-secondary) 25%, var(--flow-border) 50%, var(--flow-bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: flow-skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes flow-skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.flow-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: flow-spin 1s linear infinite;
+}
+
+@keyframes flow-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* تأثيرات متقدمة */
+.flow-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
+}
+
+.flow-fade-in {
+  animation: flow-fade-in 0.6s ease-out;
+}
+
+@keyframes flow-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* الاستجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .flow-container {
+    padding: 1rem;
+  }
+  
+  .flow-title {
+    font-size: 2rem;
+  }
+  
+  .flow-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .flow-form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .flow-card {
+    padding: 1.5rem;
+  }
+}

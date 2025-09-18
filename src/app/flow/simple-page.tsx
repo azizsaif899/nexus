@@ -1,10 +1,4 @@
-import { Metadata } from 'next';
 import './flow-theme.css';
-
-export const metadata: Metadata = {
-  title: 'Flow - FlowCanvasAI',
-  description: 'منصة احترافية لبناء تدفقات العمل التلقائية مع الذكاء الاصطناعي',
-};
 
 export default function FlowPage() {
   return (
