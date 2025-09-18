@@ -4,7 +4,6 @@ import {
   FilePlus2,
   BrainCircuit,
   FileText,
-  LucideProps,
   LucideIcon,
   MousePointer,
   Zap,

@@ -48,7 +48,7 @@ const FlowCanvas = () => {
               height="64"
               patternUnits="userSpaceOnUse"
             >
-              <rect width="64" height="64" fill="url(#smallGrid)" />
+              <rect width="100%" height="100%" fill="url(#smallGrid)" />
               <path
                 d="M 64 0 L 0 0 0 64"
                 fill="none"
