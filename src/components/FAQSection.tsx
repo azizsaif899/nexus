@@ -1,14 +1,11 @@
 'use client'
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-
+import { useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 
 const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
   const faqs = [
     {
       question: "ما هو NEXUS؟",
@@ -40,16 +37,26 @@ const FAQSection = () => {
           </p>
         </div>
         
-        <Accordion type="single" collapsible className="w-full">
+        <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="text-lg text-white hover:no-underline text-right">{faq.question}</AccordionTrigger>
-              <AccordionContent className="text-slate-300 text-base">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
+            <div key={index} className="border border-slate-800 rounded-lg">
+              <button
+                className="w-full px-6 py-4 text-left flex items-center justify-between text-white hover:bg-slate-800/50 transition-colors"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+              >
+                <span className="text-lg font-medium">{faq.question}</span>
+                <ChevronDown 
+                  className={`w-5 h-5 transition-transform ${openIndex === index ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openIndex === index && (
+                <div className="px-6 pb-4 text-slate-300">
+                  {faq.answer}
+                </div>
+              )}
+            </div>
           ))}
-        </Accordion>
+        </div>
       </div>
     </section>
   )

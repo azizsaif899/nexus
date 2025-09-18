@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Cairo } from 'next/font/google'
 import './globals.css'
+import { cn } from "@/lib/utils"
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -8,7 +9,7 @@ const inter = Inter({
 })
 
 const cairo = Cairo({ 
-  subsets: ['arabic'],
+  subsets: ['arabic', 'latin'],
   variable: '--font-cairo'
 })
 
@@ -24,10 +25,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" className="dark">
-      <body className={`${inter.variable} ${cairo.variable} font-arabic antialiased`}>
-        <div className="min-h-screen bg-slate-950 text-white">
-          {children}
-        </div>
+      <body className={cn(
+          "min-h-screen bg-background font-arabic antialiased",
+          inter.variable,
+          cairo.variable
+        )}>
+        {children}
       </body>
     </html>
   )

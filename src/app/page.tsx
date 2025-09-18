@@ -57,9 +57,9 @@ const apps = [
 
 export default function HomePage() {
   return (
-    <div className="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <main>
+      <main className="flex-1">
         <HeroSection />
 
         {/* Apps Grid */}
@@ -67,8 +67,8 @@ export default function HomePage() {
           <div className="container max-w-screen-xl mx-auto px-4">
               <div className="text-center mb-16">
                   <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">YOUR AI PARTNER IN PROGRESS</p>
-                  <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">NEXUS Applications</h2>
-                  <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400">
+                  <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">NEXUS Applications</h2>
+                  <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
                       Explore the applications within the NEXUS ecosystem.
                   </p>
               </div>
@@ -77,7 +77,7 @@ export default function HomePage() {
                 {apps.map((app) => {
                   const Icon = app.icon
                   return (
-                    <div key={app.id} className="group rounded-2xl border border-slate-800 bg-slate-900/50 p-6 text-center shadow-lg transition-all duration-300 hover:border-cyan-500/50 hover:shadow-cyan-500/10 hover:-translate-y-2">
+                    <div key={app.id} className="group rounded-2xl border border-border bg-card p-6 text-center shadow-lg transition-all duration-300 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-2">
                         <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${app.color} flex items-center justify-center mx-auto mb-6 relative`}>
                           <Icon className="w-8 h-8 text-white" />
                            {app.status === 'coming-soon' && (
@@ -86,13 +86,13 @@ export default function HomePage() {
                             </div>
                           )}
                         </div>
-                        <h3 className="font-semibold text-xl text-white mb-2">{app.name}</h3>
-                        <p className="text-slate-400 text-sm mb-6 h-10">{app.description}</p>
+                        <h3 className="font-semibold text-xl text-card-foreground mb-2">{app.name}</h3>
+                        <p className="text-muted-foreground text-sm mb-6 h-10">{app.description}</p>
                         
                         {app.status === 'active' ? (
                           <Link 
                             href={app.href}
-                            className="inline-flex items-center justify-center gap-2 rounded-md bg-cyan-500 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-950"
+                            className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all duration-200 hover:bg-primary/80 hover:shadow-lg hover:shadow-primary/20 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
                           >
                             Launch App
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -100,7 +100,7 @@ export default function HomePage() {
                         ) : (
                           <button 
                             disabled
-                            className="w-full bg-slate-800 text-slate-500 px-4 py-2.5 rounded-md text-sm font-semibold cursor-not-allowed"
+                            className="w-full bg-secondary text-muted-foreground px-4 py-2.5 rounded-md text-sm font-semibold cursor-not-allowed"
                           >
                             Coming Soon
                           </button>
