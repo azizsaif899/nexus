@@ -78,8 +78,8 @@ export default function HomePage() {
                   const Icon = app.icon
                   return (
                     <div key={app.id} className="group rounded-2xl border border-border bg-card/50 p-6 text-center shadow-lg transition-all duration-300 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-2 hover:bg-accent/50">
-                        <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${app.color} flex items-center justify-center mx-auto mb-6 relative`}>
-                          <Icon className="w-8 h-8 text-white" />
+                        <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${app.color} flex items-center justify-center mx-auto mb-6 relative transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan-500/20`}>
+                          <Icon className="w-8 h-8 text-white transition-all duration-300 group-hover:scale-110" />
                            {app.status === 'coming-soon' && (
                             <div className="absolute -top-2 -right-2 bg-orange-500 text-xs px-2 py-1 rounded-full text-white font-semibold">
                               قريباً

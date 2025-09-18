@@ -26,9 +26,9 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-2">
-          <button className="p-2 rounded-md hover:bg-accent transition-colors">
-            <Sun className="h-5 w-5 text-muted-foreground dark:hidden" />
-            <Moon className="h-5 w-5 text-muted-foreground hidden dark:block" />
+          <button className="p-2 rounded-md hover:bg-accent transition-colors group">
+            <Sun className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors dark:hidden" />
+            <Moon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors hidden dark:block" />
             <span className="sr-only">Toggle theme</span>
           </button>
            <Link href="#" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all duration-200 hover:bg-primary/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">

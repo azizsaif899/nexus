@@ -79,16 +79,16 @@
 @layer utilities {
   @keyframes float {
     0% { transform: translateY(0px) translateX(0px); }
-    25% { transform: translateY(-20px) translateX(10px); }
-    50% { transform: translateY(10px) translateX(-15px); }
-    75% { transform: translateY(-15px) translateX(20px); }
+    25% { transform: translateY(-15px) translateX(8px); }
+    50% { transform: translateY(8px) translateX(-12px); }
+    75% { transform: translateY(-12px) translateX(15px); }
     100% { transform: translateY(0px) translateX(0px); }
   }
   @keyframes float-slower {
     0% { transform: translateY(0px) translateX(0px); }
-    25% { transform: translateY(-15px) translateX(5px); }
-    50% { transform: translateY(5px) translateX(-10px); }
-    75% { transform: translateY(-10px) translateX(15px); }
+    25% { transform: translateY(-12px) translateX(4px); }
+    50% { transform: translateY(4px) translateX(-8px); }
+    75% { transform: translateY(-8px) translateX(12px); }
     100% { transform: translateY(0px) translateX(0px); }
   }
 }

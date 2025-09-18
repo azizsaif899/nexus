@@ -21,32 +21,32 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-foreground mb-4">Get in Touch</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><a href="mailto:hello@nexus.com" className="hover:text-foreground transition-colors">hello@nexus.com</a></li>
-              <li><Link href="#" className="hover:text-foreground transition-colors">Contact Sales</Link></li>
-              <li><Link href="#" className="hover:text-foreground transition-colors">Press Inquiries</Link></li>
+              <li><a href="mailto:hello@nexus.com" className="hover:text-primary transition-colors">hello@nexus.com</a></li>
+              <li><Link href="#" className="hover:text-primary transition-colors">Contact Sales</Link></li>
+              <li><Link href="#" className="hover:text-primary transition-colors">Press Inquiries</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link href="#" className="hover:text-foreground transition-colors">About Us</Link></li>
-              <li><Link href="#" className="hover:text-foreground transition-colors">Careers</Link></li>
-              <li><Link href="#" className="hover:text-foreground transition-colors">Blog</Link></li>
+              <li><Link href="#" className="hover:text-primary transition-colors">About Us</Link></li>
+              <li><Link href="#" className="hover:text-primary transition-colors">Careers</Link></li>
+              <li><Link href="#" className="hover:text-primary transition-colors">Blog</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold text-foreground mb-4">Follow Us</h4>
             <div className="flex space-x-4">
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                    <Github className="h-6 w-6 text-muted-foreground hover:text-foreground transition-colors" />
+                <a href="#" target="_blank" rel="noopener noreferrer" className="group">
+                    <Github className="h-6 w-6 text-muted-foreground group-hover:text-primary group-hover:fill-primary/20 transition-all" />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                    <Twitter className="h-6 w-6 text-muted-foreground hover:text-foreground transition-colors" />
+                <a href="#" target="_blank" rel="noopener noreferrer" className="group">
+                    <Twitter className="h-6 w-6 text-muted-foreground group-hover:text-primary group-hover:fill-primary/20 transition-all" />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-6 w-6 text-muted-foreground hover:text-foreground transition-colors" />
+                <a href="#" target="_blank" rel="noopener noreferrer" className="group">
+                    <Linkedin className="h-6 w-6 text-muted-foreground group-hover:text-primary group-hover:fill-primary/20 transition-all" />
                 </a>
             </div>
           </div>
