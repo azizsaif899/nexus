@@ -65,11 +65,11 @@ const FlowSidebar = () => {
         <TabsContent value="nodes" className="flex-1 p-4 overflow-y-auto">
            <div className="flex flex-col h-full gap-6">
             <h3 className="text-lg font-semibold">Nodes Library</h3>
-            {nodeTypes.map(type => (
+            {nodeTypes?.map(type => (
               <div key={type.category}>
                 <h4 className="font-semibold text-muted-foreground mb-3">{type.category}</h4>
                 <div className="grid grid-cols-2 gap-3">
-                  {type.nodes.map(node => {
+                  {type.nodes?.map(node => {
                     const Icon = node.icon;
                     return (
                       <div key={node.name} className={cn("p-3 rounded-md border border-border flex flex-col items-center justify-center text-center gap-2 cursor-pointer hover:bg-accent", type.color)}>
@@ -77,7 +77,7 @@ const FlowSidebar = () => {
                         <p className="text-xs font-medium">{node.name}</p>
                       </div>
                     )
-                  })}
+                  }) || []}
                 </div>
               </div>
             ))}
@@ -85,7 +85,7 @@ const FlowSidebar = () => {
         </TabsContent>
         <TabsContent value="history" className="flex-1 p-4 space-y-3 overflow-y-auto">
            <h3 className="text-lg font-semibold">Execution History</h3>
-           {executionHistory.map(run => (
+           {executionHistory?.map(run => (
              <div key={run.id} className="p-3 rounded-lg border border-border bg-muted/20 flex justify-between items-center">
                <div>
                   <p className="font-semibold">{run.id}</p>
