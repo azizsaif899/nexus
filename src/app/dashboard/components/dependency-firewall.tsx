@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -23,11 +24,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 import { handleSuggestDependencyFirewallRules } from '@/app/dashboard/actions';
 import { SuggestDependencyFirewallRulesOutput } from '@/app/dashboard/ai/suggest-dependency-firewall-rules';
 import { Skeleton } from '@/components/ui/skeleton';
-import CodeBlock from '@/components/shared/code-block';
+import { CodeBlock } from '@/components/ui/code-block';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const formSchema = z.object({

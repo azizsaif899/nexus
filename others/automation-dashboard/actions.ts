@@ -3,11 +3,11 @@
 import {
   generateConflictPreventionRules,
   GenerateConflictPreventionRulesInput,
-} from '@/app/dashboard/ai/generate-conflict-prevention-rules';
+} from '@/automation-dashboard/ai/generate-conflict-prevention-rules';
 import {
   suggestDependencyFirewallRules,
   SuggestDependencyFirewallRulesInput,
-} from '@/app/dashboard/ai/suggest-dependency-firewall-rules';
+} from '@/automation-dashboard/ai/suggest-dependency-firewall-rules';
 
 export async function handleGenerateConflictPreventionRules(
   input: GenerateConflictPreventionRulesInput,

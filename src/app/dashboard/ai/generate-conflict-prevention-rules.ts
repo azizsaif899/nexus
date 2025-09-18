@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview Generates ESLint rules, TypeScript path mappings, and environment variable prefixes to prevent naming conflicts between projects.
@@ -41,7 +42,7 @@ const GenerateConflictPreventionRulesOutputSchema = z.object({
   environmentVariablePrefix: z
     .string()
     .describe(
-      'Generated environment variable prefix to avoid naming conflicts with other projects.',
+      'Generated environment variable prefix to avoid naming conflicts with other environment variables.',
     ),
 });
 export type GenerateConflictPreventionRulesOutput = z.infer<
@@ -81,23 +82,23 @@ const prompt = ai.definePrompt({
   Example Output (Do NOT include this in your output):
   {
     "eslintRules": "{
-      \"@nx/enforce-module-boundaries\": [
-        \"error\",
+      \\"@nx/enforce-module-boundaries\\": [
+        \\"error\\",
         {
-          \"allow\": [\"@nexux/*\", \"@shared/*\"],
-          \"depConstraints\": [
+          \\"allow\\": [\\"@nexux/*\\", \\"@shared/*\\"],
+          \\"depConstraints\\": [
             {
-              \"sourceTag\": \"scope:nexux\",
-              \"onlyDependOnLibsWithTags\": [\"scope:shared\", \"scope:nexux\"]
+              \\"sourceTag\\": \\"scope:nexux\\",
+              \\"onlyDependOnLibsWithTags\\": [\\"scope:shared\\", \\"scope:nexux\\"]
             }
           ]
         }
       ]
     }",
     "typescriptPathMappings": "{
-      \"@nexux/*\": [\"apps/nexux/src/*\"]
+      \\"@nexux/*\\": [\\"apps/nexux/src/*\\"]
     }",
-    "environmentVariablePrefix": \"NEXUX_\"
+    "environmentVariablePrefix": "NEXUX_"
   }
   `,
 });

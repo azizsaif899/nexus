@@ -24,8 +24,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { handleGenerateConflictPreventionRules } from '@/app/dashboard/actions';
-import { GenerateConflictPreventionRulesOutput } from '@/app/dashboard/ai/generate-conflict-prevention-rules';
+import { handleGenerateConflictPreventionRules } from '@/automation-dashboard/actions';
+import { GenerateConflictPreventionRulesOutput } from '@/automation-dashboard/ai/generate-conflict-prevention-rules';
 import { Skeleton } from '@/components/ui/skeleton';
 import CodeBlock from '@/components/shared/code-block';
 
