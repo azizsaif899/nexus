@@ -12,7 +12,10 @@ import {
   MessageCircle, 
   Users,
   ArrowRight,
-  BarChart3
+  BarChart3,
+  Github,
+  Twitter,
+  Linkedin
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -55,6 +58,12 @@ const apps = [
   }
 ]
 
+const socialLinks = [
+  { name: 'GitHub', href: '#', icon: Github },
+  { name: 'Twitter', href: '#', icon: Twitter },
+  { name: 'LinkedIn', href: '#', icon: Linkedin },
+]
+
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -63,7 +72,7 @@ export default function HomePage() {
         <HeroSection />
 
         {/* Apps Grid */}
-        <section id="features" className="py-20 md:py-32">
+        <section id="features" className="py-20 md:py-32 animate-fade-in-up">
           <div className="container max-w-screen-xl mx-auto px-4">
               <div className="text-center mb-16">
                   <p className="text-sm font-semibold uppercase tracking-widest text-primary">YOUR AI PARTNER IN PROGRESS</p>
@@ -92,7 +101,7 @@ export default function HomePage() {
                         {app.status === 'active' ? (
                           <Link 
                             href={app.href}
-                            className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-transform duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+                            className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
                           >
                             Launch App
                             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -112,9 +121,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        <PricingSection />
-        <BuiltToThinkSection />
-        <FAQSection />
+        <section className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+          <PricingSection />
+        </section>
+        <section className="animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+          <BuiltToThinkSection />
+        </section>
+        <section className="animate-fade-in-up" style={{ animationDelay: '600ms' }}>
+          <FAQSection />
+        </section>
       </main>
       <Footer />
     </div>
