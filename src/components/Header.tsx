@@ -5,8 +5,16 @@ import {
   Sun,
   Moon,
   Menu,
-  Sparkles
+  Sparkles,
+  Globe,
+  User,
 } from 'lucide-react'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+
 
 const Header = () => {
   return (
@@ -28,15 +36,20 @@ const Header = () => {
           <Link href="#faq" className="text-muted-foreground transition-colors hover:text-foreground">FAQ</Link>
         </nav>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-x-4">
           <button className="p-2 rounded-md hover:bg-accent transition-colors group">
             <Sun className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors dark:hidden" />
             <Moon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors hidden dark:block" />
             <span className="sr-only">Toggle theme</span>
           </button>
-           <Link href="#" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all duration-200 hover:bg-primary/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
-            Get Started
-          </Link>
+           <button className="p-2 rounded-md hover:bg-accent transition-colors group">
+            <Globe className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+            <span className="sr-only">Toggle language</span>
+          </button>
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
           <button className="md:hidden p-2 rounded-md hover:bg-accent transition-colors">
             <Menu className="h-6 w-6 text-muted-foreground" />
             <span className="sr-only">Toggle Menu</span>
