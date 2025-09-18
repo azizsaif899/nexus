@@ -10,32 +10,32 @@ import {
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-lg">
       <div className="container flex h-16 max-w-screen-xl items-center justify-between px-4 mx-auto">
         <Link href="/" className="flex items-center space-x-2">
-          <div className="bg-gradient-to-br from-cyan-500 to-blue-600 w-8 h-8 rounded-lg flex items-center justify-center">
+          <div className="bg-gradient-to-br from-primary to-cyan-400 w-8 h-8 rounded-lg flex items-center justify-center">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-xl text-white">NEXUS</span>
+          <span className="font-bold text-xl text-foreground">NEXUS</span>
         </Link>
         
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
-          <Link href="#features" className="text-slate-300 transition-colors hover:text-white">Features</Link>
-          <Link href="#pricing" className="text-slate-300 transition-colors hover:text-white">Pricing</Link>
-          <Link href="#faq" className="text-slate-300 transition-colors hover:text-white">FAQ</Link>
+          <Link href="#features" className="text-muted-foreground transition-colors hover:text-foreground">Features</Link>
+          <Link href="#pricing" className="text-muted-foreground transition-colors hover:text-foreground">Pricing</Link>
+          <Link href="#faq" className="text-muted-foreground transition-colors hover:text-foreground">FAQ</Link>
         </nav>
 
         <div className="flex items-center space-x-2">
-          <button className="p-2 rounded-md hover:bg-slate-800 transition-colors">
-            <Sun className="h-5 w-5 text-slate-400 dark:hidden" />
-            <Moon className="h-5 w-5 text-slate-400 hidden dark:block" />
+          <button className="p-2 rounded-md hover:bg-accent transition-colors">
+            <Sun className="h-5 w-5 text-muted-foreground dark:hidden" />
+            <Moon className="h-5 w-5 text-muted-foreground hidden dark:block" />
             <span className="sr-only">Toggle theme</span>
           </button>
-           <Link href="#" className="inline-flex items-center justify-center rounded-md bg-cyan-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-950">
+           <Link href="#" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all duration-200 hover:bg-primary/80 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background">
             Get Started
           </Link>
-          <button className="md:hidden p-2 rounded-md hover:bg-slate-800 transition-colors">
-            <Menu className="h-6 w-6 text-slate-400" />
+          <button className="md:hidden p-2 rounded-md hover:bg-accent transition-colors">
+            <Menu className="h-6 w-6 text-muted-foreground" />
             <span className="sr-only">Toggle Menu</span>
           </button>
         </div>

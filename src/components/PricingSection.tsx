@@ -42,14 +42,14 @@ const pricingPlans = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-20 md:py-32 bg-slate-950">
+    <section id="pricing" className="py-20 md:py-32 bg-background">
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto">
-          <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">Our Plans</p>
-          <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Our Plans</p>
+          <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
             Powering Progress at Every Level
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
             Choose the plan that fits your needs. All plans come with a 14-day free trial.
           </p>
         </div>
@@ -58,24 +58,24 @@ const PricingSection = () => {
           {pricingPlans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl border p-8 transition-all duration-300 ${plan.popular ? 'border-cyan-500 bg-slate-900 shadow-2xl shadow-cyan-500/20' : 'border-slate-800 bg-slate-900/50 hover:border-cyan-500/30'}`}
+              className={`relative rounded-2xl border p-8 transition-all duration-300 ${plan.popular ? 'border-primary bg-accent/20 shadow-2xl shadow-primary/10' : 'border-border bg-card hover:border-primary/30 hover:-translate-y-2'}`}
             >
-              {plan.popular && <div className="absolute top-0 -translate-y-1/2 rounded-full bg-cyan-500 px-4 py-1 text-xs font-semibold text-white">Most Popular</div>}
-              <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
+              {plan.popular && <div className="absolute top-0 -translate-y-1/2 rounded-full bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground">Most Popular</div>}
+              <h3 className="text-2xl font-bold text-foreground">{plan.name}</h3>
               <p className="mt-4">
-                <span className="text-5xl font-bold text-white">${plan.price}</span>
-                <span className="text-lg font-normal text-slate-400">/mo</span>
+                <span className="text-5xl font-bold text-foreground">${plan.price}</span>
+                <span className="text-lg font-normal text-muted-foreground">/mo</span>
               </p>
               <a
                 href="#"
-                className={`mt-8 block w-full rounded-md px-4 py-3 text-center font-semibold transition-colors ${plan.popular ? 'bg-cyan-500 text-white hover:bg-cyan-400' : 'bg-slate-800 text-white hover:bg-slate-700'}`}
+                className={`mt-8 block w-full rounded-md px-4 py-3 text-center font-semibold transition-transform duration-200 hover:scale-105 ${plan.popular ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}`}
               >
                 {plan.cta}
               </a>
-              <ul className="mt-8 space-y-4 text-slate-300">
+              <ul className="mt-8 space-y-4 text-muted-foreground">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-3">
-                    <Check className="h-5 w-5 text-cyan-400" />
+                    <Check className="h-5 w-5 text-primary" />
                     <span>{feature}</span>
                   </li>
                 ))}
