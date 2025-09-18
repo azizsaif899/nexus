@@ -8,7 +8,6 @@ import FAQSection from '@/components/FAQSection'
 import Footer from '@/components/Footer'
 
 import { 
-  Workflow, 
   MessageCircle, 
   Users,
   ArrowRight,
@@ -20,15 +19,6 @@ import {
 import Link from 'next/link'
 
 const apps = [
-  {
-    id: 'flow',
-    name: 'NEXUS Flow',
-    description: 'منصة الأتمتة المرئية',
-    icon: Workflow,
-    color: 'from-cyan-500 to-blue-600',
-    href: '/flow',
-    status: 'active'
-  },
   {
     id: 'chat', 
     name: 'NEXUS Chat',
@@ -82,7 +72,7 @@ export default function HomePage() {
                   </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {apps.map((app) => {
                   const Icon = app.icon
                   return (
