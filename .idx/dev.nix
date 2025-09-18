@@ -1,4 +1,3 @@
-# IDX Development Environment Configuration
 { pkgs, ... }: {
   packages = [
     pkgs.nodejs_20
@@ -8,38 +7,19 @@
     pkgs.firebase-tools
   ];
   
-  env = {
-    NODE_ENV = "development";
-    PORT = "9002";
-  };
-  
   idx = {
     extensions = [
-      "bradlc.vscode-tailwindcss"
       "ms-vscode.vscode-typescript-next"
+      "bradlc.vscode-tailwindcss"
       "esbenp.prettier-vscode"
     ];
     
     workspace = {
       onCreate = {
-        install-deps = "npm install";
-        update-firebase = "npm install -g firebase-tools@latest";
+        npm-install = "npm install";
       };
       onStart = {
-        dev-server = "npm run dev";
-      };
-    };
-    
-    previews = {
-      enable = true;
-      previews = {
-        web = {
-          command = ["npm" "run" "dev"];
-          manager = "web";
-          env = {
-            PORT = "$PORT";
-          };
-        };
+        firebase-login = "echo 'Firebase tools ready'";
       };
     };
   };
