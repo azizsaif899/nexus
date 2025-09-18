@@ -6,7 +6,7 @@
 
 ## 🗂️ **هيكل التوثيق**
 
-### 👨‍💻 **للمبرمجين**
+### 👨💻 **للمبرمجين**
 ```
 developers/
 ├── MEMORY.md              # ذاكرة المبرمج الأساسية
@@ -14,8 +14,7 @@ developers/
 ├── development-standards.md # معايير التطوير
 ├── backend-guide.md       # دليل تطوير الخلفية
 ├── frontend-guide.md      # دليل تطوير الواجهة
-├── ai-integration.md      # دليل تكامل الذكاء الاصطناعي
-└── deployment.md          # دليل النشر والتوزيع
+└── daily-tasks.md         # المهام اليومية للمبرمج
 ```
 
 ### 🎨 **للمصممين**
@@ -25,26 +24,19 @@ designers/
 ├── design-system.md       # نظام التصميم الموحد
 ├── ui-components.md       # دليل مكونات الواجهة
 ├── style-guide.md         # دليل الأنماط والألوان
-├── responsive-design.md   # دليل التصميم المتجاوب
-└── accessibility.md       # دليل إمكانية الوصول
+└── daily-tasks.md         # المهام اليومية للمصمم
 ```
 
 ### 🤖 **للذكاء الاصطناعي**
 ```
 ai-assistant/
 ├── CORE_MEMORY.md         # الذاكرة الأساسية للمساعد
-├── guidelines.md          # إرشادات العمل
-├── rules-protocols.md     # القواعد والبروتوكولات
-└── workflow-system.md     # نظام سير العمل
+└── guidelines.md          # إرشادات العمل
 ```
 
 ### 📋 **إدارة المشروع**
 ```
-project-management/
-├── daily-tasks.md         # المهام اليومية
-├── monthly-plan.md        # الخطة الشهرية
-├── team-workflow.md       # سير عمل الفريق
-└── progress-tracking.md   # تتبع التقدم
+monthly-plan.md            # الخطة الشهرية الشاملة
 ```
 
 ---
@@ -52,18 +44,18 @@ project-management/
 ## 🚀 **البدء السريع**
 
 ### **للمبرمج الجديد:**
-1. اقرأ [`developers/MEMORY.md`](./developers/MEMORY.md)
-2. اتبع [`developers/setup-guide.md`](./developers/setup-guide.md)
-3. راجع [`developers/development-standards.md`](./developers/development-standards.md)
+1. اقرأ [`developers/MEMORY.md`](./developers/MEMORY.md) - دستور العمل
+2. اتبع [`developers/setup-guide.md`](./developers/setup-guide.md) - الإعداد
+3. راجع [`developers/daily-tasks.md`](./developers/daily-tasks.md) - المهام اليومية
 
 ### **للمصمم الجديد:**
-1. اقرأ [`designers/MEMORY.md`](./designers/MEMORY.md)
-2. راجع [`designers/design-system.md`](./designers/design-system.md)
-3. اتبع [`designers/style-guide.md`](./designers/style-guide.md)
+1. اقرأ [`designers/MEMORY.md`](./designers/MEMORY.md) - دستور العمل
+2. راجع [`designers/design-system.md`](./designers/design-system.md) - نظام التصميم
+3. اتبع [`designers/daily-tasks.md`](./designers/daily-tasks.md) - المهام اليومية
 
 ### **للمساعد الذكي:**
-1. اقرأ [`ai-assistant/CORE_MEMORY.md`](./ai-assistant/CORE_MEMORY.md)
-2. اتبع [`ai-assistant/guidelines.md`](./ai-assistant/guidelines.md)
+1. اقرأ [`ai-assistant/CORE_MEMORY.md`](./ai-assistant/CORE_MEMORY.md) - الذاكرة الأساسية
+2. اتبع [`ai-assistant/guidelines.md`](./ai-assistant/guidelines.md) - الإرشادات
 
 ---
 
