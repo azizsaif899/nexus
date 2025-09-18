@@ -6,7 +6,6 @@ import PricingSection from '@/components/PricingSection'
 import BuiltToThinkSection from '@/components/BuiltToThinkSection'
 import FAQSection from '@/components/FAQSection'
 import Footer from '@/components/Footer'
-import TestStyles from './test-styles'
 
 import { 
   Workflow, 
@@ -58,8 +57,7 @@ const apps = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <TestStyles />
+    <div className="flex flex-col min-h-screen bg-slate-950 text-white">
       <Header />
       <main className="flex-1">
         <HeroSection />
@@ -79,7 +77,7 @@ export default function HomePage() {
                 {apps.map((app) => {
                   const Icon = app.icon
                   return (
-                    <div key={app.id} className="group rounded-2xl border border-border bg-card p-6 text-center shadow-lg transition-all duration-300 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-2">
+                    <div key={app.id} className="group rounded-2xl border border-slate-800 bg-slate-900/50 p-6 text-center shadow-lg transition-all duration-300 hover:border-primary/50 hover:shadow-primary/10 hover:-translate-y-2">
                         <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${app.color} flex items-center justify-center mx-auto mb-6 relative`}>
                           <Icon className="w-8 h-8 text-white" />
                            {app.status === 'coming-soon' && (
