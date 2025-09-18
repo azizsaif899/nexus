@@ -38,15 +38,15 @@ const Footer = () => {
 
           <div>
             <h4 className="font-semibold text-foreground mb-4">Follow Us</h4>
-            <div className="flex space-x-4">
+            <div className="flex gap-x-4">
                 <a href="#" target="_blank" rel="noopener noreferrer" className="group">
-                    <Github className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+                    <Github className="h-6 w-6 text-muted-foreground transition-colors group-hover:text-primary" />
                 </a>
                 <a href="#" target="_blank" rel="noopener noreferrer" className="group">
-                    <Twitter className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+                    <Twitter className="h-6 w-6 text-muted-foreground fill-current transition-colors group-hover:text-primary" />
                 </a>
                 <a href="#" target="_blank" rel="noopener noreferrer" className="group">
-                    <Linkedin className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+                    <Linkedin className="h-6 w-6 text-muted-foreground fill-current transition-colors group-hover:text-primary" />
                 </a>
             </div>
           </div>
