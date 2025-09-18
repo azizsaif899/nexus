@@ -1,7 +1,7 @@
 name: Auto Sync
 on:
   schedule:
-    - cron: '0 */6 * * *'  # كل 6 ساعات
+    - cron: '*/15 * * * *'  # كل 15 دقيقة
   push:
     branches: [main]
   workflow_dispatch:
