@@ -30,7 +30,7 @@ const initialNodes = [
 
 const FlowCanvas = () => {
   return (
-    <Card className="flex-1 h-[600px] lg:h-auto">
+    <Card className="flex-1 h-[600px] lg:h-[700px]">
       <CardContent className="p-0 h-full">
         <div className="h-full relative overflow-hidden bg-card rounded-lg">
           {/* Grid background */}
