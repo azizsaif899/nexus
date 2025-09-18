@@ -1,45 +1,55 @@
-import React from 'react'
+'use client'
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
 
 const FAQSection = () => {
   const faqs = [
     {
-      question: "ما هو FlowCanvasAI؟",
-      answer: "منصة متكاملة لبناء تدفقات العمل التلقائية باستخدام الذكاء الاصطناعي والواجهة المرئية."
+      question: "ما هو NEXUS؟",
+      answer: "NEXUS هي منصة متكاملة لبناء تدفقات العمل التلقائية باستخدام الذكاء الاصطناعي وواجهة مرئية سهلة الاستخدام، بالإضافة إلى إدارة علاقات العملاء (CRM) وأدوات تحليلية متقدمة."
     },
     {
       question: "هل يمكنني استخدامه مجاناً؟",
-      answer: "نعم، نوفر خطة مجانية تتضمن الميزات الأساسية للبدء."
+      answer: "نعم، نوفر خطة مجانية تتيح لك الوصول إلى الميزات الأساسية وبدء استكشاف إمكانيات الأتمتة والذكاء الاصطناعي."
     },
     {
       question: "كيف أبدأ؟",
-      answer: "سجل حساب جديد واتبع دليل البدء السريع المتوفر في لوحة التحكم."
+      answer: "الأمر بسيط. يمكنك التسجيل للحصول على حساب جديد في أقل من دقيقة واتباع دليل البدء السريع التفاعلي المتوفر في لوحة التحكم الخاصة بك."
+    },
+    {
+        question: "هل أحتاج إلى خبرة برمجية لاستخدام NEXUS؟",
+        answer: "لا، منصة الأتمتة المرئية (Flow) مصممة لتكون سهلة الاستخدام بدون الحاجة لكتابة أي كود. ومع ذلك، يمكن للمطورين الاستفادة من واجهات برمجة التطبيقات (APIs) المتقدمة لعمليات تكامل مخصصة."
     }
   ]
 
   return (
-    <section className="py-20 bg-slate-900">
-      <div className="container max-w-4xl mx-auto px-4">
+    <section id="faq" className="py-20 md:py-32 bg-slate-950">
+      <div className="container max-w-3xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white mb-4">
             الأسئلة الشائعة
           </h2>
           <p className="text-slate-400">
-            إجابات على أكثر الأسئلة شيوعاً
+            لديك أسئلة؟ لدينا إجابات.
           </p>
         </div>
         
-        <div className="space-y-6">
+        <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, index) => (
-            <div key={index} className="bg-slate-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-white mb-2">
-                {faq.question}
-              </h3>
-              <p className="text-slate-300">
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger className="text-lg text-white hover:no-underline text-right">{faq.question}</AccordionTrigger>
+              <AccordionContent className="text-slate-300 text-base">
                 {faq.answer}
-              </p>
-            </div>
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
       </div>
     </section>
   )

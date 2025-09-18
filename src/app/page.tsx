@@ -19,37 +19,37 @@ import Link from 'next/link'
 const apps = [
   {
     id: 'flow',
-    name: 'AzizSys Flow',
+    name: 'NEXUS Flow',
     description: 'منصة الأتمتة المرئية',
     icon: Workflow,
-    color: 'from-blue-500 to-blue-600',
+    color: 'from-cyan-500 to-blue-600',
     href: '/flow',
     status: 'active'
   },
   {
     id: 'chat', 
-    name: 'AzizSys Chat',
+    name: 'NEXUS Chat',
     description: 'المساعد الذكي',
     icon: MessageCircle,
-    color: 'from-green-500 to-green-600',
+    color: 'from-cyan-500 to-teal-500',
     href: '/chat',
     status: 'active'
   },
   {
     id: 'crm',
-    name: 'AzizSys CRM',
+    name: 'NEXUS CRM',
     description: 'إدارة العملاء',
     icon: Users,
-    color: 'from-purple-500 to-purple-600', 
+    color: 'from-cyan-500 to-sky-500',
     href: '/crm',
     status: 'active'
   },
   {
     id: 'analytics',
-    name: 'AzizSys Analytics',
+    name: 'NEXUS Analytics',
     description: 'التحليلات والتقارير',
     icon: BarChart3,
-    color: 'from-orange-500 to-orange-600',
+    color: 'from-gray-500 to-gray-600',
     href: '/analytics',
     status: 'coming-soon'
   }
@@ -57,53 +57,52 @@ const apps = [
 
 export default function HomePage() {
   return (
-    <div className="bg-slate-950 text-white">
+    <div className="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <Header />
       <main>
         <HeroSection />
 
         {/* Apps Grid */}
         <section id="features" className="py-20 md:py-32">
-          <div className="container max-w-screen-2xl mx-auto px-4">
-              <div className="text-center mb-12">
-                  <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">YOUR AI PARTNER IN PROGRESS</p>
-                  <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">AzizSys Applications</h2>
+          <div className="container max-w-screen-xl mx-auto px-4">
+              <div className="text-center mb-16">
+                  <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">YOUR AI PARTNER IN PROGRESS</p>
+                  <h2 className="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">NEXUS Applications</h2>
                   <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-400">
-                      Here are the applications you can use in your AzizSys ecosystem.
+                      Explore the applications within the NEXUS ecosystem.
                   </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {apps.map((app) => {
                   const Icon = app.icon
                   return (
-                    <div key={app.id} className="app-card group cursor-pointer hover:scale-105 bg-slate-900 border border-slate-800 rounded-lg p-6 flex flex-col items-center text-center space-y-4 transition-transform">
-                        <div className={`w-16 h-16 rounded-xl bg-gradient-to-r ${app.color} flex items-center justify-center relative`}>
+                    <div key={app.id} className="group rounded-2xl border border-slate-800 bg-slate-900/50 p-6 text-center shadow-lg transition-all duration-300 hover:border-cyan-500/50 hover:shadow-cyan-500/10 hover:-translate-y-2">
+                        <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${app.color} flex items-center justify-center mx-auto mb-6 relative`}>
                           <Icon className="w-8 h-8 text-white" />
-                          {app.status === 'coming-soon' && (
-                            <div className="absolute -top-2 -right-2 bg-orange-500 text-xs px-2 py-1 rounded-full text-white">
+                           {app.status === 'coming-soon' && (
+                            <div className="absolute -top-2 -right-2 bg-orange-500 text-xs px-2 py-1 rounded-full text-white font-semibold">
                               قريباً
                             </div>
                           )}
                         </div>
-                        <div>
-                          <h3 className="font-semibold text-lg mb-1">{app.name}</h3>
-                          <p className="text-slate-400 text-sm">{app.description}</p>
-                        </div>
+                        <h3 className="font-semibold text-xl text-white mb-2">{app.name}</h3>
+                        <p className="text-slate-400 text-sm mb-6 h-10">{app.description}</p>
+                        
                         {app.status === 'active' ? (
                           <Link 
                             href={app.href}
-                            className={`w-full bg-gradient-to-r ${app.color} text-white px-4 py-2 rounded-md flex items-center justify-center gap-2 transition-all group-hover:gap-3`}
+                            className="inline-flex items-center justify-center gap-2 rounded-md bg-cyan-500 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-slate-950"
                           >
-                            فتح التطبيق
-                            <ArrowRight className="w-4 h-4" />
+                            Launch App
+                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                           </Link>
                         ) : (
                           <button 
                             disabled
-                            className="w-full bg-slate-700 text-slate-400 px-4 py-2 rounded-md cursor-not-allowed"
+                            className="w-full bg-slate-800 text-slate-500 px-4 py-2.5 rounded-md text-sm font-semibold cursor-not-allowed"
                           >
-                            قريباً
+                            Coming Soon
                           </button>
                         )}
                     </div>
