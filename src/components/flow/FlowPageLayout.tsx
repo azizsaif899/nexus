@@ -2,7 +2,7 @@
 
 import FlowCanvas from './FlowCanvas';
 import FlowSidebar from './FlowSidebar';
-import { Button } from '@/components/ui/button';
+import { Button } from '../ui/button';
 import { Play, Settings, Save, Share2 } from 'lucide-react';
 
 const FlowPageLayout = () => {

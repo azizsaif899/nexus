@@ -2,7 +2,7 @@
 import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { GripVertical } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const nodeVariants = cva(
   'absolute group w-64 rounded-lg border-2 bg-card shadow-lg transition-all duration-300 hover:shadow-primary/20',

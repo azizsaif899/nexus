@@ -1,5 +1,5 @@
 'use client';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { Bot, SlidersHorizontal, History } from 'lucide-react'
 
 const FlowSidebar = () => {
