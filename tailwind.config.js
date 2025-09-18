@@ -2,9 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './apps/**/*.{js,ts,jsx,tsx,mdx}',
-    './packages/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   theme: {
     container: {
@@ -50,10 +51,6 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      fontFamily: {
-        arabic: ['var(--font-cairo)', 'var(--font-inter)', 'sans-serif'],
-        english: ['var(--font-inter)', 'sans-serif'],
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -72,6 +69,10 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+       fontFamily: {
+        arabic: ['var(--font-cairo)', 'var(--font-inter)', 'sans-serif'],
+        english: ['var(--font-inter)', 'sans-serif'],
       },
     },
   },
