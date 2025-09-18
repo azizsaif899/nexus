@@ -8,7 +8,7 @@
  * - GenerateConflictPreventionRulesOutput - The return type of the generateConflictPreventionRules function.
  */
 
-import { ai } from '@/ai/genkit';
+import { ai } from '../../../ai/genkit';
 import { z } from 'genkit';
 
 const GenerateConflictPreventionRulesInputSchema = z.object({
