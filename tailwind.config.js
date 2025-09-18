@@ -74,7 +74,7 @@ module.exports = {
         english: ['var(--font-inter)', 'sans-serif'],
       },
       boxShadow: {
-        'lg': '0 4px 20px rgba(0,0,0,0.5)',
+        'lg': '0 4px 20px rgba(0, 0, 0, 0.5)',
       }
     },
   },

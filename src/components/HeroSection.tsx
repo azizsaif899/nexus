@@ -5,9 +5,17 @@ import Link from 'next/link'
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-background pt-24 pb-20 md:pt-32 md:pb-28">
-      <div className="absolute inset-0 z-0 overflow-hidden">
+    <section className="relative bg-background pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-50">
          <div className="absolute -top-[20rem] left-1/2 -translate-x-1/2 w-[80rem] h-[60rem] bg-radial-gradient"></div>
+         <div 
+          className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/10 rounded-full filter blur-3xl animate-[float_15s_ease-in-out_infinite]"
+          style={{ animationDelay: '0s' }}
+        ></div>
+        <div 
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-400/10 rounded-full filter blur-3xl animate-[float-slower_20s_ease-in-out_infinite]"
+          style={{ animationDelay: '5s' }}
+        ></div>
       </div>
       <div className="container max-w-screen-xl mx-auto px-4 text-center relative z-10">
         <p className="text-sm font-semibold uppercase tracking-widest text-primary">
@@ -32,7 +40,7 @@ const HeroSection = () => {
         </div>
       </div>
       <div className="mt-16 md:mt-24 w-full flex justify-center">
-        <div className="relative w-full max-w-5xl aspect-[16/9] rounded-xl overflow-hidden border border-primary/20 shadow-2xl shadow-primary/10">
+        <div className="relative w-full max-w-5xl aspect-[16/9] rounded-xl overflow-hidden border border-primary/20 shadow-lg">
             <Image 
                 src="https://picsum.photos/seed/ai-robot/1200/675"
                 alt="AI Robot working on a laptop"

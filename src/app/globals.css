@@ -13,7 +13,7 @@
     --popover: 224 71% 4%;
     --popover-foreground: 210 40% 98%;
  
-    --primary: 195 89% 48%;
+    --primary: 195 89% 48%; /* Bright Cyan */
     --primary-foreground: 210 40% 9.8%;
  
     --secondary: 215 28% 17%;
@@ -73,5 +73,22 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  @keyframes float {
+    0% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(10px) translateX(-15px); }
+    75% { transform: translateY(-15px) translateX(20px); }
+    100% { transform: translateY(0px) translateX(0px); }
+  }
+  @keyframes float-slower {
+    0% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-15px) translateX(5px); }
+    50% { transform: translateY(5px) translateX(-10px); }
+    75% { transform: translateY(-10px) translateX(15px); }
+    100% { transform: translateY(0px) translateX(0px); }
   }
 }
