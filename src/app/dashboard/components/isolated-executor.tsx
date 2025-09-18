@@ -9,10 +9,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { CodeBlock } from '@/components/ui/code-block';
+} from '../../../components/ui/card';
+import { Input } from '../../../components/ui/input';
+import { Button } from '../../../components/ui/button';
+import { CodeBlock } from '../../../components/ui/code-block';
 
 type CommandType = 'serve' | 'build' | 'test' | 'lint';
 

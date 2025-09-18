@@ -7,14 +7,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Shield, FileJson, FileCode, Leaf, Loader2 } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '../../../components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '../../../components/ui/card';
 import {
   Form,
   FormControl,
@@ -22,13 +22,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+} from '../../../components/ui/form';
+import { Input } from '../../../components/ui/input';
+import { useToast } from '../../../components/ui/use-toast';
 import { handleGenerateConflictPreventionRules } from '@/app/dashboard/actions';
 import { GenerateConflictPreventionRulesOutput } from '@/app/dashboard/ai/generate-conflict-prevention-rules';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CodeBlock } from '@/components/ui/code-block';
+import { Skeleton } from '../../../components/ui/skeleton';
+import { CodeBlock } from '../../../components/ui/code-block';
 
 const formSchema = z.object({
   projectName: z.string().min(1, 'Project name is required.'),

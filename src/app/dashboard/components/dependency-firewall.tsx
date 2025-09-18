@@ -7,14 +7,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Flame, GitBranch, Loader2 } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '../../../components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '../../../components/ui/card';
 import {
   Form,
   FormControl,
@@ -22,14 +22,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
+} from '../../../components/ui/form';
+import { Textarea } from '../../../components/ui/textarea';
+import { useToast } from '../../../components/ui/use-toast';
 import { handleSuggestDependencyFirewallRules } from '@/app/dashboard/actions';
 import { SuggestDependencyFirewallRulesOutput } from '@/app/dashboard/ai/suggest-dependency-firewall-rules';
-import { Skeleton } from '@/components/ui/skeleton';
-import { CodeBlock } from '@/components/ui/code-block';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Skeleton } from '../../../components/ui/skeleton';
+import { CodeBlock } from '../../../components/ui/code-block';
+import { Alert, AlertDescription, AlertTitle } from '../../../components/ui/alert';
 
 const formSchema = z.object({
   packageJsonContent: z.string().refine(

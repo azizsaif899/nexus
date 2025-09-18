@@ -9,16 +9,16 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+} from '../../../components/ui/card';
+import { Textarea } from '../../../components/ui/textarea';
+import { Button } from '../../../components/ui/button';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Badge } from '@/components/ui/badge';
+} from '../../../components/ui/accordion';
+import { Badge } from '../../../components/ui/badge';
 
 interface NxGraph {
   graph: {
