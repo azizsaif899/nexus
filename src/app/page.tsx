@@ -6,6 +6,7 @@ import PricingSection from '@/components/PricingSection'
 import BuiltToThinkSection from '@/components/BuiltToThinkSection'
 import FAQSection from '@/components/FAQSection'
 import Footer from '@/components/Footer'
+import TestStyles from './test-styles'
 
 import { 
   Workflow, 
@@ -58,6 +59,7 @@ const apps = [
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
+      <TestStyles />
       <Header />
       <main className="flex-1">
         <HeroSection />
