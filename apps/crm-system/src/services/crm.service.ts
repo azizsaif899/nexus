@@ -1,5 +1,4 @@
-// استبدال بـ types محلية
-// import { Customer, Lead, Campaign, CRMStats } from '@azizsys/crm-core';
+// This service now fetches from a real API endpoint
 import { Customer, Lead, Campaign, CRMStats, Customer360Data } from '../types/crm.types';
 
 export class CRMService {
@@ -8,11 +7,17 @@ export class CRMService {
   // Customer Management
   async getCustomers(): Promise<Customer[]> {
     const response = await fetch(`${this.baseUrl}/customers`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
   async getCustomer(id: string): Promise<Customer> {
     const response = await fetch(`${this.baseUrl}/customers/${id}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -22,6 +27,9 @@ export class CRMService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(customer)
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -31,12 +39,18 @@ export class CRMService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(customer)
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
   // Lead Management
   async getLeads(): Promise<Lead[]> {
     const response = await fetch(`${this.baseUrl}/leads`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -46,6 +60,9 @@ export class CRMService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(lead)
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -55,12 +72,18 @@ export class CRMService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ stage })
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
   // Campaign Management
   async getCampaigns(): Promise<Campaign[]> {
     const response = await fetch(`${this.baseUrl}/campaigns`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -68,6 +91,9 @@ export class CRMService {
     const response = await fetch(`${this.baseUrl}/campaigns/sync-meta`, {
       method: 'POST'
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -75,6 +101,9 @@ export class CRMService {
     const response = await fetch(`${this.baseUrl}/campaigns/export-bigquery`, {
       method: 'POST'
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -96,11 +125,17 @@ export class CRMService {
   // Analytics & Stats
   async getCRMStats(): Promise<CRMStats> {
     const response = await fetch(`${this.baseUrl}/stats`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
   async getLeadScoring(leadId: string): Promise<{ score: number; factors: any[] }> {
     const response = await fetch(`${this.baseUrl}/leads/${leadId}/scoring`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -109,6 +144,9 @@ export class CRMService {
     const response = await fetch(`${this.baseUrl}/sync/odoo`, {
       method: 'POST'
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 
@@ -118,6 +156,9 @@ export class CRMService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })
     });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
     return response.json();
   }
 }
