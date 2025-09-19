@@ -1,10 +1,10 @@
-# 🎨 Figma API Integration Guide
+# 🎨 Figma API Integration Guide - دليل تكامل واجهة Figma
 
 This document outlines the process of integrating Figma designs directly into the FlowCanvasAI project using the Figma API. This allows for automated generation and synchronization of React components from Figma components.
 
 ## 🎯 **Goal**
 
-To create a seamless workflow where Figma is the single source of truth for design, and code components are automatically generated or updated based on changes in the Figma file.
+To create a seamless **one-way workflow** where Figma is the **single source of truth for design**, and code components are automatically generated or updated based on changes in the Figma file.
 
 ## 🔑 **Prerequisites**
 
@@ -15,22 +15,22 @@ To create a seamless workflow where Figma is the single source of truth for desi
 2.  **Figma File ID:** This is the unique identifier for your Figma design file. You can find it in the URL of your Figma file:
     *   `https://www.figma.com/file/{FILE_ID}/Your-File-Name`
 
-## ⚙️ **How It Works**
+## ⚙️ **How It Works (One-Way Sync)**
 
-The integration is handled by a dedicated service in the backend (`FigmaIntegrationService`).
+The integration is designed as a one-way data flow: **from Figma to Code**. Changes made directly to the code will **NOT** be synced back to Figma. This ensures design consistency.
 
-1.  **API Endpoint:** A request is sent to the `POST /api/figma/sync-components` endpoint in our backend.
-2.  **Figma API Call:** The `FigmaIntegrationService` uses the configured API Key and File ID to fetch the entire structure of the Figma file as a JSON object.
-3.  **JSON Parsing:** The service then parses this large JSON object, looking for a specific page named **"Design System"**. Inside this page, it identifies all top-level elements marked as **Components**.
-4.  **Structure Transformation:** Each Figma component node is transformed from the complex Figma format into a simplified, abstract structure that represents a React component (e.g., its name, children, and basic properties).
-5.  **Code Generation:** This abstract structure is then passed to a code generator, which creates the corresponding React component code (JSX) as a string.
-6.  **File Creation (Next Step):** The generated code string is then ready to be written into a `.tsx` file within the project's component library (e.g., `packages/shared-ui/src/components/generated/`).
+1.  **Design in Figma:** The designer creates or updates components in the main Figma file.
+2.  **Trigger Sync:** A developer triggers the sync process via an API endpoint (`POST /api/figma/sync-components`).
+3.  **Fetch from Figma API:** The backend service uses the API Key and File ID to **read** the structure of the Figma file as a JSON object.
+4.  **Parse & Transform:** The service parses the JSON, looking for components, and transforms their properties into a simplified structure.
+5.  **Generate Code:** This structure is used to generate the corresponding React component code (JSX) as a string.
+6.  **Write to Files (Next Step):** The generated code is then ready to be written into `.tsx` files in the project's component library.
 
 ## 🚀 **Workflow for Designers & Developers**
 
-1.  **Designer:** Creates or updates a component in the **"Design-System"** page in the main Figma file.
-2.  **Developer:** Runs a command or clicks a button in the app's admin dashboard that triggers the `sync-components` API endpoint.
-3.  **Automation:** The backend service fetches the changes, generates the new component code, and saves it as a file in the project.
+1.  **Designer:** Creates or updates a component in the **"Design-System"** page in the main Figma file. This is the single source of truth.
+2.  **Developer:** Runs a command or clicks a button to trigger the `sync-components` API endpoint.
+3.  **Automation:** The backend service fetches the changes, generates the new component code, and saves it as a file.
 4.  **Developer:** Reviews the newly generated component and integrates it into the application.
 
 ## 🔧 **Configuration**
@@ -46,6 +46,7 @@ FIGMA_FILE_ID="your_figma_file_id_here"
 
 -   The current implementation is a **Proof of Concept**.
 -   The parser and code generator are highly simplified. They can identify components but do not yet translate complex styles (like Auto Layout) into accurate Tailwind CSS classes.
--   The service returns the generated code in the API response. The final step of writing the code to files on the server's filesystem is not yet implemented.
+-   The final step of automatically writing the code to files on the server's filesystem is not yet implemented.
+-   **The integration is strictly one-way (Figma to Code).** Manual code changes to synced components will be overwritten on the next sync.
 
-This setup provides a powerful foundation for a fully automated design-to-code pipeline.
+This setup provides a powerful foundation for a fully automated design-to-code pipeline, ensuring that the application's UI always reflects the master design in Figma.
