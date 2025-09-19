@@ -1,13 +1,166 @@
-I0918 13:19:51.463610     273 load.go:31] Reloading schema and connectors...
-I0918 13:19:51.726457     273 control.go:94] [/emulator/azizsys5 a38d] UpdateResources(): done
-Schema: sources: schema/schema.gql [2235B] 
-Connector "example": sources: example/mutations.gql [1934B] example/queries.gql [1612B] 
-I0918 13:19:51.994455     273 codegen.go:82] [connector "example" javascriptSdk] Generating sources into "/home/user/studio/dataconnect/example/..\\..\\g-assistant-nx\\dataconnect-generated\\js\\example-connector"
-I0918 13:19:52.059648     273 collector.go:107] schema extensions wrote into "/home/user/studio/dataconnect/.dataconnect/schema"
-Generated sources: prelude.gql [73251B] main/input.gql [49230B] main/relation.gql [21135B] main/query.gql [6483B] main/mutation.gql [17415B] main/implicit.gql [799B] 
-I0918 13:19:52.085463     273 collector.go:107] connector "example" javascriptSdk wrote into "/home/user/studio/dataconnect/example/..\\..\\g-assistant-nx\\dataconnect-generated\\js\\example-connector"
-Generated sources: react/README.md [66586B] esm/index.esm.js [5051B] esm/package.json [17B] README.md [59885B] react/package.json [460B] react/esm/index.esm.js [4470B] index.d.ts [12152B] index.cjs.js [5802B] package.json [863B] react/index.d.ts [5797B] react/esm/package.json [17B] react/index.cjs.js [4731B] 
-I0918 13:19:52.085566     273 installsdk.go:35] Unable to find package.json. Skipping automatic installation of @dataconnect/generated
-I0918 13:19:52.085611     273 load.go:109] Finished reloading
-I0918 13:19:52.096860     273 dev.go:102] Listening on address (HTTP + gRPC): 127.0.0.1:50001
-I0918 13:19:53.558354     273 engine.go:169] [/emulator/azizsys5 a38d] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
+E0919 13:40:52.687622    5032 dev.go:79] Failed to load initial config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:40:52.688722    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+I0919 13:40:52.788690    5032 dev.go:102] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+E0919 13:41:02.692731    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:41:12.699723    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:41:22.690722    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:41:32.723343    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:41:42.698779    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:41:52.689677    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:42:02.698388    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:42:12.698376    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:42:22.690104    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:42:32.692824    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:42:42.689158    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:42:52.731248    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:42:52.731332    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:43:02.698681    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:43:12.699061    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:43:22.689823    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:43:32.689012    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:43:42.692659    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:43:52.689065    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:44:02.692111    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:44:12.698616    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:44:22.689455    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:44:32.689100    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:44:42.698352    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:44:52.689117    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:44:52.689201    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:45:02.689683    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:45:12.689106    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:45:22.689087    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:45:32.699705    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:45:42.699093    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:45:52.689165    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:46:02.698538    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:46:12.689289    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:46:22.689741    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:46:32.689121    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:46:42.689100    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:46:52.689688    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:46:52.689757    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:47:02.697337    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:47:12.689671    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:47:22.688967    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:47:32.697749    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:47:42.689111    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:47:52.689845    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:48:02.698908    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:48:12.697928    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:48:22.689343    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:48:32.689067    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:48:42.692611    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:48:52.689329    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:48:52.689382    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:49:02.697985    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:49:12.699178    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:49:22.689406    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:49:32.698918    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:49:42.699123    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:49:52.689462    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:50:02.697878    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:50:12.697748    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:50:22.689150    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:50:32.699807    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:50:42.697756    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:50:52.688954    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:50:52.689016    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:51:02.697730    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:51:12.698726    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:51:22.689629    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:51:32.689273    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:51:42.698756    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:51:52.689053    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:52:02.698374    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:52:12.697259    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:52:22.689081    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:52:32.698438    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:52:42.719682    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:52:52.689401    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:52:52.709636    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:53:02.697051    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:53:12.696771    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:53:22.689054    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:53:32.689737    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:53:42.698771    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:53:52.689409    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:54:02.693504    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:54:12.692147    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:54:22.689524    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:54:32.698741    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:54:42.689294    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:54:52.689910    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:54:52.689973    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:55:02.689308    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:55:12.689057    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:55:22.689380    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:55:32.698696    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:55:42.689720    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:55:52.689848    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:56:02.697829    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:56:12.699739    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:56:22.689036    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:56:32.695511    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:56:42.698776    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:56:52.689538    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:56:52.689619    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:57:02.699052    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:57:12.689216    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:57:22.689195    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:57:32.691267    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:57:42.697758    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:57:52.689120    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:58:02.689107    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:58:12.697878    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:58:22.689432    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:58:32.697729    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:58:42.694347    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:58:52.689328    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:58:52.689390    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 13:59:02.698942    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:59:12.698973    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:59:22.689398    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:59:32.700740    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:59:42.718719    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 13:59:52.689830    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:00:02.697855    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:00:12.699289    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:00:22.688980    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:00:32.698698    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:00:42.689014    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:00:52.689555    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:00:52.689657    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 14:01:02.689101    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:01:12.697755    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:01:22.689006    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:01:32.699003    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:01:42.698181    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:01:52.689891    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:02:02.689822    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:02:12.689104    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:02:22.688959    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:02:32.697926    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:02:42.697815    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:02:52.690026    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:02:52.690095    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 14:03:02.698108    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:03:12.697808    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:03:22.689335    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:03:32.689091    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:03:42.697781    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:03:52.689597    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:04:02.689181    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:04:12.689209    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:04:22.689031    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:04:32.689029    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:04:42.699510    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:04:52.689008    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:04:52.689074    5032 watch.go:102] watchAllDir unable to walk dir `/home/user/studio/config/firebase/dataconnect`: lstat /home/user/studio/config/firebase/dataconnect: no such file or directory
+E0919 14:05:02.697744    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:05:12.694397    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:05:22.689003    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:05:32.699154    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:05:42.698760    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:05:52.689343    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
+E0919 14:06:02.699144    5032 watch.go:31] Failed to load config from "/home/user/studio/config/firebase/dataconnect": could not find dataconnect.yaml in `/home/user/studio/config/firebase/dataconnect`
