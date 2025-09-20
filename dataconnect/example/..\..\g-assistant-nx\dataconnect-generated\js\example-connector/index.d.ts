@@ -197,6 +197,66 @@ export interface User_Key {
   __typename?: 'User_Key';
 }
 
+interface GetCurrentUserRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<GetCurrentUserData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<GetCurrentUserData, undefined>;
+  operationName: string;
+}
+export const getCurrentUserRef: GetCurrentUserRef;
+
+export function getCurrentUser(): QueryPromise<GetCurrentUserData, undefined>;
+export function getCurrentUser(dc: DataConnect): QueryPromise<GetCurrentUserData, undefined>;
+
+interface ListUserChatSessionsRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (): QueryRef<ListUserChatSessionsData, undefined>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect): QueryRef<ListUserChatSessionsData, undefined>;
+  operationName: string;
+}
+export const listUserChatSessionsRef: ListUserChatSessionsRef;
+
+export function listUserChatSessions(): QueryPromise<ListUserChatSessionsData, undefined>;
+export function listUserChatSessions(dc: DataConnect): QueryPromise<ListUserChatSessionsData, undefined>;
+
+interface GetChatSessionRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: GetChatSessionVariables): QueryRef<GetChatSessionData, GetChatSessionVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: GetChatSessionVariables): QueryRef<GetChatSessionData, GetChatSessionVariables>;
+  operationName: string;
+}
+export const getChatSessionRef: GetChatSessionRef;
+
+export function getChatSession(vars: GetChatSessionVariables): QueryPromise<GetChatSessionData, GetChatSessionVariables>;
+export function getChatSession(dc: DataConnect, vars: GetChatSessionVariables): QueryPromise<GetChatSessionData, GetChatSessionVariables>;
+
+interface ListTasksRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars?: ListTasksVariables): QueryRef<ListTasksData, ListTasksVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars?: ListTasksVariables): QueryRef<ListTasksData, ListTasksVariables>;
+  operationName: string;
+}
+export const listTasksRef: ListTasksRef;
+
+export function listTasks(vars?: ListTasksVariables): QueryPromise<ListTasksData, ListTasksVariables>;
+export function listTasks(dc: DataConnect, vars?: ListTasksVariables): QueryPromise<ListTasksData, ListTasksVariables>;
+
+interface SearchKnowledgeRef {
+  /* Allow users to create refs without passing in DataConnect */
+  (vars: SearchKnowledgeVariables): QueryRef<SearchKnowledgeData, SearchKnowledgeVariables>;
+  /* Allow users to pass in custom DataConnect instances */
+  (dc: DataConnect, vars: SearchKnowledgeVariables): QueryRef<SearchKnowledgeData, SearchKnowledgeVariables>;
+  operationName: string;
+}
+export const searchKnowledgeRef: SearchKnowledgeRef;
+
+export function searchKnowledge(vars: SearchKnowledgeVariables): QueryPromise<SearchKnowledgeData, SearchKnowledgeVariables>;
+export function searchKnowledge(dc: DataConnect, vars: SearchKnowledgeVariables): QueryPromise<SearchKnowledgeData, SearchKnowledgeVariables>;
+
 interface UpsertUserRef {
   /* Allow users to create refs without passing in DataConnect */
   (vars: UpsertUserVariables): MutationRef<UpsertUserData, UpsertUserVariables>;
@@ -280,64 +340,4 @@ export const addKnowledgeEntryRef: AddKnowledgeEntryRef;
 
 export function addKnowledgeEntry(vars: AddKnowledgeEntryVariables): MutationPromise<AddKnowledgeEntryData, AddKnowledgeEntryVariables>;
 export function addKnowledgeEntry(dc: DataConnect, vars: AddKnowledgeEntryVariables): MutationPromise<AddKnowledgeEntryData, AddKnowledgeEntryVariables>;
-
-interface GetCurrentUserRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<GetCurrentUserData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<GetCurrentUserData, undefined>;
-  operationName: string;
-}
-export const getCurrentUserRef: GetCurrentUserRef;
-
-export function getCurrentUser(): QueryPromise<GetCurrentUserData, undefined>;
-export function getCurrentUser(dc: DataConnect): QueryPromise<GetCurrentUserData, undefined>;
-
-interface ListUserChatSessionsRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (): QueryRef<ListUserChatSessionsData, undefined>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect): QueryRef<ListUserChatSessionsData, undefined>;
-  operationName: string;
-}
-export const listUserChatSessionsRef: ListUserChatSessionsRef;
-
-export function listUserChatSessions(): QueryPromise<ListUserChatSessionsData, undefined>;
-export function listUserChatSessions(dc: DataConnect): QueryPromise<ListUserChatSessionsData, undefined>;
-
-interface GetChatSessionRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: GetChatSessionVariables): QueryRef<GetChatSessionData, GetChatSessionVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: GetChatSessionVariables): QueryRef<GetChatSessionData, GetChatSessionVariables>;
-  operationName: string;
-}
-export const getChatSessionRef: GetChatSessionRef;
-
-export function getChatSession(vars: GetChatSessionVariables): QueryPromise<GetChatSessionData, GetChatSessionVariables>;
-export function getChatSession(dc: DataConnect, vars: GetChatSessionVariables): QueryPromise<GetChatSessionData, GetChatSessionVariables>;
-
-interface ListTasksRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars?: ListTasksVariables): QueryRef<ListTasksData, ListTasksVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars?: ListTasksVariables): QueryRef<ListTasksData, ListTasksVariables>;
-  operationName: string;
-}
-export const listTasksRef: ListTasksRef;
-
-export function listTasks(vars?: ListTasksVariables): QueryPromise<ListTasksData, ListTasksVariables>;
-export function listTasks(dc: DataConnect, vars?: ListTasksVariables): QueryPromise<ListTasksData, ListTasksVariables>;
-
-interface SearchKnowledgeRef {
-  /* Allow users to create refs without passing in DataConnect */
-  (vars: SearchKnowledgeVariables): QueryRef<SearchKnowledgeData, SearchKnowledgeVariables>;
-  /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: SearchKnowledgeVariables): QueryRef<SearchKnowledgeData, SearchKnowledgeVariables>;
-  operationName: string;
-}
-export const searchKnowledgeRef: SearchKnowledgeRef;
-
-export function searchKnowledge(vars: SearchKnowledgeVariables): QueryPromise<SearchKnowledgeData, SearchKnowledgeVariables>;
-export function searchKnowledge(dc: DataConnect, vars: SearchKnowledgeVariables): QueryPromise<SearchKnowledgeData, SearchKnowledgeVariables>;
 

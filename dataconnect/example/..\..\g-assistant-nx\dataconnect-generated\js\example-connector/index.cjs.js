@@ -7,6 +7,66 @@ const connectorConfig = {
 };
 exports.connectorConfig = connectorConfig;
 
+const getCurrentUserRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetCurrentUser');
+}
+getCurrentUserRef.operationName = 'GetCurrentUser';
+exports.getCurrentUserRef = getCurrentUserRef;
+
+exports.getCurrentUser = function getCurrentUser(dc) {
+  return executeQuery(getCurrentUserRef(dc));
+};
+
+const listUserChatSessionsRef = (dc) => {
+  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListUserChatSessions');
+}
+listUserChatSessionsRef.operationName = 'ListUserChatSessions';
+exports.listUserChatSessionsRef = listUserChatSessionsRef;
+
+exports.listUserChatSessions = function listUserChatSessions(dc) {
+  return executeQuery(listUserChatSessionsRef(dc));
+};
+
+const getChatSessionRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'GetChatSession', inputVars);
+}
+getChatSessionRef.operationName = 'GetChatSession';
+exports.getChatSessionRef = getChatSessionRef;
+
+exports.getChatSession = function getChatSession(dcOrVars, vars) {
+  return executeQuery(getChatSessionRef(dcOrVars, vars));
+};
+
+const listTasksRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'ListTasks', inputVars);
+}
+listTasksRef.operationName = 'ListTasks';
+exports.listTasksRef = listTasksRef;
+
+exports.listTasks = function listTasks(dcOrVars, vars) {
+  return executeQuery(listTasksRef(dcOrVars, vars));
+};
+
+const searchKnowledgeRef = (dcOrVars, vars) => {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
+  dcInstance._useGeneratedSdk();
+  return queryRef(dcInstance, 'SearchKnowledge', inputVars);
+}
+searchKnowledgeRef.operationName = 'SearchKnowledge';
+exports.searchKnowledgeRef = searchKnowledgeRef;
+
+exports.searchKnowledge = function searchKnowledge(dcOrVars, vars) {
+  return executeQuery(searchKnowledgeRef(dcOrVars, vars));
+};
+
 const upsertUserRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
@@ -89,64 +149,4 @@ exports.addKnowledgeEntryRef = addKnowledgeEntryRef;
 
 exports.addKnowledgeEntry = function addKnowledgeEntry(dcOrVars, vars) {
   return executeMutation(addKnowledgeEntryRef(dcOrVars, vars));
-};
-
-const getCurrentUserRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetCurrentUser');
-}
-getCurrentUserRef.operationName = 'GetCurrentUser';
-exports.getCurrentUserRef = getCurrentUserRef;
-
-exports.getCurrentUser = function getCurrentUser(dc) {
-  return executeQuery(getCurrentUserRef(dc));
-};
-
-const listUserChatSessionsRef = (dc) => {
-  const { dc: dcInstance} = validateArgs(connectorConfig, dc, undefined);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListUserChatSessions');
-}
-listUserChatSessionsRef.operationName = 'ListUserChatSessions';
-exports.listUserChatSessionsRef = listUserChatSessionsRef;
-
-exports.listUserChatSessions = function listUserChatSessions(dc) {
-  return executeQuery(listUserChatSessionsRef(dc));
-};
-
-const getChatSessionRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'GetChatSession', inputVars);
-}
-getChatSessionRef.operationName = 'GetChatSession';
-exports.getChatSessionRef = getChatSessionRef;
-
-exports.getChatSession = function getChatSession(dcOrVars, vars) {
-  return executeQuery(getChatSessionRef(dcOrVars, vars));
-};
-
-const listTasksRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'ListTasks', inputVars);
-}
-listTasksRef.operationName = 'ListTasks';
-exports.listTasksRef = listTasksRef;
-
-exports.listTasks = function listTasks(dcOrVars, vars) {
-  return executeQuery(listTasksRef(dcOrVars, vars));
-};
-
-const searchKnowledgeRef = (dcOrVars, vars) => {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  dcInstance._useGeneratedSdk();
-  return queryRef(dcInstance, 'SearchKnowledge', inputVars);
-}
-searchKnowledgeRef.operationName = 'SearchKnowledge';
-exports.searchKnowledgeRef = searchKnowledgeRef;
-
-exports.searchKnowledge = function searchKnowledge(dcOrVars, vars) {
-  return executeQuery(searchKnowledgeRef(dcOrVars, vars));
 };
