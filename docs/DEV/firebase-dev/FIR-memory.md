@@ -82,12 +82,75 @@ firebase.json         # إعدادات Firebase
 2. مراقبة الأداء
 3. تحديث المهام
 
-## 📊 **مؤشرات الأداء**
+## 💡 **أمثلة من عملي**
+
+### ✅ **مثال صحيح - Firebase Auth:**
+```typescript
+// config/firebase/auth.config.ts
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+
+export const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    return { user: result.user, token: await result.user.getIdToken() };
+  } catch (error) {
+    console.error('Auth error:', error);
+    throw error;
+  }
+};
+```
+
+### ❌ **مثال خاطئ - تجنب هذا:**
+```typescript
+// ❌ لا تفعل هذا - API key مكشوف
+const config = {
+  apiKey: 'AIzaSyC...', // مكشوف!
+};
+```
+
+## ✅ **معايير جودة عملي**
+- ✅ جميع API keys في environment variables
+- ✅ Security Rules مفصلة
+- ✅ Error handling شامل
+- ✅ Performance monitoring نشط
+
+## 📊 **مؤشرات أدائي اليومية**
+### **الإنتاجية:**
+- **Firebase Services المكتملة**: [X/Y]
+- **سرعة التسليم**: [X ساعة/service]
+- **الالتزام بالموعد**: [✅/❌] 3:00 PM
+
+### **الجودة:**
 - **Response Time**: < 2 seconds
 - **Accuracy Rate**: > 95%
 - **Firebase Usage**: < 10K reads/day
 
-## 🚫 **ممنوع أمس**
+## 🔧 **مشاكل شائعة وحلولها**
+
+### **المشكلة 1: Firebase Emulator لا يعمل**
+```bash
+# ❌ المشكلة
+firebase emulators:start
+# Error: Port 8080 already in use
+
+# ✅ الحل
+firebase emulators:start --only firestore,auth --port 9099
+```
+
+### **المشكلة 2: Security Rules معقدة**
+```javascript
+// ✅ الحل - functions منفصلة
+function isOwner() {
+  return request.auth.uid == resource.data.user_id;
+}
+
+allow read, write: if request.auth != null && isOwner();
+```
+
+## 🚫 **ممنوع علي**
 - مكونات UI (مسؤولية DES)
 - Backend NestJS (مسؤولية VSC)
 - Integration logic (مسؤولية INT)

@@ -16,6 +16,14 @@
   - الملف: `apps/web-chatbot/src/components/ui/Input.tsx`
   - الأنواع: Text, Email, Password, Search
 
+- [ ] **DES-004**: Card component
+  - الملف: `apps/web-chatbot/src/components/ui/Card.tsx`
+  - المتطلبات: Header, Body, Footer variants
+
+- [ ] **DES-005**: Modal component
+  - الملف: `apps/web-chatbot/src/components/ui/Modal.tsx`
+  - المتطلبات: Overlay, Close button, Responsive
+
 ### 📁 ملفاتي:
 ```
 apps/web-chatbot/src/components/ui/
