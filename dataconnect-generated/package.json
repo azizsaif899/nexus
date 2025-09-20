@@ -1,0 +1,21 @@
+{
+  "name": "@dataconnect/generated",
+  "version": "1.0.0",
+  "description": "Generated Firebase Data Connect SDK for AzizSys AI Assistant",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "firebase": "^10.0.0",
+    "@firebase/data-connect": "^0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "firebase": ">=10.0.0"
+  }
+}

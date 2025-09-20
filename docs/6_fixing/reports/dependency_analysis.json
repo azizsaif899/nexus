@@ -1,0 +1,103 @@
+{
+  "analysis_date": "2025-01-08",
+  "firebase_dependencies": {
+    "firebase.json": {
+      "firestore_rules": "firestore.rules",
+      "firestore_indexes": "firestore.indexes.json",
+      "dataconnect_source": "../dataconnect"
+    },
+    "files_to_move": [
+      "firebase.json",
+      "firestore.rules", 
+      "firestore.indexes.json",
+      ".firebaserc"
+    ],
+    "new_location": "config/firebase/",
+    "path_updates_needed": [
+      "Update firestore.rules path in firebase.json",
+      "Update firestore.indexes.json path in firebase.json"
+    ]
+  },
+  "security_files": {
+    "files_to_move": [
+      "service-account-key.json",
+      ".env",
+      ".env.example", 
+      ".env.production",
+      ".env.test"
+    ],
+    "duplicates_to_remove": [
+      "service-account-key.json.backup",
+      ".env.backup"
+    ],
+    "new_location": "config/security/"
+  },
+  "build_configuration": {
+    "files_to_move": [
+      "tsconfig.base.json",
+      "jest.config.ts",
+      "eslint.config.mjs",
+      "playwright.config.ts"
+    ],
+    "duplicates_to_remove": [
+      "tsconfig-root.json"
+    ],
+    "new_location": "config/build/"
+  },
+  "deployment_files": {
+    "files_to_move": [
+      "docker-compose.yml",
+      "docker-compose.dev.yml", 
+      "docker-compose.prod.yml",
+      "Dockerfile.dev",
+      "nginx.conf"
+    ],
+    "new_location": "config/deployment/"
+  },
+  "documentation_files": {
+    "setup_docs": [
+      "QUICK_START.md",
+      "SECURITY_SETUP.md",
+      "MANUAL_SETUP.md",
+      "SETUP_COMPLETE.md"
+    ],
+    "guide_docs": [
+      "BIGQUERY_DETAILED_GUIDE.md",
+      "GOOGLE_CLOUD_SETUP.md", 
+      "POSTGRESQL_INSTALL_GUIDE.md",
+      "MONOREPO_GUIDE.md"
+    ],
+    "deployment_docs": [
+      "DEPLOYMENT_TEST.md",
+      "FINAL_SETUP_STEPS.md",
+      "FINAL_SYSTEM_STATUS.md"
+    ],
+    "troubleshooting_docs": [
+      "TROUBLESHOOTING.md",
+      "NX_FIX_STATUS.md",
+      "RUN_TESTS.md"
+    ]
+  },
+  "test_files": {
+    "reports_to_move": [
+      "comprehensive-test.json",
+      "final-test.json",
+      "fix-test.json",
+      "test-graph.json",
+      "project-graph-test.json",
+      "project-graph.json"
+    ],
+    "new_location": "tests/reports/"
+  },
+  "duplicate_files": [
+    "service-account-key.json.backup",
+    ".env.backup", 
+    "tsconfig-root.json",
+    "package-root.json"
+  ],
+  "temporary_files": [
+    "firebase-debug.log",
+    "test-api.js",
+    "QUICK_DASHBOARD_SERVER.js"
+  ]
+}

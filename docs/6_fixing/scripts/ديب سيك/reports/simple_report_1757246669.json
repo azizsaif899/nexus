@@ -1,0 +1,102 @@
+{
+  "scanned_files": 416,
+  "total_issues": 12,
+  "issues": [
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\simple-scan.py",
+      "line": 23,
+      "severity": "CRITICAL",
+      "type": "Code Injection",
+      "description": "استخدام eval خطير",
+      "code": "'eval(': 'Dangerous eval usage',"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\utils\\misc.py",
+      "line": 475,
+      "severity": "HIGH",
+      "type": "Hardcoded Password",
+      "description": "كلمة مرور في الكود",
+      "code": "password = \"\""
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\utils\\misc.py",
+      "line": 478,
+      "severity": "HIGH",
+      "type": "Hardcoded Password",
+      "description": "كلمة مرور في الكود",
+      "code": "password = \":****\""
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\utils\\setuptools_build.py",
+      "line": 10,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "exec(compile('''"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\utils\\setuptools_build.py",
+      "line": 44,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "exec(compile(setup_py_code, filename, \"exec\"))"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\typing_extensions.py",
+      "line": 1,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "{\"fixed_code\": \"import abc\\nimport builtins\\nimport collections\\nimport collections.abc\\nimport cont"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\scripts.py",
+      "line": 163,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "# shebang, or else using os.exec() to run the entry script will"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__init__.py",
+      "line": 1714,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "exec(code, namespace, namespace)"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__init__.py",
+      "line": 1725,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "exec(script_code, namespace, namespace)"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\__init__.py",
+      "line": 1,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "{\"fixed_code\": \"\\\"\\\"\\\"\\n    pygments.formatters\\n    ~~~~~~~~~~~~~~~~~~~\\n\\n    Pygments formatters."
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\__init__.py",
+      "line": 154,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "exec(f.read(), custom_namespace)"
+    },
+    {
+      "file": "E:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\six.py",
+      "line": 787,
+      "severity": "CRITICAL",
+      "type": "Code Execution",
+      "description": "استخدام exec خطير",
+      "code": "exec (\"\"\"exec _code_ in _globs_, _locs_\"\"\")"
+    }
+  ]
+}

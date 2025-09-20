@@ -1,0 +1,268 @@
+connectorId: example
+generate:
+  javascriptSdk:
+    - outputDir: ..\..\g-assistant-nx\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\security-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\security-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\sdk-js\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\sdk-js
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\monitoring-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\monitoring-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\g-assistant-agents\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\g-assistant-agents
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\deployment-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\deployment-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\data-connect-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\data-connect-core
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\crm-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\crm-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\compliance-agent\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\compliance-agent
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\ai-engine\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\ai-engine
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\apps\web-chatbot\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\apps\web-chatbot
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\apps\crm-system\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\apps\crm-system
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\apps\api\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\apps\api
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\apps\admin-dashboard\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\apps\admin-dashboard
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\workflow\camunda-client\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\workflow\camunda-client
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\ui\ui-components\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\ui\ui-components
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\ui\sidebar-agents\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\ui\sidebar-agents
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\ui\crm-ui\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\ui\crm-ui
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\tooling\testing-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\tooling\testing-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\tooling\shared-mocks\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\tooling\shared-mocks
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\tooling\shared-hooks\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\tooling\shared-hooks
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\tooling\auto-repair\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\tooling\auto-repair
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\tooling\auto-fix-system\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\tooling\auto-fix-system
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\whatsapp-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\whatsapp-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\whatsapp-client\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\whatsapp-client
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\odoo-integration\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\odoo-integration
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\october-implementation\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\october-implementation
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\gtm-engine\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\gtm-engine
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\gemini-research-agent\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\gemini-research-agent
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\bigquery-client\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\bigquery-client
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\features\live-sessions\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\features\live-sessions
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\features\content-management\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\features\content-management
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\domain\crm\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\domain\crm
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\domain\config-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\domain\config-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\domain\business-logic\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\domain\business-logic
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\domain\billing-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\domain\billing-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\domain\analytics-core\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\domain\analytics-core
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\domain\ai-engine\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\domain\ai-engine
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\core\shared-types\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\core\shared-types
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\core\json-rpc-client\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\core\json-rpc-client
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\core\event-bus\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\core\event-bus
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\core\error-handler\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\core\error-handler
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\core\core-logic\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\core\core-logic
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\core\cache-client\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\core\cache-client
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\core\api-client\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\core\api-client
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\apps\web-chatbot\nexus\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\apps\web-chatbot\nexus
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\web-interface\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\web-interface
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\sheets-addon\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\sheets-addon
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\api\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\api
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\docs\5_misc\archive\old_doc\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\docs\5_misc\archive\old_doc
+      react: false
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\october-implementation\src\frontend\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\october-implementation\src\frontend
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\packages\integrations\gemini-research-agent\src\frontend\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\packages\integrations\gemini-research-agent\src\frontend
+      react: true
+      angular: false
+    - outputDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\web-interface\frontend\src\dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ..\..\g-assistant-nx\docs\8_legacy\legacy-apps\web-interface\frontend
+      react: true
+      angular: false

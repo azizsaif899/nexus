@@ -1,0 +1,11 @@
+export default {
+  displayName: 'admin-dashboard',
+  testEnvironment: 'node',
+  passWithNoTests: true,
+  transform: {
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
+  },
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  coverageDirectory: '../../coverage/apps/admin-dashboard',
+};

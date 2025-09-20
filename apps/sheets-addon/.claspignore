@@ -1,0 +1,14 @@
+# Ignore source files - only deploy from dist/
+src/
+node_modules/
+*.ts
+*.json
+!appsscript.json
+!.clasp.json
+*.md
+.git/
+.gitignore
+vite.config.ts
+tsconfig*.json
+jest.config.ts
+webpack.config.js

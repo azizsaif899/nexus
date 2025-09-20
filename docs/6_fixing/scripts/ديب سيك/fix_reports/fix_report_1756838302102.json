@@ -1,0 +1,2858 @@
+{
+  "execution_info": {
+    "timestamp": "2025-09-02T21:36:48.680352",
+    "plan_source": "2025-09-02T21:36:48.610018"
+  },
+  "summary": {
+    "files_processed": 474,
+    "files_fixed": 281,
+    "issues_fixed": 281,
+    "backups_created": 474
+  },
+  "details": [
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\reports\\simple_scan_1756837786910.json",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\simple_scan_1756837786910.json.backup.20250902_213648",
+      "issues_fixed": 1,
+      "manual_review_needed": 77
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\reports\\analysis_report_20250902_202747.json",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\analysis_report_20250902_202747.json.backup.20250902_213820",
+      "issues_fixed": 0,
+      "manual_review_needed": 15
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\tech\\scripts\\docs_data.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\docs_data.js.backup.20250902_213820",
+      "issues_fixed": 1,
+      "manual_review_needed": 7
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\docs_data.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\docs_data.js.backup.20250902_213820",
+      "issues_fixed": 1,
+      "manual_review_needed": 7
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\docs_data.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\docs_data.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 4
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\monthly_plans\\archive\\00.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\00.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 4
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\lib\\nlp-processor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\nlp-processor.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\AzizSys Developer Dashboard.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\AzizSys Developer Dashboard.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 6
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\DAILY_BOOT_127_SECURITY_FIX.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DAILY_BOOT_127_SECURITY_FIX.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 4
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\AzizSys_Ultimate_Dashboard.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\AzizSys_Ultimate_Dashboard.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 4
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\4_operations\\troubleshooting.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\troubleshooting.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 2
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\troubleshooting-new.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\troubleshooting-new.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 2
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\process\\reviews\\daily_progress_report.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\daily_progress_report.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 2
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\protocols\\archive-old-ai-protocols\\AI_Amazon_Executor_v2.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\AI_Amazon_Executor_v2.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\utils\\misc.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\misc.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 2
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\utils\\setuptools_build.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\setuptools_build.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pkg_resources\\__init__.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\__init__.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\DEEP_SCAN.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DEEP_SCAN.js.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\index-simple.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index-simple.html.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\nexus\\index-simple.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index-simple.html.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\4_operations\\deployment-guide.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\deployment-guide.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\package.json",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\package.json.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\protocols\\archive-old-ai-protocols\\GEMINI_REVIEWER_ENHANCED.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\GEMINI_REVIEWER_ENHANCED.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\simple-scan.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\simple-scan.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\typing_extensions.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\typing_extensions.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\scripts.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\scripts.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\__init__.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\__init__.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\__init__.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\__init__.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\six.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\six.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\WHATSAPP_CRM_INTEGRATION.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\WHATSAPP_CRM_INTEGRATION.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\odoo-addon\\g_assistant_connector\\views\\g_assistant_config_views.xml",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\g_assistant_config_views.xml.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\odoo-addon\\g_assistant_connector\\views\\settings_view.xml",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\settings_view.xml.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\gemini-research-agent\\src\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\october-implementation\\src\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\print-utils.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\print-utils.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 2
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\lib\\print-utils.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\print-utils.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 2
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\install-odoo-direct.bat",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\install-odoo-direct.bat.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\setup.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\setup.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\nx-welcome.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\nx-welcome.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\main app\\components\\ui\\chart.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\chart.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\main app\\docs\\TEAM_INSTRUCTIONS.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\TEAM_INSTRUCTIONS.md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\main app\\docs\\TECHNICAL_SPECIFICATIONS.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\TECHNICAL_SPECIFICATIONS.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\app\\nx-welcome.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\nx-welcome.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\ai-analyzer.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ai-analyzer.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\frontend\\TEAM_INSTRUCTIONS.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\TEAM_INSTRUCTIONS.md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\frontend\\TECHNICAL_SPECIFICATIONS.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\TECHNICAL_SPECIFICATIONS.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 1
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\package.json",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\package.json.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\pnpm-lock.yaml",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\pnpm-lock.yaml.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\.amazonq\\long-term-memory\\2025-01-08_conversation_summary.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\2025-01-08_conversation_summary.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\EventBus.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\EventBus.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\test-dashboard.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-dashboard.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\campaigns.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\campaigns.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\ai-dashboard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ai-dashboard.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\monitoring-dashboard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\monitoring-dashboard.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\security-dashboard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\security-dashboard.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\testing-dashboard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\testing-dashboard.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\whatsapp-management.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\whatsapp-management.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\components\\campaign-tracker.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\campaign-tracker.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\app\\components\\LoginForm.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\LoginForm.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\integration\\api-bridge.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\api-bridge.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\pages\\campaign-tracker.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\campaign-tracker.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\admin-dashboard\\src\\pages\\customer-360.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\customer-360.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\server.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\server.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\scripts\\init-db.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\init-db.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\main-simple.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\main-simple.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\main.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\main.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\ai\\intent-router.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\intent-router.service.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\ai\\response-cache.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\response-cache.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\app\\app.module.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\app.module.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\common\\filters\\global-exception.filter.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\global-exception.filter.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\controllers\\crm.controller.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm.controller.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\controllers\\meta-tracking.controller.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\meta-tracking.controller.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\controllers\\webhook.controller.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\webhook.controller.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\controllers\\workflow.controller.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\workflow.controller.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\database\\bigquery-connection.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\bigquery-connection.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\database\\connection.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\connection.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\database\\seeds\\user.seed.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\user.seed.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\gateway\\main.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\main.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\hybrid\\hybrid.controller.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\hybrid.controller.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\live\\live.gateway.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\live.gateway.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\live\\odoo-websocket.gateway.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo-websocket.gateway.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\modules\\agents\\agents.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\agents.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\modules\\queries\\queries.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\queries.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\odoo\\odoo.controller.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo.controller.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\privacy\\gdpr.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gdpr.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\routes\\agents.routes.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\agents.routes.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\routes\\analytics.routes.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\analytics.routes.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\routes\\commands.routes.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\commands.routes.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\routes\\customer.routes.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\customer.routes.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\routes\\dashboard.routes.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\dashboard.routes.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\routes\\meta.routes.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\meta.routes.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\routes\\webhook.routes.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\webhook.routes.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\services\\camunda-worker-manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\camunda-worker-manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\services\\meta-ads-api.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\meta-ads-api.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\api\\src\\services\\meta-integration.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\meta-integration.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\scripts\\complete-crm-flow.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\complete-crm-flow.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\scripts\\demo-whatsapp-crm.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\demo-whatsapp-crm.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\scripts\\real-crm-demo.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\real-crm-demo.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\scripts\\test-whatsapp-crm.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-whatsapp-crm.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\src\\pages\\campaign-tracker.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\campaign-tracker.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\src\\pages\\customer-360.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\customer-360.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\crm-system\\src\\pages\\Leads.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\Leads.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\main app\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\main app\\components\\ui\\alert.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\alert.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\main app\\docs\\FIREBASE_INTEGRATION_GUIDE.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\FIREBASE_INTEGRATION_GUIDE.md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\main app\\docs\\MIGRATION_STRATEGY.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\MIGRATION_STRATEGY.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\sheets-addon\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\sheets-addon\\src\\main.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\main.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\sheets-addon\\src\\client\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\sheets-addon\\src\\client\\sidebar.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\sidebar.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\sheets-addon\\src\\server\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\index.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\nexus\\index.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\app\\api\\chat\\route.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\route.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\app\\components\\ChatInterface.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ChatInterface.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\components\\KnowledgeBase.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\KnowledgeBase.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\features\\billing\\StripeCheckout.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\StripeCheckout.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\features\\file-upload\\ImageUploader.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ImageUploader.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\services\\api.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\api.service.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\services\\live-session.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\live-session.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\web-chatbot\\src\\services\\smart-actions.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\smart-actions.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-exec-bot\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-exec-bot\\src\\crm-webhook.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm-webhook.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-exec-bot\\src\\gtm-tracking.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gtm-tracking.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-exec-bot\\src\\main.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\main.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-exec-bot\\src\\odoo-integration.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo-integration.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-query-bot\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-query-bot\\src\\main.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\main.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\apps\\whatsapp-query-bot\\src\\query-bot.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\query-bot.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\dataconnect-generated\\js\\example-connector\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\dataconnect-generated\\js\\example-connector\\react\\README.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\README.md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\0_main\\TROUBLESHOOTING.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\TROUBLESHOOTING.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\3_api\\api_reference.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\api_reference.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\architecture-new.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\architecture-new.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\build-docs.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\build-docs.js.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\dashboard.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\dashboard.html.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\docs_viewer.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\docs_viewer.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\generate_docs_data.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\generate_docs_data.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\index.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\serve.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\serve.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\tech\\scripts\\auto_update_docs.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto_update_docs.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\5_misc\\archive\\old_doc\\tech\\scripts\\generate_docs_data.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\generate_docs_data.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\dashboard\\dashboard-data-loader.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\dashboard-data-loader.js.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\dashboard\\dashboard.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\dashboard.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\dashboard\\EventBus.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\EventBus.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\dashboard\\index.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.html.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\dashboard\\server.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\server.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\monthly_plans\\archive\\DAILY_BOOT_33.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DAILY_BOOT_33.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\monthly_plans\\archive\\IMPLEMENTATION_ROADMAP.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\IMPLEMENTATION_ROADMAP.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\monthly_plans\\archive\\MONTHLY_PLAN.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\MONTHLY_PLAN.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\monthly_plans\\archive\\MONTHLY_PLAN_3.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\MONTHLY_PLAN_3.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\protocols\\archive-old-ai-protocols\\AUTOMATED_WORKFLOW_SYSTEM.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\AUTOMATED_WORKFLOW_SYSTEM.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\reports\\BACKEND_COMPLETION_REPORT.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\BACKEND_COMPLETION_REPORT.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\reports\\index.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\amazon-q-auto.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\amazon-q-auto.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\auto-fix-v2.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto-fix-v2.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\auto-system-manager.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto-system-manager.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\auto_update_docs.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto_update_docs.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\CREATE_GEMINI_BACKEND.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CREATE_GEMINI_BACKEND.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\enhanced-reporter.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\enhanced-reporter.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\FIX_MISSING_ENDPOINTS.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\FIX_MISSING_ENDPOINTS.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\gemini-auto.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gemini-auto.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\generate_docs_data.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\generate_docs_data.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\health-check-v2.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\health-check-v2.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\monitor-dashboard.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\monitor-dashboard.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\notifications.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\notifications.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\nx_auto_fix.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\nx_auto_fix.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\nx_detailed_analyzer.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\nx_detailed_analyzer.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\nx_project_monitor.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\nx_project_monitor.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\nx_task_orchestrator.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\nx_task_orchestrator.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\run-compliance-agent.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\run-compliance-agent.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\run_cody_review.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\run_cody_review.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\setup-bigquery.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\setup-bigquery.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\smart-build.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\smart-build.js.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\update_sprint_status.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\update_sprint_status.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\watch_mode.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\watch_mode.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\al-dhabit\\generate-comprehensive-report.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\generate-comprehensive-report.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\archive\\setup-ai-repair.bat",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\setup-ai-repair.bat.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\dashboard.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\dashboard.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_fixer.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\deepseek_fixer.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\build_env.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\build_env.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\cache.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\cache.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\cli\\base_command.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\base_command.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\commands\\inspect.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\inspect.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\index\\collector.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\collector.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\locations\\base.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\base.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\locations\\_distutils.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\_distutils.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\metadata\\base.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\base.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\metadata\\importlib\\_compat.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\_compat.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\models\\index.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\models\\installation_report.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\installation_report.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\models\\selection_prefs.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\selection_prefs.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\network\\lazy_wheel.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\lazy_wheel.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\operations\\prepare.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\prepare.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\operations\\install\\wheel.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\wheel.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\req\\constructors.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\constructors.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\req\\req_file.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\req_file.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\req\\req_install.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\req_install.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\req\\req_set.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\req_set.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\req\\req_uninstall.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\req_uninstall.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\candidates.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\candidates.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\factory.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\factory.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\provider.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\provider.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\utils\\unpacking.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\unpacking.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_internal\\vcs\\subversion.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\subversion.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\controller.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\controller.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\cachecontrol\\filewrapper.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\filewrapper.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\database.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\database.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\locators.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\locators.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\metadata.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\metadata.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\resources.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\resources.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\util.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\util.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\version.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\version.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\distlib\\wheel.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\wheel.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\msgpack\\fallback.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\fallback.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\packaging\\metadata.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\metadata.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\packaging\\requirements.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\requirements.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\packaging\\tags.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\tags.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexer.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\lexer.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\unistring.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\unistring.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\filters\\__init__.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\__init__.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\python.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\python.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\_mapping.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\_mapping.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\requests\\adapters.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\adapters.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\requests\\hooks.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\hooks.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\requests\\utils.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\utils.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\rich\\text.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\text.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\truststore\\_api.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\_api.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\truststore\\_macos.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\_macos.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\connection.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\connection.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\connectionpool.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\connectionpool.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\exceptions.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\exceptions.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\response.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\response.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\pyopenssl.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\pyopenssl.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\securetransport.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\securetransport.py.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\_securetransport\\low_level.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\low_level.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\response.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\response.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\retry.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\retry.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\deepseek_env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\url.py",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\url.py.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\8_legacy\\legacy-apps\\sheets-addon\\build.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\build.js.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\8_legacy\\legacy-apps\\web-interface\\test-server.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-server.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\8_legacy\\legacy-apps\\web-interface\\backend\\server.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\server.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\8_legacy\\legacy-apps\\web-interface\\backend\\simple-server.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\simple-server.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\CRM_DEVELOPER_GUIDE.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CRM_DEVELOPER_GUIDE.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\DEVELOPER_GUIDE.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DEVELOPER_GUIDE.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\INTERACTIVE_UI_AUTOMATION.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\INTERACTIVE_UI_AUTOMATION.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\MULTI_TENANT_CRM_GUIDE.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\MULTI_TENANT_CRM_GUIDE.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\ODOO_API_REFERENCE.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ODOO_API_REFERENCE.md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\updat plan\\crm update plan (11).md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm update plan (11).md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\crm\\updat plan\\crm update plan (8).md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm update plan (8).md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\frontend\\FIREBASE_INTEGRATION_GUIDE.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\FIREBASE_INTEGRATION_GUIDE.md.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\docs\\frontend\\MIGRATION_STRATEGY.md",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\MIGRATION_STRATEGY.md.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\infrastructure\\scaling\\auto-scaler.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto-scaler.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\agents\\compliance.agent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\compliance.agent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\audits\\audit.data-residency.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\audit.data-residency.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\audits\\audit.iac-usage.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\audit.iac-usage.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\knowledge\\knowledge-base.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\knowledge-base.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\reporters\\markdown.reporter.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\markdown.reporter.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\scanners\\gcp-scanner.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gcp-scanner.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\scanners\\github-scanner.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\github-scanner.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\compliance-agent\\src\\scanners\\terraform-state.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\terraform-state.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\audit-core\\src\\audit-logger.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\audit-logger.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\auth\\src\\auth.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auth.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\cache-client\\src\\index.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.js.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\cache-client\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\config-core\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\config-core\\src\\model-selection.strategy.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\model-selection.strategy.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\data-pipeline.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\data-pipeline.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\event-bus.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\event-bus.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\feedback.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\feedback.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\optimistic-updates.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\optimistic-updates.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\websocket-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\websocket-client.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\clients\\bigquery-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\bigquery-client.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\clients\\gemini-client.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gemini-client.js.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\clients\\gemini-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gemini-client.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\clients\\sheets-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\sheets-client.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\services\\ai-core.service.test.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ai-core.service.test.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\core-logic\\src\\services\\lead-processing.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\lead-processing.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\event-bus\\src\\event-processor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\event-processor.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\event-bus\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\event-bus\\src\\pub-sub-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\pub-sub-client.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\core\\src\\events\\event-bus.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\event-bus.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\data-connect-core\\src\\services\\bigquery-integration.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\bigquery-integration.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\data-connect-core\\src\\services\\crm-api-adapter.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm-api-adapter.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\data-connect-core\\src\\testing\\integration-tests.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\integration-tests.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\deployment-core\\src\\deployment-monitor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\deployment-monitor.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\deployment-core\\src\\lib\\environment-controller.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\environment-controller.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\deployment-core\\src\\lib\\rollback-service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\rollback-service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\deployment-system\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\audio-analyzer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\audio-analyzer.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\document-analyzer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\document-analyzer.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\embedding.service.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\embedding.service.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\embedding.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\embedding.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\image-analyzer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\image-analyzer.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\index.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\model-optimizer.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\model-optimizer.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\model-optimizer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\model-optimizer.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\tool-use.orchestrator.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\tool-use.orchestrator.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\tool-use.orchestrator.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\tool-use.orchestrator.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\tools\\google-search.tool.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\google-search.tool.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ai-engine\\src\\tools\\odoo-crm.tool.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo-crm.tool.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\alert-system.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\alert-system.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\analytics-service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\analytics-service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\data-collector.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\data-collector.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\data-pipeline.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\data-pipeline.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\data-warehouse.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\data-warehouse.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\enhanced-report-generator.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\enhanced-report-generator.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\feedback-analyzer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\feedback-analyzer.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\analytics-core\\src\\what-if-analysis.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\what-if-analysis.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\billing-core\\src\\billing.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\billing.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\crm\\src\\crm.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\memory-core\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ml-core\\src\\ml-engine.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ml-engine.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ml-core\\src\\neural-network.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\neural-network.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\domain\\ml-core\\src\\text-to-speech.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\text-to-speech.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\advanced-features\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\advanced-security\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\content-management\\src\\content-manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\content-manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\live-sessions\\src\\live.gateway.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\live.gateway.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\live-sessions\\src\\session.manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\session.manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\live-sessions\\src\\tools\\chart-generator.tool.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\chart-generator.tool.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\performance-optimization\\legacy\\performance\\performance-optimizer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\performance-optimizer.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\features\\performance-optimization\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integration-core\\legacy\\unified-system\\system-orchestrator.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\system-orchestrator.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integration-core\\src\\erp-connector.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\erp-connector.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integration-core\\src\\odoo-webhook.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo-webhook.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\bigquery-client\\src\\odoo-pipeline.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo-pipeline.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\gemini-research-agent\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\gemini-research-agent\\src\\frontend\\package-lock.json",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\package-lock.json.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\gemini-research-agent\\src\\frontend\\src\\components\\ChatMessagesView.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ChatMessagesView.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\gemini-research-agent\\src\\services\\PythonBackendService.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\PythonBackendService.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\gemini-research-agent\\src\\typescript-agent\\GeminiResearchAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\GeminiResearchAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\gtm-engine\\src\\gtm-manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gtm-manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\october-implementation\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\october-implementation\\src\\frontend\\package-lock.json",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\package-lock.json.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\october-implementation\\src\\frontend\\src\\components\\ChatMessagesView.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ChatMessagesView.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\october-implementation\\src\\research-agent\\ResearchAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ResearchAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\odoo-integration\\src\\multi-tenant-manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\multi-tenant-manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\odoo-integration\\src\\odoo-connector.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo-connector.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\whatsapp-core\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\whatsapp-core\\src\\lib\\logging-service.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\logging-service.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\integrations\\whatsapp-core\\src\\lib\\logging-service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\logging-service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\monitoring\\database-monitor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\database-monitor.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\monitoring-core\\src\\security-monitor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\security-monitor.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\odoo-client\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\odoo-client\\src\\odoo-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo-client.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\odoo-client\\src\\odoo.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\odoo.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\research-core\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\scaling-core\\src\\auto-scaler.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto-scaler.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\sdk-js\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\security-core\\src\\AuthMiddleware.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\AuthMiddleware.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\security-core\\src\\SecureKeyManager.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\SecureKeyManager.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\security-core\\src\\SecureLogger.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\SecureLogger.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\security-core\\src\\SecurePathManager.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\SecurePathManager.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\support-core\\src\\support-system.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\support-system.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tenant-core\\src\\tenant-manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\tenant-manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-fix-system\\executor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\executor.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-fix-system\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-fix-system\\core\\events\\eventBus.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\eventBus.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-fix-system\\core\\utils\\rollbackManager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\rollbackManager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-repair\\src\\ai-fixer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\ai-fixer.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-repair\\src\\amazon-executor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\amazon-executor.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-repair\\src\\auto-tester.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto-tester.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-repair\\src\\detector.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\detector.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-repair\\src\\gemini-reviewer.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gemini-reviewer.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-repair\\src\\orchestrator.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\orchestrator.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\auto-repair\\src\\scanner.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\scanner.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\export\\data-export.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\data-export.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\functions\\lead-event-handler\\index.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\functions\\lead-qualification-agent\\index.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\functions\\proactive-alert-agent\\index.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\load-testing\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\stress-testing\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\testing-core\\src\\coverage-monitor.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\coverage-monitor.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\testing-core\\src\\mutation-tester.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\mutation-tester.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\testing-core\\src\\test-reporter.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-reporter.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\testing-core\\src\\visual-tester.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\visual-tester.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\testing-core\\src\\lib\\test-reporter.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-reporter.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\testing-core\\src\\lib\\test-runner.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-runner.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\testing-suite\\src\\index.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\index.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\tooling\\tools-core\\src\\tools-service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\tools-service.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ai-ui\\components.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\components.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\crm-dashboard-app.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm-dashboard-app.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\crm-dashboard-page.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm-dashboard-page.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\crm.html",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\crm.html.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\CRMDashboard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CRMDashboard.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\components\\bulk\\BulkActionPanel.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\BulkActionPanel.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\components\\documents\\DocumentAnalyzer.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DocumentAnalyzer.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\components\\notifications\\SmartNotifications.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\SmartNotifications.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\components\\ui\\CommandBar.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CommandBar.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\components\\ui\\QuickActions.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\QuickActions.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\hooks\\useBulkActions.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\useBulkActions.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\hooks\\useHotkeys.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\useHotkeys.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\command-registry.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\command-registry.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\export-utils.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\export-utils.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\macro-recorder.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\macro-recorder.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\sync-manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\sync-manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\components\\legacy\\app\\lib\\websocket-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\websocket-client.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\components\\bulk\\BulkActionPanel.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\BulkActionPanel.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\components\\documents\\DocumentAnalyzer.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DocumentAnalyzer.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\components\\notifications\\SmartNotifications.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\SmartNotifications.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\components\\ui\\CommandBar.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CommandBar.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\components\\ui\\QuickActions.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\QuickActions.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\hooks\\useBulkActions.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\useBulkActions.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\hooks\\useHotkeys.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\useHotkeys.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\lib\\command-registry.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\command-registry.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\lib\\export-utils.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\export-utils.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\lib\\macro-recorder.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\macro-recorder.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\lib\\sync-manager.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\sync-manager.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\data-access\\app\\lib\\websocket-client.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\websocket-client.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\ui\\AgentDashboard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\AgentDashboard.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\ui\\CoPilotBar.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CoPilotBar.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\ui\\EnhancedPulseCard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\EnhancedPulseCard.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\ui\\LiveSimulator.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\LiveSimulator.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\crm-ui\\ui\\OrgGraph.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\OrgGraph.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\notifications\\notification.service.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\notification.service.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\shared-ui\\hooks\\useCommands.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\useCommands.ts.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\shared-ui\\hooks\\useDynamicWorkspace.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\useDynamicWorkspace.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\sidebar-agents\\src\\agents\\CFOAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CFOAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\sidebar-agents\\src\\agents\\DatabaseAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DatabaseAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\sidebar-agents\\src\\agents\\DatabaseManagerAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DatabaseManagerAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\sidebar-agents\\src\\agents\\DeveloperAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\DeveloperAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\sidebar-agents\\src\\agents\\GeneralAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\GeneralAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\sidebar-agents\\src\\agents\\OperationsAgent.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\OperationsAgent.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ui-components\\ui\\components\\CoPilotBar.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\CoPilotBar.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ui-components\\ui\\components\\EnhancedPulseCard.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\EnhancedPulseCard.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ui-components\\ui\\components\\InteractiveKanban.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\InteractiveKanban.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ui-components\\ui\\components\\MetaPixelSetup.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\MetaPixelSetup.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ui-components\\ui\\components\\OdooCRMWidget.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\OdooCRMWidget.tsx.backup.20250902_213821",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ui-components\\ui\\components\\SmartActivityFeed.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\SmartActivityFeed.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\ui\\ui-components\\ui\\components\\SmartNotification.tsx",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\SmartNotification.tsx.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\workflow\\camunda-client\\src\\base-worker.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\base-worker.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\workflow\\camunda-client\\src\\logger-worker.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\logger-worker.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\packages\\workflow-core\\src\\workflow-engine.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\workflow-engine.ts.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\activate-gtm.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\activate-gtm.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\auto-fix-v2.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\auto-fix-v2.js.backup.20250902_213821",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\build.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\build.js.backup.20250902_213822",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\check-legacy-code.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\check-legacy-code.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\check-missing-routes.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\check-missing-routes.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\cli.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\cli.js.backup.20250902_213822",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\complete-crm-flow.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\complete-crm-flow.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\critical-fix.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\critical-fix.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\demo-whatsapp-crm.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\demo-whatsapp-crm.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\deploy.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\deploy.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\generate-requirements.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\generate-requirements.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\gtm-readiness-check.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\gtm-readiness-check.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\health-check-v2.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\health-check-v2.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\real-crm-demo.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\real-crm-demo.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\run-compliance-agent.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\run-compliance-agent.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\run-priority-tests.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\run-priority-tests.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\setup-bigquery.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\setup-bigquery.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\setup-gtm.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\setup-gtm.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\simple-odoo-test.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\simple-odoo-test.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\test-gtm-live.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-gtm-live.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\test-odoo-bigquery.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-odoo-bigquery.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\test-odoo-integration.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-odoo-integration.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\test-whatsapp-crm.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\test-whatsapp-crm.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\scripts\\update-dashboard-links.js",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\update-dashboard-links.js.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\test-reports\\vitest-results.json",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\vitest-results.json.backup.20250902_213822",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\e2e\\chatbot-flow.spec.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\chatbot-flow.spec.ts.backup.20250902_213822",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\integration\\comprehensive-test-suite.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\comprehensive-test-suite.ts.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\integration\\day-1-integration.test.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\day-1-integration.test.ts.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\security\\security-testing.test.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\security-testing.test.ts.backup.20250902_213822",
+      "issues_fixed": 0,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\test-scripts\\demo-test-report.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\demo-test-report.ts.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\test-scripts\\generate-test-report.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\generate-test-report.ts.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\test-scripts\\run-all-tests.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\run-all-tests.ts.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    },
+    {
+      "file": "e:\\azizsys5\\g-assistant-nx\\tests\\test-scripts\\setup-test-environment.ts",
+      "backup": "e:\\azizsys5\\g-assistant-nx\\docs\\6_fixing\\scripts\\ديب سيك\\backups\\setup-test-environment.ts.backup.20250902_213822",
+      "issues_fixed": 1,
+      "manual_review_needed": 0
+    }
+  ]
+}

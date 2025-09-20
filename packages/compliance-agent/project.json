@@ -1,0 +1,18 @@
+{
+  "name": "@g-assistant/compliance-agent",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/compliance-agent/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/compliance-agent",
+        "main": "packages/compliance-agent/src/index.ts",
+        "tsConfig": "packages/compliance-agent/tsconfig.lib.json"
+      }
+    }
+  },
+  "tags": ["scope:compliance", "type:lib"]
+}

@@ -1,0 +1,8 @@
+{
+  "timeZone": "Asia/Riyadh",
+  "dependencies": {
+    "enabledAdvancedServices": []
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}

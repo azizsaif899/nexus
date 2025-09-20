@@ -1,0 +1,20 @@
+# Firebase Data Connect Generated Files
+packages/dataconnect-sdk/esm
+packages/dataconnect-sdk/react/esm
+dataconnect-generated
+
+# Documentation and Legacy Directories
+docs/5_misc/archive/old_doc
+docs/8_legacy/legacy-apps/sheets-addon
+docs/8_legacy/legacy-apps/web-interface/frontend
+docs/8_legacy/legacy-apps/web-interface
+
+# Root directory (avoid treating workspace root as project)
+.
+
+# Backup files
+*.backup.*
+
+# Temporary files
+*.tmp
+*.temp

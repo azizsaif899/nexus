@@ -1,0 +1,48 @@
+name: Compliance Audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 22 * * *'  # يومياً 01:00 Asia/Riyadh
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v3
+        with: 
+          version: 9
+          
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+          
+      - run: pnpm install --frozen-lockfile
+      
+      - name: Build compliance agent
+        run: pnpm -C packages/compliance-agent build
+        
+      - name: Run compliance audit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          TF_STATE_PATH: infrastructure/terraform.tfstate
+        run: |
+          cd packages/compliance-agent
+          node dist/index.js
+          
+      - name: Upload audit reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: compliance-reports
+          path: docs/6_fixing/auto-fix-system/quality-monitor/reports/
+          retention-days: 30
+          
+      - name: Notify on critical issues
+        if: failure()
+        run: |
+          echo "🚨 Critical compliance issues detected!"
+          echo "Check the audit reports for details."

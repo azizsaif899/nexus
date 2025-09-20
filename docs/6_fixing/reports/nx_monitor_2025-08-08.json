@@ -1,0 +1,68 @@
+{
+  "timestamp": "2025-08-08T15:20:07.190Z",
+  "project": "g-assistant-nx",
+  "apps": [
+    {
+      "name": "admin-dashboard",
+      "exists": true,
+      "lastModified": "2025-08-08T13:54:10.737Z"
+    },
+    {
+      "name": "sheets-addon",
+      "exists": true,
+      "lastModified": "2025-08-08T13:50:39.993Z"
+    },
+    {
+      "name": "web-chatbot",
+      "exists": true,
+      "lastModified": "2025-08-08T13:54:54.612Z"
+    },
+    {
+      "name": "whatsapp-exec-bot",
+      "exists": true,
+      "lastModified": "2025-08-08T13:53:57.069Z"
+    },
+    {
+      "name": "whatsapp-query-bot",
+      "exists": true,
+      "lastModified": "2025-08-08T13:51:26.215Z"
+    }
+  ],
+  "packages": [
+    {
+      "name": "bigquery-client",
+      "exists": true,
+      "lastModified": "2025-08-08T13:56:22.438Z"
+    },
+    {
+      "name": "business-logic",
+      "exists": true,
+      "lastModified": "2025-08-08T13:59:17.008Z"
+    },
+    {
+      "name": "core-logic",
+      "exists": true,
+      "lastModified": "2025-08-08T13:56:06.191Z"
+    },
+    {
+      "name": "ui-components",
+      "exists": true,
+      "lastModified": "2025-08-08T13:58:57.651Z"
+    },
+    {
+      "name": "whatsapp-core",
+      "exists": true,
+      "lastModified": "2025-08-08T13:58:10.314Z"
+    }
+  ],
+  "git": {
+    "hasChanges": true,
+    "changedFiles": 290,
+    "lastCommit": "fec06ed9a43ad5d4a021609e943ae9602f176844 تحديث شامل: تعديلات المساعد الذكي وحذف الملفات غير المطلوبة"
+  },
+  "summary": {
+    "totalApps": 5,
+    "totalPackages": 5,
+    "healthScore": 100
+  }
+}

@@ -1,77 +1,99 @@
 # Dependencies
 node_modules/
-.pnp
-.pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Testing
-/coverage
-
-# Next.js
-/.next/
-/out/
-
-# Production
-/build
-
-# Misc
-.DS_Store
-*.tsbuildinfo
-next-env.d.ts
-
-# Firebase
-.firebase/
-firebase-debug.log
-firestore-debug.log
-ui-debug.log
-
-# Environment variables
+# Environment variables (SECURITY: Never commit these!)
 .env
+.env.*
+!.env.example
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# IDE specific files - NEVER UPLOAD
-.idx/
-.vscode/settings.json
+# Security files
+service-account*.json
+*.key
+*.pem
+*.p12
+secrets/
+config/security/*.json
+!config/security/*.json.example
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+
+# Cache directories
+.nx/cache/
+.nx/workspace-data/
+.vite/
+.turbo/
+
+# IDE files
+.vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+logs/
+*.log
 
 # Runtime data
-pids
+pids/
 *.pid
 *.seed
 *.pid.lock
 
-# Optional npm cache directory
-.npm
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
 
-# Optional eslint cache
-.eslintcache
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
 
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
+# Temporary files
+tmp/
+temp/
+.tmp/
 
-# Optional REPL history
-.node_repl_history
+# Backup files
+*.backup.*
+*.bak
 
-# Output of 'npm pack'
-*.tgz
+# Development artifacts
+.nx/workspace-data/
+.nx/cache/
+test-reports/
 
-# Yarn Integrity file
-.yarn-integrity
+# Platform specific
+# Windows
+*.lnk
+ehthumbs.db
+desktop.ini
 
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
+# macOS
+.AppleDouble
+.LSOverride
+Icon
 
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
+# Linux
+*~

@@ -1,0 +1,16 @@
+{
+  "name": "@azizsys/gtm-engine",
+  "version": "1.0.0",
+  "description": "Google Tag Manager Engine for AzizSys",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "@types/node": "^20.9.0"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "system_info": {
+    "name": "DeepSeek AI Code Analyzer",
+    "version": "3.0",
+    "description": "نظام فحص وإصلاح الكود الذكي",
+    "author": "AzizSys AI Assistant",
+    "created": "2025-01-13",
+    "updated": "2025-01-13"
+  },
+  "scan_settings": {
+    "supported_extensions": [
+      ".js", ".jsx", ".ts", ".tsx", 
+      ".py", ".java", ".php", ".rb", 
+      ".go", ".cs", ".cpp", ".c", ".h",
+      ".sql", ".html", ".css", ".scss", 
+      ".vue", ".json", ".xml", ".yaml", 
+      ".yml", ".md", ".sh", ".bat", ".ps1"
+    ],
+    "ignore_directories": [
+      "node_modules", ".git", ".nx", "dist", 
+      "build", "__pycache__", ".vscode", 
+      ".idea", "coverage", ".nyc_output", 
+      "logs", "tmp", "deepseek_env"
+    ],
+    "max_file_size_mb": 10,
+    "max_scan_depth": 10
+  },
+  "security_levels": {
+    "CRITICAL": {
+      "color": "#e53e3e",
+      "weight": 10,
+      "description": "مشاكل أمنية حرجة تحتاج إصلاح فوري"
+    },
+    "HIGH": {
+      "color": "#dd6b20", 
+      "weight": 5,
+      "description": "مشاكل أمنية عالية الخطورة"
+    },
+    "MEDIUM": {
+      "color": "#d69e2e",
+      "weight": 2, 
+      "description": "مشاكل متوسطة الخطورة"
+    },
+    "LOW": {
+      "color": "#38a169",
+      "weight": 1,
+      "description": "مشاكل منخفضة الخطورة"
+    }
+  },
+  "auto_fix_settings": {
+    "create_backups": true,
+    "backup_extension": ".backup",
+    "max_backups_per_file": 5,
+    "safe_patterns_only": true,
+    "confirm_before_fix": false
+  },
+  "report_settings": {
+    "format": "json",
+    "include_code_snippets": true,
+    "max_snippet_length": 200,
+    "group_by_file": true,
+    "include_statistics": true
+  },
+  "dashboard_settings": {
+    "auto_refresh_interval": 30,
+    "max_log_messages": 50,
+    "theme": "default",
+    "language": "ar"
+  },
+  "compliance_standards": [
+    "OWASP Top 10",
+    "CWE (Common Weakness Enumeration)", 
+    "SANS Top 25",
+    "ISO 27001",
+    "NIST Cybersecurity Framework"
+  ]
+}

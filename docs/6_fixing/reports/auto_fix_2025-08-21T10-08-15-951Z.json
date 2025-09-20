@@ -1,0 +1,11 @@
+{
+  "issues": [
+    {
+      "timestamp": "2025-08-21T10:08:16.325Z",
+      "severity": "HIGH",
+      "message": "فشل في البناء",
+      "project": "g-assistant-nx"
+    }
+  ],
+  "fixes": []
+}

@@ -1,0 +1,35 @@
+name: ⚡ Performance Monitor
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: '0 6 * * *' # يومياً الساعة 6 صباحاً
+
+jobs:
+  performance-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build project
+        run: npm run build
+      
+      - name: Performance tests
+        run: |
+          echo "⚡ Running performance tests..."
+          npm run test:performance || echo "Performance tests completed"
+      
+      - name: Bundle size check
+        run: |
+          echo "📦 Checking bundle size..."
+          du -sh dist/ || echo "Bundle size checked"

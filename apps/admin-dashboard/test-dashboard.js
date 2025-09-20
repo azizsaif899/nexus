@@ -1,0 +1,453 @@
+#!/usr/bin/env node
+
+/**
+ * 🧪 AzizSys Admin Dashboard - مجموعة الاختبارات الشاملة
+ * 
+ * هذا الملف يختبر جميع وظائف Dashboard للتأكد من عملها
+ * 
+ * الاستخدام: node test-dashboard.js
+ */
+
+const fs = require('fs');
+const path = require('path');
+const http = require('http');
+const https = require('https');
+
+// ألوان للطباعة
+const colors = {
+    green: '\x1b[32m',
+    red: '\x1b[31m',
+    yellow: '\x1b[33m',
+    blue: '\x1b[34m',
+    reset: '\x1b[0m',
+    bold: '\x1b[1m'
+};
+
+// دالة طباعة ملونة
+function log(message, color = 'reset') {
+    // Removed console.log
+}
+
+// دالة فحص HTTP
+function checkHTTP(url, timeout = 5000) {
+    return new Promise((resolve) => {
+        const protocol = url.startsWith('https') ? https : http;
+        const req = protocol.get(url, (res) => {
+            resolve({
+                success: true,
+                status: res.statusCode,
+                message: `HTTP ${res.statusCode}`
+            });
+        });
+        
+        req.on('error', (error) => {
+            resolve({
+                success: false,
+                status: 0,
+                message: error.message
+            });
+        });
+        
+        req.setTimeout(timeout, () => {
+            req.destroy();
+            resolve({
+                success: false,
+                status: 0,
+                message: 'Timeout'
+            });
+        });
+    });
+}
+
+// دالة فحص وجود ملف
+function checkFile(filePath) {
+    try {
+        const stats = fs.statSync(filePath);
+        return {
+            exists: true,
+            size: stats.size,
+            modified: stats.mtime
+        };
+    } catch (error) {
+        return {
+            exists: false,
+            error: error.message
+        };
+    }
+}
+
+// اختبارات الملفات
+async function testFiles() {
+    log('\n📁 اختبار الملفات الأساسية...', 'blue');
+    
+    const files = [
+        {
+            name: 'Dashboard الرئيسي',
+            path: './AzizSys Developer Dashboard.html'
+        },
+        {
+            name: 'API Bridge',
+            path: './src/integration/api-bridge.js'
+        },
+        {
+            name: 'ملف التصميم',
+            path: './src/styles/dashboard.css'
+        },
+        {
+            name: 'التقارير المركزية',
+            path: '../docs/6_fixing/reports/central_dashboard.json'
+        }
+    ];
+    
+    let passed = 0;
+    
+    for (const file of files) {
+        const result = checkFile(file.path);
+        if (result.exists) {
+            log(`  ✅ ${file.name}: موجود (${Math.round(result.size/1024)}KB)`, 'green');
+            passed++;
+        } else {
+            log(`  ❌ ${file.name}: مفقود - ${result.error}`, 'red');
+        }
+    }
+    
+    log(`\n📊 نتيجة اختبار الملفات: ${passed}/${files.length}`, passed === files.length ? 'green' : 'yellow');
+    return passed === files.length;
+}
+
+// اختبار الخدمات
+async function testServices() {
+    log('\n🌐 اختبار الخدمات...', 'blue');
+    
+    const services = [
+        {
+            name: 'Web Chatbot',
+            url: 'http://localhost:3000',
+            port: 3000
+        },
+        {
+            name: 'API Server',
+            url: 'http://localhost:3333',
+            port: 3333
+        },
+        {
+            name: 'Gemini Backend',
+            url: 'http://localhost:8000',
+            port: 8000
+        }
+    ];
+    
+    let passed = 0;
+    
+    for (const service of services) {
+        const result = await checkHTTP(service.url + '/health');
+        if (result.success) {
+            log(`  ✅ ${service.name}: متاح (${result.message})`, 'green');
+            passed++;
+        } else {
+            log(`  ❌ ${service.name}: غير متاح - ${result.message}`, 'red');
+        }
+    }
+    
+    log(`\n📊 نتيجة اختبار الخدمات: ${passed}/${services.length}`, passed > 0 ? 'green' : 'red');
+    return passed;
+}
+
+// اختبار محتوى Dashboard
+async function testDashboardContent() {
+    log('\n🎨 اختبار محتوى Dashboard...', 'blue');
+    
+    const dashboardPath = './AzizSys Developer Dashboard.html';
+    
+    if (!fs.existsSync(dashboardPath)) {
+        log('  ❌ ملف Dashboard غير موجود', 'red');
+        return false;
+    }
+    
+    const content = fs.readFileSync(dashboardPath, 'utf8');
+    
+    const tests = [
+        {
+            name: 'عنوان Dashboard',
+            test: content.includes('AzizSys Developer Dashboard')
+        },
+        {
+            name: 'التبويبات العلوية',
+            test: content.includes('showTab(') && content.includes('tab-content')
+        },
+        {
+            name: 'الأزرار الجانبية',
+            test: content.includes('menu-item') && content.includes('onclick')
+        },
+        {
+            name: 'Gemini AI',
+            test: content.includes('Gemini Code Assistant') && content.includes('ai-messages')
+        },
+        {
+            name: 'وكيل الرقيب',
+            test: content.includes('runComplianceAudit') && content.includes('compliance-agent-status')
+        },
+        {
+            name: 'السجلات',
+            test: content.includes('log-container') && content.includes('addLogEntry')
+        },
+        {
+            name: 'API Bridge',
+            test: content.includes('api-bridge.js') && content.includes('APIBridge')
+        },
+        {
+            name: 'التحديث التلقائي',
+            test: content.includes('setInterval') && content.includes('updateSystemMetrics')
+        }
+    ];
+    
+    let passed = 0;
+    
+    for (const test of tests) {
+        if (test.test) {
+            log(`  ✅ ${test.name}: موجود`, 'green');
+            passed++;
+        } else {
+            log(`  ❌ ${test.name}: مفقود`, 'red');
+        }
+    }
+    
+    log(`\n📊 نتيجة اختبار المحتوى: ${passed}/${tests.length}`, passed === tests.length ? 'green' : 'yellow');
+    return passed === tests.length;
+}
+
+// اختبار الدوال JavaScript
+async function testJavaScriptFunctions() {
+    log('\n⚙️ اختبار الدوال JavaScript...', 'blue');
+    
+    const dashboardPath = './AzizSys Developer Dashboard.html';
+    
+    if (!fs.existsSync(dashboardPath)) {
+        log('  ❌ ملف Dashboard غير موجود', 'red');
+        return false;
+    }
+    
+    const content = fs.readFileSync(dashboardPath, 'utf8');
+    
+    const functions = [
+        'showTab',
+        'askAI',
+        'sendAIMessage',
+        'getAIResponse',
+        'runComplianceAudit',
+        'quickComplianceCheck',
+        'restartServices',
+        'runTests',
+        'deploySystem',
+        'clearLogs',
+        'checkHealth',
+        'updateSystemMetrics',
+        'addLogEntry',
+        'refreshComplianceData'
+    ];
+    
+    let passed = 0;
+    
+    for (const func of functions) {
+        const regex = new RegExp(`function\\s+${func}\\s*\\(`, 'g');
+        if (regex.test(content)) {
+            log(`  ✅ ${func}(): موجودة`, 'green');
+            passed++;
+        } else {
+            log(`  ❌ ${func}(): مفقودة`, 'red');
+        }
+    }
+    
+    log(`\n📊 نتيجة اختبار الدوال: ${passed}/${functions.length}`, passed === functions.length ? 'green' : 'yellow');
+    return passed === functions.length;
+}
+
+// اختبار ملف التقارير
+async function testReportsFile() {
+    log('\n📊 اختبار ملف التقارير...', 'blue');
+    
+    const reportsPath = '../docs/6_fixing/reports/central_dashboard.json';
+    
+    if (!fs.existsSync(reportsPath)) {
+        log('  ❌ ملف التقارير غير موجود', 'red');
+        return false;
+    }
+    
+    try {
+        const content = fs.readFileSync(reportsPath, 'utf8');
+        const data = JSON.parse(content);
+        
+        const tests = [
+            {
+                name: 'overall_progress',
+                test: data.overall_progress && typeof data.overall_progress.percentage === 'number'
+            },
+            {
+                name: 'compliance_agent',
+                test: data.compliance_agent && typeof data.compliance_agent.compliance_score === 'number'
+            },
+            {
+                name: 'services',
+                test: data.services && typeof data.services === 'object'
+            },
+            {
+                name: 'timestamp',
+                test: data.timestamp && typeof data.timestamp === 'string'
+            }
+        ];
+        
+        let passed = 0;
+        
+        for (const test of tests) {
+            if (test.test) {
+                log(`  ✅ ${test.name}: صحيح`, 'green');
+                passed++;
+            } else {
+                log(`  ❌ ${test.name}: خطأ في البنية`, 'red');
+            }
+        }
+        
+        log(`\n📊 نتيجة اختبار التقارير: ${passed}/${tests.length}`, passed === tests.length ? 'green' : 'yellow');
+        return passed === tests.length;
+        
+    } catch (error) {
+        log(`  ❌ خطأ في قراءة JSON: ${error.message}`, 'red');
+        return false;
+    }
+}
+
+// اختبار Scripts
+async function testScripts() {
+    log('\n📜 اختبار Scripts...', 'blue');
+    
+    const scripts = [
+        'SIMPLE_START.bat',
+        'OPEN_DASHBOARDS.bat',
+        'LAUNCH_REAL_DASHBOARD.bat',
+        'QUICK_START.bat'
+    ];
+    
+    let passed = 0;
+    
+    for (const script of scripts) {
+        const result = checkFile(script);
+        if (result.exists) {
+            log(`  ✅ ${script}: موجود`, 'green');
+            passed++;
+        } else {
+            log(`  ❌ ${script}: مفقود`, 'red');
+        }
+    }
+    
+    log(`\n📊 نتيجة اختبار Scripts: ${passed}/${scripts.length}`, passed === scripts.length ? 'green' : 'yellow');
+    return passed === scripts.length;
+}
+
+// اختبار الأداء
+async function testPerformance() {
+    log('\n⚡ اختبار الأداء...', 'blue');
+    
+    const dashboardPath = './AzizSys Developer Dashboard.html';
+    
+    if (!fs.existsSync(dashboardPath)) {
+        log('  ❌ ملف Dashboard غير موجود', 'red');
+        return false;
+    }
+    
+    const stats = fs.statSync(dashboardPath);
+    const sizeKB = Math.round(stats.size / 1024);
+    
+    const tests = [
+        {
+            name: 'حجم الملف',
+            test: sizeKB < 500,
+            value: `${sizeKB}KB`,
+            limit: '< 500KB'
+        }
+    ];
+    
+    let passed = 0;
+    
+    for (const test of tests) {
+        if (test.test) {
+            log(`  ✅ ${test.name}: ${test.value} ${test.limit}`, 'green');
+            passed++;
+        } else {
+            log(`  ❌ ${test.name}: ${test.value} يتجاوز ${test.limit}`, 'red');
+        }
+    }
+    
+    log(`\n📊 نتيجة اختبار الأداء: ${passed}/${tests.length}`, passed === tests.length ? 'green' : 'yellow');
+    return passed === tests.length;
+}
+
+// الدالة الرئيسية
+async function runAllTests() {
+    log('🧪 بدء اختبارات AzizSys Admin Dashboard', 'bold');
+    log('=' .repeat(50), 'blue');
+    
+    const startTime = Date.now();
+    
+    const results = {
+        files: await testFiles(),
+        services: await testServices(),
+        content: await testDashboardContent(),
+        functions: await testJavaScriptFunctions(),
+        reports: await testReportsFile(),
+        scripts: await testScripts(),
+        performance: await testPerformance()
+    };
+    
+    const endTime = Date.now();
+    const duration = Math.round((endTime - startTime) / 1000);
+    
+    // النتيجة النهائية
+    log('\n' + '=' .repeat(50), 'blue');
+    log('📋 ملخص النتائج:', 'bold');
+    
+    let totalPassed = 0;
+    let totalTests = 0;
+    
+    for (const [testName, result] of Object.entries(results)) {
+        const status = result ? '✅' : '❌';
+        const color = result ? 'green' : 'red';
+        log(`  ${status} ${testName}: ${result ? 'نجح' : 'فشل'}`, color);
+        if (result) totalPassed++;
+        totalTests++;
+    }
+    
+    log('\n📊 النتيجة الإجمالية:', 'bold');
+    log(`  اختبارات نجحت: ${totalPassed}/${totalTests}`, totalPassed === totalTests ? 'green' : 'yellow');
+    log(`  الوقت المستغرق: ${duration} ثانية`, 'blue');
+    
+    if (totalPassed === totalTests) {
+        log('\n🎉 جميع الاختبارات نجحت! Dashboard جاهز للاستخدام.', 'green');
+    } else {
+        log('\n⚠️ بعض الاختبارات فشلت. راجع التفاصيل أعلاه.', 'yellow');
+    }
+    
+    log('\n💡 نصائح:', 'blue');
+    log('  • لتشغيل الخدمات: npm run dev:api & npm run dev:web-chatbot');
+    log('  • لفتح Dashboard: SIMPLE_START.bat');
+    log('  • للمساعدة: راجع README.md');
+    
+    return totalPassed === totalTests;
+}
+
+// تشغيل الاختبارات
+if (require.main === module) {
+    runAllTests().then(success => {
+        process.exit(success ? 0 : 1);
+    });
+}
+
+module.exports = {
+    runAllTests,
+    testFiles,
+    testServices,
+    testDashboardContent,
+    testJavaScriptFunctions,
+    testReportsFile,
+    testScripts,
+    testPerformance
+};

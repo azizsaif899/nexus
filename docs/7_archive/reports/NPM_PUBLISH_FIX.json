@@ -1,0 +1,19 @@
+{
+  "nx-release-publish": {
+    "executor": "@nx/js:release-publish",
+    "options": {
+      "registry": "http://localhost:4873",
+      "dryRun": true
+    },
+    "configurations": {
+      "local": {
+        "registry": "http://localhost:4873",
+        "dryRun": true
+      },
+      "production": {
+        "registry": "https://registry.npmjs.org/",
+        "dryRun": false
+      }
+    }
+  }
+}

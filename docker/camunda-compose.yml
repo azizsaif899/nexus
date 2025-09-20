@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  camunda:
+    image: camunda/camunda-bpm-platform:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_DRIVER=org.postgresql.Driver
+      - DB_URL=jdbc:postgresql://postgres:5432/camunda
+      - DB_USERNAME=camunda
+      - DB_PASSWORD=camunda
+    depends_on:
+      - postgres
+  
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=camunda
+      - POSTGRES_USER=camunda
+      - POSTGRES_PASSWORD=camunda
+    ports:
+      - "5433:5432"
+    volumes:
+      - camunda_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  camunda_postgres_data:

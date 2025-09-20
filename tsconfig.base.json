@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@admin/*": [
+        "apps/admin-dashboard/src/*"
+      ],
+      "@/*": [
+        "*"
+      ],
+      "@packages/*": [
+        "packages/*"
+      ],
+      "@apps/*": [
+        "apps/*"
+      ],
+      "@g-assistant/compliance-core": [
+        "packages/core/compliance-core/src"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

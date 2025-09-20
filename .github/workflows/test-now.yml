@@ -1,0 +1,20 @@
+name: Test Now
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Simple Test
+        run: |
+          echo "✅ Workflow is working!"
+          echo "📁 Current directory:"
+          ls -la
+          echo "📦 Package.json exists:"
+          cat package.json | head -5

@@ -1,0 +1,25 @@
+{
+  "name": "azizsys-docs",
+  "version": "1.0.0",
+  "description": "نظام توثيق تفاعلي لمشروع AzizSys",
+  "main": "build-docs.js",
+  "scripts": {
+    "build": "node build-docs.js",
+    "serve": "node -e \"const http=require('http'),fs=require('fs'),path=require('path'); http.createServer((req,res)=>{const file=req.url==='/'?'index.html':req.url.slice(1); const filePath=path.join(__dirname,file); if(fs.existsSync(filePath)){const ext=path.extname(file); const contentType={'html':'text/html','css':'text/css','js':'text/javascript','md':'text/markdown'}[ext.slice(1)]||'text/plain'; res.writeHead(200,{'Content-Type':contentType}); res.end(fs.readFileSync(filePath));} else {res.writeHead(404); res.end('File not found');}}).listen(3000,()=>// Removed console.log);\"",
+    "dev": "npm run build && npm run serve",
+    "watch": "node -e \"const fs=require('fs'),{exec}=require('child_process'); // Removed console.log fs.watch(__dirname,(event,filename)=>{if(filename&&filename.endsWith('.md')){// Removed console.log exec('npm run build',(err)=>{if(err) console.error(err); else // Removed console.log});}});\"",
+    "deploy": "npm run build && echo '🚀 جاهز للنشر - ارفع محتوى المجلد إلى الخادم'"
+  },
+  "keywords": [
+    "documentation",
+    "azizsys",
+    "arabic",
+    "interactive"
+  ],
+  "author": "AzizSys Team",
+  "license": "MIT",
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

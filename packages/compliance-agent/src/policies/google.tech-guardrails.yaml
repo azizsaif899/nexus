@@ -1,0 +1,40 @@
+policyName: "Google Tech Guardrails"
+description: "سياسات لضمان الالتزام بالمتطلبات التقنية لمنصات Google Cloud"
+version: "1.0"
+lastUpdated: "2025-01-11"
+
+requirements:
+  cloud_native_only:
+    description: "استخدام خدمات Google Cloud الأصلية فقط"
+    compliance_level: "mandatory"
+  
+  infrastructure_as_code:
+    description: "إدارة جميع الموارد عبر Terraform"
+    compliance_level: "mandatory"
+
+controls:
+  - id: "GCP-01"
+    title: "فحص الخدمات المسموحة"
+    description: "التحقق من استخدام خدمات Google Cloud المعتمدة فقط"
+    severity: "high"
+    check_logic:
+      type: "gcp_resource_scan"
+      allowed_services:
+        - "cloudfunctions.googleapis.com"
+        - "run.googleapis.com"
+        - "storage.googleapis.com"
+        - "bigquery.googleapis.com"
+        - "firestore.googleapis.com"
+    remediation_steps:
+      - "قم بترحيل الخدمة إلى بديل Google Cloud معتمد"
+      - "راجع قائمة الخدمات المعتمدة في الوثائق"
+
+  - id: "GCP-02"
+    title: "فحص إدارة البنية التحتية"
+    description: "التأكد من إدارة جميع الموارد عبر Terraform"
+    severity: "medium"
+    check_logic:
+      type: "resource_comparison"
+    remediation_steps:
+      - "أضف الموارد المفقودة إلى ملفات Terraform"
+      - "استخدم terraform import لاستيراد الموارد الموجودة"
