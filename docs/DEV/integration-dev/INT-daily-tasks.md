@@ -16,6 +16,14 @@
   - الملف: `apps/web-chatbot/src/services/api.client.ts`
   - المتطلبات: HTTP client مع interceptors
 
+- [ ] **INT-004**: State management setup
+  - الملف: `apps/web-chatbot/src/store/chat.store.ts`
+  - المتطلبات: Zustand store for chat
+
+- [ ] **INT-005**: Error boundary component
+  - الملف: `apps/web-chatbot/src/components/ErrorBoundary.tsx`
+  - المتطلبات: Catch and display errors
+
 ### 📁 ملفاتي:
 ```
 apps/web-chatbot/src/services/
