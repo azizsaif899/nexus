@@ -97,3 +97,14 @@ Icon
 
 # Linux
 *~
+
+# Firebase generated files (should not be in Git)
+dataconnect-generated/
+dataconnect-debug.log
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# Generated paths with invalid Windows characters
+**/..\\..\\*
+**/../../../*
