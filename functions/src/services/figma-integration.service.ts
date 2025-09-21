@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 
 interface FigmaNode {
   id: string;
@@ -72,28 +74,79 @@ export class FigmaIntegrationService {
    * @returns A string containing the React component code.
    */
   private generateComponentCode(component: ComponentStructure): string {
-    // This is a simplified code generator. A real implementation would use a templating engine
-    // and handle props, styles (e.g., converting to Tailwind CSS), and children recursively.
-    const componentName = component.name.replace(/\s+/g, '');
+    const componentName = component.name.replace(/[^a-zA-Z0-9]/g, '');
     const childrenCode = component.children.map(child => this.generateComponentCode(child)).join('\n');
+    
+    return `import React from 'react';
 
-    return `
-const ${componentName} = () => {
+interface ${componentName}Props {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export const ${componentName}: React.FC<${componentName}Props> = ({ 
+  className = '',
+  children,
+  ...props 
+}) => {
   return (
-    <div className="flex-initial">
-      {/* Component: ${component.name} - Type: ${component.type} */}
+    <div 
+      className={\`flex-initial \${className}\`}
+      {...props}
+    >
+      {/* Figma Component: ${component.name} - Type: ${component.type} */}
       ${childrenCode}
+      {children}
     </div>
   );
 };
+
+export default ${componentName};
 `;
   }
 
   /**
+   * Saves generated component to file system
+   * @param componentName The name of the component
+   * @param code The generated code
+   * @param targetDir The target directory to save the component
+   */
+  private async saveComponentToFile(
+    componentName: string, 
+    code: string, 
+    targetDir: string = 'apps/admin-dashboard/src/components/figma'
+  ): Promise<void> {
+    const projectRoot = process.cwd();
+    const fullPath = path.join(projectRoot, targetDir);
+    
+    // Ensure directory exists
+    await fs.ensureDir(fullPath);
+    
+    // Write component file
+    const fileName = `${componentName}.tsx`;
+    const filePath = path.join(fullPath, fileName);
+    await fs.writeFile(filePath, code, 'utf8');
+    
+    // Update index file
+    const indexPath = path.join(fullPath, 'index.ts');
+    const exportLine = `export { default as ${componentName} } from './${componentName}';\n`;
+    
+    if (await fs.pathExists(indexPath)) {
+      const content = await fs.readFile(indexPath, 'utf8');
+      if (!content.includes(exportLine.trim())) {
+        await fs.appendFile(indexPath, exportLine);
+      }
+    } else {
+      await fs.writeFile(indexPath, exportLine);
+    }
+  }
+
+  /**
    * Fetches components from Figma and generates React code for them.
+   * @param saveToFiles Whether to save components to files
    * @returns An array of objects containing the component name and its generated code.
    */
-  async syncComponents(): Promise<{ name: string; code: string }[]> {
+  async syncComponents(saveToFiles: boolean = true): Promise<{ name: string; code: string; saved?: boolean }[]> {
     const figmaData = await this.getFigmaFileData();
     
     // Find a specific canvas or frame, e.g., the 'Components' page.
@@ -110,14 +163,29 @@ const ${componentName} = () => {
       (node: FigmaNode) => node.type === 'COMPONENT'
     );
 
-    const generatedComponents = figmaComponents.map((componentNode: FigmaNode) => {
-      const simplifiedStructure = this.parseFigmaNode(componentNode);
-      const componentCode = this.generateComponentCode(simplifiedStructure);
-      return {
-        name: simplifiedStructure.name.replace(/\s+/g, ''),
-        code: componentCode,
-      };
-    });
+    const generatedComponents = await Promise.all(
+      figmaComponents.map(async (componentNode: FigmaNode) => {
+        const simplifiedStructure = this.parseFigmaNode(componentNode);
+        const componentCode = this.generateComponentCode(simplifiedStructure);
+        const componentName = simplifiedStructure.name.replace(/[^a-zA-Z0-9]/g, '');
+        
+        let saved = false;
+        if (saveToFiles) {
+          try {
+            await this.saveComponentToFile(componentName, componentCode);
+            saved = true;
+          } catch (error) {
+            console.error(`Failed to save component ${componentName}:`, error);
+          }
+        }
+        
+        return {
+          name: componentName,
+          code: componentCode,
+          saved,
+        };
+      })
+    );
 
     return generatedComponents;
   }
