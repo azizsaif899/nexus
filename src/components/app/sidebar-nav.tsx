@@ -13,7 +13,6 @@ import {
   Users,
   Building2,
   Settings,
-  Palette,
   Briefcase,
 } from "lucide-react";
 import Link from "next/link";
@@ -25,7 +24,6 @@ const navItems = [
   { href: "/bots", icon: <Bot />, label: "WhatsApp Bots" },
   { href: "/assistant", icon: <Sparkles />, label: "AI Assistant" },
   { href: "/clients", icon: <Briefcase />, label: "Clients" },
-  { href: "/figma", icon: <Palette />, label: "Figma Designs" },
   { href: "/users", icon: <Users />, label: "Users" },
   { href: "/tenants", icon: <Building2 />, label: "Tenants" },
 ];
