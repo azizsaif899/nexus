@@ -34,3 +34,12 @@ export type Bot = {
   interactions: number;
   createdAt: string;
 };
+
+export type Client = {
+  id: string;
+  name: string;
+  email: string;
+  company: string;
+  status: 'Lead' | 'Customer' | 'Lost';
+  avatar: string;
+};

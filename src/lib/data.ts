@@ -1,4 +1,4 @@
-import { User, Tenant, Campaign, Bot } from './types';
+import { User, Tenant, Campaign, Bot, Client } from './types';
 
 export const mockUsers: User[] = [
   { id: 'usr_1', name: 'Alice Johnson', email: 'alice@symphony.com', role: 'Admin', avatar: '/avatars/01.png', tenantId: 'tnt_1' },
@@ -27,4 +27,12 @@ export const mockBots: Bot[] = [
   { id: 'bot_2', name: 'Support Bot', status: 'Active', interactions: 5821, createdAt: '2024-03-01' },
   { id: 'bot_3', name: 'Sales Inquiry', status: 'Inactive', interactions: 450, createdAt: '2024-05-20' },
   { id: 'bot_4', name: 'Event Registration', status: 'Draft', interactions: 0, createdAt: '2024-07-28' },
+];
+
+export const mockClients: Client[] = [
+    { id: 'cl_1', name: 'Sarah Lee', email: 'sarah.lee@techcorp.com', company: 'TechCorp', status: 'Customer', avatar: 'https://picsum.photos/seed/client1/40/40' },
+    { id: 'cl_2', name: 'James Green', email: 'james.green@datainsights.io', company: 'Data Insights', status: 'Lead', avatar: 'https://picsum.photos/seed/client2/40/40' },
+    { id: 'cl_3', name: 'Maria Garcia', email: 'maria.g@cloudsolutions.net', company: 'Cloud Solutions', status: 'Customer', avatar: 'https://picsum.photos/seed/client3/40/40' },
+    { id: 'cl_4', name: 'David Miller', email: 'david.miller@nexgen.com', company: 'NexGen Innovations', status: 'Lost', avatar: 'https://picsum.photos/seed/client4/40/40' },
+    { id: 'cl_5', name: 'Linda Kim', email: 'l.kim@quantum.co', company: 'QuantumLeap', status: 'Lead', avatar: 'https://picsum.photos/seed/client5/40/40' },
 ];
