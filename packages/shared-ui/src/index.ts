@@ -6,3 +6,6 @@ export { azizSysTheme } from './themes/azizsys-theme'
 
 // Utils
 export { cn } from './utils/cn'
+
+// Hooks
+export { useFigmaSync } from './hooks/useFigmaSync'

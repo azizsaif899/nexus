@@ -15,6 +15,8 @@ import AIPage from '../pages/ai';
 import AutomationPage from '../pages/automation';
 import ReportsPage from '../pages/reports';
 import MonitoringPage from '../pages/monitoring';
+import { FirebaseTest } from '../components/FirebaseTest';
+import { FigmaSync } from '../components/FigmaSync';
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,8 @@ export function App() {
             <Route path="/automation" element={<AutomationPage />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/monitoring" element={<MonitoringPage />} />
+            <Route path="/firebase-test" element={<FirebaseTest />} />
+            <Route path="/figma-sync" element={<FigmaSync />} />
           </Routes>
         </DashboardLayout>
       </Router>
