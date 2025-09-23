@@ -1,0 +1,231 @@
+{
+  "scanner": {
+    "name": "Nexus Ultimate Security Scanner v2.0.0",
+    "version": "2.0.0",
+    "description": "الماسح الأمني المتقدم لعام 2025 - مرجع شامل لجميع المبرمجين"
+  },
+
+  "scan_config": {
+    "max_file_size": 10485760,
+    "excluded_paths": [
+      "node_modules",
+      ".git",
+      "__pycache__",
+      ".pytest_cache",
+      "dist",
+      "build",
+      ".next",
+      ".nuxt",
+      "coverage",
+      ".nyc_output",
+      "tmp",
+      "temp",
+      ".DS_Store",
+      "Thumbs.db"
+    ],
+    "included_extensions": [
+      ".py",
+      ".js",
+      ".ts",
+      ".jsx",
+      ".tsx",
+      ".java",
+      ".cpp",
+      ".c",
+      ".h",
+      ".hpp",
+      ".go",
+      ".rs",
+      ".php",
+      ".rb",
+      ".cs",
+      ".scala",
+      ".kt",
+      ".swift",
+      ".dart",
+      ".sol",
+      ".vy",
+      ".cairo"
+    ],
+    "severity_threshold": "info",
+    "parallel_scans": 4,
+    "timeout_seconds": 300
+  },
+
+  "security_checks": {
+    "static_analysis": {
+      "enabled": true,
+      "sql_injection": true,
+      "xss_vulnerabilities": true,
+      "command_injection": true,
+      "hardcoded_secrets": true,
+      "weak_crypto": true,
+      "insecure_random": true
+    },
+
+    "dependency_check": {
+      "enabled": true,
+      "vulnerable_packages": true,
+      "outdated_packages": true,
+      "license_compliance": true
+    },
+
+    "secret_detection": {
+      "enabled": true,
+      "api_keys": true,
+      "passwords": true,
+      "tokens": true,
+      "private_keys": true,
+      "certificates": true
+    },
+
+    "ai_security": {
+      "enabled": true,
+      "prompt_injection": true,
+      "model_poisoning": true,
+      "data_leakage": true,
+      "bias_detection": true,
+      "content_analysis": true
+    },
+
+    "web3_security": {
+      "enabled": true,
+      "smart_contracts": true,
+      "wallet_security": true,
+      "defi_protocols": true,
+      "nft_security": true,
+      "dao_governance": true
+    },
+
+    "quantum_security": {
+      "enabled": true,
+      "vulnerable_algorithms": true,
+      "migration_readiness": true,
+      "hybrid_crypto": true
+    },
+
+    "performance_metrics": {
+      "enabled": true,
+      "code_complexity": true,
+      "maintainability_index": true,
+      "test_coverage": true,
+      "memory_usage": true,
+      "cpu_usage": true
+    },
+
+    "compliance_check": {
+      "enabled": true,
+      "gdpr": true,
+      "owasp_asvs": true,
+      "pci_dss": true,
+      "hipaa": true,
+      "iso_27001": true
+    },
+
+    "container_security": {
+      "enabled": true,
+      "docker_files": true,
+      "kubernetes_manifests": true,
+      "root_user_check": true,
+      "image_vulnerabilities": true
+    },
+
+    "iac_security": {
+      "enabled": true,
+      "terraform": true,
+      "cloudformation": true,
+      "hardcoded_secrets": true,
+      "access_control": true
+    }
+  },
+
+  "reporting": {
+    "format": "html",
+    "output_file": "security-scan-report.html",
+    "include_recommendations": true,
+    "include_metrics": true,
+    "include_raw_data": false,
+    "compress_output": false
+  },
+
+  "integrations": {
+    "slack": {
+      "enabled": false,
+      "webhook_url": "",
+      "channel": "#security-scans",
+      "notify_on_failure": true
+    },
+
+    "jira": {
+      "enabled": false,
+      "url": "",
+      "username": "",
+      "password": "",
+      "project_key": "SEC",
+      "issue_type": "Bug"
+    },
+
+    "github": {
+      "enabled": false,
+      "token": "",
+      "repository": "",
+      "create_issues": true,
+      "create_security_advisories": true
+    },
+
+    "sonar_qube": {
+      "enabled": false,
+      "url": "http://localhost:9000",
+      "token": "",
+      "project_key": ""
+    }
+  },
+
+  "advanced": {
+    "deep_analysis": true,
+    "ai_powered_analysis": true,
+    "quantum_threat_modeling": true,
+    "supply_chain_analysis": true,
+    "threat_intelligence": true,
+    "custom_rules": [],
+    "exclusions": {
+      "files": [],
+      "patterns": [],
+      "paths": []
+    }
+  },
+
+  "performance": {
+    "max_memory_mb": 2048,
+    "max_cpu_cores": 4,
+    "scan_timeout_minutes": 30,
+    "batch_size": 100,
+    "cache_enabled": true,
+    "cache_ttl_hours": 24
+  },
+
+  "logging": {
+    "level": "INFO",
+    "file": "security_scan.log",
+    "max_size_mb": 100,
+    "backup_count": 5,
+    "console_output": true,
+    "json_format": false
+  },
+
+  "metadata": {
+    "organization": "Nexus Security Team",
+    "contact": "security@nexus-team.com",
+    "standards_version": "2025.1",
+    "last_updated": "2025-01-08",
+    "compliance_frameworks": [
+      "OWASP ASVS 4.0",
+      "NIST Cybersecurity Framework",
+      "ISO 27001:2022",
+      "GDPR",
+      "PCI-DSS 4.0",
+      "HIPAA",
+      "NIST PQC Standards"
+    ]
+  }
+}

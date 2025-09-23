@@ -4,20 +4,27 @@
   "sourceRoot": "apps/web-chatbot/src",
   "projectType": "application",
   "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/web-chatbot"
+      }
+    },
     "serve": {
-      "executor": "@nx/js:node",
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
       "options": {
         "buildTarget": "web-chatbot:build",
+        "dev": true,
         "port": 3000
       }
     },
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+    "export": {
+      "executor": "@nx/next:export",
       "options": {
-        "outputPath": "dist/apps/web-chatbot",
-        "main": "apps/web-chatbot/src/main.tsx",
-        "tsConfig": "apps/web-chatbot/tsconfig.app.json"
+        "buildTarget": "web-chatbot:build"
       }
     },
     "typecheck": {
