@@ -1,18 +1,17 @@
 
-import { getFirestore } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
+import { getDatabase } from "firebase/database";
+import { initializeApp } from "firebase/app";
 
+// TODO: Replace with your Firebase config from your FIR
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyDNigeaS3tyY809X9KCKMNRGB6LgkO6BmY",
+  authDomain: "gen-lang-client-0147492600.firebaseapp.com",
+  projectId: "gen-lang-client-0147492600",
+  databaseURL: "https://gen-lang-client-0147492600.firebaseio.com",
+  storageBucket: "gen-lang-client-0147492600.appspot.com",
+  messagingSenderId: "your-messaging-sender-id",
+  appId: "your-app-id"
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-export { db };
+export const database = getDatabase(app);
