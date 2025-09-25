@@ -8,19 +8,9 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'google-genai': ['@google/genai']
-        }
-      }
-    }
+    sourcemap: true
   },
   define: {
     'process.env': {}
-  },
-  optimizeDeps: {
-    include: ['@google/genai']
   }
 });

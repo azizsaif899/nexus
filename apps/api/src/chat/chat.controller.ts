@@ -1,50 +1,35 @@
-import { Controller, Get, Post, Delete, Body, Param, UseGuards, Request } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
-import { ChatService } from './chat.service';
-import { AuthGuard } from '../auth/auth.guard';
-import { CreateChatDto, UpdateChatDto } from './dto/chat.dto';
+import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
+import { ChatGateway } from './chat.gateway';
 
-@ApiTags('chat')
-@ApiBearerAuth()
-@UseGuards(AuthGuard)
-@Controller('chat')
+@Controller('api/chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly chatGateway: ChatGateway) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Create new chat session' })
-  async createChat(@Body() createChatDto: CreateChatDto, @Request() req) {
-    return this.chatService.create({
-      ...createChatDto,
-      userId: req.user.id
+  @Post('message')
+  async sendMessage(@Body() data: { message: string; sessionId: string; type?: 'user' | 'ai' }) {
+    // Process message through AI if needed
+    const response = await this.processMessage(data.message);
+    
+    // Send AI response via WebSocket
+    this.chatGateway.server.to(data.sessionId).emit('newMessage', {
+      id: `ai_${Date.now()}`,
+      message: response,
+      type: 'ai',
+      timestamp: new Date(),
+      sessionId: data.sessionId,
     });
+
+    return { success: true, messageId: `msg_${Date.now()}` };
   }
 
-  @Get()
-  @ApiOperation({ summary: 'Get user chat sessions' })
-  async getUserChats(@Request() req) {
-    return this.chatService.findByUserId(req.user.id);
+  @Get('sessions/:sessionId/users')
+  async getSessionUsers(@Param('sessionId') sessionId: string) {
+    // Get online users from gateway
+    return { users: [], count: 0 };
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Get chat session by ID' })
-  async getChatById(@Param('id') id: string, @Request() req) {
-    return this.chatService.findOne(id, req.user.id);
-  }
-
-  @Post(':id/title')
-  @ApiOperation({ summary: 'Update chat title' })
-  async updateChatTitle(
-    @Param('id') id: string,
-    @Body() updateChatDto: UpdateChatDto,
-    @Request() req
-  ) {
-    return this.chatService.updateTitle(id, updateChatDto.title, req.user.id);
-  }
-
-  @Delete(':id')
-  @ApiOperation({ summary: 'Delete chat session' })
-  async deleteChat(@Param('id') id: string, @Request() req) {
-    return this.chatService.delete(id, req.user.id);
+  private async processMessage(message: string): Promise<string> {
+    // Mock AI response - replace with actual AI integration
+    return `AI Response: I received your message "${message.substring(0, 50)}..."`;
   }
 }

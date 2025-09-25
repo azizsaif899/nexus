@@ -1,4 +1,4 @@
-// Chat API endpoint - converted from Next.js to standard fetch API
+// Chat API endpoint for Next.js
 
 export interface ChatRequest {
   message: string;
@@ -11,7 +11,7 @@ export interface ChatResponse {
   timestamp: string;
 }
 
-export async function handleChatRequest(request: ChatRequest): Promise<ChatResponse> {
+async function handleChatRequest(request: ChatRequest): Promise<ChatResponse> {
   try {
     const { message } = request;
 
@@ -39,5 +39,20 @@ export async function handleChatRequest(request: ChatRequest): Promise<ChatRespo
       error: 'حدث خطأ في معالجة الرسالة',
       timestamp: new Date().toISOString()
     };
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const result = await handleChatRequest(body);
+    return Response.json(result);
+  } catch (error) {
+    console.error('API route error:', error);
+    return Response.json({
+      success: false,
+      error: 'خطأ في الخادم',
+      timestamp: new Date().toISOString()
+    }, { status: 500 });
   }
 }
