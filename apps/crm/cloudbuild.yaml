@@ -1,0 +1,118 @@
+# ====================================================================
+# Google Cloud Build Configuration for CRM Nxs
+# Automated CI/CD Pipeline
+# ====================================================================
+
+steps:
+  # Step 1: Install dependencies
+  - name: 'node:18-alpine'
+    id: 'install-dependencies'
+    entrypoint: 'npm'
+    args: ['ci', '--only=production']
+    env:
+      - 'NODE_ENV=production'
+  
+  # Step 2: Install build dependencies
+  - name: 'node:18-alpine'
+    id: 'install-build-deps'
+    entrypoint: 'npm'
+    args: ['install', '--save-dev', '@nx/vite', 'vite', 'typescript']
+    waitFor: ['install-dependencies']
+  
+  # Step 3: Build the application
+  - name: 'node:18-alpine'
+    id: 'build-app'
+    entrypoint: 'npx'
+    args: ['nx', 'build', 'CRM', '--configuration=production']
+    env:
+      - 'NODE_ENV=production'
+    waitFor: ['install-build-deps']
+  
+  # Step 4: Build Docker image (with commit SHA tag)
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-docker-sha'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/crm-nxs:$COMMIT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/crm-nxs:latest'
+      - '-f'
+      - 'apps/CRM/Dockerfile'
+      - '.'
+    waitFor: ['build-app']
+  
+  # Step 5: Push Docker image (SHA tag)
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-docker-sha'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/crm-nxs:$COMMIT_SHA'
+    waitFor: ['build-docker-sha']
+  
+  # Step 6: Push Docker image (latest tag)
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-docker-latest'
+    args:
+      - 'push'
+      - 'gcr.io/$PROJECT_ID/crm-nxs:latest'
+    waitFor: ['build-docker-sha']
+  
+  # Step 7: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-cloud-run'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'crm-nxs'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/crm-nxs:$COMMIT_SHA'
+      - '--region'
+      - 'europe-west1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '8080'
+      - '--memory'
+      - '512Mi'
+      - '--cpu'
+      - '1'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '10'
+      - '--timeout'
+      - '300'
+      - '--concurrency'
+      - '80'
+      - '--set-env-vars'
+      - 'NODE_ENV=production'
+    waitFor: ['push-docker-sha', 'push-docker-latest']
+
+# Images to store in Container Registry
+images:
+  - 'gcr.io/$PROJECT_ID/crm-nxs:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/crm-nxs:latest'
+
+# Build options
+options:
+  machineType: 'N1_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
+  dynamicSubstitutions: true
+  substitutionOption: 'ALLOW_LOOSE'
+
+# Substitutions (can be overridden)
+substitutions:
+  _REGION: 'europe-west1'
+  _SERVICE_NAME: 'crm-nxs'
+  _MEMORY: '512Mi'
+  _MIN_INSTANCES: '0'
+  _MAX_INSTANCES: '10'
+
+# Timeout for the entire build
+timeout: '1200s'
+
+# Service account to use (optional)
+# serviceAccount: 'projects/$PROJECT_ID/serviceAccounts/cloud-build@$PROJECT_ID.iam.gserviceaccount.com'

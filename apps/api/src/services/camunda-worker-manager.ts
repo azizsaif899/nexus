@@ -1,12 +1,15 @@
-import { Client } from 'camunda-external-task-client-js';
-// Temporary inline LoggerWorker until package is properly configured
+// Mock Camunda Client for now
+class MockClient {
+  subscribe(topicName: string, handler: any) {
+    return { topicName, handler, stop: () => Promise.resolve() };
+  }
+}
+
 class LoggerWorker {
   topicName = 'logger-task';
 
   async execute(task: any) {
     try {
-      // Removed console.log
-
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       return {
@@ -27,13 +30,11 @@ class LoggerWorker {
 }
 
 export class CamundaWorkerManager {
-  private client: Client;
+  private client: MockClient;
   private workers: any[] = [];
 
   constructor() {
-    this.client = new Client({
-      baseUrl: 'http://localhost:8080/engine-rest'
-    });
+    this.client = new MockClient();
   }
 
   async start() {
@@ -42,7 +43,7 @@ export class CamundaWorkerManager {
       
       // Register Logger Worker
       const loggerWorker = new LoggerWorker();
-      const worker = this.client.subscribe(loggerWorker.topicName, async ({ task, taskService }) => {
+      const worker = this.client.subscribe(loggerWorker.topicName, async ({ task, taskService }: { task: any; taskService: any }) => {
         try {
           const result = await loggerWorker.execute(task);
           

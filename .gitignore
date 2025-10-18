@@ -97,3 +97,7 @@ Icon
 
 # Linux
 *~
+
+# Next.js
+.next
+out

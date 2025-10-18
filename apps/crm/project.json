@@ -1,0 +1,184 @@
+{
+  "name": "CRM",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/CRM",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "CRM:build",
+        "port": 5173,
+        "host": "localhost",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "CRM:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "CRM:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/CRM",
+        "configFile": "apps/CRM/vite.config.ts",
+        "base": "/",
+        "manifest": true
+      },
+      "configurations": {
+        "development": {
+          "mode": "development",
+          "sourcemap": true,
+          "minify": false
+        },
+        "production": {
+          "mode": "production",
+          "sourcemap": false,
+          "minify": "esbuild",
+          "optimization": true,
+          "extractLicenses": true,
+          "target": "es2020",
+          "reportCompressedSize": true,
+          "commonjsOptions": {
+            "transformMixedEsModules": true
+          }
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "CRM:build",
+        "port": 4173,
+        "host": "localhost"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "CRM:build:development"
+        },
+        "production": {
+          "buildTarget": "CRM:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/CRM/**/*.{ts,tsx,js,jsx}"],
+        "fix": false,
+        "cache": true,
+        "cacheLocation": "node_modules/.cache/eslint"
+      },
+      "configurations": {
+        "fix": {
+          "fix": true
+        }
+      }
+    },
+    "type-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p apps/CRM/tsconfig.json",
+        "color": true
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run CRM:type-check",
+          "nx run CRM:lint"
+        ],
+        "parallel": false,
+        "color": true
+      }
+    },
+    "diagnose": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "node --version",
+            "description": "Check Node.js version"
+          },
+          {
+            "command": "npm --version",
+            "description": "Check npm version"
+          },
+          {
+            "command": "nx --version",
+            "description": "Check Nx version"
+          },
+          {
+            "command": "nx run CRM:type-check",
+            "description": "TypeScript check"
+          },
+          {
+            "command": "nx run CRM:lint --max-warnings=0",
+            "description": "ESLint check"
+          }
+        ],
+        "parallel": false,
+        "color": true
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "rm -rf dist/apps/CRM",
+          "rm -rf node_modules/.vite",
+          "rm -rf node_modules/.cache"
+        ],
+        "parallel": true,
+        "color": true
+      }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker build -t crm-nxs:latest -f apps/CRM/Dockerfile .",
+        "cwd": ".",
+        "color": true
+      }
+    },
+    "docker-run": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["docker-build"],
+      "options": {
+        "command": "docker run -p 8080:8080 crm-nxs:latest",
+        "color": true
+      }
+    },
+    "cloud-build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "gcloud builds submit --config=apps/CRM/cloudbuild.yaml --substitutions=COMMIT_SHA=\"$(git rev-parse --short HEAD)\"",
+        "cwd": ".",
+        "color": true
+      }
+    },
+    "cloud-deploy": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "gcloud run deploy crm-nxs --source apps/CRM --platform managed --region europe-west1 --allow-unauthenticated --port 8080 --memory 512Mi",
+        "cwd": ".",
+        "color": true
+      }
+    }
+  },
+  "tags": ["type:app", "scope:crm", "platform:web"],
+  "implicitDependencies": []
+}

@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: activepieces-postgres
+    environment:
+      POSTGRES_DB: activepieces
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - activepieces-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: activepieces-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - activepieces-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Activepieces Application
+  activepieces:
+    image: activepieces/activepieces:latest
+    container_name: activepieces
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      # Database Configuration
+      AP_POSTGRES_DATABASE: activepieces
+      AP_POSTGRES_HOST: postgres
+      AP_POSTGRES_PORT: 5432
+      AP_POSTGRES_USERNAME: postgres
+      AP_POSTGRES_PASSWORD: postgres123
+      AP_POSTGRES_SSL_CA: "false"
+
+      # Redis Configuration
+      AP_REDIS_HOST: redis
+      AP_REDIS_PORT: 6379
+
+      # Security Keys (replace with generated keys)
+      AP_ENCRYPTION_KEY: "4wnKqCxeLsDOBjboSpkYhvmAJF2l035U"
+      AP_JWT_SECRET: "b8GJUKlcYDHAR0iWesQCFSqx2j15fomnMr3uwa4LVd7PXB9zpg6kyEOIZvTthN"
+
+      # Application URLs
+      AP_FRONTEND_URL: "http://localhost:8080"
+      AP_WEBHOOK_URL: "http://localhost:8080"
+
+      # Optional: Enable telemetry (set to false for privacy)
+      AP_TELEMETRY_ENABLED: "false"
+    networks:
+      - activepieces-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  activepieces-network:
+    driver: bridge

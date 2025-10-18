@@ -1,0 +1,22 @@
+# Firebase hosting headers file
+# This file will override any headers configuration in firebase.json
+
+/assets/*.js
+  Content-Type: application/javascript
+
+*.js
+  Content-Type: application/javascript
+
+*.mjs  
+  Content-Type: application/javascript
+
+*.css
+  Content-Type: text/css
+
+# Cache headers
+/assets/*
+  Cache-Control: max-age=31536000
+
+# HTML files should not be cached
+*.html
+  Cache-Control: no-cache

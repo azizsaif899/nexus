@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Accessibility meta tags -->
+    <meta name="color-scheme" content="light dark" />
+    
+    <!-- Critical CSS only - no external fonts -->
+    <style>
+      /* System fonts for instant loading */
+      :root {
+        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-arabic: 'Segoe UI', Tahoma, Arial, sans-serif;
+      }
+    </style>
+    
+    <!-- Prevent FOUC (Flash of Unstyled Content) -->
+    <style>
+      html { visibility: visible; opacity: 1; }
+      
+
+    </style>
+    
+    <!-- Performance & Resource Hints -->
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.google.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    
+    <!-- Preload critical resources - only compiled JS files -->
+    <!-- modulepreload for ES modules - Vite will handle the .tsx compilation -->
+    <link rel="modulepreload" href="/src/main.tsx" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Nexus AI - Modern AI/Automation platform with full Arabic & English support. Automate tasks, manage conversations, and streamline customer relationships." />
+    <link rel="canonical" href="https://gen-lang-client-0147492600.web.app/" />
+    <meta name="keywords" content="AI, Automation, CRM, Chat, Nexus AI, Arabic, English, SaaS" />
+    <meta name="author" content="Nexus AI" />
+    
+    <!-- Prevent unnecessary third-party scripts -->
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nexus AI - AI/Automation Platform" />
+    <meta property="og:description" content="Modern AI/Automation platform with full Arabic & English support" />
+    <meta property="og:site_name" content="Nexus AI" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nexus AI - AI/Automation Platform" />
+    <meta name="twitter:description" content="Modern AI/Automation platform with full Arabic & English support" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#030213" />
+    
+    <title>Nexus AI - منصة الذكاء الاصطناعي والأتمتة</title>
+  </head>
+  <body>
+
+    
+    <div id="root"></div>
+    
+    <!-- MIME type fix for module scripts -->
+    <script>
+      // Force correct MIME type interpretation
+      if ('serviceWorker' in navigator) {
+        // Register a simple service worker to handle MIME types
+        navigator.serviceWorker.register('/sw.js').catch(() => {
+          console.info('Service worker registration skipped');
+        });
+      }
+    </script>
+
+    <script type="module" crossorigin src="./src/main.tsx"></script>
+  </body>
+</html>

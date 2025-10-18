@@ -1,0 +1,344 @@
+/* === iOS/iPhone Chrome/Safari Compatibility Fixes === */
+
+/* 1. 100vh Fix - أهم إصلاح لـ iOS */
+/* استخدام CSS Variables للارتفاع الديناميكي */
+:root {
+  /* Fallback for browsers that don't support dvh */
+  --app-height: 100vh;
+  /* Dynamic viewport height - يتكيف مع شريط العنوان */
+  --app-height: 100dvh;
+}
+
+/* تطبيق الارتفاع الديناميكي */
+html, body {
+  height: 100%;
+  height: var(--app-height);
+  /* منع التمرير الزائد على iOS */
+  overscroll-behavior: none;
+  /* منع التكبير عند focus على inputs */
+  touch-action: manipulation;
+}
+
+/* App container يستخدم الارتفاع الديناميكي */
+#root {
+  height: 100%;
+  height: var(--app-height);
+  overflow: hidden;
+}
+
+/* h-screen يستخدم الارتفاع الديناميكي */
+.h-screen {
+  height: 100%;
+  height: var(--app-height) !important;
+}
+
+/* 2. Safe Area Insets - دعم النتوخ (Notch) */
+:root {
+  /* Safe area insets للأجهزة مع notch */
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+}
+
+/* تطبيق safe area على العناصر الثابتة */
+[style*="position: fixed"],
+.fixed {
+  padding-top: var(--safe-area-inset-top);
+  padding-right: var(--safe-area-inset-right);
+  padding-bottom: var(--safe-area-inset-bottom);
+  padding-left: var(--safe-area-inset-left);
+}
+
+/* 3. -webkit- Prefixes لـ Backdrop Filter */
+.glass-light,
+.glass-medium,
+.glass-intense,
+.glass,
+.glass-subtle {
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* 4. Touch Scrolling Optimization */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth scrolling على iOS */
+[data-slot="scroll-area-viewport"],
+.overflow-auto,
+.overflow-y-auto,
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  /* منع scroll chaining */
+  overscroll-behavior: contain;
+}
+
+/* 5. Fixed Position Elements - إصلاح لـ iOS */
+/* Toolbar */
+[class*="WorkflowToolbar"] {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+}
+
+/* Sidebar */
+[class*="NodeTypesSidebar"] {
+  position: fixed;
+  /* استخدام transform بدلاً من left/right للأداء */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 6. Transform Performance Optimization */
+.workflow-canvas-container {
+  /* GPU acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* 7. Prevent Text Size Adjust على iOS */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 8. Fix Input Zoom على iOS */
+input,
+textarea,
+select {
+  /* منع التكبير التلقائي على iOS عند focus */
+  font-size: 16px !important;
+  /* iOS specific */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* 9. Button Tap Highlight */
+button,
+a,
+[role="button"] {
+  /* إزالة highlight الأزرق على iOS */
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+/* 10. Prevent Callout على iOS */
+* {
+  /* منع context menu الافتراضي */
+  -webkit-touch-callout: none;
+}
+
+/* السماح بـ context menu على links و images فقط */
+a,
+img {
+  -webkit-touch-callout: default;
+}
+
+/* 11. Fix Animation Performance */
+.glass-light,
+.glass-medium,
+.glass-intense,
+[data-node],
+.interactive {
+  /* Hardware acceleration */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+/* لكن نزيل will-change بعد الانتهاء من التفاعل */
+.glass-light:not(:hover),
+.glass-medium:not(:hover),
+.glass-intense:not(:hover) {
+  will-change: auto;
+}
+
+/* 12. Fix Sticky Position */
+.sticky,
+[style*="position: sticky"] {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+/* 13. iOS Keyboard Handling */
+/* منع resize عند ظهور keyboard */
+@supports (-webkit-touch-callout: none) {
+  /* iOS only */
+  body {
+    min-height: 100%;
+    min-height: var(--app-height);
+  }
+}
+
+/* 14. Prevent Pull-to-Refresh */
+body {
+  /* منع pull-to-refresh على iOS */
+  overscroll-behavior-y: contain;
+}
+
+/* 15. Fix Canvas Zoom on Touch */
+.workflow-canvas-container {
+  /* منع pinch zoom على الكانفا */
+  touch-action: pan-x pan-y;
+}
+
+/* 16. iOS Dark Mode Support */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  /* iOS specific backdrop filter optimization */
+  .dark .glass-light,
+  .dark .glass-medium,
+  .dark .glass-intense {
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
+  }
+}
+
+/* 17. Fix Font Rendering على iOS */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 18. Fix Overflow Hidden على iOS */
+/* Canvas يجب ألا يقطع المحتوى */
+[data-canvas="true"] {
+  overflow: visible !important;
+}
+
+/* لكن الـ container يكون hidden */
+.workflow-canvas-container {
+  overflow: hidden !important;
+}
+
+/* 19. Fix Z-Index Stacking على iOS */
+/* Safari/iOS لديه مشاكل مع stacking context */
+[style*="z-index"] {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* 20. iOS Landscape Orientation */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* تقليل ارتفاع العناصر في landscape */
+  :root {
+    --toolbar-height: 48px;
+  }
+}
+
+/* 21. Fix Double Tap Zoom */
+* {
+  /* منع double tap zoom */
+  touch-action: manipulation;
+}
+
+/* لكن السماح به على الكانفا */
+.workflow-canvas-container {
+  touch-action: pan-x pan-y pinch-zoom;
+}
+
+/* 22. iOS Scrollbar Styling */
+/* Safari لا يدعم ::-webkit-scrollbar على iOS، لكن نتركه للمتصفحات الأخرى */
+@supports not (-webkit-touch-callout: none) {
+  /* Non-iOS browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* 23. Fix Position Fixed with Transform Parent */
+/* على iOS، fixed elements داخل transformed parents تتصرف كـ absolute */
+.fixed-ios-fix {
+  position: fixed;
+  /* Fallback for iOS */
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+/* 24. Safe Area Background */
+/* ملء المساحة الآمنة بلون الخلفية */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-area-inset-top);
+  background: var(--background);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--safe-area-inset-bottom);
+  background: var(--background);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* 25. iOS PWA Support */
+@media (display-mode: standalone) {
+  /* When running as PWA on iOS */
+  :root {
+    --app-height: 100vh;
+  }
+  
+  body {
+    /* منع bounce effect */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* === Debug Mode لـ iOS === */
+.ios-debug {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: monospace;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.ios-debug::before {
+  content: 'iOS Debug Mode';
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* === JavaScript Height Fix === */
+/* يتم تحديثه من JavaScript */
+:root {
+  --js-height: 100vh;
+}
+
+/* Fallback إذا فشل JavaScript */
+@supports not (height: 100dvh) {
+  :root {
+    --app-height: var(--js-height, 100vh);
+  }
+}

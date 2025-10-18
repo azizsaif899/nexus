@@ -8,7 +8,7 @@ export class QueryDto {
   })
   @IsString()
   @IsNotEmpty()
-  prompt: string;
+  prompt!: string;
 
   @ApiProperty({ 
     example: 'development', 

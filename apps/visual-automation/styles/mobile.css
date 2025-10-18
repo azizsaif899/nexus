@@ -1,0 +1,257 @@
+/* Mobile Responsiveness Enhancements */
+
+/* === Mobile-First Breakpoints === */
+@media (max-width: 640px) {
+  /* Hide sidebar collapse button on mobile */
+  .sidebar-collapse-btn {
+    display: none !important;
+  }
+  
+  /* Mobile Toolbar */
+  [data-toolbar="main"] {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem !important;
+  }
+  
+  /* Hide less important buttons on mobile */
+  [data-toolbar-btn="preview"],
+  [data-toolbar-btn="share"],
+  [data-toolbar-btn="collaboration"],
+  [data-toolbar-btn="export"] {
+    display: none !important;
+  }
+  
+  /* Compact zoom controls */
+  [data-zoom-controls] {
+    bottom: 4rem !important;
+    right: 0.5rem !important;
+    gap: 0.25rem !important;
+  }
+  
+  [data-zoom-controls] button {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 14px !important;
+  }
+  
+  /* Mobile Canvas */
+  .workflow-canvas-container {
+    touch-action: pan-x pan-y pinch-zoom !important;
+  }
+  
+  /* Mobile Nodes - Larger touch targets */
+  [data-node] {
+    min-width: 80px !important;
+    min-height: 80px !important;
+  }
+  
+  [data-node] button {
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+  
+  /* Mobile Property Panel - Full width */
+  [data-property-panel] {
+    width: 100% !important;
+    right: 0 !important;
+    left: 0 !important;
+    max-width: none !important;
+  }
+  
+  /* Mobile Analytics Dashboard */
+  .analytics-dashboard {
+    inset: 0 !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Mobile Search Panel */
+  .search-panel {
+    max-width: calc(100% - 1rem) !important;
+    margin: 0 0.5rem !important;
+  }
+  
+  /* Mobile Typography */
+  .text-h1 {
+    font-size: 20px !important;
+  }
+  
+  .text-h2 {
+    font-size: 18px !important;
+  }
+  
+  .text-h3 {
+    font-size: 16px !important;
+  }
+  
+  /* Mobile Glass Effects - Lighter for performance */
+  .glass-medium,
+  .glass-intense {
+    backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Mobile Sidebar - Auto-collapse */
+  [data-sidebar="main"] {
+    width: 60px !important;
+  }
+  
+  [data-sidebar="main"] .sidebar-content {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Tablet - 640px to 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Compact toolbar */
+  [data-toolbar="main"] {
+    gap: 0.75rem;
+    padding: 1rem !important;
+  }
+  
+  /* Smaller zoom controls */
+  [data-zoom-controls] {
+    right: 1rem !important;
+    bottom: 5rem !important;
+  }
+  
+  /* Medium nodes */
+  [data-node] {
+    min-width: 70px !important;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-width: 896px) and (orientation: landscape) {
+  /* Horizontal toolbar */
+  [data-toolbar="main"] {
+    height: auto !important;
+    overflow-x: auto !important;
+  }
+  
+  /* Compact zoom controls */
+  [data-zoom-controls] {
+    flex-direction: row !important;
+    bottom: 0.5rem !important;
+    right: 50% !important;
+    transform: translateX(50%) !important;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  button,
+  [role="button"] {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+  
+  /* Remove hover effects */
+  *:hover {
+    transform: none !important;
+  }
+  
+  /* Tap highlights */
+  button:active,
+  [role="button"]:active {
+    opacity: 0.7 !important;
+  }
+  
+  /* Simplified glass effects */
+  .glass-light,
+  .glass-medium,
+  .glass-intense {
+    backdrop-filter: blur(4px) !important;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper borders */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark Mode on Mobile */
+@media (max-width: 640px) {
+  .dark {
+    /* Darker backgrounds for OLED */
+    --background: #000000 !important;
+    --background-secondary: #1a1a1a !important;
+  }
+}
+
+/* === PWA Optimizations === */
+
+/* Safe Areas for Notch Devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  [data-toolbar="main"] {
+    padding-top: calc(0.75rem + env(safe-area-inset-top)) !important;
+  }
+  
+  [data-zoom-controls] {
+    bottom: calc(4rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+/* Standalone PWA Mode */
+@media (display-mode: standalone) {
+  /* Remove system UI gaps */
+  body {
+    overflow: hidden;
+  }
+  
+  /* Full height canvas */
+  .workflow-canvas-container {
+    height: calc(100vh - 60px) !important;
+  }
+}
+
+/* === Mobile Performance === */
+
+/* Simplified Animations */
+@media (max-width: 640px) {
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slide-up {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  /* Remove complex transforms */
+  .animate-scale-in {
+    animation: fade-in 0.2s ease-out !important;
+  }
+}
+
+/* Battery Saving Mode */
+@media (prefers-reduced-motion: reduce) {
+  .glass-light,
+  .glass-medium,
+  .glass-intense {
+    backdrop-filter: none !important;
+    background: var(--background-elevated) !important;
+  }
+}

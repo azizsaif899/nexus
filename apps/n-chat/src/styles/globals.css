@@ -1,0 +1,506 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@300;400;500;600;700;800;900&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+/* Professional FlowCanvasAI Design System */
+:root {
+  --font-size: 16px;
+  --background: #f8f9fa;
+  --foreground: #1a1a1a;
+  
+  /* Professional Color Palette */
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #4F97FF;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f3f4;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f1f3f4;
+  --muted-foreground: #64748b;
+  --accent: #4F97FF;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --input-background: #ffffff;
+  --switch-background: #e2e8f0;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #4F97FF;
+  --chart-1: #4F97FF;
+  --chart-2: #1ABC9C;
+  --chart-3: #8b5cf6;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #4F97FF;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f3f4;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #4F97FF;
+}
+
+/* Professional Dark Theme */
+.dark {
+  --background: #0F0F0F;
+  --foreground: #F5F5F5;
+  
+  --card: #1A1A1A;
+  --card-foreground: #F5F5F5;
+  --popover: #1A1A1A;
+  --popover-foreground: #F5F5F5;
+  --primary: #4F97FF;
+  --primary-foreground: #ffffff;
+  --secondary: #262626;
+  --secondary-foreground: #F5F5F5;
+  --muted: #262626;
+  --muted-foreground: #A1A1AA;
+  --accent: #4F97FF;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #404040;
+  --input: #262626;
+  --input-background: #1A1A1A;
+  --switch-background: #404040;
+  --ring: #4F97FF;
+  --chart-1: #4F97FF;
+  --chart-2: #1ABC9C;
+  --chart-3: #8b5cf6;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --sidebar: #1A1A1A;
+  --sidebar-foreground: #F5F5F5;
+  --sidebar-primary: #4F97FF;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #F5F5F5;
+  --sidebar-border: #404040;
+  --sidebar-ring: #4F97FF;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Professional Typography */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-arabic {
+  font-family: 'Cairo', 'Noto Sans Arabic', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* RTL Support */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Professional Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes typingDots {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+/* Enhanced Effects */
+.hover-scale {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.dark .card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.backdrop-glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Professional Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(var(--muted), 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid hsl(var(--color-primary));
+  outline-offset: 2px;
+}
+
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ========================================
+   Accessibility Enhancements
+   ======================================== */
+
+/* Screen Reader Only - يخفي عن المستخدمين العاديين ويظهر لقارئ الشاشة فقط */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip Links - روابط التخطي للمحتوى الرئيسي */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 9999;
+  font-weight: 600;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* RTL للـ skip link */
+.rtl .skip-link {
+  left: auto;
+  right: 0;
+  border-radius: 0 0 0 4px;
+}
+
+/* Focus Visible - تحسين مؤشر التركيز */
+*:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}
+
+/* Keyboard Focus Indicator - مؤشر تركيز الكيبورد */
+.keyboard-focus-visible:focus-visible {
+  box-shadow: 0 0 0 3px var(--ring), 0 0 0 6px rgba(79, 151, 255, 0.3);
+}
+
+/* Live Region للتحديثات الحية */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Accessible Button Styles */
+button[disabled],
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor !important;
+  }
+  
+  button,
+  [role="button"] {
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* Focus Within للـ containers */
+.focus-within-ring:focus-within {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Accessible Touch Targets - أحجام لمس مناسبة */
+button,
+a,
+[role="button"],
+[role="link"],
+input[type="button"],
+input[type="submit"] {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keyboard Navigation Hint */
+.keyboard-hint {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+*:focus-visible + .keyboard-hint,
+*:focus-within .keyboard-hint {
+  opacity: 1;
+}
+
+/* Selected State for Lists */
+[role="listitem"][aria-selected="true"],
+[role="option"][aria-selected="true"] {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Loading State Accessibility */
+[aria-busy="true"] {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+/* Error State */
+[aria-invalid="true"] {
+  border-color: var(--destructive);
+  outline-color: var(--destructive);
+}
+
+/* Required Fields */
+[aria-required="true"]::after {
+  content: " *";
+  color: var(--destructive);
+}
+
+/* Tooltip Accessibility */
+[role="tooltip"] {
+  position: absolute;
+  background: var(--popover);
+  color: var(--popover-foreground);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Alert Role */
+[role="alert"] {
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 4px solid var(--destructive);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+[role="status"] {
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 4px solid var(--primary);
+  background: rgba(79, 151, 255, 0.1);
+}
+
+/* Navigation Landmarks */
+[role="navigation"],
+nav {
+  position: relative;
+}
+
+[role="main"],
+main {
+  position: relative;
+  scroll-margin-top: 20px; /* للـ skip links */
+}
+
+/* Improved Color Contrast */
+.dark {
+  --muted-foreground: #B4B4B4; /* تحسين التباين للنص الثانوي */
+}
+
+/* Reduced Transparency for Better Readability */
+@media (prefers-contrast: more) {
+  .backdrop-glass {
+    backdrop-filter: none;
+    background: var(--background);
+  }
+}
+
+/* Focus Trap Indicator */
+.focus-trap-active {
+  outline: 3px dashed var(--ring);
+  outline-offset: -3px;
+}
+
+/* Accessible Table Styles */
+table[role="table"] th {
+  font-weight: 600;
+  text-align: start;
+}
+
+/* Mobile Touch Target Enhancement */
+@media (max-width: 767px) {
+  button,
+  a,
+  [role="button"],
+  [role="link"] {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
+  }
+}
+
+/* Print Accessibility */
+@media print {
+  .skip-link,
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+}

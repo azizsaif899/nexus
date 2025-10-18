@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📊 فهرس التقارير - CRM Nxs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'IBM Plex Sans Arabic', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem;
+      color: #1a202c;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+    
+    .content {
+      padding: 3rem 2rem;
+    }
+    
+    .info-box {
+      background: #f7fafc;
+      border-right: 4px solid #667eea;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    
+    .info-box h2 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .info-box p {
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .steps {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .step {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .step:hover {
+      border-color: #667eea;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .step-number {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-left: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    .step-content {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .step-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 0.5rem;
+    }
+    
+    .step-desc {
+      color: #718096;
+      font-size: 0.95rem;
+    }
+    
+    .button {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin: 0.5rem;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .button-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+    
+    .file-list {
+      background: #f7fafc;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    
+    .file-list h3 {
+      margin-bottom: 1rem;
+      color: #2d3748;
+    }
+    
+    .file-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    
+    .file-item:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .file-icon {
+      font-size: 1.5rem;
+      margin-left: 1rem;
+    }
+    
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    
+    .footer {
+      background: #2d3748;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .footer p {
+      margin: 0.5rem 0;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📊 فهرس التقارير</h1>
+      <p>مركز إدارة تقارير الاختبارات - CRM Nxs Testing Suite</p>
+    </div>
+
+    <div class="content">
+      <div class="info-box">
+        <h2>🎯 مرحباً بك في مركز التقارير!</h2>
+        <p>هذا المجلد يحتوي على جميع تقارير الاختبارات المُنشأة تلقائياً.</p>
+        <p>للبدء، اتبع الخطوات التالية:</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-number">1</span>
+          <div class="step-content">
+            <div class="step-title">تشغيل التطبيق</div>
+            <div class="step-desc">
+              <div class="code-block">npm run dev</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-number">2</span>
+          <div class="step-content">
+            <div class="step-title">فتح صفحة الاختبارات</div>
+            <div class="step-desc">
+              <div class="code-block">http://localhost:5173/test</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-number">3</span>
+          <div class="step-content">
+            <div class="step-title">تشغيل الاختبارات</div>
+            <div class="step-desc">
+              اضغط زر "تشغيل الكل" وانتظر حتى تكتمل جميع الاختبارات
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-number">4</span>
+          <div class="step-content">
+            <div class="step-title">حفظ التقرير</div>
+            <div class="step-desc">
+              اضغط زر "حفظ التقرير" وسيتم تنزيل ملفي HTML و JSON
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin: 2rem 0;">
+        <a href="../TestPage.tsx" class="button">
+          🧪 عرض كود صفحة الاختبارات
+        </a>
+        <a href="./README.md" class="button button-secondary">
+          📖 قراءة الدليل الكامل
+        </a>
+      </div>
+
+      <div class="file-list">
+        <h3>📁 الملفات في هذا المجلد:</h3>
+        
+        <div class="file-item">
+          <div>
+            <span class="file-icon">📄</span>
+            <strong>README.md</strong> - دليل استخدام مفصل
+          </div>
+        </div>
+
+        <div class="file-item">
+          <div>
+            <span class="file-icon">📊</span>
+            <strong>test-report-example.json</strong> - مثال على بنية التقرير
+          </div>
+        </div>
+
+        <div class="file-item">
+          <div>
+            <span class="file-icon">🔒</span>
+            <strong>.gitkeep</strong> - ملف Git للحفاظ على المجلد
+          </div>
+        </div>
+
+        <div class="file-item">
+          <div>
+            <span class="file-icon">🌐</span>
+            <strong>index.html</strong> - هذه الصفحة (دليل التنقل)
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top: 2rem;">
+        <h2>💡 نصائح مهمة</h2>
+        <p>📌 التقارير تُحفظ تلقائياً في مجلد التنزيلات</p>
+        <p>📌 انقل التقارير المهمة إلى هذا المجلد للأرشفة</p>
+        <p>📌 احتفظ بتقرير يومي لمراقبة تطور الجودة</p>
+        <p>📌 استخدم ملف JSON للتكامل مع CI/CD</p>
+      </div>
+
+      <div class="info-box" style="background: #fff5f5; border-right-color: #f56565;">
+        <h2>⚠️ ملاحظات أمان</h2>
+        <p>🔒 لا تشارك التقارير إذا كانت تحتوي معلومات حساسة</p>
+        <p>🔒 تأكد من حذف التقارير القديمة بانتظام</p>
+        <p>🔒 استخدم .gitignore لمنع رفع التقارير إلى Git</p>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <h3 style="color: #2d3748; margin-bottom: 1rem;">🚀 جاهز للبدء؟</h3>
+        <a href="http://localhost:5173/test" class="button">
+          ✨ افتح صفحة الاختبارات الآن
+        </a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p><strong>CRM Nxs Testing Suite</strong></p>
+      <p>نظام اختبارات احترافي شامل</p>
+      <p style="margin-top: 1rem; opacity: 0.6;">
+        الموقع: C:\nexus\apps\crm\test\report\
+      </p>
+      <p style="opacity: 0.6;">
+        آخر تحديث: 18 يناير 2025 | الإصدار: 1.0.0
+      </p>
+      <p style="margin-top: 1rem;">© 2025 CRM Nxs - صُنع بـ ❤️</p>
+    </div>
+  </div>
+
+  <script>
+    // Auto-refresh file list (placeholder for future enhancement)
+    console.log('📊 CRM Nxs Testing Reports Dashboard');
+    console.log('✨ Welcome to the reports directory!');
+    
+    // Add dynamic functionality here if needed
+    document.querySelectorAll('.step').forEach((step, index) => {
+      step.style.animationDelay = `${index * 0.1}s`;
+    });
+  </script>
+</body>
+</html>

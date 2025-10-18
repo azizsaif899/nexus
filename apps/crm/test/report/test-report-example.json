@@ -1,0 +1,190 @@
+{
+  "timestamp": "2025-01-18T10:30:00.000Z",
+  "totalTests": 14,
+  "passed": 12,
+  "failed": 2,
+  "duration": 18750,
+  "environment": {
+    "url": "http://localhost:5173/test",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "viewport": "1920x1080"
+  },
+  "results": [
+    {
+      "testId": "theme",
+      "testName": "اختبار الثيم",
+      "status": "passed",
+      "duration": 1234,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:01.234Z"
+    },
+    {
+      "testId": "colors",
+      "testName": "اختبار الألوان",
+      "status": "passed",
+      "duration": 1567,
+      "errors": [],
+      "warnings": [
+        "تحذير: بعض العناصر قد تحتاج تحسين"
+      ],
+      "timestamp": "2025-01-18T10:30:02.801Z"
+    },
+    {
+      "testId": "tailwind",
+      "testName": "اختبار Tailwind",
+      "status": "passed",
+      "duration": 890,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:03.691Z"
+    },
+    {
+      "testId": "visual-regression",
+      "testName": "اختبار التصميم البصري",
+      "status": "failed",
+      "duration": 2100,
+      "errors": [
+        "فشل في التحقق من بعض المتطلبات"
+      ],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:05.791Z"
+    },
+    {
+      "testId": "components",
+      "testName": "اختبار المكونات",
+      "status": "passed",
+      "duration": 1450,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:07.241Z"
+    },
+    {
+      "testId": "responsive",
+      "testName": "اختبار الاستجابة",
+      "status": "passed",
+      "duration": 1680,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:08.921Z"
+    },
+    {
+      "testId": "fonts-icons",
+      "testName": "اختبار الخطوط والأيقونات",
+      "status": "passed",
+      "duration": 1123,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:10.044Z"
+    },
+    {
+      "testId": "accessibility",
+      "testName": "اختبار الوصولية",
+      "status": "passed",
+      "duration": 1890,
+      "errors": [],
+      "warnings": [
+        "تحذير: بعض العناصر قد تحتاج تحسين"
+      ],
+      "timestamp": "2025-01-18T10:30:11.934Z"
+    },
+    {
+      "testId": "performance",
+      "testName": "اختبار الأداء البصري",
+      "status": "passed",
+      "duration": 2345,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:14.279Z"
+    },
+    {
+      "testId": "charts",
+      "testName": "اختبار المخططات",
+      "status": "passed",
+      "duration": 1234,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:15.513Z"
+    },
+    {
+      "testId": "dnd",
+      "testName": "اختبار Drag & Drop",
+      "status": "failed",
+      "duration": 1567,
+      "errors": [
+        "فشل في التحقق من بعض المتطلبات"
+      ],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:17.080Z"
+    },
+    {
+      "testId": "rtl",
+      "testName": "اختبار RTL",
+      "status": "passed",
+      "duration": 890,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:17.970Z"
+    },
+    {
+      "testId": "theme-toggle",
+      "testName": "اختبار تبديل الثيم",
+      "status": "passed",
+      "duration": 1450,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:19.420Z"
+    },
+    {
+      "testId": "ui-components",
+      "testName": "اختبار مكونات UI",
+      "status": "passed",
+      "duration": 1330,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-01-18T10:30:20.750Z"
+    }
+  ],
+  "summary": {
+    "successRate": "85.7%",
+    "avgDuration": "1339ms",
+    "criticalErrors": 2,
+    "warnings": 2,
+    "categories": {
+      "design": {
+        "total": 6,
+        "passed": 5,
+        "failed": 1
+      },
+      "interaction": {
+        "total": 6,
+        "passed": 5,
+        "failed": 1
+      },
+      "performance": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0
+      },
+      "e2e": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0
+      }
+    }
+  },
+  "recommendations": [
+    "✅ معدل النجاح ممتاز (85.7%)",
+    "⚠️ يوجد 2 اختبار فاشل تحتاج مراجعة",
+    "💡 تحسين الأداء البصري في بعض المكونات",
+    "🎯 الحفاظ على هذا المستوى من الجودة"
+  ],
+  "metadata": {
+    "reportVersion": "1.0.0",
+    "generatedBy": "CRM Nxs Testing Suite",
+    "framework": "React 19 + Vite 6 + TypeScript",
+    "testingLibrary": "Custom Test Runner",
+    "platform": "Windows 10",
+    "browser": "Chrome 120"
+  }
+}

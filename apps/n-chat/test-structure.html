@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Structure</title>
+</head>
+<body>
+    <!-- This mimics our React structure -->
+    <nav class="sr-only">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+    </nav>
+    
+    <div class="min-h-screen">
+        <div role="status" aria-live="polite" class="sr-only" id="live-announcements">
+            <!-- Live announcements -->
+        </div>
+
+        <main id="main-content" role="main">
+            <h1>Main Content</h1>
+            <p>This is the main content area.</p>
+        </main>
+    </div>
+</body>
+</html>

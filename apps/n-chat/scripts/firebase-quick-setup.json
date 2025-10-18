@@ -1,0 +1,38 @@
+{
+  "project": {
+    "name": "FlowCanvasAI",
+    "id": "flowcanvas-ai",
+    "description": "منصة FlowCanvasAI للأتمتة والذكاء الاصطناعي"
+  },
+  "features": {
+    "authentication": {
+      "enabled": true,
+      "providers": ["google", "email"]
+    },
+    "firestore": {
+      "enabled": true,
+      "rules": "firestore.rules"
+    },
+    "storage": {
+      "enabled": true,
+      "rules": "storage.rules"
+    },
+    "hosting": {
+      "enabled": true,
+      "public": "out"
+    },
+    "functions": {
+      "enabled": true,
+      "source": "functions"
+    }
+  },
+  "config": {
+    "region": "us-central1",
+    "billing": "required",
+    "apis": [
+      "firebase.googleapis.com",
+      "firestore.googleapis.com",
+      "storage.googleapis.com"
+    ]
+  }
+}

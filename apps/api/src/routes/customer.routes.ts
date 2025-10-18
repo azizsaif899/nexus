@@ -1,15 +1,16 @@
 import { Router } from 'express';
-import { OdooClient } from '@g-assistant/odoo-client';
 
 const router = Router();
 
-// إعداد Odoo Client
-const odooClient = new OdooClient({
-  url: process.env.ODOO_URL!,
-  database: process.env.ODOO_DATABASE!,
-  username: process.env.ODOO_USERNAME!,
-  password: process.env.ODOO_PASSWORD!
-});
+// Mock Odoo Client for now
+const odooClient = {
+  async getLeads(filters: any[]) {
+    return [];
+  },
+  async updateLead(id: number, data: any) {
+    return true;
+  }
+};
 
 // جلب بيانات العميل الشاملة للـ Customer 360
 router.get('/:customerId', async (req, res) => {
@@ -72,7 +73,7 @@ router.get('/:customerId', async (req, res) => {
       probability: customer.probability || 0,
       create_date: customer.create_date,
       write_date: customer.write_date,
-      opportunities: opportunities.map(opp => ({
+      opportunities: opportunities.map((opp: any) => ({
         id: opp.id,
         name: opp.name,
         stage: opp.stage_id?.[1] || 'غير محدد',
@@ -93,7 +94,7 @@ router.get('/:customerId', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في جلب بيانات العميل',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
@@ -150,7 +151,7 @@ router.get('/:customerId/meta-insights', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في جلب رؤى Meta',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
@@ -181,7 +182,7 @@ router.put('/:customerId', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في تحديث بيانات العميل',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });

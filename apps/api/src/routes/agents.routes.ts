@@ -21,7 +21,7 @@ router.get('/status', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في جلب حالة الوكلاء',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
@@ -41,7 +41,7 @@ router.post('/:agentId/start', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في تشغيل الوكيل',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
@@ -61,7 +61,7 @@ router.post('/:agentId/stop', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في إيقاف الوكيل',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
@@ -80,7 +80,7 @@ router.post('/lead-qualification', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في تشغيل وكيل التأهيل',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
@@ -99,7 +99,7 @@ router.post('/follow-up', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'خطأ في إرسال رسائل المتابعة',
-      error: error.message
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });

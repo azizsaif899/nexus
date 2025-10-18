@@ -1,5 +1,5 @@
 {
-  "name": "@azizsys/core/event-bus",
+  "name": "@azizsys/core-event-bus",
   "version": "0.0.1",
   "private": true,
   "type": "commonjs",

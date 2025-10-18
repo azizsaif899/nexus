@@ -1,0 +1,20 @@
+# Nexus AI - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://gen-lang-client-0147492600.web.app/sitemap.xml
+
+# Disallow admin paths (if any)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Allow all crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Crawl delay (optional)
+# Crawl-delay: 1

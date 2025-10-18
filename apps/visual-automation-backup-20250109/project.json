@@ -1,0 +1,21 @@
+{
+  "name": "visual-automation",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/visual-automation",
+  "projectType": "application",
+  "tags": ["automation", "workflow", "nextjs"],
+  "targets": {
+    "serve": {
+      "executor": "@nx/next:dev",
+      "options": {
+        "port": 4100
+      }
+    },
+    "build": {
+      "executor": "@nx/next:build"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

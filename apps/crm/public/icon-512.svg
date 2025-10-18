@@ -1,0 +1,43 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="#202020"/>
+  
+  <!-- Automation Network -->
+  <g transform="translate(128, 128)">
+    <!-- Center Node -->
+    <circle cx="128" cy="128" r="40" fill="#EAEAEA"/>
+    <text x="128" y="138" text-anchor="middle" fill="#202020" font-size="32" font-weight="bold">A</text>
+    
+    <!-- Top Node -->
+    <circle cx="128" cy="40" r="32" fill="#EAEAEA" opacity="0.9"/>
+    <line x1="128" y1="72" x2="128" y2="88" stroke="#EAEAEA" stroke-width="6"/>
+    
+    <!-- Top Right Node -->
+    <circle cx="216" cy="80" r="28" fill="#EAEAEA" opacity="0.85"/>
+    <line x1="154" y1="104" x2="188" y2="92" stroke="#EAEAEA" stroke-width="5"/>
+    
+    <!-- Right Node -->
+    <circle cx="216" cy="128" r="32" fill="#EAEAEA" opacity="0.9"/>
+    <line x1="168" y1="128" x2="184" y2="128" stroke="#EAEAEA" stroke-width="6"/>
+    
+    <!-- Bottom Right Node -->
+    <circle cx="216" cy="176" r="28" fill="#EAEAEA" opacity="0.85"/>
+    <line x1="154" y1="152" x2="188" y2="164" stroke="#EAEAEA" stroke-width="5"/>
+    
+    <!-- Bottom Node -->
+    <circle cx="128" cy="216" r="32" fill="#EAEAEA" opacity="0.9"/>
+    <line x1="128" y1="168" x2="128" y2="184" stroke="#EAEAEA" stroke-width="6"/>
+    
+    <!-- Bottom Left Node -->
+    <circle cx="40" cy="176" r="28" fill="#EAEAEA" opacity="0.85"/>
+    <line x1="102" y1="152" x2="68" y2="164" stroke="#EAEAEA" stroke-width="5"/>
+    
+    <!-- Left Node -->
+    <circle cx="40" cy="128" r="32" fill="#EAEAEA" opacity="0.9"/>
+    <line x1="72" y1="128" x2="88" y2="128" stroke="#EAEAEA" stroke-width="6"/>
+    
+    <!-- Top Left Node -->
+    <circle cx="40" cy="80" r="28" fill="#EAEAEA" opacity="0.85"/>
+    <line x1="102" y1="104" x2="68" y2="92" stroke="#EAEAEA" stroke-width="5"/>
+  </g>
+</svg>

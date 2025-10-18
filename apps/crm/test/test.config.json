@@ -1,0 +1,174 @@
+{
+  "name": "CRM Nxs Testing Suite",
+  "version": "1.0.0",
+  "description": "نظام اختبارات شامل لتطبيق CRM Nxs",
+  "environment": {
+    "baseUrl": "http://localhost:5173",
+    "testPath": "/test",
+    "fullUrl": "http://localhost:5173/test"
+  },
+  "paths": {
+    "reports": "C:\\nexus\\apps\\crm\\test\\report",
+    "specs": "./specs",
+    "components": "./components",
+    "root": "./test"
+  },
+  "tests": {
+    "design": {
+      "theme": {
+        "id": "theme",
+        "name": "اختبار الثيم",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": true
+      },
+      "colors": {
+        "id": "colors",
+        "name": "اختبار الألوان",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": true
+      },
+      "tailwind": {
+        "id": "tailwind",
+        "name": "اختبار Tailwind",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": true
+      },
+      "visual-regression": {
+        "id": "visual-regression",
+        "name": "اختبار التصميم البصري",
+        "enabled": true,
+        "timeout": 10000,
+        "critical": false
+      },
+      "responsive": {
+        "id": "responsive",
+        "name": "اختبار الاستجابة",
+        "enabled": true,
+        "timeout": 7000,
+        "critical": true
+      },
+      "fonts-icons": {
+        "id": "fonts-icons",
+        "name": "اختبار الخطوط والأيقونات",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": true
+      },
+      "rtl": {
+        "id": "rtl",
+        "name": "اختبار RTL",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": true
+      }
+    },
+    "interaction": {
+      "components": {
+        "id": "components",
+        "name": "اختبار المكونات",
+        "enabled": true,
+        "timeout": 7000,
+        "critical": true
+      },
+      "accessibility": {
+        "id": "accessibility",
+        "name": "اختبار الوصولية",
+        "enabled": true,
+        "timeout": 7000,
+        "critical": true
+      },
+      "charts": {
+        "id": "charts",
+        "name": "اختبار المخططات",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": false
+      },
+      "dnd": {
+        "id": "dnd",
+        "name": "اختبار Drag & Drop",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": false
+      },
+      "theme-toggle": {
+        "id": "theme-toggle",
+        "name": "اختبار تبديل الثيم",
+        "enabled": true,
+        "timeout": 5000,
+        "critical": true
+      },
+      "ui-components": {
+        "id": "ui-components",
+        "name": "اختبار مكونات UI",
+        "enabled": true,
+        "timeout": 7000,
+        "critical": true
+      }
+    },
+    "performance": {
+      "performance": {
+        "id": "performance",
+        "name": "اختبار الأداء البصري",
+        "enabled": true,
+        "timeout": 10000,
+        "critical": false
+      }
+    }
+  },
+  "reporting": {
+    "enabled": true,
+    "formats": ["html", "json"],
+    "autoSave": false,
+    "includeScreenshots": false,
+    "includeMetrics": true,
+    "timestampFormat": "YYYY-MM-DD",
+    "htmlTemplate": "default"
+  },
+  "thresholds": {
+    "minimumPassRate": 85,
+    "maxDuration": 30000,
+    "criticalTestsPassRate": 100,
+    "warningsLimit": 5
+  },
+  "notifications": {
+    "enabled": true,
+    "onComplete": true,
+    "onFailure": true,
+    "position": "top-center"
+  },
+  "browser": {
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "locale": "ar-SA",
+    "timezone": "Asia/Riyadh"
+  },
+  "ci": {
+    "enabled": false,
+    "exitOnFailure": true,
+    "generateArtifacts": true,
+    "uploadReports": false
+  },
+  "advanced": {
+    "parallelTests": false,
+    "retryFailedTests": false,
+    "retryCount": 0,
+    "verbose": true,
+    "debug": false
+  },
+  "metadata": {
+    "project": "CRM Nxs",
+    "framework": "React 19 + Vite 6 + TypeScript",
+    "testingLibrary": "Custom Test Runner",
+    "version": "1.0.0",
+    "author": "CRM Nxs Team",
+    "license": "MIT",
+    "lastUpdated": "2025-01-18"
+  }
+}

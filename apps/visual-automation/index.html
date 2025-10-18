@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- iOS-optimized viewport - منع zoom و تحسين للأجهزة المحمولة -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    
+    <!-- iOS Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Primary Meta Tags -->
+    <title>نظام الأتمتة المرئية الاحترافي | Visual Workflow Automation</title>
+    <meta name="title" content="نظام الأتمتة المرئية الاحترافي | Visual Workflow Automation" />
+    <meta name="description" content="منصة أتمتة مرئية احترافية بتقنيات SaaS 2025 - أفضل وأجمل من n8n. مبني بـ React 19 + Vite + Tailwind CSS v4 + TypeScript" />
+    <meta name="keywords" content="أتمتة, workflow, automation, visual automation, activepieces, n8n alternative, سير عمل, أتمتة مرئية" />
+    <meta name="author" content="Visual Workflow Automation Team" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Arabic" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://workflow-automation.app/" />
+    <meta property="og:title" content="نظام الأتمتة المرئية الاحترافي" />
+    <meta property="og:description" content="منصة أتمتة مرئية احترافية بتقنيات SaaS 2025 - أفضل وأجمل من n8n" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:locale" content="ar_SA" />
+    <meta property="og:locale:alternate" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://workflow-automation.app/" />
+    <meta property="twitter:title" content="نظام الأتمتة المرئية الاحترافي" />
+    <meta property="twitter:description" content="منصة أتمتة مرئية احترافية بتقنيات SaaS 2025" />
+    <meta property="twitter:image" content="/twitter-image.png" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="أتمتة مرئية" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/icon-192.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.svg" />
+    <link rel="mask-icon" href="/icon-192.svg" color="#2563eb" />
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Performance Optimizations - Fonts (Lighthouse Optimized) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Critical Font Preload - Inter (English) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+    <!-- Critical Font Preload - IBM Plex Sans Arabic -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" />
+    
+    <!-- Load fonts asynchronously to prevent blocking -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    
+    <!-- Fallback for no-JS -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" />
+    </noscript>
+    
+    <!-- Critical CSS Inline - Above the fold styling -->
+    <style>
+      /* Critical CSS - Prevents FOUC and improves FCP */
+      *{box-sizing:border-box;margin:0;padding:0}
+      html,body{height:100%;font-family:system-ui,-apple-system,sans-serif}
+      body{background:#faf9f7;color:#1a1715;line-height:1.6}
+      #root{height:100%;display:flex;flex-direction:column}
+      @media(prefers-color-scheme:dark){body{background:#202020;color:#EAEAEA}}
+      /* Prevent flash of unstyled content */
+      .loading{opacity:0;animation:fadeIn 0.3s ease-in forwards}
+      @keyframes fadeIn{to{opacity:1}}
+    </style>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "نظام الأتمتة المرئية الاحترافي",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "منصة أتمتة مرئية احترافية بتقنيات SaaS 2025",
+      "softwareVersion": "3.3.0",
+      "author": {
+        "@type": "Organization",
+        "name": "Visual Workflow Automation"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <div style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+        text-align: center;
+        padding: 2rem;
+        background: #faf9f7;
+        color: #1a1715;
+      ">
+        <div>
+          <h1 style="font-size: 2rem; margin-bottom: 1rem;">⚠️ JavaScript مطلوب</h1>
+          <p style="font-size: 1.125rem; color: #6b6864;">
+            يحتاج هذا التطبيق إلى JavaScript للعمل بشكل صحيح.<br/>
+            الرجاء تفعيل JavaScript في متصفحك.
+          </p>
+          <hr style="margin: 2rem 0; border: none; border-top: 1px solid #d6d3d1;" />
+          <p style="font-size: 0.875rem; color: #8b8783;">
+            This application requires JavaScript to function properly.<br/>
+            Please enable JavaScript in your browser.
+          </p>
+        </div>
+      </div>
+    </noscript>
+    
+    <div id="root"></div>
+    
+    <!-- Vite Entry Point -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

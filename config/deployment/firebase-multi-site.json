@@ -1,0 +1,28 @@
+{
+  "hosting": [
+    {
+      "site": "nexus-ai-main",
+      "public": "dist/apps/nexus-ai-main",
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    },
+    {
+      "site": "nexus-admin",
+      "public": "dist/apps/admin-dashboard",
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    },
+    {
+      "site": "nexus-crm",
+      "public": "dist/apps/crm-system",
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    },
+    {
+      "site": "nexus-chat",
+      "public": "dist/apps/n-chat",
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    }
+  ],
+  "functions": {
+    "source": "dist/apps/api",
+    "runtime": "nodejs20"
+  }
+}

@@ -1,0 +1,64 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(79, 151, 255, 0.1)" stroke-width="1"/>
+    </pattern>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1" fill="rgba(26, 188, 156, 0.3)"/>
+    </pattern>
+  </defs>
+  
+  <!-- Grid Background -->
+  <rect width="800" height="600" fill="url(#grid)"/>
+  
+  <!-- Dot Overlay -->
+  <rect width="800" height="600" fill="url(#dots)" opacity="0.5"/>
+  
+  <!-- Floating Elements -->
+  <g opacity="0.6">
+    <!-- Circle 1 -->
+    <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(79, 151, 255, 0.2)" stroke-width="2"/>
+    <circle cx="100" cy="100" r="45" fill="none" stroke="rgba(79, 151, 255, 0.1)" stroke-width="1"/>
+    
+    <!-- Circle 2 -->
+    <circle cx="700" cy="150" r="25" fill="rgba(26, 188, 156, 0.1)"/>
+    <circle cx="700" cy="150" r="40" fill="none" stroke="rgba(26, 188, 156, 0.2)" stroke-width="2"/>
+    
+    <!-- Circle 3 -->
+    <circle cx="200" cy="500" r="35" fill="none" stroke="rgba(139, 92, 246, 0.2)" stroke-width="2"/>
+    
+    <!-- Circle 4 -->
+    <circle cx="600" cy="450" r="20" fill="rgba(79, 151, 255, 0.15)"/>
+    
+    <!-- Connecting Lines -->
+    <line x1="100" y1="100" x2="200" y2="180" stroke="rgba(79, 151, 255, 0.1)" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="700" y1="150" x2="600" y2="250" stroke="rgba(26, 188, 156, 0.1)" stroke-width="1" stroke-dasharray="5,5"/>
+  </g>
+  
+  <!-- AI/Tech Elements -->
+  <g opacity="0.4">
+    <!-- Neural Network Node -->
+    <g transform="translate(150, 300)">
+      <circle cx="0" cy="0" r="5" fill="rgba(79, 151, 255, 0.3)"/>
+      <circle cx="30" cy="-15" r="3" fill="rgba(26, 188, 156, 0.3)"/>
+      <circle cx="30" cy="15" r="3" fill="rgba(26, 188, 156, 0.3)"/>
+      <circle cx="60" cy="0" r="4" fill="rgba(139, 92, 246, 0.3)"/>
+      
+      <line x1="0" y1="0" x2="30" y2="-15" stroke="rgba(79, 151, 255, 0.2)" stroke-width="1"/>
+      <line x1="0" y1="0" x2="30" y2="15" stroke="rgba(79, 151, 255, 0.2)" stroke-width="1"/>
+      <line x1="30" y1="-15" x2="60" y2="0" stroke="rgba(26, 188, 156, 0.2)" stroke-width="1"/>
+      <line x1="30" y1="15" x2="60" y2="0" stroke="rgba(26, 188, 156, 0.2)" stroke-width="1"/>
+    </g>
+    
+    <!-- Workflow Nodes -->
+    <g transform="translate(500, 200)">
+      <rect x="0" y="0" width="15" height="15" rx="3" fill="rgba(79, 151, 255, 0.2)"/>
+      <rect x="25" y="-10" width="15" height="15" rx="3" fill="rgba(26, 188, 156, 0.2)"/>
+      <rect x="25" y="10" width="15" height="15" rx="3" fill="rgba(139, 92, 246, 0.2)"/>
+      
+      <line x1="15" y1="7" x2="25" y2="-3" stroke="rgba(79, 151, 255, 0.3)" stroke-width="2"/>
+      <line x1="15" y1="7" x2="25" y2="17" stroke="rgba(79, 151, 255, 0.3)" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

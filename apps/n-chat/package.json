@@ -1,0 +1,53 @@
+{
+  "name": "flowcanvas-ai",
+  "version": "3.0.0",
+  "description": "منصة FlowCanvasAI احترافية للأتمتة والذكاء الاصطناعي مع تصميم داكن ودعم كامل للعربية",
+  "scripts": {
+    "dev": "next dev -p 3003",
+    "dev:stable": "next dev -p 3003",
+    "build": "next build",
+    "start": "next start -p 8080",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "clean": "rmdir /s /q .next 2>nul & rmdir /s /q node_modules\\.cache 2>nul"
+  },
+  "dependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.544.0",
+    "framer-motion": "^11.11.17",
+    "next": "^15.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-hook-form": "^7.55.0",
+    "recharts": "^2.8.0",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.14",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.40.0",
+    "@typescript-eslint/parser": "^8.40.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.5.4",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6"
+  },
+  "keywords": [
+    "ai",
+    "automation",
+    "workflow",
+    "arabic",
+    "rtl",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwind"
+  ],
+  "author": "FlowCanvas AI Team",
+  "license": "MIT"
+}
